@@ -26,7 +26,7 @@ _The creators of GameShop v2.0 have been:_
 
 * **Vitaliy Savchenko** [Viitali](https://github.com/Viitali)
 * **Carlos Segundo** [csegundo](https://github.com/csegundo)
-* **Victor Velasco**
+* **Victor Velasco** [victornado](https://github.com/victornado)
 * **Joaquín Asensio** [joalow](https://github.com/joalow)
 * **Jessica Hernández**
 * **Carlos Luengo**

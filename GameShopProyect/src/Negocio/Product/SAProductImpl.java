@@ -63,7 +63,7 @@ public class SAProductImpl implements SAProduct {
 			if(((TAccessory)tpr).get_color().isEmpty())
 				return false;
 		}else {
-			if(((TGame)tpr).get_description().isEmpty())
+			if(((TGame)tpr).get_description().isEmpty()) // Comun a JUEGO y ACCESORIO ???
 				return false;
 			if(((TGame)tpr).get_gender().isEmpty())
 				return false;

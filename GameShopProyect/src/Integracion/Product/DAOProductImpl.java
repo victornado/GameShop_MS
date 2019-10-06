@@ -24,8 +24,8 @@ public class DAOProductImpl implements DAOProduct {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps;
-			ps = con.prepareStatement("INSERT INTO producto(nombre,descripcion,PVP,stock,activo,"
-					+ "unidadesProv,genero,marca,color,tipo) VALUES(?,?,?,?,?,?,?,?,?,?)",
+			ps = con.prepareStatement("INSERT INTO producto(nombre,descripcion,PVP,stock,IDProveedor,"
+					+ "activo,unidadesProv,genero,marca,color,tipo) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			ps.setString(1, tpr.get_name());
@@ -33,19 +33,18 @@ public class DAOProductImpl implements DAOProduct {
 			ps.setDouble(3, tpr.get_pvp());
 			ps.setInt(4, tpr.get_stock());
 			ps.setInt(5, tpr.get_providerId());
-			ps.setInt(6, tpr.get_platformId());
-			ps.setBoolean(7, true);
-			ps.setInt(8, tpr.get_unitsProvided());
+			ps.setBoolean(6, true);
+			ps.setInt(7, tpr.get_unitsProvided());
 			if(tpr.get_type().equals(TProduct.accessory)) {
-				ps.setString(9, "null");
-				ps.setString(10, ((TAccessory)tpr).get_brand());
-				ps.setString(11, ((TAccessory) tpr).get_color());
+				ps.setString(8, "null");
+				ps.setString(9, ((TAccessory)tpr).get_brand());
+				ps.setString(10, ((TAccessory) tpr).get_color());
 			}else {
-				ps.setString(9, ((TGame) tpr).get_gender());
+				ps.setString(8, ((TGame) tpr).get_gender());
+				ps.setString(9, "null");
 				ps.setString(10, "null");
-				ps.setString(11, "null");
 			}
-			ps.setString(12, tpr.get_type());
+			ps.setString(11, tpr.get_type());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
 			if(rs.next()){
@@ -113,10 +112,10 @@ public class DAOProductImpl implements DAOProduct {
 			ps.setDouble(1, tpr.get_pvp());
 			res = ps.executeUpdate();
 			
-			ps = con.prepareStatement("UPDATE producto SET IDPlataforma=? WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(2, tpr.get_id());
-			ps.setInt(1, tpr.get_platformId());
-			res = ps.executeUpdate();
+//			ps = con.prepareStatement("UPDATE producto SET IDPlataforma=? WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
+//			ps.setInt(2, tpr.get_id());
+//			ps.setInt(1, tpr.get_platformId());
+//			res = ps.executeUpdate();
 			
 			ps = con.prepareStatement("UPDATE producto SET IDProveedor=? WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(2, tpr.get_id());
@@ -174,15 +173,15 @@ public class DAOProductImpl implements DAOProduct {
 			ResultSet rs = ps.executeQuery();
 	
 			if(rs.next()){
-				if(rs.getString(13).equalsIgnoreCase(TProduct.game)){
+				if(rs.getString(12).equalsIgnoreCase(TProduct.game)){
 					tp = new TGame();
-					((TGame) tp).set_gender(rs.getString(10));
+					((TGame) tp).set_gender(rs.getString(9));
 					tp.set_type(TProduct.game);
 				}
 				else{
 					tp = new TAccessory();
-					((TAccessory) tp).set_brand(rs.getString(11));
-					((TAccessory) tp).set_color(rs.getString(12));
+					((TAccessory) tp).set_brand(rs.getString(10));
+					((TAccessory) tp).set_color(rs.getString(11));
 					tp.set_type(TProduct.accessory);
 				}
 				
@@ -192,9 +191,9 @@ public class DAOProductImpl implements DAOProduct {
 				tp.set_pvp(rs.getDouble(4));
 				tp.set_stock(rs.getInt(5));
 				tp.set_providerId(rs.getInt(6));
-				tp.set_platformId(rs.getInt(7));
-				tp.set_activated(rs.getBoolean(8));
-				tp.set_unitsProvided(rs.getInt(9));
+				tp.set_activated(rs.getBoolean(7));
+				tp.set_unitsProvided(rs.getInt(8));
+				tp.set_type(rs.getString(12));
 			}
 			
 			con.close();
@@ -215,15 +214,15 @@ public class DAOProductImpl implements DAOProduct {
 			
 			while(rs.next()){
 				TProduct tp;
-				if(rs.getString(13).equalsIgnoreCase(TProduct.game)){
+				if(rs.getString(12).equalsIgnoreCase(TProduct.game)){
 					tp = new TGame();
-					((TGame) tp).set_gender(rs.getString(10));
+					((TGame) tp).set_gender(rs.getString(9));
 					tp.set_type(TProduct.game);
 				}
 				else{
 					tp = new TAccessory();
-					((TAccessory) tp).set_brand(rs.getString(11));
-					((TAccessory) tp).set_color(rs.getString(12));
+					((TAccessory) tp).set_brand(rs.getString(10));
+					((TAccessory) tp).set_color(rs.getString(11));
 					tp.set_type(TProduct.accessory);
 				}
 				
@@ -233,9 +232,9 @@ public class DAOProductImpl implements DAOProduct {
 				tp.set_pvp(rs.getDouble(4));
 				tp.set_stock(rs.getInt(5));
 				tp.set_providerId(rs.getInt(6));
-				tp.set_platformId(rs.getInt(7));
-				tp.set_activated(rs.getBoolean(8));
-				tp.set_unitsProvided(rs.getInt(9));
+				tp.set_activated(rs.getBoolean(7));
+				tp.set_unitsProvided(rs.getInt(8));
+				tp.set_type(rs.getString(12));
 				
 				l.add(tp);
 			}

@@ -64,12 +64,6 @@ public class ShowOne extends JPanel {
 					case "provider":
 						Controller.getInstance().action(id,	Event.READ_PROVIDER);
 						break;
-					case "platform":
-						Controller.getInstance().action(id, Event.READ_PLATFORM);
-						break;
-					case "employee":
-						Controller.getInstance().action(id, Event.READ_EMPLOYEE);
-						break;
 					case "product":
 						Controller.getInstance().action(id, Event.READ_PRODUCT);
 						break;

@@ -41,7 +41,6 @@ public class FormProduct extends JDialog {
 	protected JSpinner _stockInt;
 	protected JComboBox<Object> _typeElection;
 	protected JComboBox<Object> _providerElection;
-	protected JComboBox<Object> _platformElection;
 	protected JSpinner _pvpDoub;
 	
 	private JScrollPane jp;
@@ -201,14 +200,13 @@ public class FormProduct extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				
 				String[] info1 = ((String)_providerElection.getSelectedItem()).split(" - ");
-				String[] info2 = ((String)_platformElection.getSelectedItem()).split(" - "); 
 				TProduct tprod;
 				if(elected.equals(TProduct.game))				
 					tprod = new TGame(_nameText.getText(), (Integer)_stockInt.getValue(), (Double) _pvpDoub.getValue(), (Integer)Integer.parseInt(info1[0]),
-							(Integer)Integer.parseInt(info2[0]),_description.getText(),_genderText.getText());
+							_description.getText(),_genderText.getText());
 				else
 					tprod = new TAccessory(_nameText.getText(),(Integer)_stockInt.getValue(),(Double) _pvpDoub.getValue(), (Integer)Integer.parseInt(info1[0]),
-							(Integer)Integer.parseInt(info2[0]),_brand.getText(),_color.getText(),
+							_brand.getText(),_color.getText(),
 							_description.getText());
 				
 				Controller.getInstance().action(tprod, Event.REGISTER_PRODUCT);

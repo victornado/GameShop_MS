@@ -64,8 +64,7 @@ public class TTicket {
 		String productsInfo = "\n\nProduct list:\n" + tabulador;
 		for (int i = 0; i < _products.size(); ++i) {
 			TProduct ttp = (TProduct) _products.get(i);
-			productsInfo += "ID: " + ttp.get_id() + " Name: " + ttp.get_name() + " PlatformID: " + ttp.get_platformId()
-					+ " Stock: " + ttp.get_stock() + "\n" + tabulador;
+			productsInfo += "ID: " + ttp.get_id() + " Name: " + ttp.get_name() + " Stock: " + ttp.get_stock() + "\n" + tabulador;
 		}
 		return ticketInfo + productsInfo;
 	}

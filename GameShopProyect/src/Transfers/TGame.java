@@ -4,8 +4,8 @@ public class TGame extends TProduct {
 
 	private String _gender;
 	
-	public TGame(String name, Integer stock, Double pvp, Integer provider, Integer platform, String description, String gender) {
-		super(name, stock, pvp, TProduct.game, provider, platform, description);
+	public TGame(String name, Integer stock, Double pvp, Integer provider, String description, String gender) {
+		super(name, stock, pvp, TProduct.game, provider, description);
 		this._gender = gender;
 	}
 
@@ -30,7 +30,6 @@ public class TGame extends TProduct {
 				"Stock: " + super.get_stock() + '\n' +
 				"PVP: " + super.get_pvp() + '\n' +
 				"Provider ID: " + super.get_providerId() + '\n' +
-				"Platform ID: " + super.get_platformId() + '\n' +
 				"Activated: " + act + '\n'+
 				"Units Provided: " + super.get_unitsProvided() + '\n' +
 				"Gender: " + _gender + '\n' +

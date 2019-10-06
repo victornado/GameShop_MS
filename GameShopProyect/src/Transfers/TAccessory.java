@@ -5,8 +5,8 @@ public class TAccessory extends TProduct {
 	private String _brand;
 	private String _color;
 
-	public TAccessory(String name, Integer stock, Double pvp, Integer provider, Integer platform, String brand, String color, String desc) {
-		super(name, stock, pvp, TProduct.accessory, provider, platform, desc);
+	public TAccessory(String name, Integer stock, Double pvp, Integer provider, String brand, String color, String desc) {
+		super(name, stock, pvp, TProduct.accessory, provider, desc);
 		this.set_brand(brand);
 		this.set_color(color);
 	}
@@ -40,7 +40,6 @@ public class TAccessory extends TProduct {
 				"Stock: " + super.get_stock() + '\n' +
 				"PVP: " + super.get_pvp() + '\n' +
 				"Provider ID: " + super.get_providerId() + '\n' +
-				"Platform ID: " + super.get_platformId() + '\n' +
 				"Activated: " + act + '\n'+
 				"Units Provided: " + super.get_unitsProvided() + '\n' +
 				"Brand: " + _brand + '\n' +

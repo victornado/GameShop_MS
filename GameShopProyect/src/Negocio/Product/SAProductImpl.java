@@ -57,7 +57,7 @@ public class SAProductImpl implements SAProduct {
 			return false;
 		if((tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(((TProduct)tpr).get_providerId())) == null || !tprd.get_activated())
 			return false;
-		if(((TProduct)tpr).get_type() == TProduct.accessory) {
+		if(((TProduct)tpr).get_type().equals(TProduct.accessory)) {
 			if(((TAccessory)tpr).get_brand().isEmpty())
 				return false;
 			if(((TAccessory)tpr).get_color().isEmpty())

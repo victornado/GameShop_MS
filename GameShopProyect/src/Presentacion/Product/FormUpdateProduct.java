@@ -41,7 +41,6 @@ public class FormUpdateProduct extends FormProduct {
 		this._typeElection.setSelectedItem(_tprod.get_type());
 		this._typeElection.setEnabled(false);
 		this._providerElection.setSelectedItem(_tprod.get_providerId());
-		this._platformElection.setSelectedItem(_tprod.get_platformId());
 		this._pvpDoub.setValue(_tprod.get_pvp());
 		
 		this._description.setText(_tprod.get_description());
@@ -84,8 +83,6 @@ public class FormUpdateProduct extends FormProduct {
 				_tprod.set_unitsProvided(_initStock);
 				String [] info = ((String)_providerElection.getSelectedItem()).split(" - ");
 				_tprod.set_providerId((Integer)Integer.parseInt(info[0]));
-				info = ((String)_platformElection.getSelectedItem()).split(" - ");
-				_tprod.set_platformId((Integer)Integer.parseInt(info[0]));
 				_tprod.set_pvp((Double)_pvpDoub.getValue());
 				_tprod.set_stock((Integer)_stockInt.getValue());
 				

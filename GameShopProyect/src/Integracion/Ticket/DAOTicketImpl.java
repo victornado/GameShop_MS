@@ -101,13 +101,12 @@ public class DAOTicketImpl implements DAOTicket {
 				while(rsAsociado.next()){
 					TProduct pp = new TProduct();
 					ps = con.prepareStatement("SELECT * FROM producto WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
-					ps.setInt(1, rsAsociado.getInt(1));
+					ps.setInt(1, rsAsociado.getInt(1)); // Id del producto
 					ResultSet rsProducto = ps.executeQuery();
 					if(rsProducto.next()){
 						pp.set_id(rsProducto.getInt(1));
 						pp.set_name(rsProducto.getString(2));
-						pp.set_platformId(rsProducto.getInt(7));
-						pp.set_stock(rsAsociado.getInt(4));
+						pp.set_stock(rsAsociado.getInt(5));
 						l.add(pp);
 					}
 				}

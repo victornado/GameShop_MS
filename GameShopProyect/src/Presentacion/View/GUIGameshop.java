@@ -13,8 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 
-import Presentacion.Employee.GUIEmployee;
-import Presentacion.Platform.GUIPlatform;
 import Presentacion.Product.GUIProduct;
 import Presentacion.Provider.GUIProvider;
 import Presentacion.Ticket.GUITicket;
@@ -75,13 +73,9 @@ public class GUIGameshop extends JFrame {
 		
 		_tabs.addTab(GUIGameshop.TAB_PROVIDER, null, (GUIProvider)guis.get(0), "Provider tab");
 		
-		_tabs.addTab(GUIGameshop.TAB_PLATFORM, null, (GUIPlatform)guis.get(1), "Platform tab");
+		_tabs.addTab(GUIGameshop.TAB_PRODUCT, null, (GUIProduct) guis.get(1), "Product tab");
 		
-		_tabs.addTab(GUIGameshop.TAB_EMPLOYEE, null, (GUIEmployee) guis.get(2), "Employee tab");
-		
-		_tabs.addTab(GUIGameshop.TAB_PRODUCT, null, (GUIProduct) guis.get(3), "Product tab");
-		
-		_tabs.addTab(GUIGameshop.TAB_TICKET, null, (GUITicket) guis.get(4), "Ticket tab");
+		_tabs.addTab(GUIGameshop.TAB_TICKET, null, (GUITicket) guis.get(2), "Ticket tab");
 		
 		this.add(_tabs, BorderLayout.CENTER);
 	}

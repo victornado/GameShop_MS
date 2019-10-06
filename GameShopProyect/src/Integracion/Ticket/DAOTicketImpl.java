@@ -22,8 +22,7 @@ public class DAOTicketImpl implements DAOTicket {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
-			PreparedStatement ps = con.prepareStatement("INSERT INTO ticket(IDEmpleado, fecha, precioFinal) VALUES(?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, tt.get_employeeId());
+			PreparedStatement ps = con.prepareStatement("INSERT INTO ticket(fecha, precioFinal) VALUES(?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setTimestamp(2, tt.get_date());
 			ps.setDouble(3, tt.get_finalPrice());
 			ps.executeUpdate();
@@ -34,11 +33,10 @@ public class DAOTicketImpl implements DAOTicket {
 				List<Object> l = tt.get_products();
 				id = rs.getInt(1);
 				for(int i = 0; i < l.size(); ++i) {
-					ps = con.prepareStatement("INSERT INTO asociado(IDProducto, IDTicket, IDEmpleado, cantidad) VALUES(?,?,?,?)");
+					ps = con.prepareStatement("INSERT INTO asociado(IDProducto, IDTicket, cantidad) VALUES(?,?,?)");
 					ps.setInt(1, ((TProduct)l.get(i)).get_id());
 					ps.setInt(2, id);
-					ps.setInt(3, tt.get_employeeId());
-					ps.setDouble(4, ((TProduct)l.get(i)).get_unitsInTicket());
+					ps.setDouble(3, ((TProduct)l.get(i)).get_unitsInTicket());
 					ps.executeUpdate();
 					
 				}
@@ -93,9 +91,8 @@ public class DAOTicketImpl implements DAOTicket {
 			if(rs.next()){
 				tp = new TTicket();
 				tp.set_id(rs.getInt(1));
-				tp.set_employeeId(rs.getInt(2));
-				tp.set_date(rs.getTimestamp(3));
-				tp.set_finalPrice(rs.getDouble(4));
+				tp.set_date(rs.getTimestamp(2));
+				tp.set_finalPrice(rs.getDouble(3));
 				
 				ps = con.prepareStatement("SELECT * FROM asociado WHERE IDTicket=?");
 				ps.setInt(1, id);
@@ -135,9 +132,8 @@ public class DAOTicketImpl implements DAOTicket {
 			while(rs.next()){
 				TTicket tt = new TTicket();
 				tt.set_id(rs.getInt(1));
-				tt.set_employeeId(rs.getInt(2));
-				tt.set_date(rs.getTimestamp(3));
-				tt.set_finalPrice(rs.getDouble(4));
+				tt.set_date(rs.getTimestamp(2));
+				tt.set_finalPrice(rs.getDouble(3));
 				l.add(tt);
 			}
 			con.close();

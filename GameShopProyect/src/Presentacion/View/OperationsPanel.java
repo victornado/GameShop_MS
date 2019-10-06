@@ -6,17 +6,11 @@ import javax.swing.border.TitledBorder;
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Presentacion.Employee.FormEmployee;
-import Presentacion.Employee.FormUpdateEmployee;
-import Presentacion.Platform.FormPlatform;
-import Presentacion.Platform.FormUpdatePlatform;
 import Presentacion.Product.FormProduct;
 import Presentacion.Product.FormUpdateProduct;
 import Presentacion.Provider.FormProvider;
 import Presentacion.Provider.FormUpdateProvider;
 import Presentacion.Ticket.FormTicket;
-import Transfers.TEmployee;
-import Transfers.TPlatform;
 import Transfers.TProduct;
 import Transfers.TProvider;
 import Transfers.TTicket;
@@ -81,12 +75,6 @@ public class OperationsPanel extends JPanel {
 				case "provider":
 					new FormProvider();
 					break;
-				case "platform":
-					new FormPlatform();
-					break;
-				case "employee":
-					new FormEmployee();
-					break;
 				case "product":
 					new FormProduct();
 					break;
@@ -116,20 +104,6 @@ public class OperationsPanel extends JPanel {
 						else
 							JOptionPane.showMessageDialog(null, "Error al leer un proveedor de la base de datos.","Failed",JOptionPane.ERROR_MESSAGE);
 						break;
-					case "platform":
-						TPlatform tpla = (TPlatform)SAAbstractFactory.getInstance().createSAPlatform().readPlatform((Integer)id);
-						if(tpla != null)
-							new FormUpdatePlatform(tpla);
-						else
-							JOptionPane.showMessageDialog(null, "Error al leer una plataforma de la base de datos.","Failed",JOptionPane.ERROR_MESSAGE);		
-						break;
-					case "employee":
-						TEmployee tpe = (TEmployee)(SAAbstractFactory.getInstance().createSAEmployee()).readEmployee((Integer)id);
-						if(tpe != null)
-							new FormUpdateEmployee(tpe);
-						else
-							JOptionPane.showMessageDialog(null, "Error al leer un empleado de la base de datos.","Failed",JOptionPane.ERROR_MESSAGE);		
-						break;
 					case "product":
 						TProduct tprd = (TProduct)(SAAbstractFactory.getInstance().createSAProduct()).readProduct((Integer)id);
 						if(tprd != null)
@@ -155,12 +129,6 @@ public class OperationsPanel extends JPanel {
 					case "provider":
 						Controller.getInstance().action(id, Event.UNSUBSCRIBE_PROVIDER);
 						break;
-					case "platform":
-						Controller.getInstance().action(id, Event.UNSUBSCRIBE_PLATFORM);
-						break;
-					case "employee":
-						Controller.getInstance().action(id, Event.UNSUBSCRIBE_EMPLOYEE);
-						break;
 					case "product":
 						Controller.getInstance().action(id, Event.UNSUBSCRIBE_PRODUCT);
 						break;
@@ -179,14 +147,6 @@ public class OperationsPanel extends JPanel {
 		case "provider":
 			for(Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
 				_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
-			break;
-		case "platform":
-			for(Object tpla : SAAbstractFactory.getInstance().createSAPlatform().readAllPlatforms())
-				_election.addItem(((TPlatform) tpla).get_id().toString() + " - " + ((TPlatform) tpla).get_name());
-			break;
-		case "employee":
-			for(Object temp : SAAbstractFactory.getInstance().createSAEmployee().readAllEmployees())
-				_election.addItem(((TEmployee) temp).get_id() + " - " + ((TEmployee) temp).get_name());
 			break;
 		case "product":
 			for(Object temp : SAAbstractFactory.getInstance().createSAProduct().readAllProducts())

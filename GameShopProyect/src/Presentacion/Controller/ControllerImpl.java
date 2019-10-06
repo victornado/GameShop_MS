@@ -5,18 +5,11 @@ import java.util.List;
 
 import Main.Main;
 import Negocio.SA.SAAbstractFactory;
-import Presentacion.Employee.FormUpdateEmployee;
-import Presentacion.Employee.GUIEmployee;
-import Presentacion.Platform.FormUpdatePlatform;
-import Presentacion.Platform.GUIPlatform;
 import Presentacion.Product.GUIProduct;
-import Presentacion.Provider.FormUpdateProvider;
 import Presentacion.Provider.GUIProvider;
 import Presentacion.Ticket.GUITicket;
 import Presentacion.View.GUIGameshop;
 import Presentacion.View.IGUI;
-import Transfers.TEmployee;
-import Transfers.TPlatform;
 import Transfers.TProduct;
 import Transfers.TProvider;
 import Transfers.TTicket;
@@ -34,8 +27,6 @@ public class ControllerImpl extends Controller {
 		gs = new GUIGameshop(Main.applicationName);
 		List<Object> guis = new ArrayList<Object>();
 		guis.add((new GUIProvider()));
-		guis.add((new GUIPlatform()));
-		guis.add((new GUIEmployee()));
 		guis.add((new GUIProduct()));
 		guis.add((new GUITicket()));
 		gs.initTabs(guis);
@@ -45,8 +36,6 @@ public class ControllerImpl extends Controller {
 	public void action(Object data, Integer event) {
 		Integer id;
 		TProvider tpr;
-		TEmployee tpe;
-		TPlatform tpla;
 		TProduct tprod;
 		TTicket tti;
 		
@@ -98,51 +87,6 @@ public class ControllerImpl extends Controller {
 				gui.actualiza(Event.RES_READALL_PROVIDERS_OK, providers);
 			break;
 			
-			
-		////////////////////////////////////////////////////////////// EMPLOYEE ///////////////////////////////////////////////	
-			
-		case Event.REGISTER_EMPLOYEE:
-			tpe = (TEmployee)data;
-			int resRegisterEmp = (SAAbstractFactory.getInstance().createSAEmployee()).createEmployee(tpe);
-			if(resRegisterEmp > 0)
-				gui.actualiza(Event.RES_REGISTER_EMPLOYEE_OK, new Integer(resRegisterEmp));
-			else
-				gui.actualiza(Event.RES_REGISTER_EMPLOYEE_FAILED, null);
-			break;
-			
-		case Event.UNSUBSCRIBE_EMPLOYEE:
-			id = (Integer)data;
-			boolean resDeleteEmp = (SAAbstractFactory.getInstance().createSAEmployee()).deleteEmployee(id);
-			if(resDeleteEmp)
-				gui.actualiza(Event.RES_UNSUBSCRIBE_EMPLOYEE_OK, id);
-			else
-				gui.actualiza(Event.RES_UNSUBSCRIBE_EMPLOYEE_FAILED, null);
-			break;
-			
-		case Event.MODIFY_EMPLOYEE:
-			tpe = (TEmployee)data;
-			if(SAAbstractFactory.getInstance().createSAEmployee().updateEmployee(tpe))
-				gui.actualiza(Event.RES_MODIFY_EMPLOYEE_OK, tpe.get_id());
-			else
-				gui.actualiza(Event.RES_MODIFY_EMPLOYEE_FAILED, null);
-			break;
-			
-		case Event.READ_EMPLOYEE:
-			id = (Integer)data;
-			TEmployee te = (TEmployee)(SAAbstractFactory.getInstance().createSAEmployee()).readEmployee(id);
-			if (te != null) 
-				gui.actualiza(Event.RES_READ_EMPLOYEE_OK, te);
-			else
-				gui.actualiza(Event.RES_READ_EMPLOYEE_FAILED, null);
-			break;
-			
-		case Event.READ_ALL_EMPLOYEES:
-			List<Object> employees = (SAAbstractFactory.getInstance().createSAEmployee()).readAllEmployees();
-			if(employees == null)
-				gui.actualiza(Event.RES_READALL_EMPLOYEES_FAILED, null);
-			else
-				gui.actualiza(Event.RES_READALL_EMPLOYEES_OK, employees);
-			break;
 		////////////////////////////////////////////////////////////// PRODUCT ////////////////////////////////////////////////
 			
 		case Event.REGISTER_PRODUCT:
@@ -186,59 +130,6 @@ public class ControllerImpl extends Controller {
 				gui.actualiza(Event.RES_READALL_PRODUCT_FAILED, null);
 			else
 				gui.actualiza(Event.RES_READALL_PRODUCT_OK, products);
-			break;
-			
-		////////////////////////////////////////////////////////////// PLATFORM ///////////////////////////////////////////////
-			
-		case Event.REGISTER_PLATFORM:
-			tpla = (TPlatform)data;
-			int resRegisterPla = (SAAbstractFactory.getInstance().createSAPlatform()).createPlatform(tpla);
-			if(resRegisterPla > 0)
-				gui.actualiza(Event.RES_REGISTER_PLATFORM_OK, new Integer(resRegisterPla));
-			else
-				gui.actualiza(Event.RES_REGISTER_PLATFORM_FAILED, null);
-			break;
-			
-		case Event.UNSUBSCRIBE_PLATFORM:
-			id = (Integer) data;
-			boolean resDeletePla = (SAAbstractFactory.getInstance().createSAPlatform()).deletePlatform(id);
-			if(resDeletePla)
-				gui.actualiza(Event.RES_UNSUBSCRIBE_PLATFORM_OK, id);
-			else
-				gui.actualiza(Event.RES_UNSUBSCRIBE_PLATFORM_FAILED, null);
-			break;
-		
-		case Event.MODIFY_PLATFORM:
-			tpla = (TPlatform) data;
-			if(SAAbstractFactory.getInstance().createSAPlatform().updatePlatform(tpla))
-				gui.actualiza(Event.RES_MODIFY_PLATFORM_OK, tpla.get_id());
-			else
-				gui.actualiza(Event.RES_MODIFY_PLATFORM_FAILED, null);
-			break;
-			
-		case Event.READ_PLATFORM:
-			id = (Integer) data;
-			TPlatform tt = (TPlatform) (SAAbstractFactory.getInstance().createSAPlatform()).readPlatform(id);
-			if (tt != null) 
-				gui.actualiza(Event.RES_READ_PLATFORM_OK, tt);
-			else
-				gui.actualiza(Event.RES_READ_PLATFORM_FAILED, null);
-			break;
-			
-		case Event.READ_ALL_PLATFORMS:
-			List<Object> platforms = (SAAbstractFactory.getInstance().createSAPlatform()).readAllPlatforms();
-			if(platforms == null)
-				gui.actualiza(Event.RES_READALL_PLATFORM_FAILED, null);
-			else
-				gui.actualiza(Event.RES_READALL_PLATFORM_OK, platforms);
-			break;
-		case Event.READ_ALL_PRODUCTS_FROM_PLATFORM:
-			id = (Integer) data;
-			List<Object> prods = SAAbstractFactory.getInstance().createSAPlatform().readAllProductsOfAPlatform(id);
-			if(prods != null)
-				gui.actualiza(Event.RES_READALL_PRODUCTS_FROM_PLATFORM_OK, prods);
-			else
-				gui.actualiza(Event.RES_READALL_PRODUCTS_FROM_PLATFROM_FAILED, null);
 			break;
 			
 		////////////////////////////////////////////////////////////// TICKET ///////////////////////////////////////////////	

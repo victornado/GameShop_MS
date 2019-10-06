@@ -87,7 +87,7 @@ public class InfoDB extends JDialog {
 		
 		_bdText = new JTextField();
 		_bdText.setAlignmentX(Component.CENTER_ALIGNMENT);
-		_bdText.setText("gameshop");
+		_bdText.setText(Main.Main.database);
 		_bdText.setToolTipText("Write the database that you want to use");
 		_bdText.setSize(250, 30);
 		_bdText.setPreferredSize(new Dimension(200,30));
@@ -166,7 +166,7 @@ public class InfoDB extends JDialog {
 						Stmt.execute("CREATE DATABASE " + Main.Main.database);
 						Stmt.execute("USE " + Main.Main.database);
 						
-						String aSQLScriptFilePath = "resources/GameShopTables.sql";			   
+						String aSQLScriptFilePath = "resources/GameShopTables.sql";		   
 						PrintWriter prnt = new PrintWriter(System.out);
 						Reader rd = new FileReader(new File(aSQLScriptFilePath));
 						SqlRunner r = new SqlRunner(conn,prnt,prnt,true,false);

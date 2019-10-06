@@ -28,18 +28,14 @@ import javax.swing.table.AbstractTableModel;
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Transfers.TEmployee;
-import Transfers.TPlatform;
 import Transfers.TProduct;
 import Transfers.TTicket;
 
 @SuppressWarnings("serial")
 public class FormTicket extends JDialog {
 	
-	private JLabel _employeeId = new JLabel("Employee");
 	private JLabel _products = new JLabel("Products");
 	private JLabel _amount = new JLabel("Amount");
-	private JComboBox<Object> _employeeElection = new JComboBox<Object>();
 	private JComboBox<Object> _productsElection = new JComboBox<Object>();
 	private JSpinner _numberOfproduct = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 	private JButton _add;
@@ -48,7 +44,7 @@ public class FormTicket extends JDialog {
 	private JButton _cancel;
 	private AbstractTableModel model;
 	private JTable _grid;
-	private String[]_columnIds = {"ID", "Name", "Platform", "Amount"};
+	private String[]_columnIds = {"ID", "Name", "Amount"};
 	private JScrollPane _jsp;
 	
 	private List<Object> _productsSelected = new ArrayList<Object>();
@@ -92,11 +88,6 @@ public class FormTicket extends JDialog {
 			//Aqui ponemos el id, nombre y el tipo para luego hacer SPLIT(" - ") y saber si es juego o accesorio 
 			if(((TProduct) tp).get_stock() > 0 && ((TProduct) tp).get_activated())
 			_productsElection.addItem(((TProduct) tp).get_id() + " - " + ((TProduct) tp).get_name() + " - " + type);
-		}
-		
-		// Rellenar la lista de los empleados disponibles en la base de datos
-		for(Object te : SAAbstractFactory.getInstance().createSAEmployee().readAllEmployees()) {
-			_employeeElection.addItem(((TEmployee) te).get_id() + " - " + ((TEmployee) te).get_name());
 		}
 	}
 	
@@ -184,10 +175,8 @@ public class FormTicket extends JDialog {
 		_accept.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(_productsSelected.size() > 0 && _employeeElection.getItemCount() > 0) {
-					// info ==> en [0] tenemos el ID del empleado y en [1] tenemos el nombre
-					String[] info = ((String)(_employeeElection.getSelectedItem())).split(" - ");
-					TTicket tt = new TTicket(Integer.parseInt(info[0]), _productsSelected);
+				if(_productsSelected.size() > 0) {
+					TTicket tt = new TTicket(_productsSelected);
 					
 					closeDialog();
 					Controller.getInstance().action(tt, Event.REGISTER_TICKET);
@@ -198,11 +187,9 @@ public class FormTicket extends JDialog {
 	
 	// METODOS PARA INICIALIZAR LOS COMPONENTES DE LA GUI
 	private void initComponents() {
-		_employeeId.setAlignmentX(Component.CENTER_ALIGNMENT);
 		_products.setAlignmentX(Component.CENTER_ALIGNMENT);
 		_amount.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		sizeComponent(_employeeElection, new Dimension(200, 20));
 		sizeComponent(_productsElection, new Dimension(200, 20));
 		sizeComponent(_numberOfproduct, new Dimension(50, 20));
 		
@@ -218,9 +205,6 @@ public class FormTicket extends JDialog {
 		_cancel = new JButton("Cancel");
 		sizeComponent(_cancel, new Dimension(75, 20));
 		
-		addComponentToDialog(_employeeId);
-		this.add(Box.createRigidArea(new Dimension(10, 1)));
-		addComponentToDialog(_employeeElection);
 		this.add(Box.createRigidArea(new Dimension(20, 1)));
 		addComponentToDialog(_products);
 		this.add(Box.createRigidArea(new Dimension(13, 1)));
@@ -270,10 +254,6 @@ public class FormTicket extends JDialog {
 					o = ((TProduct)_productsSelected.get(rowIndex)).get_name();
 					break;
 				case 2:
-					o = ((TPlatform)(SAAbstractFactory.getInstance().createSAPlatform().readPlatform(
-							((TProduct)_productsSelected.get(rowIndex)).get_platformId()))).get_name();
-					break;
-				case 3:
 					o = ((TProduct)_productsSelected.get(rowIndex)).get_unitsInTicket();
 					break;
 				}
@@ -313,10 +293,6 @@ public class FormTicket extends JDialog {
 	protected void closeDialog() {
 		setVisible(false);
 		dispose();
-	}
-	
-	protected void disableEmployeeElection(){
-		this._employeeElection.setEnabled(false);
 	}
 	
 }

@@ -75,12 +75,7 @@ public class SATicketImpl implements SATicket {
 		return tt.get_products().size()>0;
 	}*/
 	
-	private boolean correctInputData(TTicket tt)
-	{ //comprobamos que todos los datos introducidos son correctos y existen
-	
-		//Empleado existe y esta activo
-		if(DAOAbstractFactory.getInstance().createDAOEmployee().readEmployee(tt.get_employeeId())==null)
-			return false;
+	private boolean correctInputData(TTicket tt){ //comprobamos que todos los datos introducidos son correctos y existen
 		
 		//Cada uno de los productos existen y hay stock suficiente
 		int prodAmount = tt.get_products().size();

@@ -12,7 +12,6 @@ import Presentacion.Controller.Event;
 import Presentacion.View.IGUI;
 import Transfers.TAccessory;
 import Transfers.TGame;
-import Transfers.TPlatform;
 import Transfers.TProduct;
 import Transfers.TProvider;
 
@@ -168,25 +167,17 @@ public class FormProduct extends JDialog {
 		this.add(this._pvpDoub);
 		
 		this.add(Box.createRigidArea(new Dimension(5,1)));
-		
-		this.add(new JLabel("Platform:"));
-		this._platformElection = new JComboBox<Object>();
-		this._platformElection.setPreferredSize(new Dimension(100,20));
-		for(Object tpla : SAAbstractFactory.getInstance().createSAPlatform().readAllPlatforms())
-			this._platformElection.addItem(((TPlatform) tpla).get_id() + " - " + ((TPlatform)tpla).get_name());
-		this.add(this._platformElection);
-		
-		
-			this.add(new JLabel("Description:"));
-			this.add(Box.createRigidArea(new Dimension(220,1)));
-			this._description = new JTextArea();
-			this._description.setFont(new Font("Arial", 0, 11));
-			this._description.setLineWrap(true);
-			this._description.setWrapStyleWord(true);
-			this._description.setPreferredSize(new Dimension(270,120));	
-			jp = new JScrollPane(this._description);
-			jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			this.add(jp);
+				
+		this.add(new JLabel("Description:"));
+		this.add(Box.createRigidArea(new Dimension(220,1)));
+		this._description = new JTextArea();
+		this._description.setFont(new Font("Arial", 0, 11));
+		this._description.setLineWrap(true);
+		this._description.setWrapStyleWord(true);
+		this._description.setPreferredSize(new Dimension(270,120));	
+		jp = new JScrollPane(this._description);
+		jp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		this.add(jp);
 		
 		
 		this.add(Box.createRigidArea(new Dimension(300,10)));

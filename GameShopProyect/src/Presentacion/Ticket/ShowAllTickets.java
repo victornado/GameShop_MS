@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class ShowAllTickets extends ShowAll {
 	private static final long serialVersionUID = 1L;
-	private String[] _columnsId = {"ID", "Employee ID", "Final price", "Date"};
+	private String[] _columnsId = {"ID", "Final price", "Date"};
 	AbstractTableModel model;
 	private List<Object> tickets;
 	
@@ -46,14 +46,10 @@ public class ShowAllTickets extends ShowAll {
 					break;
 					
 				case 1:
-					o = ((TTicket)tickets.get(rowIndex)).get_employeeId();
-					break;
-					
-				case 2:
 					o = ((TTicket)tickets.get(rowIndex)).get_finalPrice();
 					break;
 					
-				case 3:
+				case 2:
 					o = ((TTicket)tickets.get(rowIndex)).get_date();
 					break;
 				}
@@ -83,7 +79,6 @@ public class ShowAllTickets extends ShowAll {
 		_grid.getColumnModel().getColumn(0).setPreferredWidth(20);
 		_grid.getColumnModel().getColumn(1).setPreferredWidth(70);
 		_grid.getColumnModel().getColumn(2).setPreferredWidth(60);
-		_grid.getColumnModel().getColumn(3).setPreferredWidth(90);
 	}
 
 	@Override

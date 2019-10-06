@@ -21,8 +21,6 @@ import javax.swing.border.TitledBorder;
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Transfers.TEmployee;
-import Transfers.TPlatform;
 import Transfers.TProduct;
 import Transfers.TProvider;
 import Transfers.TTicket;
@@ -133,14 +131,6 @@ public class ShowOne extends JPanel {
 		case "provider":
 			for(Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
 				_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
-			break;
-		case "platform":
-			for(Object tpla : SAAbstractFactory.getInstance().createSAPlatform().readAllPlatforms())
-				_election.addItem(((TPlatform) tpla).get_id().toString() + " - " + ((TPlatform) tpla).get_name());
-			break;
-		case "employee":
-			for(Object temp : SAAbstractFactory.getInstance().createSAEmployee().readAllEmployees())
-				_election.addItem(((TEmployee) temp).get_id() + " - " + ((TEmployee) temp).get_name());
 			break;
 		case "product":
 			for(Object temp : SAAbstractFactory.getInstance().createSAProduct().readAllProducts())

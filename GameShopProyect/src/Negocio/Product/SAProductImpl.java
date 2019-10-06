@@ -3,7 +3,6 @@ package Negocio.Product;
 import java.util.List;
 
 import Integracion.DAO.DAOAbstractFactory;
-import Transfers.TPlatform;
 import Transfers.TProduct;
 import Transfers.TProvider;
 import Transfers.TAccessory;
@@ -17,13 +16,9 @@ public class SAProductImpl implements SAProduct {
 	
 	public Integer createProduct(TProduct tpr) {
 		int id = -1;
-		TPlatform tpl;
 		TProvider tprd;
 		
-		if(!tpr.get_name().trim().isEmpty() && tpr.get_unitsProvided() > 0 && 
-				tpr.get_pvp() >= 0){
-			tpl = DAOAbstractFactory.getInstance().createDAOPlatform().readPlatform(tpr.get_platformId());
-			if(tpl != null && tpl.get_activated()){ //Si la plataforma existe y esta activada:
+		if(!tpr.get_name().trim().isEmpty() && tpr.get_unitsProvided() > 0 && tpr.get_pvp() >= 0){
 				tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(tpr.get_providerId());
 				if(tprd != null && tprd.get_activated()){
 					if(tpr.get_type() == TProduct.accessory && !((TAccessory)tpr).get_brand().isEmpty() &&
@@ -31,12 +26,11 @@ public class SAProductImpl implements SAProduct {
 							tpr.get_type() == TProduct.game && !((TGame)tpr).get_description().isEmpty() &&
 							!((TGame)tpr).get_gender().isEmpty()){
 						
-						TProduct tp = DAOAbstractFactory.getInstance().createDAOProduct().readProductByNameAndPlatform(tpr.get_name(), tpl.get_id());
+						TProduct tp = DAOAbstractFactory.getInstance().createDAOProduct().readProductByName(tpr.get_name());
 						if(tp == null)
 							id = DAOAbstractFactory.getInstance().createDAOProduct().createProduct(tpr);
 					}
 				}
-			}
 		}
 		return id;
 	}
@@ -53,7 +47,6 @@ public class SAProductImpl implements SAProduct {
 	}
 
 	public Boolean updateProduct(TProduct tpr) {
-		TPlatform tpl;
 		TProvider tprd;
 		
 		if(((TProduct)tpr).get_name().trim().isEmpty())
@@ -61,8 +54,6 @@ public class SAProductImpl implements SAProduct {
 		if(((TProduct)tpr).get_stock() < 0)
 			return false;
 		if(((TProduct)tpr).get_pvp() < 0)
-			return false;
-		if((tpl = DAOAbstractFactory.getInstance().createDAOPlatform().readPlatform(((TProduct)tpr).get_platformId())) == null || !tpl.get_activated())
 			return false;
 		if((tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(((TProduct)tpr).get_providerId())) == null || !tprd.get_activated())
 			return false;

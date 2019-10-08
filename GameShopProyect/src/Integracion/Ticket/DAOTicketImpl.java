@@ -23,8 +23,8 @@ public class DAOTicketImpl implements DAOTicket {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("INSERT INTO ticket(fecha, precioFinal) VALUES(?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setTimestamp(2, tt.get_date());
-			ps.setDouble(3, tt.get_finalPrice());
+			ps.setTimestamp(1, tt.get_date());
+			ps.setDouble(2, tt.get_finalPrice());
 			ps.executeUpdate();
 			
 			ResultSet rs = ps.getGeneratedKeys();
@@ -106,7 +106,7 @@ public class DAOTicketImpl implements DAOTicket {
 					if(rsProducto.next()){
 						pp.set_id(rsProducto.getInt(1));
 						pp.set_name(rsProducto.getString(2));
-						pp.set_stock(rsAsociado.getInt(5));
+						pp.set_stock(rsAsociado.getInt(3));
 						l.add(pp);
 					}
 				}

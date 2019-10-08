@@ -281,7 +281,7 @@ public class FormTicket extends JDialog {
 		columnWidth(0, 40);
 		columnWidth(1, 140);
 		columnWidth(2, 50);
-		columnWidth(3, 50);
+		//columnWidth(3, 50);
 	}
 	
 	private void columnWidth(int column, int width) {

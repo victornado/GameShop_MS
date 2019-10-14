@@ -3,6 +3,8 @@ package Transfers;
 import java.sql.Timestamp;
 import java.util.List;
 
+import Negocio.SA.SAAbstractFactory;
+
 /**
  * @author GameShop
  * @generated "UML to Java
@@ -63,8 +65,9 @@ public class TTicket {
 				+ '\n' + "Total price: " + _finalPrice;
 		String productsInfo = "\n\nProduct list:\n" + tabulador;
 		for (int i = 0; i < _products.size(); ++i) {
-			TProduct ttp = (TProduct) _products.get(i);
-			productsInfo += "ID: " + ttp.get_id() + " Name: " + ttp.get_name() + " Stock: " + ttp.get_stock() + "\n" + tabulador;
+			TProduct ttp = (TProduct)SAAbstractFactory.getInstance().createSAProduct().readProduct(((TAsociated)_products.get(i)).get_idProduct());
+			if(ttp != null)
+				productsInfo += "ID: " + ttp.get_id() + " Name: " + ttp.get_name() + " Stock: " + ((TAsociated)_products.get(i)).get_cantidad() + "\n" + tabulador;
 		}
 		return ticketInfo + productsInfo;
 	}

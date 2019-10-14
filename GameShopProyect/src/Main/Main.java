@@ -24,14 +24,13 @@ public class Main {
 
 		try
 		{
-			//Abrimos el archivo de audio
 			AudioInputStream audioInputStream = 
 					AudioSystem.getAudioInputStream(new File("resources/gameshop_intro.wav"));/*new File("GameShopProyect" + 
 			System.getProperty("file.separator") + "resources/gameshop_intro.wav").getAbsoluteFile());*/
 			AudioFormat format = audioInputStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, format);
 			Clip sound = (Clip)AudioSystem.getLine(info);
-			sound.open(audioInputStream);
+			//sound.open(audioInputStream);
 			
 			//Inicializamos el programa, y ejecutamos el sonido
 			SwingUtilities.invokeLater(new Runnable() {

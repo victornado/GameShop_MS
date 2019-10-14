@@ -9,7 +9,7 @@ public class TProvider {
 	private String _nif;
 	private String _address;
 	private Integer _phoneNumber;
-	private Integer _id;
+		private Integer _id;
 	private Boolean _activated;
 	
 	// CONSTRUCTORES

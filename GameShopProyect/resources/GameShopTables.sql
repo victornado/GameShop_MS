@@ -25,7 +25,7 @@ CREATE TABLE `producto` (
 	`marca` varchar(45),
 	`color` varchar(45),
     
-    `tipo` varchar(30) NOT NULL,
+  `tipo` varchar(30) NOT NULL,
 	
 	PRIMARY KEY (`ID`),
 	KEY `IDProveedor_idx` (`IDProveedor`),
@@ -45,6 +45,7 @@ CREATE TABLE `asociado` (
   `IDProducto` INT(11) NOT NULL,
   `IDTicket` INT(11) NOT NULL,
   `cantidad` INT(10) NOT NULL,
+  `precio`  DOUBLE(10,1) NOT NULL,
   PRIMARY KEY (`IDProducto`, `IDTicket`),
   
   KEY `IDTicket_idx` (`IDTicket`),

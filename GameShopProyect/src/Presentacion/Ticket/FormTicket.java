@@ -28,6 +28,7 @@ import javax.swing.table.AbstractTableModel;
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
+import Transfers.TAsociated;
 import Transfers.TProduct;
 import Transfers.TTicket;
 
@@ -47,7 +48,8 @@ public class FormTicket extends JDialog {
 	private String[]_columnIds = {"ID", "Name", "Amount"};
 	private JScrollPane _jsp;
 	
-	private List<Object> _productsSelected = new ArrayList<Object>();
+	//private List<Object> _productsSelected = new ArrayList<Object>();
+	private List<Object> _productsTicket = new ArrayList<Object>(); 
 	
 	public FormTicket(){
 		this.setTitle("Add new ticket");
@@ -96,21 +98,26 @@ public class FormTicket extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(_productsElection.getItemCount() > 0){
-					TProduct toAdd = new TProduct();
+					//TProduct toAdd = new TProduct();
+					TAsociated toAdd = new TAsociated();
 					// En [0] tenemos el ID, en [1] el nombre del producto y en [2] el tipo
 					String[] info = ((String)(_productsElection.getSelectedItem())).split(" - ");
-					toAdd.set_id(Integer.parseInt(info[0]));
-					toAdd.set_name(info[1]);
-					toAdd.set_type(info[2]);
+					toAdd.set_idProduct(Integer.parseInt(info[0]));
+					//toAdd.set_id(Integer.parseInt(info[0]));
+					//toAdd.set_name(info[1]);
+					//toAdd.set_type(info[2]);
 					Integer unitsToSell = (Integer)_numberOfproduct.getValue();
-					toAdd.set_unitsInTicket(unitsToSell);
+					//toAdd.set_unitsInTicket(unitsToSell);
+					toAdd.set_cantidad(unitsToSell);
 					
 					// Si existe en la BD un producto con ese id, nombre y tipo, nos devuelve todos sus datos
-					TProduct all = (TProduct)SAAbstractFactory.getInstance().createSAProduct().readProduct(toAdd.get_id());
+					TProduct all = (TProduct)SAAbstractFactory.getInstance().createSAProduct().readProduct(toAdd.get_idProduct());
 					if(all != null && !addItemToAnExistingProduct(toAdd)) {
 						if(unitsToSell > all.get_stock()) unitsToSell = all.get_stock();
-						all.set_unitsInTicket(unitsToSell);
-						_productsSelected.add(all);
+						//all.set_unitsInTicket(unitsToSell);
+						//_productsSelected.add(all);
+						toAdd.set_precio(all.get_pvp());
+						_productsTicket.add(toAdd);
 					}
 					_numberOfproduct.setValue(new Integer(1));
 					model.fireTableDataChanged();
@@ -122,21 +129,27 @@ public class FormTicket extends JDialog {
 	//Funcion utilizada para añadir mas unidades a un item que ya ha sido añadido a la tabla.
 	private boolean addItemToAnExistingProduct(Object tpr) {
 		boolean exit = false;
-		TProduct tp = (TProduct)tpr;
-		for(int i = 0; i < _productsSelected.size() && !exit; ++i) {
+		//TProduct tp = (TProduct)tpr;
+		TAsociated tp = (TAsociated)tpr;
+		//for(int i = 0; i < _productsSelected.size() && !exit; ++i) {
+		for(int i = 0; i < _productsTicket.size() && !exit; ++i) {
 			//Buscamos el elemento
-			if(((TProduct)_productsSelected.get(i)).get_id() == tp.get_id()) {
+		//	if(((TProduct)_productsSelected.get(i)).get_id() == tp.get_id()) {
+			if(((TAsociated)_productsTicket.get(i)).get_idProduct() == tp.get_idProduct()) {
 				//Si el las unidades a añadir mas lo que ya hay supera el stock, dejamos el stock
-				if(tp.get_unitsInTicket() + ((TProduct)_productsSelected.get(i)).get_unitsInTicket() > 
-				((TProduct)_productsSelected.get(i)).get_stock())
-					((TProduct)_productsSelected.get(i)).set_unitsInTicket(((TProduct)_productsSelected.get(i)).get_stock());
+				//if(tp.get_unitsInTicket() + ((TProduct)_productsSelected.get(i)).get_unitsInTicket() > 
+				//((TProduct)_productsSelected.get(i)).get_stock())
+				TProduct all = (TProduct)SAAbstractFactory.getInstance().createSAProduct().readProduct(tp.get_idProduct());
+				if(all != null && tp.get_cantidad() + ((TAsociated)_productsTicket.get(i)).get_cantidad() > all.get_stock())
+					((TAsociated)_productsTicket.get(i)).set_cantidad(all.get_stock());
 				//Si no, sumamos sin mas
-				else
-				((TProduct)_productsSelected.get(i)).set_unitsInTicket(tp.get_unitsInTicket() +
-						((TProduct)_productsSelected.get(i)).get_unitsInTicket());
+				else if(all != null)
+					((TAsociated)_productsTicket.get(i)).set_cantidad(tp.get_cantidad() + ((TAsociated) _productsTicket.get(i)).get_cantidad());
+				
 				exit = true;
 			}
 		}
+		
 		return exit;
 	}
 	
@@ -147,13 +160,15 @@ public class FormTicket extends JDialog {
 				int selectedRow = _grid.getSelectedRow();
 				if(selectedRow != -1) {
 					int removeCant = (Integer)_numberOfproduct.getValue();
-					int unitsInTicketOfSelectedProduct = ((TProduct)_productsSelected.get(selectedRow)).get_unitsInTicket();
+					//int unitsInTicketOfSelectedProduct = ((TProduct)_productsSelected.get(selectedRow)).get_unitsInTicket();
+					int unitsInTicketOfSelectedProduct = ((TAsociated)_productsTicket.get(selectedRow)).get_cantidad();
 					if(unitsInTicketOfSelectedProduct > removeCant) {
-						((TProduct)_productsSelected.get(selectedRow)).set_unitsInTicket(
-								((TProduct)_productsSelected.get(selectedRow)).get_unitsInTicket() - removeCant);
+						//((TProduct)_productsSelected.get(selectedRow)).set_unitsInTicket(((TProduct)_productsSelected.get(selectedRow)).get_unitsInTicket() - removeCant);
+						((TAsociated)_productsTicket.get(selectedRow)).set_cantidad(((TAsociated)_productsTicket.get(selectedRow)).get_cantidad() - removeCant);
 					}
-					else if(unitsInTicketOfSelectedProduct == removeCant)
-						_productsSelected.remove(selectedRow);
+					else if(unitsInTicketOfSelectedProduct <= removeCant)
+						//_productsSelected.remove(selectedRow);
+						_productsTicket.remove(selectedRow);
 					
 					model.fireTableDataChanged();
 				}
@@ -166,7 +181,8 @@ public class FormTicket extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeDialog();
-				_productsSelected.clear();
+				//_productsSelected.clear();
+				_productsTicket.clear();
 			}
 		});
 	}
@@ -175,8 +191,9 @@ public class FormTicket extends JDialog {
 		_accept.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(_productsSelected.size() > 0) {
-					TTicket tt = new TTicket(_productsSelected);
+				//if(_productsSelected.size() > 0) {
+				if(_productsTicket.size() > 0) {
+					TTicket tt = new TTicket(_productsTicket);
 					
 					closeDialog();
 					Controller.getInstance().action(tt, Event.REGISTER_TICKET);
@@ -240,7 +257,8 @@ public class FormTicket extends JDialog {
 			}
 			@Override
 			public int getRowCount() {
-				return _productsSelected.size() == 0 ? 0 : _productsSelected.size();
+				//return _productsSelected.size() == 0 ? 0 : _productsSelected.size();
+				return _productsTicket.size() == 0 ? 0 : _productsTicket.size();
 			}
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
@@ -248,13 +266,19 @@ public class FormTicket extends JDialog {
 				
 				switch(columnIndex){
 				case 0:
-					o = ((TProduct)_productsSelected.get(rowIndex)).get_id();
+					//o = ((TProduct)_productsSelected.get(rowIndex)).get_id();
+					o = ((TAsociated)_productsTicket.get(rowIndex)).get_idProduct();
 					break;
 				case 1:
-					o = ((TProduct)_productsSelected.get(rowIndex)).get_name();
+					//o = ((TProduct)_productsSelected.get(rowIndex)).get_name();
+					TProduct tp = (TProduct)SAAbstractFactory.getInstance().createSAProduct().readProduct(((TAsociated) _productsTicket.get(rowIndex)).get_idProduct());
+					o = " ";
+					if(tp!=null)
+						o = tp.get_name();
 					break;
 				case 2:
-					o = ((TProduct)_productsSelected.get(rowIndex)).get_unitsInTicket();
+					//o = ((TProduct)_productsSelected.get(rowIndex)).get_unitsInTicket();
+					o = ((TAsociated)_productsTicket.get(rowIndex)).get_cantidad();
 					break;
 				}
 				return o;

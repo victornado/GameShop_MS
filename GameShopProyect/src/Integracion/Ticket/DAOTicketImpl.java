@@ -3,6 +3,7 @@ package Integracion.Ticket;
 import java.util.ArrayList;
 import java.util.List;
 
+import Transfers.TAsociated;
 import Transfers.TProduct;
 import Transfers.TTicket;
 
@@ -33,10 +34,11 @@ public class DAOTicketImpl implements DAOTicket {
 				List<Object> l = tt.get_products();
 				id = rs.getInt(1);
 				for(int i = 0; i < l.size(); ++i) {
-					ps = con.prepareStatement("INSERT INTO asociado(IDProducto, IDTicket, cantidad) VALUES(?,?,?)");
-					ps.setInt(1, ((TProduct)l.get(i)).get_id());
+					ps = con.prepareStatement("INSERT INTO asociado(IDProducto, IDTicket, cantidad, precio) VALUES(?,?,?,?)");
+					ps.setInt(1, ((TAsociated)l.get(i)).get_idProduct());
 					ps.setInt(2, id);
-					ps.setDouble(3, ((TProduct)l.get(i)).get_unitsInTicket());
+					ps.setInt(3, ((TAsociated)l.get(i)).get_cantidad());
+					ps.setDouble(4, ((TAsociated)l.get(i)).get_precio());
 					ps.executeUpdate();
 					
 				}
@@ -79,7 +81,7 @@ public class DAOTicketImpl implements DAOTicket {
 		return ret;
 	}
 	
-	public TTicket readTicket(Integer id) {
+	/*public TTicket readTicket(Integer id) {
 		TTicket tp = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -109,6 +111,43 @@ public class DAOTicketImpl implements DAOTicket {
 						pp.set_stock(rsAsociado.getInt(3));
 						l.add(pp);
 					}
+				}
+				tp.set_products(l);
+			}
+			con.close();
+		} catch (SQLException | ClassNotFoundException e) {
+			tp = null;
+		}
+		
+		return tp;
+	}*/
+	
+	public TTicket readTicket(Integer id) {
+		TTicket tp = null;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM ticket WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()){
+				tp = new TTicket();
+				tp.set_id(rs.getInt(1));
+				tp.set_date(rs.getTimestamp(2));
+				tp.set_finalPrice(rs.getDouble(3));
+				
+				ps = con.prepareStatement("SELECT * FROM asociado WHERE IDTicket=?");
+				ps.setInt(1, id);
+				ResultSet rsAsociado = ps.executeQuery();
+				List<Object> l = new ArrayList<Object>();
+				while(rsAsociado.next()){
+					TAsociated ta = new TAsociated();
+					ta.set_idProduct(rsAsociado.getInt(1));
+					ta.set_ticket(id);
+					ta.set_cantidad(rsAsociado.getInt(3));
+					ta.set_precio(rsAsociado.getDouble(4));
+					l.add(ta);
 				}
 				tp.set_products(l);
 			}

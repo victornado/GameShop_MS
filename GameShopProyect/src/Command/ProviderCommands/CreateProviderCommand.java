@@ -5,11 +5,12 @@ import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Event;
 import Transfers.TProvider;
 import javafx.util.Pair;
-public class CreateProviderCommand extends Command{
-	
+
+public class CreateProviderCommand extends Command {
+
 	@Override
 	public Pair<Object, Integer> execute(Object data) {
-		
+
 		TProvider tprov = (TProvider) data;
 		int resRegister = (SAAbstractFactory.getInstance().createSAProvider()).createProvider(tprov);
 		Integer evento = (resRegister != -1) ? Event.RES_REGISTER_PROVIDER_OK : Event.RES_REGISTER_PROVIDER_FAILED;
@@ -19,10 +20,10 @@ public class CreateProviderCommand extends Command{
 
 	@Override
 	public Command parse(Integer event) {
-		if(Event.REGISTER_PROVIDER==event) {
+		if (Event.REGISTER_PROVIDER == event) {
 			return new CreateProviderCommand();
-		}
-		else return null;
+		} else
+			return null;
 	}
 
 }

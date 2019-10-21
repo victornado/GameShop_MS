@@ -3,19 +3,17 @@ package Presentacion.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import Command.Command;
+import Command.CommandFactory;
 import Main.Main;
-import Negocio.SA.SAAbstractFactory;
 import Presentacion.Product.GUIProduct;
-import Presentacion.Product.GUIProductImp;
 import Presentacion.Provider.GUIProvider;
-import Presentacion.Provider.GUIProviderImp;
 import Presentacion.Ticket.GUITicket;
-import Presentacion.Ticket.GUITicketImp;
 import Presentacion.View.GUIGameshop;
-import Presentacion.View.IGUI;
-import Transfers.TProduct;
-import Transfers.TProvider;
-import Transfers.TTicket;
+import Presentacion.View.ViewDispatcher;
+import javafx.util.Pair;
 
 /** 
  * @author GameShop
@@ -23,7 +21,7 @@ import Transfers.TTicket;
  */
 public class ControllerImpl extends Controller {
 	
-	private IGUI gui;
+	//private IGUI gui;
 	private GUIGameshop gs;
 	
 	public ControllerImpl() {
@@ -34,8 +32,26 @@ public class ControllerImpl extends Controller {
 		guis.add(GUITicket.getInstance());
 		gs.initTabs(guis);
 	}
-
+	
 	@Override
+	public void action(Object data, Integer event) {
+		Command command = CommandFactory.getInstance().parse(event);
+		Pair<Object, Integer> retExecute = null;
+		
+		if(command != null)
+			retExecute = command.execute(data);
+		
+		if(command != null && retExecute != null) 
+			ViewDispatcher.getInstance().createView(retExecute.getValue(), retExecute.getKey());
+		else
+			JOptionPane.showInputDialog(null, "ERROR 404: Cannot update the view...", "Fatal error", JOptionPane.ERROR_MESSAGE);
+	}
+
+	
+	
+	
+	
+	/*@Override
 	public void action(Object data, Integer event) {
 		Integer id;
 		TProvider tpr;
@@ -169,5 +185,5 @@ public class ControllerImpl extends Controller {
 			break;
 		}
 	}
-	
+	*/
 }

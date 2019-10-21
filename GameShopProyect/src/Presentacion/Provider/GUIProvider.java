@@ -17,4 +17,5 @@ public abstract class GUIProvider extends JPanel implements IGUI {
 	}
 	
 	protected abstract void alignmentPanels();
+	public abstract void actualiza(Integer event, Object id);
 }

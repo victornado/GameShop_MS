@@ -4,12 +4,10 @@ import java.awt.BorderLayout;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshop;
-import Presentacion.View.IGUI;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
 import Transfers.TProvider;

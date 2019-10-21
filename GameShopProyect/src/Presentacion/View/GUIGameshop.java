@@ -15,7 +15,7 @@ import javax.swing.UIManager;
 
 import Presentacion.Product.GUIProductImp;
 import Presentacion.Provider.GUIProviderImp;
-import Presentacion.Ticket.GUITicket;
+import Presentacion.Ticket.GUITicketImp;
 
 /**
 * @author GameShop
@@ -73,9 +73,9 @@ public class GUIGameshop extends JFrame {
 		
 		_tabs.addTab(GUIGameshop.TAB_PROVIDER, null, (GUIProviderImp)guis.get(0), "Provider tab");
 		
-		_tabs.addTab(GUIGameshop.TAB_PRODUCT, null, (GUIProductImp) guis.get(1), "Product tab");
+		_tabs.addTab(GUIGameshop.TAB_PRODUCT, null, (GUIProductImp)guis.get(1), "Product tab");
 		
-		_tabs.addTab(GUIGameshop.TAB_TICKET, null, (GUITicket) guis.get(2), "Ticket tab");
+		_tabs.addTab(GUIGameshop.TAB_TICKET, null, (GUITicketImp)guis.get(2), "Ticket tab");
 		
 		this.add(_tabs, BorderLayout.CENTER);
 	}

@@ -1,7 +1,9 @@
 package Presentacion.View;
 
 import Presentacion.Controller.Event;
+import Presentacion.Product.GUIProduct;
 import Presentacion.Provider.GUIProvider;
+import Presentacion.Ticket.GUITicket;
 import Transfers.*;
 
 public class ViewDispatcherImp extends ViewDispatcher {
@@ -43,60 +45,60 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			
 		/******************************** PRODUCT ********************************/
 		case Event.RES_REGISTER_PRODUCT_OK:
-			GUIProvider.getInstance().actualiza(event, (Integer)data);
+			GUIProduct.getInstance().actualiza(event, (Integer)data);
 			break;
 		case Event.RES_REGISTER_PRODUCT_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUIProduct.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_UNSUBSCRIBE_PRODUCT_OK:
-			GUIProvider.getInstance().actualiza(event, (Integer)data);
+			GUIProduct.getInstance().actualiza(event, (Integer)data);
 			break;
 		case Event.RES_UNSUBSCRIBE_PRODUCT_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUIProduct.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_MODIFY_PRODUCT_OK:
-			GUIProvider.getInstance().actualiza(event, (Integer)data);
+			GUIProduct.getInstance().actualiza(event, (Integer)data);
 			break;
 		case Event.RES_MODIFY_PRODUCT_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUIProduct.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_READ_PRODUCT_OK:
-			GUIProvider.getInstance().actualiza(event, (TProvider)data);
+			GUIProduct.getInstance().actualiza(event, (TProvider)data);
 			break;
 		case Event.RES_READ_PRODUCT_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUIProduct.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_READALL_PRODUCT_OK:
-			GUIProvider.getInstance().actualiza(event, data); // TODO ver que se le pasa a actualiza
+			GUIProduct.getInstance().actualiza(event, data); // TODO ver que se le pasa a actualiza
 			break;
 		case Event.RES_READALL_PRODUCT_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUIProduct.getInstance().actualiza(event, null);
 			break;
 			
 		/******************************** TICKET ********************************/
 		case Event.RES_REGISTER_TICKET_OK:
-			GUIProvider.getInstance().actualiza(event, (Integer)data);
+			GUITicket.getInstance().actualiza(event, (Integer)data);
 			break;
 		case Event.RES_REGISTER_TICKET_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUITicket.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_UNSUBSCRIBE_TICKET_OK:
-			GUIProvider.getInstance().actualiza(event, (Integer)data);
+			GUITicket.getInstance().actualiza(event, (Integer)data);
 			break;
 		case Event.RES_UNSUBSCRIBE_TICKET_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUITicket.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_READ_TICKET_OK:
-			GUIProvider.getInstance().actualiza(event, (TProvider)data);
+			GUITicket.getInstance().actualiza(event, (TProvider)data);
 			break;
 		case Event.RES_READ_TICKET_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUITicket.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_READALL_TICKET_OK:
-			GUIProvider.getInstance().actualiza(event, data); // TODO ver que se le pasa a actualiza
+			GUITicket.getInstance().actualiza(event, data); // TODO ver que se le pasa a actualiza
 			break;
 		case Event.RES_READALL_TICKET_FAILED:
-			GUIProvider.getInstance().actualiza(event, null);
+			GUITicket.getInstance().actualiza(event, null);
 			break;
 		}
 	}

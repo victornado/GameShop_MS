@@ -1,7 +1,6 @@
 package Presentacion.Ticket;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;

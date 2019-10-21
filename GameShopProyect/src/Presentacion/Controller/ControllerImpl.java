@@ -5,10 +5,12 @@ import java.util.List;
 
 import Main.Main;
 import Negocio.SA.SAAbstractFactory;
+import Presentacion.Product.GUIProduct;
 import Presentacion.Product.GUIProductImp;
 import Presentacion.Provider.GUIProvider;
 import Presentacion.Provider.GUIProviderImp;
 import Presentacion.Ticket.GUITicket;
+import Presentacion.Ticket.GUITicketImp;
 import Presentacion.View.GUIGameshop;
 import Presentacion.View.IGUI;
 import Transfers.TProduct;
@@ -24,13 +26,12 @@ public class ControllerImpl extends Controller {
 	private IGUI gui;
 	private GUIGameshop gs;
 	
-	// TODO
 	public ControllerImpl() {
 		gs = new GUIGameshop(Main.applicationName);
 		List<Object> guis = new ArrayList<Object>();
 		guis.add(GUIProvider.getInstance());
-		guis.add((new GUIProductImp()));
-		guis.add((new GUITicket()));
+		guis.add(GUIProduct.getInstance());
+		guis.add(GUITicket.getInstance());
 		gs.initTabs(guis);
 	}
 

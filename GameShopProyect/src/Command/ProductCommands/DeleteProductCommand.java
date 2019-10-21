@@ -12,7 +12,7 @@ public class DeleteProductCommand extends Command {
 		int id = (Integer) data;
 		boolean resDelete = (SAAbstractFactory.getInstance().createSAProduct()).deleteProduct(id);
 		Integer evento = (!resDelete) ? Event.RES_UNSUBSCRIBE_PRODUCT_FAILED : Event.RES_UNSUBSCRIBE_PRODUCT_OK;
-		Pair<Object, Integer> p = new Pair<Object, Integer>(resDelete, evento);
+		Pair<Object, Integer> p = new Pair<Object, Integer>(id, evento);
 		return p;
 	}
 

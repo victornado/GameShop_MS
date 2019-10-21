@@ -38,7 +38,7 @@ public class ControllerImpl extends Controller {
 		Command command = CommandFactory.getInstance().parse(event);
 		Pair<Object, Integer> retExecute = null;
 		
-		if(command != null)
+		if(command != null) 
 			retExecute = command.execute(data);
 		
 		if(command != null && retExecute != null) 

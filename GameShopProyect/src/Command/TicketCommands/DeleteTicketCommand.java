@@ -12,7 +12,7 @@ public class DeleteTicketCommand extends Command {
 		Integer id = (Integer) data;
 		boolean resDeleteTi = (SAAbstractFactory.getInstance().createSATicket()).deleteTicket(id);
 		Integer evento = (!resDeleteTi) ? Event.RES_UNSUBSCRIBE_TICKET_FAILED : Event.RES_UNSUBSCRIBE_TICKET_OK;
-		Pair<Object, Integer> p = new Pair<Object, Integer>(resDeleteTi, evento);
+		Pair<Object, Integer> p = new Pair<Object, Integer>(id, evento);
 		return p;
 	}
 

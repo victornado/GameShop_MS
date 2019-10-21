@@ -11,7 +11,7 @@ public class DeleteProviderCommand extends Command{
 		int id = (Integer) data;
 		boolean resDelete = (SAAbstractFactory.getInstance().createSAProvider()).deleteProvider(id);
 		Integer evento = (!resDelete) ? Event.RES_UNSUBSCRIBE_PROVIDER_FAILED : Event.RES_UNSUBSCRIBE_PROVIDER_OK;
-		Pair<Object, Integer> p = new Pair<Object, Integer>(resDelete, evento);
+		Pair<Object, Integer> p = new Pair<Object, Integer>(id, evento);
 		return p;
 	}
 

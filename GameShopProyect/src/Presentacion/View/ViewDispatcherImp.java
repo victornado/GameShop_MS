@@ -25,7 +25,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIProvider.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_MODIFY_PROVIDER_OK:
-			GUIProvider.getInstance().actualiza(event, (Integer)data);
+			GUIProvider.getInstance().actualiza(event, (TProvider)data);
 			break;
 		case Event.RES_MODIFY_PROVIDER_FAILED:
 			GUIProvider.getInstance().actualiza(event, null);

@@ -74,7 +74,6 @@ public class GUIProviderImp extends GUIProvider {
 			break;
 			
 		case Event.RES_MODIFY_PROVIDER_OK:
-			id = (Integer)t;
 			JOptionPane.showMessageDialog(this, "Provider correctly updated in the database.","Success",JOptionPane.INFORMATION_MESSAGE);		
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProvider()).readAllProviders());
 			_leftPane.addInfoToComboBox();

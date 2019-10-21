@@ -5,8 +5,9 @@ import java.util.List;
 
 import Main.Main;
 import Negocio.SA.SAAbstractFactory;
-import Presentacion.Product.GUIProduct;
+import Presentacion.Product.GUIProductImp;
 import Presentacion.Provider.GUIProvider;
+import Presentacion.Provider.GUIProviderImp;
 import Presentacion.Ticket.GUITicket;
 import Presentacion.View.GUIGameshop;
 import Presentacion.View.IGUI;
@@ -23,11 +24,12 @@ public class ControllerImpl extends Controller {
 	private IGUI gui;
 	private GUIGameshop gs;
 	
+	// TODO
 	public ControllerImpl() {
 		gs = new GUIGameshop(Main.applicationName);
 		List<Object> guis = new ArrayList<Object>();
-		guis.add((new GUIProvider()));
-		guis.add((new GUIProduct()));
+		guis.add(GUIProvider.getInstance());
+		guis.add((new GUIProductImp()));
 		guis.add((new GUITicket()));
 		gs.initTabs(guis);
 	}
@@ -65,7 +67,7 @@ public class ControllerImpl extends Controller {
 		case Event.MODIFY_PROVIDER:
 			tpr = (TProvider)data;
 			if(SAAbstractFactory.getInstance().createSAProvider().updateProvider(tpr))
-				gui.actualiza(Event.RES_MODIFY_PROVIDER_OK, null);
+				gui.actualiza(Event.RES_MODIFY_PROVIDER_OK, tpr.get_id());
 			else
 				gui.actualiza(Event.RES_MODIFY_PROVIDER_FAILED, null);
 			break;

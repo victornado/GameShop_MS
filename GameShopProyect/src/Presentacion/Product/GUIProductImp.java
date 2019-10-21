@@ -25,12 +25,12 @@ import Presentacion.Controller.Event;
 * @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 */
 @SuppressWarnings("serial")
-public class GUIProduct extends JPanel implements IGUI {
+public class GUIProductImp extends JPanel implements IGUI {
 	
 	private OperationsPanel _leftPane;
 	private ShowPanel _rightPane;
 	
-	public GUIProduct() {
+	public GUIProductImp() {
 		this.setLayout(new BorderLayout());
 		
 		this._leftPane = new OperationsPanel(GUIGameshop.TAB_PRODUCT);

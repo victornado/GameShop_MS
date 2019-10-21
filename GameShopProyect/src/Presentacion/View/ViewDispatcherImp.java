@@ -19,7 +19,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIProvider.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_UNSUBSCRIBE_PROVIDER_OK:
-			GUIProvider.getInstance().actualiza(event, (Integer)data);
+			GUIProvider.getInstance().actualiza(event, data);
 			break;
 		case Event.RES_UNSUBSCRIBE_PROVIDER_FAILED:
 			GUIProvider.getInstance().actualiza(event, null);
@@ -51,19 +51,19 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIProduct.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_UNSUBSCRIBE_PRODUCT_OK:
-			GUIProduct.getInstance().actualiza(event, (Integer)data);
+			GUIProduct.getInstance().actualiza(event, data);
 			break;
 		case Event.RES_UNSUBSCRIBE_PRODUCT_FAILED:
 			GUIProduct.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_MODIFY_PRODUCT_OK:
-			GUIProduct.getInstance().actualiza(event, (Integer)data);
+			GUIProduct.getInstance().actualiza(event, (TProduct)data);
 			break;
 		case Event.RES_MODIFY_PRODUCT_FAILED:
 			GUIProduct.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_READ_PRODUCT_OK:
-			GUIProduct.getInstance().actualiza(event, (TProvider)data);
+			GUIProduct.getInstance().actualiza(event, (TProduct)data);
 			break;
 		case Event.RES_READ_PRODUCT_FAILED:
 			GUIProduct.getInstance().actualiza(event, null);
@@ -83,13 +83,13 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUITicket.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_UNSUBSCRIBE_TICKET_OK:
-			GUITicket.getInstance().actualiza(event, (Integer)data);
+			GUITicket.getInstance().actualiza(event, data);
 			break;
 		case Event.RES_UNSUBSCRIBE_TICKET_FAILED:
 			GUITicket.getInstance().actualiza(event, null);
 			break;
 		case Event.RES_READ_TICKET_OK:
-			GUITicket.getInstance().actualiza(event, (TProvider)data);
+			GUITicket.getInstance().actualiza(event, (TTicket)data);
 			break;
 		case Event.RES_READ_TICKET_FAILED:
 			GUITicket.getInstance().actualiza(event, null);

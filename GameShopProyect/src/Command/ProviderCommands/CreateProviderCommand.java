@@ -18,12 +18,4 @@ public class CreateProviderCommand extends Command {
 		return p;
 	}
 
-	@Override
-	public Command parse(Integer event) {
-		if (Event.REGISTER_PROVIDER == event) {
-			return new CreateProviderCommand();
-		} else
-			return null;
-	}
-
 }

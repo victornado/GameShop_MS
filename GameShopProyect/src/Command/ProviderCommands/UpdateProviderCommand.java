@@ -1,7 +1,6 @@
 package Command.ProviderCommands;
 
 import Command.Command;
-import Command.ProductCommands.UpdateProductCommand;
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Event;
 import Transfers.TProvider;
@@ -16,13 +15,5 @@ public class UpdateProviderCommand extends Command{
 		Integer evento = (!ok) ? Event.RES_MODIFY_PROVIDER_FAILED : Event.RES_MODIFY_PROVIDER_OK;
 		Pair<Object, Integer> p = new Pair<Object, Integer>(tProv, evento);
 		return p;
-	}
-
-	@Override
-	public Command parse(Integer event) {
-		if (Event.MODIFY_PROVIDER == event)
-			return new UpdateProviderCommand();
-
-		return null;
 	}
 }

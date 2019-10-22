@@ -16,12 +16,4 @@ public class CreateProductCommand extends Command {
 		Pair<Object, Integer> p = new Pair<Object, Integer>(resRegister, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if (Event.REGISTER_PRODUCT == event)
-			return new CreateProductCommand();
-		return null;
-	}
-
 }

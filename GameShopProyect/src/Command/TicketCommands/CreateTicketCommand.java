@@ -16,13 +16,4 @@ public class CreateTicketCommand extends Command {
 		Pair<Object, Integer> p = new Pair<Object, Integer>(resRegisterTicket, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if(Event.REGISTER_TICKET==event) {
-			return new CreateTicketCommand();
-		}
-		else return null;
-	}
-
 }

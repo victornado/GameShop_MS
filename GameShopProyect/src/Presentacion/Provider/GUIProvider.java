@@ -3,6 +3,7 @@ package Presentacion.Provider;
 import javax.swing.JPanel;
 
 import Presentacion.View.IGUI;
+import javafx.util.Pair;
 
 @SuppressWarnings("serial")
 public abstract class GUIProvider extends JPanel implements IGUI {
@@ -17,5 +18,5 @@ public abstract class GUIProvider extends JPanel implements IGUI {
 	}
 	
 	protected abstract void alignmentPanels();
-	public abstract void actualiza(Integer event, Object id);
+	public abstract void actualiza(Pair<Object, Integer> data);
 }

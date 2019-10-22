@@ -33,6 +33,7 @@ import javax.swing.UIManager;
 
 import Integracion.DAO.*;
 import Presentacion.Controller.Controller;
+import Presentacion.Controller.Event;
 
 
 
@@ -173,7 +174,7 @@ public class InfoDB extends JDialog {
 						r.runScript(rd);
 					}
 					dispose();
-					Controller.getInstance();
+					Controller.getInstance().initGameShop(Event.INIT_GAMESHOP);
 				}
 				catch (Exception e){
 					JOptionPane.showMessageDialog(null, "Error JDBC connection.","Failed",JOptionPane.ERROR_MESSAGE);

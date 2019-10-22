@@ -15,14 +15,5 @@ public class ShowAllProvidersCommand extends Command{
 		Integer evento = (providers.isEmpty()) ? Event.RES_READALL_PROVIDERS_FAILED : Event.RES_READALL_PROVIDERS_OK;
 		Pair<Object, Integer> p = new Pair<Object, Integer>(providers, evento);
 		return p;
-	}
-
-	@Override
-	public Command parse(Integer event) {
-		if (Event.READ_ALL_PROVIDERS == event)
-			return new ShowAllProvidersCommand();
-
-		return null;
-	}
-	
+	}	
 }

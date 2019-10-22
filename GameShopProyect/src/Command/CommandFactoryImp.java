@@ -5,6 +5,7 @@ import Command.ProviderCommands.*;
 import Command.TicketCommands.*;
 
 public class CommandFactoryImp extends CommandFactory {
+	// TODO Hacer HashMap con <Evento, Comando> y el parse es hacer map.get(evento) y te devuelve un comando que es el que hacer return
 	private static Command[] _availableCommands = {
 			new CreateProductCommand(),
 			new DeleteProductCommand(),
@@ -26,12 +27,14 @@ public class CommandFactoryImp extends CommandFactory {
 
 	@Override
 	public Command parse(int event) {
+		/*
 		Command c = null;
 		int i = 0; // contador
 		while (c == null && i < _availableCommands.length) {
 			c = _availableCommands[i].parse(event);
 			i++;
 		}
-		return c;
+		return c;*/
+		return null;
 	}
 }

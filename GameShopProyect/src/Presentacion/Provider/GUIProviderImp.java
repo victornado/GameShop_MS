@@ -7,10 +7,11 @@ import javax.swing.JOptionPane;
 
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Event;
-import Presentacion.View.GUIGameshop;
+import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
 import Transfers.TProvider;
+import javafx.util.Pair;
 
 /** 
 * @author GameShop
@@ -22,32 +23,26 @@ public class GUIProviderImp extends GUIProvider {
 	private OperationsPanel _leftPane;
 	private ShowPanel _rightPane;
 	
-	/*
-	protected GUIProviderImp() {
-		alignmentPanels();
-	}
-	*/
-	
 	@Override
 	protected void alignmentPanels() {
 		this.setLayout(new BorderLayout());
 		
-		this._leftPane = new OperationsPanel(GUIGameshop.TAB_PROVIDER);
+		this._leftPane = new OperationsPanel(GUIGameshopImp.TAB_PROVIDER);
 		this.add(_leftPane, BorderLayout.WEST);
 		_leftPane.setVisible(true);
 		
-		this._rightPane = new ShowPanel(GUIGameshop.TAB_PROVIDER);
+		this._rightPane = new ShowPanel(GUIGameshopImp.TAB_PROVIDER);
 		this.add(_rightPane, BorderLayout.EAST);
 		_rightPane.setVisible(true);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actualiza(Integer e, Object t) {
+	public void actualiza(Pair<Object, Integer> data) {
 		Integer id;
-		switch(e){
+		switch(data.getValue()){
 		case Event.RES_REGISTER_PROVIDER_OK:
-			id = (Integer)t;
+			id = (Integer)data.getKey();
 			JOptionPane.showMessageDialog(null, "Provider " + id + " has been correctly insertes into the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProvider()).readAllProviders());
@@ -80,13 +75,7 @@ public class GUIProviderImp extends GUIProvider {
 			break;
 			
 		case Event.RES_READ_PROVIDER_OK:
-			TProvider tp = (TProvider)t;
-			/*String act = tp.get_activated() ? "Yes" : "No";*/
-			/*_rightPane.setInfoInScreen("ID: " + tp.get_id() + '\n' + 
-										"NIF: " + tp.get_nif() + '\n' +
-										"Address: " + tp.get_address() + '\n' +
-										"Phone number: " + tp.get_phoneNumber() + '\n' +
-										"Activated: " + act);*/
+			TProvider tp = (TProvider)data.getKey();
 			_rightPane.setInfoInScreen(tp.toString());
 			break;
 			
@@ -103,6 +92,4 @@ public class GUIProviderImp extends GUIProvider {
 			break;
 		}
 	}
-
-
 }

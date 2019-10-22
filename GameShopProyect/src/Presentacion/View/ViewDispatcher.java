@@ -1,5 +1,7 @@
 package Presentacion.View;
 
+import javafx.util.Pair;
+
 public abstract class ViewDispatcher {
 	private static ViewDispatcher _instance;
 	
@@ -9,5 +11,5 @@ public abstract class ViewDispatcher {
 		return _instance;
 	}
 	
-	public abstract void createView(Integer event, Object data);
+	public abstract void createView(Pair<Object, Integer> data);
 }

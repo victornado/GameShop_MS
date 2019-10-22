@@ -178,7 +178,7 @@ public class OperationsPanel extends JPanel {
 		this.add(Box.createVerticalGlue());
 		
 		String modifyRemoveTextLabel = "";
-		if(!this.nameIdentificator.equalsIgnoreCase(GUIGameshop.TAB_TICKET))
+		if(!this.nameIdentificator.equalsIgnoreCase(GUIGameshopImp.TAB_TICKET))
 			modifyRemoveTextLabel += "Modify or ";
 		modifyRemoveTextLabel += "Remove a " + nameIdentificator;
 		
@@ -202,7 +202,7 @@ public class OperationsPanel extends JPanel {
 		
 		this.add(Box.createRigidArea(new Dimension(1, 20)));
 		
-		if(!this.nameIdentificator.equalsIgnoreCase(GUIGameshop.TAB_TICKET)){
+		if(!this.nameIdentificator.equalsIgnoreCase(GUIGameshopImp.TAB_TICKET)){
 			_update = new JButton("Modify " + nameIdentificator);
 			_update.setAlignmentX(Component.CENTER_ALIGNMENT);
 			_update.setSize(new Dimension(100, 50));

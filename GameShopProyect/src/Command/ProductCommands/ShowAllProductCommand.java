@@ -16,13 +16,4 @@ public class ShowAllProductCommand extends Command {
 		Pair<Object, Integer> p = new Pair<Object, Integer>(products, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if (Event.READ_ALL_PRODUCT == event)
-			return new ShowAllProductCommand();
-
-		return null;
-	}
-
 }

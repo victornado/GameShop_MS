@@ -15,13 +15,4 @@ public class DeleteTicketCommand extends Command {
 		Pair<Object, Integer> p = new Pair<Object, Integer>(id, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if(Event.UNSUBSCRIBE_TICKET==event) {
-			return new DeleteTicketCommand();
-		}
-		else return null;
-	}
-
 }

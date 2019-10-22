@@ -6,10 +6,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Negocio.SA.SAAbstractFactory;
-import Presentacion.View.GUIGameshop;
+import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
 import Transfers.TTicket;
+import javafx.util.Pair;
 import Presentacion.Controller.Event;
 
 /** 
@@ -21,29 +22,23 @@ public class GUITicketImp extends GUITicket {
 	
 	private OperationsPanel _leftPane;
 	private ShowPanel _rightPane;
-
-	/*
-	public GUITicketImp() {
-		alignmentPanels();
-	}
-	*/
 	
 	@Override
 	protected void alignmentPanels() {
 		this.setLayout(new BorderLayout());
 		
-		this._leftPane = new OperationsPanel(GUIGameshop.TAB_TICKET);
+		this._leftPane = new OperationsPanel(GUIGameshopImp.TAB_TICKET);
 		this.add(_leftPane, BorderLayout.WEST);
 		_leftPane.setVisible(true);
 		
-		this._rightPane = new ShowPanel(GUIGameshop.TAB_TICKET);
+		this._rightPane = new ShowPanel(GUIGameshopImp.TAB_TICKET);
 		this.add(_rightPane, BorderLayout.EAST);
 		_rightPane.setVisible(true);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void actualiza(Integer e, Object t) {
+	public void actualiza(Pair<Object, Integer> data) {
 		switch(e){
 		case Event.RES_REGISTER_TICKET_OK:
 			Integer id = (Integer)t;

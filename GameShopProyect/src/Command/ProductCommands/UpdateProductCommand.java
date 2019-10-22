@@ -16,13 +16,4 @@ public class UpdateProductCommand extends Command {
 		Pair<Object, Integer> p = new Pair<Object, Integer>(tProd, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if (Event.MODIFY_PRODUCT == event)
-			return new UpdateProductCommand();
-
-		return null;
-	}
-
 }

@@ -14,12 +14,4 @@ public class DeleteProviderCommand extends Command{
 		Pair<Object, Integer> p = new Pair<Object, Integer>(id, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if (Event.UNSUBSCRIBE_PROVIDER == event)
-			return new DeleteProviderCommand();
-
-		return null;
-	}
 }

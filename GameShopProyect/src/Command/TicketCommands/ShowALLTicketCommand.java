@@ -16,13 +16,4 @@ public class ShowALLTicketCommand extends Command {
 		Pair<Object, Integer> p = new Pair<Object, Integer>(tickets, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if(Event.READ_ALL_TICKET==event) {
-			return new ShowALLTicketCommand();
-		}
-		else return null;
-	}
-
 }

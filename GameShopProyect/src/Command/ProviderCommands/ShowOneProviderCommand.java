@@ -16,12 +16,4 @@ public class ShowOneProviderCommand extends Command{
 		Pair<Object, Integer> p = new Pair<Object, Integer>(tProv, evento);
 		return p;
 	}
-
-	@Override
-	public Command parse(Integer event) {
-		if (Event.READ_PROVIDER == event)
-			return new ShowOneProviderCommand();
-
-		return null;
-	}
 }

@@ -5,6 +5,8 @@ package Presentacion.Controller;
  * @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
  */
 public class Event {
+	
+	public static final int INIT_GAMESHOP								= 0;
 
 	// PROVIDER (1)
 	public static final int REGISTER_PROVIDER 							= 100;

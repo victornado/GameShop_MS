@@ -1,40 +1,40 @@
 package Command;
 
+import java.util.HashMap;
+
 import Command.ProductCommands.*;
 import Command.ProviderCommands.*;
 import Command.TicketCommands.*;
+import Presentacion.Controller.Event;
 
 public class CommandFactoryImp extends CommandFactory {
-	// TODO Hacer HashMap con <Evento, Comando> y el parse es hacer map.get(evento) y te devuelve un comando que es el que hacer return
-	private static Command[] _availableCommands = {
-			new CreateProductCommand(),
-			new DeleteProductCommand(),
-			new UpdateProductCommand(),
-			new ShowOneProductCommand(),
-			new ShowAllProductCommand(),
-			
-			new CreateProviderCommand(),
-			new DeleteProviderCommand(),
-			new UpdateProviderCommand(),
-			new ShowOneProviderCommand(),
-			new ShowAllProvidersCommand(),
-			
-			new CreateTicketCommand(),
-			new DeleteTicketCommand(),
-			new ShowOneTicketCommand(),
-			new ShowALLTicketCommand(),
-	};
+	private static HashMap<Integer, Command> _availableCommands = new HashMap<Integer, Command>();
 
 	@Override
 	public Command parse(int event) {
-		/*
-		Command c = null;
-		int i = 0; // contador
-		while (c == null && i < _availableCommands.length) {
-			c = _availableCommands[i].parse(event);
-			i++;
-		}
-		return c;*/
-		return null;
+		return _availableCommands.get(event);
+	}
+	
+	@Override
+	protected void createAvailableCommands() {
+		/********************************** PROVIDER **********************************/
+		_availableCommands.put(Event.REGISTER_PROVIDER, new CreateProviderCommand());
+		_availableCommands.put(Event.UNSUBSCRIBE_PROVIDER, new DeleteProviderCommand());
+		_availableCommands.put(Event.MODIFY_PROVIDER, new UpdateProviderCommand());
+		_availableCommands.put(Event.READ_PROVIDER, new ShowOneProviderCommand());
+		_availableCommands.put(Event.READ_ALL_PROVIDERS, new ShowAllProvidersCommand());
+		
+		/********************************** PRODUCT **********************************/
+		_availableCommands.put(Event.REGISTER_PROVIDER, new CreateProductCommand());
+		_availableCommands.put(Event.UNSUBSCRIBE_PROVIDER, new DeleteProductCommand());
+		_availableCommands.put(Event.MODIFY_PROVIDER, new UpdateProductCommand());
+		_availableCommands.put(Event.READ_PROVIDER, new ShowOneProductCommand());
+		_availableCommands.put(Event.READ_ALL_PROVIDERS, new ShowAllProductCommand());
+		
+		/********************************** TICKET **********************************/
+		_availableCommands.put(Event.REGISTER_TICKET, new CreateTicketCommand());
+		_availableCommands.put(Event.UNSUBSCRIBE_TICKET, new DeleteTicketCommand());
+		_availableCommands.put(Event.READ_TICKET, new ShowOneTicketCommand());
+		_availableCommands.put(Event.READ_ALL_TICKET, new ShowALLTicketCommand());
 	}
 }

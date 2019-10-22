@@ -54,7 +54,7 @@ public class GUIProviderImp extends GUIProvider {
 			break;
 			
 		case Event.RES_UNSUBSCRIBE_PROVIDER_OK:
-			id = (Integer)t;
+			id = (Integer)data.getKey();
 			JOptionPane.showMessageDialog(null, "The provider " + id + " has been successfully unsubscribed.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProvider()).readAllProviders());
@@ -88,7 +88,7 @@ public class GUIProviderImp extends GUIProvider {
 			break;
 			
 		case Event.RES_READALL_PROVIDERS_OK:
-			_rightPane.update((List<Object>)t);
+			_rightPane.update((List<Object>)data.getKey());
 			break;
 		}
 	}

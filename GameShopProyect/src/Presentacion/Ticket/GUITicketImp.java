@@ -39,9 +39,9 @@ public class GUITicketImp extends GUITicket {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actualiza(Pair<Object, Integer> data) {
-		switch(e){
+		switch(data.getValue()){
 		case Event.RES_REGISTER_TICKET_OK:
-			Integer id = (Integer)t;
+			Integer id = (Integer)data.getKey();
 			JOptionPane.showMessageDialog(null, "Ticket " + id + " has been correctly inserted into the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
@@ -54,7 +54,7 @@ public class GUITicketImp extends GUITicket {
 			break;
 			
 		case Event.RES_UNSUBSCRIBE_TICKET_OK:
-			Integer a = (Integer)t;
+			Integer a = (Integer)data.getKey();
 			JOptionPane.showMessageDialog(null, "The ticket " + a + " has been properly unsubscribed.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
@@ -67,7 +67,7 @@ public class GUITicketImp extends GUITicket {
 			break;
 			
 		case Event.RES_READ_TICKET_OK:
-			TTicket tt = (TTicket)t;
+			TTicket tt = (TTicket)data.getKey();
 			_rightPane.setInfoInScreen(tt.toString());
 			break;
 			
@@ -77,7 +77,7 @@ public class GUITicketImp extends GUITicket {
 			break;
 			
 		case Event.RES_READALL_TICKET_OK:
-			_rightPane.update((List<Object>)t);
+			_rightPane.update((List<Object>)data.getKey());
 			break;
 			
 		case Event.RES_READALL_TICKET_FAILED:

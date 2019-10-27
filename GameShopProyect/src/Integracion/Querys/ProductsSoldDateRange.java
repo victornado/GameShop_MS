@@ -11,10 +11,6 @@ public class ProductsSoldDateRange implements Query {
 
 	@Override
 	public Object execute(Object data) throws Exception {
-		/*String _queryString = "SELECT * FROM asociado JOIN ticket";
-		TProduct _data;
-		Timestamp _from;
-		Timestamp _to = new Timestamp(System.currentTimeMillis());*/
 		return null;
 	}
 

@@ -12,10 +12,9 @@ public class TransactionGameShopDB implements Transaction {
 	@Override
 	public void init() throws Exception {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			_con = DriverManager.getConnection("jdbc:mysql://localhost/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			_con.setAutoCommit(false);
-
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Cannot connect to " + Main.Main.database + " database.", "Connection failed",
 					JOptionPane.ERROR_MESSAGE);	

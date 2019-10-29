@@ -1,6 +1,3 @@
-/**
- * 
- */
 package Negocio.Ticket;
 
 import java.util.List;
@@ -17,6 +14,6 @@ public interface SATicket {
 	
 	public Integer createTicket(TTicket tt);
 	public Boolean deleteTicket(Integer id);
-	public Object readTicket(Integer id);
+	public Object TOAReadTicket(Integer id) throws Exception;
 	public List<Object> readAllTickets();
 }

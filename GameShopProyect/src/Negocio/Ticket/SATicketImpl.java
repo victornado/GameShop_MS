@@ -1,16 +1,21 @@
 
 package Negocio.Ticket;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
 
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Product.DAOProduct;
 import Integracion.Ticket.DAOTicket;
 import Negocio.SA.SAAbstractFactory;
-import Transfers.TProduct;
-import Transfers.TTicket;
 import Transfers.TAsociated;
+import Transfers.TProduct;
+import Transfers.TProductQuantity;
+import Transfers.TTicket;
+import javafx.util.Pair;
+import Integracion.Querys.Query;
+import Integracion.Querys.QueryFactory;
 
 
 public class SATicketImpl implements SATicket {
@@ -81,13 +86,25 @@ public class SATicketImpl implements SATicket {
 		return deleted;
 	}
 
-	public Object readTicket(Integer id) {
-		TTicket ret = null;
+	@SuppressWarnings("unchecked")
+	public Object TOAReadTicket(Integer id) throws Exception {
+		TProductQuantity toa = null;
+		TTicket tt = null;
 		DAOTicket daoTicket = DAOAbstractFactory.getInstance().createDAOTicket();
+		DAOProduct dp = DAOAbstractFactory.getInstance().createDAOProduct();
+		List<Object> pl = null;
+		
 		if(id != null){
-			ret = (TTicket)daoTicket.readTicket(id);
+			tt = (TTicket)daoTicket.readTicket(id);
+			toa = new TProductQuantity(id, tt.get_finalPrice(), tt.get_date(), null);
+			pl = new ArrayList<Object>();
+			pl = tt.get_products();
+			Query q = QueryFactory.getInstance().newQuery("PONER AQUI EL EVENTO DE QUERY");
+			
+			// TODO si no funciona el casteo hacer aqui un while() y cambiar la query
+			toa.set_productsToShow((HashMap<Integer, Pair<String, Integer>>)q.execute(id));
 		}
-		return ret;
+		return toa;
 	}
 	
 	public List<Object> readAllTickets() {

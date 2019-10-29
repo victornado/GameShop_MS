@@ -19,8 +19,13 @@ public class ControllerImpl extends Controller {
 		Command command = CommandFactory.getInstance().parse(event);
 		Pair<Object, Integer> retExecute = null;
 		
-		if(command != null) 
-			retExecute = command.execute(data);
+		if(command != null) {
+			try {
+				retExecute = command.execute(data);
+			} catch (Exception e) {
+				JOptionPane.showInputDialog(null, "ERROR 404: Cannot set the option...", "Fatal error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 		
 		if(command != null && retExecute != null) 
 			ViewDispatcher.getInstance().createView(retExecute);

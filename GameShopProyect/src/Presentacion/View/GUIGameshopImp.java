@@ -36,6 +36,10 @@ public class GUIGameshopImp extends GUIGameShop {
 	private static List<Object> _guis = new ArrayList<Object>();
 	
 	private JTabbedPane _tabs;
+	
+	public GUIGameshopImp() {
+		super.setTitle(Main.Main.applicationName);
+	}
 
 	private void initGUI() {
 		try{

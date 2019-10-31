@@ -25,11 +25,11 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.READ_ALL_PROVIDERS, new ShowAllProvidersCommand());
 		
 		/********************************** PRODUCT **********************************/
-		_availableCommands.put(Event.REGISTER_PROVIDER, new CreateProductCommand());
-		_availableCommands.put(Event.UNSUBSCRIBE_PROVIDER, new DeleteProductCommand());
-		_availableCommands.put(Event.MODIFY_PROVIDER, new UpdateProductCommand());
-		_availableCommands.put(Event.READ_PROVIDER, new ShowOneProductCommand());
-		_availableCommands.put(Event.READ_ALL_PROVIDERS, new ShowAllProductCommand());
+		_availableCommands.put(Event.REGISTER_PRODUCT, new CreateProductCommand());
+		_availableCommands.put(Event.UNSUBSCRIBE_PRODUCT, new DeleteProductCommand());
+		_availableCommands.put(Event.MODIFY_PRODUCT, new UpdateProductCommand());
+		_availableCommands.put(Event.READ_PRODUCT, new ShowOneProductCommand());
+		_availableCommands.put(Event.READ_ALL_PRODUCT, new ShowAllProductCommand());
 		
 		/********************************** TICKET **********************************/
 		_availableCommands.put(Event.REGISTER_TICKET, new CreateTicketCommand());

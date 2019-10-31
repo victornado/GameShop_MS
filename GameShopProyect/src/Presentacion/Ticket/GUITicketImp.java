@@ -9,6 +9,7 @@ import Negocio.SA.SAAbstractFactory;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
+import Transfers.TProductQuantity;
 import Transfers.TTicket;
 import javafx.util.Pair;
 import Presentacion.Controller.Event;
@@ -67,7 +68,7 @@ public class GUITicketImp extends GUITicket {
 			break;
 			
 		case Event.RES_READ_TICKET_OK:
-			TTicket tt = (TTicket)data.getKey();
+			TProductQuantity tt = (TProductQuantity)data.getKey();
 			_rightPane.setInfoInScreen(tt.toString());
 			break;
 			

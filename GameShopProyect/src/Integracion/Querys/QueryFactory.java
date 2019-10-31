@@ -9,5 +9,5 @@ public abstract class QueryFactory {
 		return _instance;
 	}
 	
-	public abstract Query newQuery(String queryToExecte);
+	public abstract Query newQuery(Integer queryEvent);
 }

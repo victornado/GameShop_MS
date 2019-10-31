@@ -15,6 +15,7 @@ import Transfers.TProductQuantity;
 import Transfers.TTicket;
 import javafx.util.Pair;
 import Integracion.Querys.Query;
+import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
 
 
@@ -91,18 +92,19 @@ public class SATicketImpl implements SATicket {
 		TProductQuantity toa = null;
 		TTicket tt = null;
 		DAOTicket daoTicket = DAOAbstractFactory.getInstance().createDAOTicket();
-		DAOProduct dp = DAOAbstractFactory.getInstance().createDAOProduct();
-		List<Object> pl = null;
-		
+		HashMap<Integer, Pair<String, Integer>> productsToShow;
 		if(id != null){
 			tt = (TTicket)daoTicket.readTicket(id);
 			toa = new TProductQuantity(id, tt.get_finalPrice(), tt.get_date(), null);
-			pl = new ArrayList<Object>();
-			pl = tt.get_products();
-			Query q = QueryFactory.getInstance().newQuery("PONER AQUI EL EVENTO DE QUERY");
+			Query q = QueryFactory.getInstance().newQuery(QueryEvents.GET_INFO_EVENT);
+			if(q != null) {
+				
+				productsToShow=(HashMap<Integer, Pair<String, Integer>>)q.execute(id);
+			}
+			else return null;
 			
 			// TODO si no funciona el casteo hacer aqui un while() y cambiar la query
-			toa.set_productsToShow((HashMap<Integer, Pair<String, Integer>>)q.execute(id));
+			toa.set_productsToShow(productsToShow);
 		}
 		return toa;
 	}

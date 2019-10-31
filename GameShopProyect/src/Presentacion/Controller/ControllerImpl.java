@@ -23,14 +23,14 @@ public class ControllerImpl extends Controller {
 			try {
 				retExecute = command.execute(data);
 			} catch (Exception e) {
-				JOptionPane.showInputDialog(null, "ERROR 404: Cannot set the option...", "Fatal error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "ERROR 404: Cannot set the option...", "Fatal error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		
 		if(command != null && retExecute != null) 
 			ViewDispatcher.getInstance().createView(retExecute);
 		else
-			JOptionPane.showInputDialog(null, "ERROR 404: Cannot update the view...", "Fatal error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ERROR 404: Cannot update the view...", "Fatal error", JOptionPane.ERROR_MESSAGE);
 	}
 
 	@Override

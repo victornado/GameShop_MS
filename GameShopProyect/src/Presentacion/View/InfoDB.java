@@ -35,8 +35,6 @@ import Integracion.DAO.*;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 
-
-
 @SuppressWarnings("serial")
 public class InfoDB extends JDialog {
 	
@@ -115,6 +113,7 @@ public class InfoDB extends JDialog {
 		_passwText = new JPasswordField();
 		_passwText.setAlignmentX(Component.CENTER_ALIGNMENT);
 		_passwText.setToolTipText("Write the password of the selected database");
+		_passwText.setText(Main.Main.password);
 		_passwText.setSize(250, 30);	
 		_passwText.setPreferredSize(new Dimension(200,30));
 		_passwText.setMaximumSize(new Dimension(200,30));
@@ -177,12 +176,12 @@ public class InfoDB extends JDialog {
 					Controller.getInstance().initGameShop(Event.INIT_GAMESHOP);
 				}
 				catch (Exception e){
-					JOptionPane.showMessageDialog(null, "Error JDBC connection.","Failed",JOptionPane.ERROR_MESSAGE);
-					try {
+					JOptionPane.showMessageDialog(null, "Error JDBC connection.", "Failed", JOptionPane.ERROR_MESSAGE);
+					/*try {
 						Stmt.execute("DROP SCHEMA " + Main.Main.database);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
-					}
+					}*/
 				} finally {
 					try {
 						if(Stmt!=null) 

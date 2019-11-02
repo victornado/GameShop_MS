@@ -29,6 +29,7 @@ public class ShowPanel extends JPanel {
 	private String nameIdentificator;
 	private ShowOne so;
 	private ShowAll sa;
+	private ShowChart sc;
 	
 	public ShowPanel(String nameIdentificator) {
 		this.nameIdentificator = nameIdentificator.toLowerCase();
@@ -44,6 +45,7 @@ public class ShowPanel extends JPanel {
 			this.sa = new ShowAllTickets(nameIdentificator, null);
 			break;
 		}
+		this.sc = new ShowChart(nameIdentificator);
 		initPanel();
 	}
 
@@ -67,9 +69,14 @@ public class ShowPanel extends JPanel {
 		_tabs.setPreferredSize(new Dimension(400, 300));
 		_tabs.setVisible(true);
 		
-		// TODO caso para PROVEEDOR
+		// TODO comun para todos
 		_tabs.addTab("Show one", null, so, "Show the data of the selected " + nameIdentificator);
 		_tabs.addTab("Show all", null, sa, "Show the data of all " + nameIdentificator);
+		
+		if(!nameIdentificator.equalsIgnoreCase("Product")) {
+			_tabs.addTab("Stats", null, sc, "Show a chart of " + nameIdentificator + " query");
+		}
+		
 		
 		_tabs.addChangeListener(new ChangeListener() {
 			@Override

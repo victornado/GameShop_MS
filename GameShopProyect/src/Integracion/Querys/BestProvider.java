@@ -10,7 +10,7 @@ import java.util.List;
 public class BestProvider implements Query {
 
 	@Override
-	public Object execute(Object data) throws Exception {
+	public Object execute(Object data, Integer lock) throws Exception {
 		List<Object> sol = null;
 		String queryString = "SELECT p.nombre, pr.NIF, SUM(p.unidadesProv) AS unidades " + 
 							"FROM producto p JOIN proveedor pr " + 
@@ -19,6 +19,16 @@ public class BestProvider implements Query {
 							"HAVING unidades >= ALL (SELECT SUM(unidadesProv) " + 
 													"FROM producto " + 
 													"GROUP BY IDProveedor) ";
+		if(lock == LockModeType.PESSIMISTIC)
+		{
+			queryString = "SELECT p.nombre, pr.NIF, SUM(p.unidadesProv) AS unidades " + 
+					"FROM producto p JOIN proveedor pr " + 
+					"ON p.IDProveedor=pr.ID " + 
+					"GROUP BY pr.NIF " + 
+					"HAVING unidades >= ALL (SELECT SUM(unidadesProv) " + 
+											"FROM producto " + 
+											"GROUP BY IDProveedor) FOR UPDATE";
+		}
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database,
 				Main.Main.user, Main.Main.password);

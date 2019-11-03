@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Integracion.Querys.LockModeType;
 import Transfers.TAccessory;
 import Transfers.TGame;
 import Transfers.TProduct;
@@ -162,13 +163,18 @@ public class DAOProductImpl implements DAOProduct {
 		return ret;
 	}
 
-	public TProduct readProduct(Integer id) {
+	public TProduct readProduct(Integer id, Integer lock) {
 		TProduct tp = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM producto WHERE ID=?",
 					PreparedStatement.RETURN_GENERATED_KEYS);;
+			if(lock== LockModeType.PESSIMISTIC)
+			{
+				ps = con.prepareStatement("SELECT * FROM producto WHERE ID=? FOR UPDATE",
+						PreparedStatement.RETURN_GENERATED_KEYS);;
+			}
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 	
@@ -204,12 +210,14 @@ public class DAOProductImpl implements DAOProduct {
 		return tp;
 	}
 
-	public List<Object> readAllProducts() {
+	public List<Object> readAllProducts(Integer lock) {
 		List<Object> l = new ArrayList<Object>();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM producto", PreparedStatement.RETURN_GENERATED_KEYS);
+			if(lock==LockModeType.PESSIMISTIC)
+				ps = con.prepareStatement("SELECT * FROM producto FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()){
@@ -246,13 +254,17 @@ public class DAOProductImpl implements DAOProduct {
 		return l;
 	}
 	
-	public TProduct readProductByName(String name) {
+	public TProduct readProductByName(String name, Integer lock) {
 		TProduct tp = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps;
 			ps= con.prepareStatement("SELECT ID FROM producto WHERE (nombre=?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			if(lock== LockModeType.PESSIMISTIC)
+			{
+				ps= con.prepareStatement("SELECT ID FROM producto WHERE (nombre=?) FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+			}
 			ps.setString(1, name);
 			ResultSet rs = ps.executeQuery();
 

@@ -13,7 +13,7 @@ public interface DAOProvider {
 	public Integer createProvider(TProvider tp);
 	public Boolean deleteProvider(TProvider tp);
 	public Boolean updateProvider(TProvider tp);
-	public Object readProvider(Integer id);
-	public List<Object> readAllProviders();
-	public Object readProviderByNIF(String s);
+	public Object readProvider(Integer id, Integer lock);
+	public List<Object> readAllProviders(Integer lock);
+	public Object readProviderByNIF(String s, Integer lock);
 }

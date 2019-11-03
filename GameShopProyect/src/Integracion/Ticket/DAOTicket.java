@@ -13,6 +13,6 @@ public interface DAOTicket {
 	
 	public Integer createTicket(TTicket tt);
 	public Boolean deleteTicket(Integer id);
-	public TTicket readTicket(Integer id);
-	public List<Object> readAllTickets();
+	public TTicket readTicket(Integer id, Integer lock);
+	public List<Object> readAllTickets(Integer lock);
 }

@@ -1,7 +1,6 @@
 
 package Negocio.Ticket;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import Transfers.TProduct;
 import Transfers.TProductQuantity;
 import Transfers.TTicket;
 import javafx.util.Pair;
+import Integracion.Querys.LockModeType;
 import Integracion.Querys.Query;
 import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
@@ -71,10 +71,10 @@ public class SATicketImpl implements SATicket {
 		DAOProduct daoProduct = DAOAbstractFactory.getInstance().createDAOProduct();
 		
 		if(id != null) {
-			TTicket tt = (TTicket)daoTicket.readTicket(id);
+			TTicket tt = (TTicket)daoTicket.readTicket(id,LockModeType.PESSIMISTIC);
 			for(int i = 0; i < tt.get_products().size(); i++) {
 				TAsociated ta = (TAsociated)tt.get_products().get(i);
-				TProduct tp = daoProduct.readProduct(ta.get_idProduct());
+				TProduct tp = daoProduct.readProduct(ta.get_idProduct(),LockModeType.PESSIMISTIC);
 				if(tp!=null) {
 					tp.set_stock(ta.get_cantidad() + tp.get_stock());
 					tp.set_unitsProvided(0);
@@ -94,12 +94,12 @@ public class SATicketImpl implements SATicket {
 		DAOTicket daoTicket = DAOAbstractFactory.getInstance().createDAOTicket();
 		HashMap<Integer, Pair<String, Integer>> productsToShow;
 		if(id != null){
-			tt = (TTicket)daoTicket.readTicket(id);
+			tt = (TTicket)daoTicket.readTicket(id,LockModeType.PESSIMISTIC);
 			toa = new TProductQuantity(id, tt.get_finalPrice(), tt.get_date(), null);
 			Query q = QueryFactory.getInstance().newQuery(QueryEvents.GET_INFO_EVENT);
 			if(q != null) {
 				
-				productsToShow=(HashMap<Integer, Pair<String, Integer>>)q.execute(id);
+				productsToShow=(HashMap<Integer, Pair<String, Integer>>)q.execute(id, LockModeType.PESSIMISTIC);
 			}
 			else return null;
 			
@@ -111,7 +111,7 @@ public class SATicketImpl implements SATicket {
 	
 	public List<Object> readAllTickets() {
 		List<Object> tickets = null;
-		tickets = DAOAbstractFactory.getInstance().createDAOTicket().readAllTickets();
+		tickets = DAOAbstractFactory.getInstance().createDAOTicket().readAllTickets(LockModeType.PESSIMISTIC);
 		return tickets;
 	}
 	
@@ -128,7 +128,7 @@ public class SATicketImpl implements SATicket {
 			//TProduct prod = (TProduct) tt.get_products().get(i);
 			TAsociated ta = (TAsociated) tt.get_products().get(i);
 			
-			TProduct aux = DAOAbstractFactory.getInstance().createDAOProduct().readProduct(ta.get_idProduct());
+			TProduct aux = DAOAbstractFactory.getInstance().createDAOProduct().readProduct(ta.get_idProduct(),LockModeType.PESSIMISTIC);
 			if(aux==null)
 				return false;
 		

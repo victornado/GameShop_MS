@@ -13,7 +13,7 @@ import javafx.util.Pair;
 public class GetBestProductSelled implements Query {
 
 	@Override
-	public Object execute(Object data) throws Exception {
+	public Object execute(Object data, Integer lock) throws Exception {
 		@SuppressWarnings("unchecked")
 		Pair<Timestamp,Timestamp>dates=(Pair<Timestamp,Timestamp>)data;
 		List<Object[]> sol = null;
@@ -23,6 +23,15 @@ public class GetBestProductSelled implements Query {
 				  + "JOIN ticket t "
 				  + "ON t.ID=a.IDTicket"
 				  + "WHERE t.fecha BETWEEN ? AND ? ";
+		if(lock == LockModeType.PESSIMISTIC)
+		{
+			queryString = "SELECT p.nombre, a.cantidad, t.fecha "
+					  + "FROM producto p JOIN asociado a "
+					  + "ON p.ID=a.IDProducto "
+					  + "JOIN ticket t "
+					  + "ON t.ID=a.IDTicket"
+					  + "WHERE t.fecha BETWEEN ? AND ? FOR UPDATE";
+		}
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 		PreparedStatement ps = con.prepareStatement(queryString, PreparedStatement.RETURN_GENERATED_KEYS);

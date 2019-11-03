@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Integracion.Querys.LockModeType;
 import Transfers.TProvider;
 
 /** 
@@ -95,7 +96,7 @@ public class DAOProviderImpl implements DAOProvider {
 		return ret;
 	}
 
-	public Object readProvider(Integer id) {
+	public Object readProvider(Integer id, Integer lock) {
 		TProvider tpl = null;
 		try {
 			/*
@@ -106,6 +107,10 @@ public class DAOProviderImpl implements DAOProvider {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM proveedor WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
+			if(lock== LockModeType.PESSIMISTIC)
+			{
+				ps = con.prepareStatement("SELECT * FROM proveedor WHERE ID=? FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+			}
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
@@ -125,12 +130,14 @@ public class DAOProviderImpl implements DAOProvider {
 		return tpl;
 	}
 
-	public List<Object> readAllProviders() {
+	public List<Object> readAllProviders(Integer lock) {
 		List<Object> l = new ArrayList<Object>();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM proveedor", PreparedStatement.RETURN_GENERATED_KEYS);
+			if(lock == LockModeType.PESSIMISTIC)
+				ps = con.prepareStatement("SELECT * FROM proveedor FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()){
@@ -149,7 +156,7 @@ public class DAOProviderImpl implements DAOProvider {
 		return l;
 	}
 
-	public TProvider readProviderByNIF(String s) {
+	public TProvider readProviderByNIF(String s, Integer lock) {
 		
 		TProvider tpl = null;
 		try {
@@ -161,6 +168,10 @@ public class DAOProviderImpl implements DAOProvider {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("SELECT ID FROM proveedor WHERE NIF=?", PreparedStatement.RETURN_GENERATED_KEYS);
+			if(lock== LockModeType.PESSIMISTIC)
+			{
+				ps = con.prepareStatement("SELECT ID FROM proveedor WHERE NIF=? FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+			}
 			ps.setString(1, s);
 			ResultSet rs = ps.executeQuery();
 			//ResultSet rs = ps.getGeneratedKeys();

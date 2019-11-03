@@ -3,6 +3,7 @@ package Negocio.Product;
 import java.util.List;
 
 import Integracion.DAO.DAOAbstractFactory;
+import Integracion.Querys.LockModeType;
 import Transfers.TProduct;
 import Transfers.TProvider;
 import Transfers.TAccessory;
@@ -19,14 +20,14 @@ public class SAProductImpl implements SAProduct {
 		TProvider tprd;
 		
 		if(!tpr.get_name().trim().isEmpty() && tpr.get_unitsProvided() > 0 && tpr.get_pvp() >= 0){
-				tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(tpr.get_providerId());
+				tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(tpr.get_providerId(),LockModeType.PESSIMISTIC);
 				if(tprd != null && tprd.get_activated()){
 					if(tpr.get_type() == TProduct.accessory && !((TAccessory)tpr).get_brand().isEmpty() &&
 							!((TAccessory)tpr).get_color().isEmpty() ||
 							tpr.get_type() == TProduct.game && !((TGame)tpr).get_description().isEmpty() &&
 							!((TGame)tpr).get_gender().isEmpty()){
 						
-						TProduct tp = DAOAbstractFactory.getInstance().createDAOProduct().readProductByName(tpr.get_name());
+						TProduct tp = DAOAbstractFactory.getInstance().createDAOProduct().readProductByName(tpr.get_name(),LockModeType.PESSIMISTIC);
 						if(tp == null)
 							id = DAOAbstractFactory.getInstance().createDAOProduct().createProduct(tpr);
 					}
@@ -38,7 +39,7 @@ public class SAProductImpl implements SAProduct {
 	public Boolean deleteProduct(Integer id) {
 		boolean ret = false;
 		if(id != null) {
-			TProduct tp = DAOAbstractFactory.getInstance().createDAOProduct().readProduct(id);
+			TProduct tp = DAOAbstractFactory.getInstance().createDAOProduct().readProduct(id, LockModeType.PESSIMISTIC);
 			if(tp != null && tp.get_activated()){
 				ret = DAOAbstractFactory.getInstance().createDAOProduct().deleteProduct(id);
 			}
@@ -55,7 +56,7 @@ public class SAProductImpl implements SAProduct {
 			return false;
 		if(((TProduct)tpr).get_pvp() < 0)
 			return false;
-		if((tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(((TProduct)tpr).get_providerId())) == null || !tprd.get_activated())
+		if((tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(((TProduct)tpr).get_providerId(),LockModeType.PESSIMISTIC)) == null || !tprd.get_activated())
 			return false;
 		if(((TProduct)tpr).get_type().equals(TProduct.accessory)) {
 			if(((TAccessory)tpr).get_brand().isEmpty())
@@ -78,10 +79,10 @@ public class SAProductImpl implements SAProduct {
 	}
 
 	public Object readProduct(Integer id) {
-		return DAOAbstractFactory.getInstance().createDAOProduct().readProduct(id);
+		return DAOAbstractFactory.getInstance().createDAOProduct().readProduct(id,LockModeType.PESSIMISTIC);
 	}
 
 	public List<Object> readAllProducts() {
-		return DAOAbstractFactory.getInstance().createDAOProduct().readAllProducts();
+		return DAOAbstractFactory.getInstance().createDAOProduct().readAllProducts(LockModeType.PESSIMISTIC);
 	}
 }

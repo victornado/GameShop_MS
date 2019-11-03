@@ -4,8 +4,7 @@ import java.util.List;
 
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Provider.DAOProvider;
-import Presentacion.Controller.Controller;
-import Presentacion.Controller.Event;
+import Integracion.Querys.LockModeType;
 import Transfers.TProvider;
 
 /**
@@ -18,7 +17,7 @@ public class SAProviderImpl implements SAProvider {
 		int id = -1;
 		if(validateData(tp)) {
 			DAOProvider daoProvider = DAOAbstractFactory.getInstance().createDAOProvider();
-			TProvider tpl = (TProvider) daoProvider.readProviderByNIF(tp.get_nif());
+			TProvider tpl = (TProvider) daoProvider.readProviderByNIF(tp.get_nif(),LockModeType.PESSIMISTIC);
 			if(tpl == null)
 				id = daoProvider.createProvider(tp);
 		}
@@ -30,7 +29,7 @@ public class SAProviderImpl implements SAProvider {
 		DAOProvider daopi = DAOAbstractFactory.getInstance().createDAOProvider();
 		
 		if(id != null) {
-			TProvider tprnif = (TProvider)daopi.readProvider(id);
+			TProvider tprnif = (TProvider)daopi.readProvider(id,LockModeType.PESSIMISTIC);
 			// Si devuelve un transfer significa que existe y por lo tanto se procede a borrarlo
 			if(tprnif != null && tprnif.get_activated())
 				ret = daopi.deleteProvider(tprnif);
@@ -41,10 +40,10 @@ public class SAProviderImpl implements SAProvider {
 
 	public Boolean updateProvider(TProvider tp ) {
 		TProvider tpr = null;
-		if (!validateData(tp) || (tpr = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(tp.get_id()))==null ) 
+		if (!validateData(tp) || (tpr = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(tp.get_id(),LockModeType.PESSIMISTIC))==null ) 
 			return false;
 		if (!tpr.get_nif().equalsIgnoreCase( tp.get_nif())) {
-			if(DAOAbstractFactory.getInstance().createDAOProvider().readProviderByNIF(tp.get_nif()) != null)
+			if(DAOAbstractFactory.getInstance().createDAOProvider().readProviderByNIF(tp.get_nif(),LockModeType.PESSIMISTIC) != null)
 				return false;
 		}
 		return DAOAbstractFactory.getInstance().createDAOProvider().updateProvider(tp);
@@ -55,14 +54,14 @@ public class SAProviderImpl implements SAProvider {
 		DAOProvider daoProvider = DAOAbstractFactory.getInstance().createDAOProvider();
 		
 		if(id != null)
-			ret = (TProvider)daoProvider.readProvider(id);
+			ret = (TProvider)daoProvider.readProvider(id,LockModeType.PESSIMISTIC);
 		
 		return ret;
 	}
 
 	public List<Object> readAllProviders() {
 		List<Object> providers = null;
-		providers = DAOAbstractFactory.getInstance().createDAOProvider().readAllProviders();
+		providers = DAOAbstractFactory.getInstance().createDAOProvider().readAllProviders(LockModeType.PESSIMISTIC);
 		return providers;
 	}
 

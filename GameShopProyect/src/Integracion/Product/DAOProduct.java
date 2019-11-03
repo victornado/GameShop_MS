@@ -13,8 +13,8 @@ public interface DAOProduct {
 	public Integer createProduct(TProduct tpr);
 	public Boolean deleteProduct(Integer id);
 	public Boolean updateProduct(TProduct tpr);
-	public TProduct readProduct(Integer id);
-	public List<Object> readAllProducts();
-	public TProduct readProductByName(String name);
+	public TProduct readProduct(Integer id, Integer lock);
+	public List<Object> readAllProducts(Integer lock);
+	public TProduct readProductByName(String name, Integer lock);
 	// METODO PARA DIFERENCIAR DE SI ES UN JUEGO O UN ACCESORIO
 }

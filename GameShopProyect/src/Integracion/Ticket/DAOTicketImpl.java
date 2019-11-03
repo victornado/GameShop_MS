@@ -3,6 +3,7 @@ package Integracion.Ticket;
 import java.util.ArrayList;
 import java.util.List;
 
+import Integracion.Querys.LockModeType;
 import Transfers.TAsociated;
 import Transfers.TTicket;
 
@@ -119,12 +120,16 @@ public class DAOTicketImpl implements DAOTicket {
 		return tp;
 	}*/
 	
-	public TTicket readTicket(Integer id) {
+	public TTicket readTicket(Integer id, Integer lock) {
 		TTicket tp = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM ticket WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
+			if(lock == LockModeType.PESSIMISTIC)
+			{
+				ps = con.prepareStatement("SELECT * FROM ticket WHERE ID=? FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+			}
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			
@@ -156,12 +161,14 @@ public class DAOTicketImpl implements DAOTicket {
 		return tp;
 	}
 	
-	public List<Object> readAllTickets() {
+	public List<Object> readAllTickets(Integer lock) {
 		List<Object> l = new ArrayList<Object>();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM ticket", PreparedStatement.RETURN_GENERATED_KEYS);
+			if(lock==LockModeType.PESSIMISTIC)
+				ps = con.prepareStatement("SELECT * FROM ticket FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()){

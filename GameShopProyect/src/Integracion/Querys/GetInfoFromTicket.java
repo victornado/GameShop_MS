@@ -11,13 +11,20 @@ import javafx.util.Pair;
 public class GetInfoFromTicket implements Query {
 
 	@Override
-	public Object execute(Object data) throws Exception {
+	public Object execute(Object data, Integer lock) throws Exception {
 		HashMap<Integer, Pair<String, Integer>> info = null;
 		try {
 			String queryString = "SELECT p.ID, p.nombre, a.cantidad "
 					  + "FROM producto p JOIN asociado a "
 					  + "ON p.ID=a.IDProducto "
 					  + "WHERE a.IDTicket = ? ";
+			if(lock == LockModeType.PESSIMISTIC)
+			{
+				queryString = "SELECT p.ID, p.nombre, a.cantidad "
+						  + "FROM producto p JOIN asociado a "
+						  + "ON p.ID=a.IDProducto "
+						  + "WHERE a.IDTicket = ? FOR UPDATE";
+			}
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
 			PreparedStatement ps = con.prepareStatement(queryString, PreparedStatement.RETURN_GENERATED_KEYS);

@@ -4,6 +4,7 @@ package Negocio.Ticket;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -165,13 +166,16 @@ public class SATicketImpl implements SATicket {
 	}
 
 	private Pair<Boolean, Pair<Timestamp, Timestamp>> checkDates(String from, String to) throws Exception {
-		Timestamp fromTs = Timestamp.valueOf(from);
-		Timestamp toTs = Timestamp.valueOf(to);
+		/*Timestamp fromTs = Timestamp.valueOf(from + " 15:20:10");
+		Timestamp toTs = Timestamp.valueOf(to + " 15:20:10");
+		//Instant i = Instant.parse(fromTs.toString());
+		System.out.println(fromTs.toString() + "  " + toTs.toString());*/
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = (Date)formatter.parse(from);
+		Timestamp fromTs = new Timestamp(date.getTime());
+		formatter = new SimpleDateFormat("yyyy-MM-dd");
+		date = (Date)formatter.parse(to);
+		Timestamp toTs = new Timestamp(date.getTime());
 		return new Pair<Boolean, Pair<Timestamp, Timestamp>>(true, new Pair<Timestamp, Timestamp>(fromTs, toTs));
-		
-		// Otra forma alternativa que tampoco funciona...
-//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//		Timestamp fromTs = new Timestamp(((java.util.Date)df.parse(to)).getTime());
-//		Timestamp toTs = new Timestamp(((java.util.Date)df.parse(from)).getTime());
 	}
 }

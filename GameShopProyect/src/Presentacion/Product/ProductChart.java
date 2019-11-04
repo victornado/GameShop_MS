@@ -33,9 +33,11 @@ public class ProductChart extends JDialog {
 	private PiePlot3D pieplot3d;
 	private DefaultCategoryDataset dataset;
 	private CategoryPlot p;
+	private boolean _showThis;
 
 	public ProductChart(String chartType) {
 		_chartType = chartType;
+		_showThis = true;
 		initGUI();
 	}
 
@@ -61,7 +63,7 @@ public class ProductChart extends JDialog {
 
 		createChart();
 
-		this.setVisible(true);
+		if(_showThis) this.setVisible(true);
 	}
 
 	private void createChart() {
@@ -91,8 +93,7 @@ public class ProductChart extends JDialog {
 			chartPanel = new ChartPanel(chart);
 			this.add(chartPanel);
 		} else {
-			setVisible(false);
-			dispose();
+			_showThis = false;
 		}
 	}
 
@@ -116,8 +117,7 @@ public class ProductChart extends JDialog {
 			this.add(chartPanel);
 	        
 		} else {
-			setVisible(false);
-			dispose();
+			_showThis = false;
 		}
 	}
 }

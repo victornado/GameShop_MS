@@ -36,10 +36,12 @@ public class TicketChart extends JDialog {
 	private PiePlot3D pieplot3d;
 	private DefaultCategoryDataset dataset;
 	private CategoryPlot p;
+	private boolean _showThis;
 	
 	public TicketChart(String chartType, String from, String to) {
 		_chartType = chartType;
 		_dates = new Pair<String, String>(from, to);
+		_showThis = true;
 		initGUI();
 	}
 	
@@ -65,7 +67,7 @@ public class TicketChart extends JDialog {
 
 		createChart();
 
-		this.setVisible(true);
+		if(_showThis) this.setVisible(true);
 	}
 	
 	private void createChart() {
@@ -95,8 +97,7 @@ public class TicketChart extends JDialog {
 			chartPanel = new ChartPanel(chart);
 			this.add(chartPanel);
 		} else {
-			setVisible(false);
-			dispose();
+			_showThis = false;
 		}
 	}
 	
@@ -120,8 +121,7 @@ public class TicketChart extends JDialog {
 			this.add(chartPanel);
 	        
 		} else {
-			setVisible(false);
-			dispose();
+			_showThis = false;
 		}
 	}
 }

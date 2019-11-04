@@ -2,8 +2,8 @@
 package Negocio.Ticket;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Product.DAOProduct;
+import Integracion.Querys.LockModeType;
+import Integracion.Querys.Query;
+import Integracion.Querys.QueryEvents;
+import Integracion.Querys.QueryFactory;
 import Integracion.Ticket.DAOTicket;
 import Negocio.SA.SAAbstractFactory;
 import Transfers.TAsociated;
@@ -18,10 +22,6 @@ import Transfers.TProduct;
 import Transfers.TProductQuantity;
 import Transfers.TTicket;
 import javafx.util.Pair;
-import Integracion.Querys.LockModeType;
-import Integracion.Querys.Query;
-import Integracion.Querys.QueryEvents;
-import Integracion.Querys.QueryFactory;
 
 public class SATicketImpl implements SATicket {
 
@@ -164,14 +164,14 @@ public class SATicketImpl implements SATicket {
 		return null;
 	}
 
-	private Pair<Boolean, Pair<Timestamp, Timestamp>> checkDates(String from, String to) {
-		String[] splitFrom = from.split("-");
-		String[] splitTo = from.split("-");
-		if (splitFrom[0].length() != 4 || splitFrom[1].length() != 2 || splitFrom[2].length() != 2
-				|| splitTo[0].length() != 4 || splitTo[1].length() != 2 || splitTo[2].length() != 2)
-			return new Pair<Boolean, Pair<Timestamp, Timestamp>>(false, new Pair<Timestamp, Timestamp>(null, null));
-		return new Pair<Boolean, Pair<Timestamp, Timestamp>>(false, new Pair<Timestamp, Timestamp>(null, null));
-
-		// TODO return new Pair<Boolean, Pair<Timestamp, Timestamp>>(true, new Pair<Timestamp, Timestamp>(from, to));
+	private Pair<Boolean, Pair<Timestamp, Timestamp>> checkDates(String from, String to) throws Exception {
+		Timestamp fromTs = Timestamp.valueOf(from);
+		Timestamp toTs = Timestamp.valueOf(to);
+		return new Pair<Boolean, Pair<Timestamp, Timestamp>>(true, new Pair<Timestamp, Timestamp>(fromTs, toTs));
+		
+		// Otra forma alternativa que tampoco funciona...
+//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//		Timestamp fromTs = new Timestamp(((java.util.Date)df.parse(to)).getTime());
+//		Timestamp toTs = new Timestamp(((java.util.Date)df.parse(from)).getTime());
 	}
 }

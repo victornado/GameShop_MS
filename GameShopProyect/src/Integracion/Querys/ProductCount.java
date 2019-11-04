@@ -28,8 +28,8 @@ public class ProductCount implements Query {
 				Main.Main.user, Main.Main.password);
 		PreparedStatement ps = con.prepareStatement(queryString, PreparedStatement.RETURN_GENERATED_KEYS);
 		ResultSet rs = ps.executeQuery();
+		sol = new ArrayList<Pair<String,Integer>>();
 		while (rs.next()) {
-			sol = new ArrayList<Pair<String,Integer>>();
 			Pair<String,Integer> aux= new Pair<String,Integer>(rs.getString(1),rs.getInt(2));
 			sol.add(aux);
 		}

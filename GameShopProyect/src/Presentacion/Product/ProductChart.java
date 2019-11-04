@@ -1,4 +1,4 @@
-package Presentacion.Ticket;
+package Presentacion.Product;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -6,11 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -27,22 +25,20 @@ import Presentacion.View.ShowChart;
 import javafx.util.Pair;
 
 @SuppressWarnings("serial")
-public class TicketChart extends JDialog {
+public class ProductChart extends JDialog {
 	private String _chartType;
-	private Pair<String, String> _dates;
 	private DefaultPieDataset defaultpiedataset;
 	private JFreeChart chart;
 	private ChartPanel chartPanel;
 	private PiePlot3D pieplot3d;
 	private DefaultCategoryDataset dataset;
 	private CategoryPlot p;
-	
-	public TicketChart(String chartType, String from, String to) {
+
+	public ProductChart(String chartType) {
 		_chartType = chartType;
-		_dates = new Pair<String, String>(from, to);
 		initGUI();
 	}
-	
+
 	private void initGUI() {
 		this.setPreferredSize(new Dimension(700, 470));
 		this.setMinimumSize(new Dimension(700, 470));
@@ -67,24 +63,24 @@ public class TicketChart extends JDialog {
 
 		this.setVisible(true);
 	}
-	
+
 	private void createChart() {
 		if (_chartType.equalsIgnoreCase(ShowChart.PIE_CHART))
 			createPieChart();
 		else
 			createBarChart();
 	}
-	
+
 	private void createPieChart() {
-		ArrayList<Object[]> data = (ArrayList<Object[]>) SAAbstractFactory.getInstance()
-				.createSATicket().getBestProduct(_dates.getKey(), _dates.getValue());
+		ArrayList<Pair<String, Integer>> data = (ArrayList<Pair<String, Integer>>) SAAbstractFactory.getInstance()
+				.createSAProduct().getProductsCount();
 		if (data != null) {
 			defaultpiedataset = new DefaultPieDataset();
-			chart = ChartFactory.createPieChart3D("Get product selled in a date range", defaultpiedataset, true, true, false);
+			chart = ChartFactory.createPieChart3D("Get product types count", defaultpiedataset, true, true, false);
 			pieplot3d = (PiePlot3D) chart.getPlot();
 			int i = 0;
 			while (i < data.size()) {
-				defaultpiedataset.setValue((String)data.get(i)[0], (Integer)data.get(i)[1]);
+				defaultpiedataset.setValue(data.get(i).getKey(), data.get(i).getValue());
 				++i;
 			}
 			pieplot3d.setDepthFactor(0.5);
@@ -99,18 +95,18 @@ public class TicketChart extends JDialog {
 			dispose();
 		}
 	}
-	
+
 	private void createBarChart() {
-		ArrayList<Object[]> data = (ArrayList<Object[]>) SAAbstractFactory.getInstance()
-				.createSATicket().getBestProduct(_dates.getKey(), _dates.getValue());
+		ArrayList<Pair<String, Integer>> data = (ArrayList<Pair<String, Integer>>) SAAbstractFactory.getInstance()
+				.createSAProduct().getProductsCount();
 		if (data != null) {
 			dataset = new DefaultCategoryDataset();
 			int i = 0;
 			while (i < data.size()) {
-				dataset.setValue((Integer)data.get(i)[1], (Integer)data.get(i)[1], (String)data.get(i)[0]);
+				dataset.setValue(data.get(i).getValue(), data.get(i).getKey(), data.get(i).getKey());
 				++i;
 			}
-			chart = ChartFactory.createBarChart3D("Get product selled in a date range", "Name", "Count", dataset,
+			chart = ChartFactory.createBarChart3D("Get product types count", "Type", "Count", dataset,
 					PlotOrientation.VERTICAL, true, true, false);
 			chart.setBackgroundPaint(Color.white);
 			chart.getTitle().setPaint(Color.black);

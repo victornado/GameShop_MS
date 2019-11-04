@@ -16,4 +16,5 @@ public interface SATicket {
 	public Boolean deleteTicket(Integer id);
 	public Object TOAReadTicket(Integer id) throws Exception;
 	public List<Object> readAllTickets();
+	public List<Object[]> getBestProduct(String from, String to);
 }

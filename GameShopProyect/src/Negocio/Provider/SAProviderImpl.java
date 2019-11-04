@@ -2,10 +2,15 @@ package Negocio.Provider;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Provider.DAOProvider;
 import Integracion.Querys.LockModeType;
+import Integracion.Querys.QueryEvents;
+import Integracion.Querys.QueryFactory;
 import Transfers.TProvider;
+import javafx.util.Pair;
 
 /**
 * @author GameShop
@@ -114,6 +119,17 @@ public class SAProviderImpl implements SAProvider {
 		if (myNif.length() != 8)
 			return false;
 		else return true;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object> getBestProvider() {
+		try {
+			return (List<Object>) QueryFactory.getInstance().newQuery(QueryEvents.GET_BEST_PROVIDER).execute(null, LockModeType.PESSIMISTIC);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "ERROR: Cannot execute the selected query.", "Fatal error", JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
 	}
 
 }

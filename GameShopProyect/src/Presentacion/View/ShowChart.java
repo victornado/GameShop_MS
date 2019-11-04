@@ -2,8 +2,10 @@ package Presentacion.View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -13,13 +15,13 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import Negocio.SA.SAAbstractFactory;
-import Presentacion.Provider.ProviderChart;
+import Presentacion.Product.ProductChart;
 import Presentacion.Ticket.TicketChart;
-import Transfers.TProvider;
 
 @SuppressWarnings("serial")
 public class ShowChart extends JPanel {
@@ -27,14 +29,14 @@ public class ShowChart extends JPanel {
 	public static final String BAR_CHART = "Bar chart";
 	private String _nameIdentificator;
 	private JComboBox<Object> _election; // Para elegir el tipo de grafico
-	private JComboBox<Object> _providers; // Para elegir el proveedor
+	private JComboBox<Object> _products; // Para elegir el producto
 	private JButton _show;
-	private JPanel _chart;
 	private JScrollPane _jsc; // Para almacenar el panel que contiene la grafica
 	private JTextField _from;
 	private JTextField _to;
 	private JLabel _lFrom, _lTo;
-	
+	private JTextArea _info;
+
 	public ShowChart(String tabName) { // data ==> Pair<> para ticket y Transfer para provider
 		_nameIdentificator = tabName.toLowerCase();
 		initGUI();
@@ -44,33 +46,22 @@ public class ShowChart extends JPanel {
 		this.setPreferredSize(new Dimension(400, 300));
 		this.setMinimumSize(new Dimension(400, 300));
 		this.setMaximumSize(new Dimension(400, 300));
-		
+
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
+
 		initComponents();
-		
+
 		this.setVisible(true);
 	}
 
-	private void initComponents() {	
+	private void initComponents() {
 		this.add(Box.createVerticalGlue());
-		if(_nameIdentificator.equalsIgnoreCase("Provider")) {
-			_providers = new JComboBox<Object>();
-			_providers.setPreferredSize(new Dimension(200, 20));
-			_providers.setMinimumSize(new Dimension(200, 20));
-			_providers.setMaximumSize(new Dimension(200, 20));
-			fillProviderList();
-			_providers.setEditable(false);
-			_providers.setVisible(true);
-			this.add(_providers);
-			this.add(Box.createRigidArea(new Dimension(1, 5)));
-		}
-		else if(_nameIdentificator.equalsIgnoreCase("Ticket")) {
+		if (_nameIdentificator.equalsIgnoreCase("Ticket")) {
 			_lFrom = new JLabel("From: ");
 			_lFrom.setAlignmentX(CENTER_ALIGNMENT);
 			this.add(_lFrom);
 			_from = new JTextField("yyyy-mm-dd [hh:mm:ss]");
-			_to =	new JTextField("yyyy-mm-dd [hh:mm:ss]");
+			_to = new JTextField("yyyy-mm-dd [hh:mm:ss]");
 			_from.setPreferredSize(new Dimension(150, 20));
 			_to.setPreferredSize(new Dimension(150, 20));
 			_from.setMinimumSize(new Dimension(150, 20));
@@ -88,20 +79,38 @@ public class ShowChart extends JPanel {
 			this.add(_to);
 			this.add(Box.createRigidArea(new Dimension(1, 5)));
 		}
-		
-		_election = new JComboBox<Object>();
-		_election.setPreferredSize(new Dimension(200, 20));
-		_election.setMinimumSize(new Dimension(200, 20));
-		_election.setMaximumSize(new Dimension(200, 20));
-		_election.removeAllItems();
-		_election.addItem(PIE_CHART);
-		_election.addItem(BAR_CHART);
-		_election.setEditable(false);
-		_election.setVisible(true);
-		this.add(_election);
-		
+		else if (_nameIdentificator.equalsIgnoreCase("Provider")) {
+			this.add(new JLabel("Show the best provider of the shop:"));
+			_info = new JTextArea();
+			_info.setWrapStyleWord(true);
+			_info.setLineWrap(true);
+			_info.setPreferredSize(new Dimension(150, 150));
+			_info.setMinimumSize(new Dimension(150, 150));
+			_info.setMaximumSize(new Dimension(150, 150));
+			_info.setEditable(false);
+			_info.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 1),
+					"Best provider data", TitledBorder.LEFT, TitledBorder.TOP));
+			_info.setFont(new Font("Arial", 0, 11));
+			_info.setVisible(true);
+			this.add(new JScrollPane(_info, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+					JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+		}
+
+		if (!_nameIdentificator.equalsIgnoreCase("Provider")) {
+			_election = new JComboBox<Object>();
+			_election.setPreferredSize(new Dimension(200, 20));
+			_election.setMinimumSize(new Dimension(200, 20));
+			_election.setMaximumSize(new Dimension(200, 20));
+			_election.removeAllItems();
+			_election.addItem(PIE_CHART);
+			_election.addItem(BAR_CHART);
+			_election.setEditable(false);
+			_election.setVisible(true);
+			this.add(_election);
+		}
+
 		this.add(Box.createRigidArea(new Dimension(1, 10)));
-		
+
 		_show = new JButton("Show");
 		_show.setAlignmentX(CENTER_ALIGNMENT);
 		_show.setSize(new Dimension(100, 30));
@@ -109,52 +118,47 @@ public class ShowChart extends JPanel {
 		_show.setMaximumSize(new Dimension(100, 30));
 		this.add(_show);
 		_show.setVisible(true);
-		
-		this.add(Box.createRigidArea(new Dimension(1, 30)));
-		
-		_chart = new JPanel();
-		_chart.setBackground(Color.white);
-		_chart.setPreferredSize(new Dimension(300, 150));
-		_chart.setMinimumSize(new Dimension(300, 150));
-		_chart.setMaximumSize(new Dimension(300, 150));
-		_jsc = new JScrollPane(_chart);
-		_jsc.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 1),
-				"Chart", TitledBorder.LEFT, TitledBorder.TOP));
-		this.add(_jsc);
-		_jsc.setVisible(true);
-		
+
 		this.add(Box.createVerticalGlue());
-		
+
 		addShowButtonAction();
-	}
-	
-	private void fillProviderList() {
-		_providers.removeAllItems();
-		for(Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
-			_providers.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
 	}
 
 	private void addShowButtonAction() {
 		_show.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String chartElection = (String)_election.getSelectedItem();
+				String chartElection;
 				switch(_nameIdentificator){
-				case "provider":
-					// Llamar a: _chart = ProviderChart(chartElection, nameidentificator, datos)
-					Integer providerSelected = Integer.parseInt(((String)_providers.getSelectedItem()).split(" - ")[0]);
-					_chart = new ProviderChart(chartElection, _nameIdentificator, providerSelected).getChart();
-					_jsc.revalidate();
-					_jsc.repaint();
+				case "product":
+					chartElection = (String)_election.getSelectedItem();
+					new ProductChart(chartElection);
 					break;
 				case "ticket":
-					//Pair<String, String> datesTicket = new Pair<String, String>(_from.getText(), _to.getText());
-					_chart = new TicketChart(chartElection, _nameIdentificator, _from.getText(), _to.getText()).getChart();
-					_jsc.revalidate();
-					_jsc.repaint();
+					chartElection = (String)_election.getSelectedItem();
+					new TicketChart(chartElection, _from.getText(), _to.getText());
+					break;
+				case "provider": _info.setText(setBestProviderInfo());
 					break;
 				}
 			}
 		});
+	}
+
+	private String setBestProviderInfo(){
+		List<Object> data = SAAbstractFactory.getInstance().createSAProvider().getBestProvider();
+		StringBuilder ret = new StringBuilder("Product name: ");
+		if(data != null) {
+			int i = 0;
+			while(i < data.size()) {
+				ret.append(data.get(i));
+				if(i == 0) ret.append("\nNIF: ");
+				else if(i == 1) ret.append("\nCount: ");
+				++i;
+			}
+			ret.append("\n");
+			return ret.toString();
+		}
+		else return "Oooops... something was wrong...";
 	}
 }

@@ -15,4 +15,5 @@ public interface SAProvider {
 	public Boolean updateProvider(TProvider tp);
 	public Object readProvider(Integer id);
 	public List<Object> readAllProviders();
+	public List<Object> getBestProvider();
 }

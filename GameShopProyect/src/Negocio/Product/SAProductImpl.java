@@ -2,10 +2,16 @@ package Negocio.Product;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Querys.LockModeType;
+import Integracion.Querys.Query;
+import Integracion.Querys.QueryEvents;
+import Integracion.Querys.QueryFactory;
 import Transfers.TProduct;
 import Transfers.TProvider;
+import javafx.util.Pair;
 import Transfers.TAccessory;
 import Transfers.TGame;
 
@@ -84,5 +90,16 @@ public class SAProductImpl implements SAProduct {
 
 	public List<Object> readAllProducts() {
 		return DAOAbstractFactory.getInstance().createDAOProduct().readAllProducts(LockModeType.PESSIMISTIC);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Pair<String, Integer>> getProductsCount() {
+		try {
+			return (List<Pair<String, Integer>>) QueryFactory.getInstance().newQuery(QueryEvents.GET_PRODUCT_COUNT).execute(null, LockModeType.PESSIMISTIC);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "ERROR: Cannot execute the selected query.", "Fatal error", JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
 	}
 }

@@ -1,11 +1,12 @@
 package Negocio.Provider;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import Integracion.DAO.DAOAbstractFactory;
+import Integracion.Querys.LockModeType;
 import Negocio.SA.SAAbstractFactory;
 import Transfers.TProvider;
 
@@ -17,50 +18,84 @@ public class TestSAProvider {
 	
 	private SAProvider sa = SAAbstractFactory.getInstance().createSAProvider();
 	
-	//EN LA BASE DE DATOS EXISTE CON ID=1(PARA MODIFICAR) 
-	//										values (1,'calle igual','76664094B',622237470,true);
-	//(OTRO PROVEEDOR CON ID=3(PARA LEER)
-	//										values(3,'calle igual','16374546H',999888777,true);
-	
+	TProvider getValidProvider() {
+		TProvider tpr = null;	
+		boolean found = false;
+		for(int i = 1; tpr == null && !found && i < 100; i++) {
+			tpr = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(i, LockModeType.PESSIMISTIC);
+			if(tpr != null) {
+				if(tpr.get_activated())
+					found = true;
+				else
+					tpr = null;
+			}else
+				found = true;
+		}
+		return tpr;
+	}
+	TProvider getNotValidProvider() {
+		TProvider tpr = null;	
+		boolean found = false;
+		for(int i = 1; tpr == null && !found && i < 100; i++) {
+			tpr = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(i, LockModeType.PESSIMISTIC);
+			if(tpr != null) {
+				if(!tpr.get_activated())
+					found = true;
+				else
+					tpr = null;
+			}else
+				found = true;
+		}
+		return tpr;
+	}
+	int nextId() {
+		for(int i = 1; true; i++)
+			if(DAOAbstractFactory.getInstance().createDAOProvider().readProvider(i, LockModeType.PESSIMISTIC) == null)
+				return i;
+	}
 	
 	@Test
 	public void testCreateProviderOk() {
 		// Validez sintactica,proveedor no existente,
-		int result = sa.createProvider(new TProvider("88889999J","calle tuya",666777888));
-		assertEquals(5, result); 
+		TProvider tpr1 = new TProvider("76664094B","calle2",622237470);
+		if(DAOAbstractFactory.getInstance().createDAOProvider().readProviderByNIF(tpr1.get_nif(), LockModeType.PESSIMISTIC) == null)
+			assertTrue( sa.createProvider(tpr1) > -1 );
 	}
 
 	@Test
 	public void testCreateProviderFail() {
 		// Invalidez Sintactica
-		int result = sa.createProvider(new TProvider("77788898G","calle otra",333337888)); //nif invalido
-		assertNotEquals(6,result);
-		result = sa.createProvider(new TProvider("77788898T","",222222222));// campo nulo/vacio
-		assertNotEquals(6,result);																   
-		result = sa.createProvider(new TProvider("77788898T","calle siete ocho nueve diez once doce trece catorce quince dieciseis",222222222));// campo address invalido(>50 chars)
-		assertNotEquals(6,result);
-		result = sa.createProvider(new TProvider("77788898T","calle otra",234234));// telefono invalido sintacticamente (<9)
-		assertNotEquals(6,result);
-		result = sa.createProvider(new TProvider("77788898T","calle otra",1342342334));//telefono invalido sintacticamente (>9)
-		assertNotEquals(6,result);
-		result = sa.createProvider(new TProvider("77788898T",null,888999888));//campo nulo
+		assertFalse(sa.createProvider(new TProvider("77788898G","calle otra",333337888)) > -1); //nif invalido
+		assertFalse(sa.createProvider(new TProvider("48227381S","",222222222)) > -1);// campo nulo/vacio		
+		assertFalse(sa.createProvider(new TProvider("48227381S",null,222222222)) > -1);// campo nulo/vacio		
+		assertFalse(sa.createProvider(new TProvider("48227381S","calle siete ocho nueve diez once doce trece catorce quince dieciseis",222222222)) > -1);// campo address invalido(>50 chars)
+		assertFalse(sa.createProvider(new TProvider("48227381S","calle otra",234234)) > -1);// telefono invalido sintacticamente (<9)
+		assertFalse(sa.createProvider(new TProvider("48227381S","calle otra",1342342334)) > -1);//telefono invalido sintacticamente (>9))
+		assertFalse(sa.createProvider(new TProvider(null,"calle",888999888)) > -1);//campo nulo
 		// Proveedor existente
-		result = sa.createProvider(new TProvider("76664094B","calle otra",222237470)); //NIF EXISTENTE
-		assertNotEquals(6, result);
+		TProvider tpr;
+		if((tpr=this.getValidProvider()) != null)
+			assertFalse( sa.createProvider(tpr) > -1); //NIF EXISTENTE)
 	}
 	
 	@Test
 	public void testDeleteProviderOk() {
 		// Proveedor existente y activo
-		assertTrue(sa.deleteProvider(1)); 
+		TProvider tpr;
+		if((tpr=this.getValidProvider()) != null) 
+			assertTrue(sa.deleteProvider(tpr.get_id())); 
 	}
 	
 	@Test
 	public void testDeleteProviderFail() {
-		//Proveedor no existente
-		assertFalse(sa.deleteProvider(6));
+		TProvider tpr = new TProvider("48227381S","calle otra",134567890); 
+		if(DAOAbstractFactory.getInstance().createDAOProvider().readProviderByNIF(tpr.get_nif(), LockModeType.PESSIMISTIC) == null)
+			//Proveedor no existente
+			assertFalse(sa.deleteProvider(tpr.get_id()));
+		
 		//Proveedor existente pero inactivo
-		assertFalse(sa.deleteProvider(4));
+		if((tpr=this.getNotValidProvider()) != null)
+			assertFalse(sa.deleteProvider(tpr.get_id()));
 		// Proveedor id nulo
 		assertFalse(sa.deleteProvider(null));
 	}
@@ -68,54 +103,60 @@ public class TestSAProvider {
 	@Test
 	public void testUpdateProviderOk() {
 		// Proveedor existe y validez sintactica
-		TProvider tpr = new TProvider("16374546H","calle distinta",987654321); //modifica la calle
-		tpr.set_id(2);				//id del provider
-		tpr.set_activated(true);	//modifica el activated
-		assertTrue(sa.updateProvider(tpr));
+		TProvider tpr = this.getValidProvider();
+		if(tpr != null) {
+			tpr.set_activated(true);
+			assertTrue(sa.updateProvider(tpr));
+		}
 	}
 	
 	@Test
 	public void testUpdateProviderFail() {
 		//Proveedor no existe
-		TProvider tpr = new TProvider("77664094B","calle",999888777);
-		tpr.set_id(1);	//El id no corresponde con el nif || el nif para ese id no es valido porque ya existe en la BD
-		tpr.set_activated(false);
-		assertFalse(sa.updateProvider(tpr));
+		TProvider tpr = new TProvider("48227381S","calle otra",134567890); 
+		tpr.set_activated(true);
+		tpr.set_id(0);
+		if(DAOAbstractFactory.getInstance().createDAOProvider().readProviderByNIF(tpr.get_nif(), LockModeType.PESSIMISTIC) == null)
+			assertFalse(sa.updateProvider(tpr));
 		//Proveedor existe, invalidez sintactica	
 		tpr = new TProvider("76664094B","",999888777);
-		tpr.set_id(1);	//El id no corresponde con el nif || el nif para ese id no es valido porque ya existe en la BD
 		tpr.set_activated(false);
-		assertFalse(sa.updateProvider(tpr));
-		tpr = null;
-		assertFalse(sa.updateProvider(tpr));
-		tpr = new TProvider("76664094B","",999888777);
-		tpr.set_id(1);
-		tpr.set_activated(false);
-		assertFalse(sa.updateProvider(tpr));
-		tpr = new TProvider("16374546H","calle distinta",999888777);
-		tpr.set_id(1);
-		tpr.set_activated(false);
-		assertFalse(sa.updateProvider(tpr));
+		TProvider tupdt = tpr; 
+		if(DAOAbstractFactory.getInstance().createDAOProvider().readProviderByNIF(tpr.get_nif(), LockModeType.PESSIMISTIC) != null) {
+			tupdt.set_id(0);	//El id no corresponde con el nif || el nif para ese id no es valido porque ya existe en la BD
+			assertFalse(sa.updateProvider(tupdt));
+			tupdt = null;
+			assertFalse(sa.updateProvider(tupdt)); // TProvider nulo
+			tupdt = tpr;
+			assertFalse(sa.updateProvider(tupdt)); //calle vacia
+			tupdt.set_address("calle cualquiera");
+			tupdt.set_phoneNumber(643544); //telefono incorrecto
+			assertFalse(sa.updateProvider(tupdt));
+			tupdt.set_phoneNumber(null);
+			assertFalse(sa.updateProvider(tupdt)); //telefono nulo
+			tupdt.set_phoneNumber(622237470);
+			tupdt.set_nif("22222222V"); //nif incorrecto
+			assertFalse(sa.updateProvider(tupdt)); 
+			tupdt.set_nif(null); //nif nulo
+			assertFalse(sa.updateProvider(tupdt));  
+		}
 	}
-
+	
 	@Test
 	public void testReadProviderOk() {
 		//Proveedor existente
-		TProvider tpr = (new TProvider("99296921X","calle igual",222333444));
-		tpr.set_id(3);
-		tpr.set_activated(false);
-		assertEquals(((TProvider)tpr).toString(), ((TProvider)sa.readProvider(3)).toString());	
+		TProvider tpr = this.getNotValidProvider();
+		TProvider tp;
+		assertTrue((tp = (TProvider) sa.readProvider(tpr.get_id())) != null && tp.get_nif().equalsIgnoreCase(tpr.get_nif()));	
 	}
 	
 	@Test
 	public void testReadProviderFail() {
 		//Proveedor no existente
-		TProvider tpr = new TProvider("76664094B","calle distinta",666666666);
-		tpr.set_id(5);
-		tpr.set_activated(true);
-		assertNotEquals(((TProvider)sa.readProvider(6)), tpr);
-		assertNotEquals(((TProvider)sa.readProvider(1)),null);
+		TProvider tpr = new TProvider("65032991P","calle distinta",666666666);
+		TProvider tp;
+		tpr.set_id(1);
+		assertFalse(sa.readProvider(this.nextId()) != null);
+		assertTrue((tp = (TProvider) sa.readProvider(tpr.get_id())) != null && tp.get_nif() != tpr.get_nif()); //proveedor existente pero no el requerido
 	}
-
-
 }

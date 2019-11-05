@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Integracion.Querys.LockModeType;
+import Integracion.Transacciones.Transaction;
+import Integracion.Transacciones.TransactionManager;
 import Transfers.TProvider;
 
 /** 
@@ -17,26 +19,28 @@ import Transfers.TProvider;
 */
 public class DAOProviderImpl implements DAOProvider {
 	
-	public Integer createProvider(TProvider tp) {
+	public Integer createProvider(TProvider tp) throws Exception  {
 		int id = -1;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
-			PreparedStatement ps = con.prepareStatement("INSERT INTO proveedor(direccion, NIF, telefono, activo) VALUES(?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setString(1, tp.get_address());
-			ps.setString(2, tp.get_nif());
-			ps.setInt(3, tp.get_phoneNumber());
-			ps.setBoolean(4, true);
-			ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
-			if(rs.next()){
-				id = rs.getInt(1);
-			}
-			con.close();
+		
+			Transaction t = TransactionManager.getInstance().getTransaction();
+			Connection con = null;
 			
-		} catch (SQLException | ClassNotFoundException e) {
-			id = -1;
-		}
+			if(t != null) {
+				con = (Connection)t.getResource();
+				PreparedStatement ps = con.prepareStatement(
+						"INSERT INTO proveedor(direccion, NIF, telefono, activo) VALUES(?,?,?,?)",
+						PreparedStatement.RETURN_GENERATED_KEYS);
+				ps.setString(1, tp.get_address());
+				ps.setString(2, tp.get_nif());
+				ps.setInt(3, tp.get_phoneNumber());
+				ps.setBoolean(4, true);
+				ps.executeUpdate();
+				ResultSet rs = ps.getGeneratedKeys();
+				if (rs.next()) {
+					id = rs.getInt(1);
+				}
+			}
+		
 		return id;
 	}
 

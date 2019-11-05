@@ -9,8 +9,9 @@ import Integracion.Provider.DAOProvider;
 import Integracion.Querys.LockModeType;
 import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
+import Integracion.Transacciones.Transaction;
+import Integracion.Transacciones.TransactionManager;
 import Transfers.TProvider;
-import javafx.util.Pair;
 
 /**
 * @author GameShop
@@ -20,11 +21,23 @@ public class SAProviderImpl implements SAProvider {
 
 	public Integer createProvider(TProvider tp) {
 		int id = -1;
-		if(validateData(tp)) {
-			DAOProvider daoProvider = DAOAbstractFactory.getInstance().createDAOProvider();
-			TProvider tpl = (TProvider) daoProvider.readProviderByNIF(tp.get_nif(),LockModeType.PESSIMISTIC);
-			if(tpl == null)
-				id = daoProvider.createProvider(tp);
+		TransactionManager tm = TransactionManager.getInstance();
+		Transaction t = tm.newTransaction();
+		try {
+			t.init();
+			if(validateData(tp)) {
+				DAOProvider daoProvider = DAOAbstractFactory.getInstance().createDAOProvider();
+				TProvider tpl = (TProvider) daoProvider.readProviderByNIF(tp.get_nif(),LockModeType.PESSIMISTIC);
+				if(tpl == null) {
+					id = daoProvider.createProvider(tp);
+			
+				}
+			}
+			t.commit();
+		} catch(Exception e) {
+			t.undo();
+		} finally {
+			tm.deleteTransaction();
 		}
 		return id;
 	}

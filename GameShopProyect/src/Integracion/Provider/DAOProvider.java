@@ -10,7 +10,7 @@ import Transfers.TProvider;
 */
 public interface DAOProvider {
 
-	public Integer createProvider(TProvider tp);
+	public Integer createProvider(TProvider tp) throws Exception;
 	public Boolean deleteProvider(TProvider tp);
 	public Boolean updateProvider(TProvider tp);
 	public Object readProvider(Integer id, Integer lock);

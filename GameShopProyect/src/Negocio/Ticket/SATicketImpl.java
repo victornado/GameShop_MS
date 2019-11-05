@@ -1,10 +1,6 @@
 
 package Negocio.Ticket;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -153,29 +149,26 @@ public class SATicketImpl implements SATicket {
 	@Override
 	public List<Object[]> getBestProduct(String from, String to) {
 		try {
-			Pair<Boolean, Pair<Timestamp, Timestamp>> dates = checkDates(from, to);
+			Pair<Boolean, Pair<String, String>> dates = checkDates(from, to);
 			if (dates.getKey()) {
 				return (List<Object[]>) QueryFactory.getInstance().newQuery(QueryEvents.GET_BEST_PRODUCT)
 						.execute(dates.getValue(), LockModeType.PESSIMISTIC);
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "ERROR: Cannot execute the selected query.", "Fatal error",
+			JOptionPane.showMessageDialog(null, "ERROR: Cannot execute the selected query.\nPlease set a valid date: yyyy-mm-dd hh:mm:ss", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
 	}
 
-	private Pair<Boolean, Pair<Timestamp, Timestamp>> checkDates(String from, String to) throws Exception {
-		/*Timestamp fromTs = Timestamp.valueOf(from + " 15:20:10");
-		Timestamp toTs = Timestamp.valueOf(to + " 15:20:10");
-		//Instant i = Instant.parse(fromTs.toString());
-		System.out.println(fromTs.toString() + "  " + toTs.toString());*/
-		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = (Date)formatter.parse(from);
-		Timestamp fromTs = new Timestamp(date.getTime());
-		formatter = new SimpleDateFormat("yyyy-MM-dd");
-		date = (Date)formatter.parse(to);
-		Timestamp toTs = new Timestamp(date.getTime());
-		return new Pair<Boolean, Pair<Timestamp, Timestamp>>(true, new Pair<Timestamp, Timestamp>(fromTs, toTs));
+	private Pair<Boolean, Pair<String, String>> checkDates(String from, String to) throws Exception {
+		String[] splitFrom = from.split(" ");
+		String[] splitDateFrom = splitFrom[0].split("-");
+		String[] splitTo = from.split(" ");
+		String[] splitDateTo = splitTo[0].split("-");
+		if(splitDateFrom[0].length() != 4 || splitDateTo[0].length() != 4 || splitDateFrom[1].length() != 2 ||
+				splitDateTo[1].length() != 2 || splitDateFrom[2].length() != 2 || splitDateTo[2].length() != 2)
+			return new Pair<Boolean, Pair<String, String>>(false, new Pair<String, String>(null, null));
+		return new Pair<Boolean, Pair<String, String>>(true, new Pair<String, String>(from, to));
 	}
 }

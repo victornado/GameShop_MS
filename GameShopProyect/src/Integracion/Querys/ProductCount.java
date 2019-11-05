@@ -16,7 +16,7 @@ public class ProductCount implements Query {
 		List<Pair<String,Integer>> sol = null;
 		String queryString = "SELECT p.tipo,  COUNT(*) AS numero " + 
 							"FROM producto p " +  
-							"GROUP BY p.tipo " ;					
+							"GROUP BY p.tipo " ;		
 		if(lock == LockModeType.PESSIMISTIC)
 		{
 			queryString = "SELECT p.tipo,  COUNT(*) AS numero " + 

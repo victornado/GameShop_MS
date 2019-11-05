@@ -26,17 +26,13 @@ import javafx.util.Pair;
 
 @SuppressWarnings("serial")
 public class ProductChart extends JDialog {
-	private String _chartType;
 	private DefaultPieDataset defaultpiedataset;
 	private JFreeChart chart;
 	private ChartPanel chartPanel;
 	private PiePlot3D pieplot3d;
-	private DefaultCategoryDataset dataset;
-	private CategoryPlot p;
 	private boolean _showThis;
 
-	public ProductChart(String chartType) {
-		_chartType = chartType;
+	public ProductChart() {
 		_showThis = true;
 		initGUI();
 	}
@@ -67,13 +63,6 @@ public class ProductChart extends JDialog {
 	}
 
 	private void createChart() {
-		if (_chartType.equalsIgnoreCase(ShowChart.PIE_CHART))
-			createPieChart();
-		else
-			createBarChart();
-	}
-
-	private void createPieChart() {
 		ArrayList<Pair<String, Integer>> data = (ArrayList<Pair<String, Integer>>) SAAbstractFactory.getInstance()
 				.createSAProduct().getProductsCount();
 		if (data != null) {
@@ -92,30 +81,6 @@ public class ProductChart extends JDialog {
 
 			chartPanel = new ChartPanel(chart);
 			this.add(chartPanel);
-		} else {
-			_showThis = false;
-		}
-	}
-
-	private void createBarChart() {
-		ArrayList<Pair<String, Integer>> data = (ArrayList<Pair<String, Integer>>) SAAbstractFactory.getInstance()
-				.createSAProduct().getProductsCount();
-		if (data != null) {
-			dataset = new DefaultCategoryDataset();
-			int i = 0;
-			while (i < data.size()) {
-				dataset.setValue(data.get(i).getValue(), data.get(i).getKey(), data.get(i).getKey());
-				++i;
-			}
-			chart = ChartFactory.createBarChart3D("Get product types count", "Type", "Count", dataset,
-					PlotOrientation.VERTICAL, true, true, false);
-			chart.setBackgroundPaint(Color.white);
-			chart.getTitle().setPaint(Color.black);
-			p = chart.getCategoryPlot(); 
-	        p.setRangeGridlinePaint(Color.red);
-	        chartPanel = new ChartPanel(chart);
-			this.add(chartPanel);
-	        
 		} else {
 			_showThis = false;
 		}

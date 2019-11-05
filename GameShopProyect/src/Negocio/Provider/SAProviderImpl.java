@@ -58,6 +58,7 @@ public class SAProviderImpl implements SAProvider {
 				if (tprnif != null && tprnif.get_activated())
 					ret = daopi.deleteProvider(tprnif);
 			}
+			t.commit();
 		} catch (Exception e) {
 			t.undo();
 		} finally {
@@ -82,6 +83,7 @@ public class SAProviderImpl implements SAProvider {
 					return false;
 			}
 			ok = DAOAbstractFactory.getInstance().createDAOProvider().updateProvider(tp);
+			t.commit();
 		} catch (Exception e) {
 			t.undo();
 		} finally {
@@ -101,6 +103,7 @@ public class SAProviderImpl implements SAProvider {
 
 			if (id != null)
 				ret = (TProvider) daoProvider.readProvider(id, LockModeType.PESSIMISTIC);
+			t.commit();
 		} catch (Exception e) {
 			t.undo();
 		} finally {
@@ -116,6 +119,7 @@ public class SAProviderImpl implements SAProvider {
 		try {
 			t.init();
 			providers = DAOAbstractFactory.getInstance().createDAOProvider().readAllProviders(LockModeType.PESSIMISTIC);
+			t.commit();
 		} catch (Exception e) {
 			t.undo();
 		} finally {

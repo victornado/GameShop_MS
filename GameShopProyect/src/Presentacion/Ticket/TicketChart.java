@@ -18,20 +18,17 @@ import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.util.Rotation;
 
-import Negocio.SA.SAAbstractFactory;
-import javafx.util.Pair;
-
 @SuppressWarnings("serial")
 public class TicketChart extends JDialog {
-	private Pair<String, String> _dates;
 	private DefaultPieDataset defaultpiedataset;
 	private JFreeChart chart;
 	private ChartPanel chartPanel;
 	private PiePlot3D pieplot3d;
 	private boolean _showThis;
+	private ArrayList<Object[]> _data;
 	
-	public TicketChart(String from, String to) {
-		_dates = new Pair<String, String>(from, to);
+	public TicketChart(ArrayList<Object[]> data) {
+		_data = data;
 		_showThis = true;
 		initGUI();
 	}
@@ -62,21 +59,21 @@ public class TicketChart extends JDialog {
 	}
 	
 	private void createChart() {
-		ArrayList<Object[]> data = (ArrayList<Object[]>) SAAbstractFactory.getInstance()
-				.createSATicket().getBestProduct(_dates.getKey(), _dates.getValue());
-		if (data != null) {
+		/*ArrayList<Object[]> data = (ArrayList<Object[]>) SAAbstractFactory.getInstance()
+				.createSATicket().getBestProduct(_dates.getKey(), _dates.getValue());*/
+		if (_data != null) {
 			defaultpiedataset = new DefaultPieDataset();
 			chart = ChartFactory.createPieChart3D("Get product selled in a date range", defaultpiedataset, true, true, false);
 			pieplot3d = (PiePlot3D) chart.getPlot();
 			HashMap<String, Integer> setData = new HashMap<String, Integer>();
-			for(int i = 0; i < data.size(); ++i) {
-				if(setData.containsKey((String)data.get(i)[0])) {
-					Integer antes = setData.get((String)data.get(i)[0]) + (Integer)data.get(i)[1];
-					setData.remove((String)data.get(i)[0]);
-					setData.put((String)data.get(i)[0], antes);
+			for(int i = 0; i < _data.size(); ++i) {
+				if(setData.containsKey((String)_data.get(i)[0])) {
+					Integer antes = setData.get((String)_data.get(i)[0]) + (Integer)_data.get(i)[1];
+					setData.remove((String)_data.get(i)[0]);
+					setData.put((String)_data.get(i)[0], antes);
 				}
 				else
-					setData.put((String)data.get(i)[0], (Integer)data.get(i)[1]);
+					setData.put((String)_data.get(i)[0], (Integer)_data.get(i)[1]);
 			}
 			for(Map.Entry<String, Integer> entry : setData.entrySet()) {
 				defaultpiedataset.setValue(entry.getKey(), entry.getValue());

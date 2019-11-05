@@ -100,6 +100,26 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.RES_READALL_TICKET_FAILED:
 			GUITicket.getInstance().actualiza(data);
 			break;
+			
+		/******************************** QUERIES ********************************/
+		case Event.SHOW_PROVIDER_QUERY_OK:
+			GUIProvider.getInstance().actualiza(data);
+			break;
+		case Event.SHOW_PROVIDER_QUERY_FAILED:
+			GUIProvider.getInstance().actualiza(data);
+			break;
+		case Event.SHOW_PRODUCT_QUERY_OK:
+			GUIProduct.getInstance().actualiza(data);
+			break;
+		case Event.SHOW_PRODUCT_QUERY_FAILED:
+			GUIProduct.getInstance().actualiza(data);
+			break;
+		case Event.SHOW_TICKET_QUERY_OK:
+			GUITicket.getInstance().actualiza(data);
+			break;
+		case Event.SHOW_TICKET_QUERY_FAILED:
+			GUITicket.getInstance().actualiza(data);
+			break;
 		}
 	}
 

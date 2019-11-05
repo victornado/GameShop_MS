@@ -14,11 +14,9 @@ import javax.swing.JTable;
 @SuppressWarnings("serial")
 public abstract class ShowAll extends JPanel {
 	
-	private String nameIdentificator;
 	protected JTable _grid;
 	
-	public ShowAll(String nameIdentificator) {
-		this.nameIdentificator = nameIdentificator.toLowerCase();
+	public ShowAll() {
 		initGUI();
 	}
 

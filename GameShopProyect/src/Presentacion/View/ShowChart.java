@@ -19,8 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import Negocio.SA.SAAbstractFactory;
-import Presentacion.Product.ProductChart;
+import Presentacion.Controller.Controller;
+import Presentacion.Controller.Event;
 import Presentacion.Ticket.TicketChart;
+import javafx.util.Pair;
 
 @SuppressWarnings("serial")
 public class ShowChart extends JPanel {
@@ -116,32 +118,23 @@ public class ShowChart extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				switch(_nameIdentificator){
 				case "product":
-					new ProductChart();
+					//new ProductChart();
+					Controller.getInstance().action(null,  Event.SHOW_PRODUCT_QUERY);
 					break;
 				case "ticket":
-					new TicketChart(_from.getText(), _to.getText());
+					//new TicketChart(_from.getText(), _to.getText());
+					Controller.getInstance().action(new Pair<String, String>(_from.getText(), _to.getText()), Event.SHOW_TICKET_QUERY);
 					break;
-				case "provider": _info.setText(setBestProviderInfo());
+				case "provider":
+					//_info.setText(setBestProviderInfo());
+					Controller.getInstance().action(null, Event.SHOW_PROVIDER_QUERY);
 					break;
 				}
 			}
 		});
 	}
-
-	private String setBestProviderInfo(){
-		List<Object> data = SAAbstractFactory.getInstance().createSAProvider().getBestProvider();
-		StringBuilder ret = new StringBuilder("Product name: ");
-		if(data != null) {
-			int i = 0;
-			while(i < data.size()) {
-				ret.append(data.get(i));
-				if(i == 0) ret.append("\nNIF: ");
-				else if(i == 1) ret.append("\nCount: ");
-				++i;
-			}
-			ret.append("\n");
-			return ret.toString();
-		}
-		else return "Oooops... something was wrong...";
+	
+	public void updateBestProviderInfo(String newInfo) {
+		_info.setText(newInfo);
 	}
 }

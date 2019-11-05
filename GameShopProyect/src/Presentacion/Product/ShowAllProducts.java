@@ -5,10 +5,8 @@ package Presentacion.Product;
 
 import Presentacion.View.ShowAll;
 import Transfers.TProduct;
-import Transfers.TProvider;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,8 +21,7 @@ public class ShowAllProducts extends ShowAll {
 	private AbstractTableModel model;
 
 	
-	public ShowAllProducts(String nameIdentificator,  List<Object> l) {
-		super(nameIdentificator);
+	public ShowAllProducts(List<Object> l) {
 		this._products = l;
 		this.initComponents();
 	}

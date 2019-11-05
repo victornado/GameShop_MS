@@ -36,13 +36,13 @@ public class ShowPanel extends JPanel {
 		this.so = new ShowOne(nameIdentificator);
 		switch(this.nameIdentificator) {
 		case "provider":
-			this.sa = new ShowAllProvider(nameIdentificator, null);
+			this.sa = new ShowAllProvider(null);
 			break;
 		case "product":
-			this.sa = new ShowAllProducts(nameIdentificator, null);
+			this.sa = new ShowAllProducts(null);
 			break;
 		case "ticket":
-			this.sa = new ShowAllTickets(nameIdentificator, null);
+			this.sa = new ShowAllTickets(null);
 			break;
 		}
 		this.sc = new ShowChart(nameIdentificator);
@@ -106,6 +106,10 @@ public class ShowPanel extends JPanel {
 		sa.update(l);
 		so.fillList();
 		so.set_info("");
+	}
+	
+	public void updateBestProvider(String info) {
+		sc.updateBestProviderInfo(info);
 	}
 	
 }

@@ -6,6 +6,7 @@ package Presentacion.Controller;
  */
 public class Event {
 	
+	// EVENT TO INIT THE APPLICATION
 	public static final int INIT_GAMESHOP								= 1337;
 
 	// PROVIDER (1)
@@ -57,4 +58,18 @@ public class Event {
 	public static final int RES_READALL_TICKET_OK 						= 126;
 	public static final int RES_READALL_TICKET_FAILED 					= 127;
 	
+	// EVENTS TO SHOW THE QUERY CHARTS
+	public static final int SHOW_PROVIDER_QUERY		 					= 777;
+	public static final int SHOW_PROVIDER_QUERY_OK		 				= 778;
+	public static final int SHOW_PROVIDER_QUERY_FAILED 					= 779;
+	
+	public static final int SHOW_PRODUCT_QUERY		 					= 888;
+	public static final int SHOW_PRODUCT_QUERY_OK		 				= 889;
+	public static final int SHOW_PRODUCT_QUERY_FAILED 					= 890;
+	
+	public static final int SHOW_TICKET_QUERY		 					= 990;
+	public static final int SHOW_TICKET_QUERY_OK		 				= 995;
+	public static final int SHOW_TICKET_QUERY_FAILED 					= 999;
+	
 }
+

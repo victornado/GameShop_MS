@@ -4,7 +4,6 @@ import Command.Command;
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Controller.Event;
 import Transfers.TProductQuantity;
-import Transfers.TTicket;
 import javafx.util.Pair;
 
 public class ShowOneTicketCommand extends Command {

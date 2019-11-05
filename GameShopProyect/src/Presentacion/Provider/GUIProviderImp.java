@@ -90,6 +90,12 @@ public class GUIProviderImp extends GUIProvider {
 		case Event.RES_READALL_PROVIDERS_OK:
 			_rightPane.update((List<Object>)data.getKey());
 			break;
+		case Event.SHOW_PROVIDER_QUERY_OK:
+			_rightPane.updateBestProvider((String)data.getKey());
+			break;
+		case Event.SHOW_PROVIDER_QUERY_FAILED:
+			JOptionPane.showMessageDialog(this, (String)data.getKey(),"Failed",JOptionPane.ERROR_MESSAGE);	
+			break;
 		}
 	}
 }

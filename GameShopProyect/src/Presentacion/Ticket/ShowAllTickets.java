@@ -15,8 +15,7 @@ public class ShowAllTickets extends ShowAll {
 	AbstractTableModel model;
 	private List<Object> tickets;
 	
-	public ShowAllTickets(String nameIdentificator, List<Object> l) {
-		super(nameIdentificator);
+	public ShowAllTickets(List<Object> l) {
 		tickets = l;
 		this.initComponents();
 	}

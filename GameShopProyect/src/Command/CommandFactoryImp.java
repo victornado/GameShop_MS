@@ -36,5 +36,10 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.UNSUBSCRIBE_TICKET, new DeleteTicketCommand());
 		_availableCommands.put(Event.READ_TICKET, new ShowOneTicketCommand());
 		_availableCommands.put(Event.READ_ALL_TICKET, new ShowALLTicketCommand());
+		
+		/********************************** QUERIES **********************************/
+		_availableCommands.put(Event.SHOW_PROVIDER_QUERY, new BestProviderQueryCommand());
+		_availableCommands.put(Event.SHOW_PRODUCT_QUERY, new ProductCountQueryCommand());
+		_availableCommands.put(Event.SHOW_TICKET_QUERY, new ProductsDateQueryCommand());
 	}
 }

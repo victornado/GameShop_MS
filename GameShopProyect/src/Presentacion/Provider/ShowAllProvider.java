@@ -22,8 +22,7 @@ public class ShowAllProvider extends ShowAll {
 	AbstractTableModel model;
 	private List<Object> _providers;
 
-	public ShowAllProvider(String nameIdentificator, List<Object> l) {
-		super(nameIdentificator);
+	public ShowAllProvider(List<Object> l) {
 		_providers = l;
 		this.initComponents();
 	}

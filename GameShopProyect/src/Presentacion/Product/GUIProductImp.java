@@ -1,6 +1,7 @@
 package Presentacion.Product;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -88,6 +89,12 @@ public class GUIProductImp extends GUIProduct {
 		case Event.RES_READALL_PRODUCT_FAILED:
 			JOptionPane.showMessageDialog(this, "Error when reading all products from the database.","Failed",JOptionPane.ERROR_MESSAGE);		
 			break;	
+		case Event.SHOW_PRODUCT_QUERY_OK:
+			new ProductChart((ArrayList<Pair<String, Integer>>)data.getKey());
+			break;
+		case Event.SHOW_PRODUCT_QUERY_FAILED:
+			JOptionPane.showMessageDialog(this, "Error showing the selected query.","Failed",JOptionPane.ERROR_MESSAGE);
+			break;
 		}
 	}
 

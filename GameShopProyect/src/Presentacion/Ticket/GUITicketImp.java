@@ -1,6 +1,7 @@
 package Presentacion.Ticket;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -83,6 +84,12 @@ public class GUITicketImp extends GUITicket {
 			
 		case Event.RES_READALL_TICKET_FAILED:
 			JOptionPane.showMessageDialog(this, "Error showing all tickets in the database.","Failed",JOptionPane.ERROR_MESSAGE);
+			break;
+		case Event.SHOW_TICKET_QUERY_OK:
+			new TicketChart((ArrayList<Object[]>)data.getKey());
+			break;
+		case Event.SHOW_TICKET_QUERY_FAILED:
+			JOptionPane.showMessageDialog(this, "Error showing the selected query.","Failed",JOptionPane.ERROR_MESSAGE);
 			break;
 		}
 	}

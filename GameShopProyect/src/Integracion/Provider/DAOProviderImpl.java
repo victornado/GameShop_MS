@@ -13,65 +13,67 @@ import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
 import Transfers.TProvider;
 
-/** 
-* @author GameShop
-* @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
+/**
+ * @author GameShop
+ * @generated "UML to Java
+ *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+ */
 public class DAOProviderImpl implements DAOProvider {
-	
-	public Integer createProvider(TProvider tp) throws Exception  {
+
+	public Integer createProvider(TProvider tp) throws Exception {
 		int id = -1;
-		
-			Transaction t = TransactionManager.getInstance().getTransaction();
-			Connection con = null;
-			
-			if(t != null) {
-				con = (Connection)t.getResource();
-				PreparedStatement ps = con.prepareStatement(
-						"INSERT INTO proveedor(direccion, NIF, telefono, activo) VALUES(?,?,?,?)",
-						PreparedStatement.RETURN_GENERATED_KEYS);
-				ps.setString(1, tp.get_address());
-				ps.setString(2, tp.get_nif());
-				ps.setInt(3, tp.get_phoneNumber());
-				ps.setBoolean(4, true);
-				ps.executeUpdate();
-				ResultSet rs = ps.getGeneratedKeys();
-				if (rs.next()) {
-					id = rs.getInt(1);
-				}
+
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		Connection con = null;
+
+		if (t != null) {
+			con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(
+					"INSERT INTO proveedor(direccion, NIF, telefono, activo) VALUES(?,?,?,?)",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, tp.get_address());
+			ps.setString(2, tp.get_nif());
+			ps.setInt(3, tp.get_phoneNumber());
+			ps.setBoolean(4, true);
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				id = rs.getInt(1);
 			}
-		
+		}
+
 		return id;
 	}
 
-	public Boolean deleteProvider(TProvider tp) {
+	public Boolean deleteProvider(TProvider tp) throws Exception {
 		boolean ret = false;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
-			PreparedStatement ps = con.prepareStatement("UPDATE proveedor SET activo=(?) WHERE ID=(?)", PreparedStatement.RETURN_GENERATED_KEYS);
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		Connection con = null;
+		if (t != null) {
+			con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("UPDATE proveedor SET activo=(?) WHERE ID=(?)",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setBoolean(1, false);
 			ps.setInt(2, tp.get_id());
 			int res = ps.executeUpdate();
-		
-			if(res > 0) {
+
+			if (res > 0) {
 				ret = true;
 			}
-			con.close();
-			
-		} catch (SQLException | ClassNotFoundException e) {
-			ret = false;
 		}
+
 		return ret;
 	}
 
-	public Boolean updateProvider(TProvider tp) {
-		
+	public Boolean updateProvider(TProvider tp) throws Exception {
+
 		boolean ret = false;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
-			PreparedStatement ps = con.prepareStatement("UPDATE proveedor SET activo=? WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		Connection con = null;
+		if (t != null) {
+			con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("UPDATE proveedor SET activo=? WHERE ID=?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setBoolean(1, tp.get_activated());
 			ps.setInt(2, tp.get_id());
 			int res = ps.executeUpdate();
@@ -79,46 +81,41 @@ public class DAOProviderImpl implements DAOProvider {
 			ps.setString(1, tp.get_nif());
 			ps.setInt(2, tp.get_id());
 			res = ps.executeUpdate();
-			ps = con.prepareStatement("UPDATE proveedor SET direccion=? WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
+			ps = con.prepareStatement("UPDATE proveedor SET direccion=? WHERE ID=?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, tp.get_address());
 			ps.setInt(2, tp.get_id());
 			res = ps.executeUpdate();
-			ps = con.prepareStatement("UPDATE proveedor SET telefono=? WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
+			ps = con.prepareStatement("UPDATE proveedor SET telefono=? WHERE ID=?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, tp.get_phoneNumber());
 			ps.setInt(2, tp.get_id());
 			res = ps.executeUpdate();
-			
-			if(res > 0) {
+
+			if (res > 0) {
 				ret = true;
 			}
-			con.close();
-			
-		}catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-			ret = false;
 		}
+
 		return ret;
 	}
 
-	public Object readProvider(Integer id, Integer lock) {
+	public Object readProvider(Integer id, Integer lock) throws Exception {
 		TProvider tpl = null;
-		try {
-			/*
-			 * STACKOVERFLOW ERROR SOLUTION: (https://stackoverflow.com/questions/26515700/mysql-jdbc-driver-5-1-33-time-zone-issue)
-			 * jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-			 * Hay que descargarse el JAR executable file y añadirlo a la libreria del proyecto para solucionar ese error y en la BD poner:
-			 * SET GLOBAL time_zone = '+3:00'; para arreglar el error de la zona horaria*/
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM proveedor WHERE ID=?", PreparedStatement.RETURN_GENERATED_KEYS);
-			if(lock== LockModeType.PESSIMISTIC)
-			{
-				ps = con.prepareStatement("SELECT * FROM proveedor WHERE ID=? FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		Connection con = null;
+		if (t != null) {
+			con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM proveedor WHERE ID=?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			if (lock == LockModeType.PESSIMISTIC) {
+				ps = con.prepareStatement("SELECT * FROM proveedor WHERE ID=? FOR UPDATE",
+						PreparedStatement.RETURN_GENERATED_KEYS);
 			}
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next()){
+
+			if (rs.next()) {
 				tpl = new TProvider();
 				tpl.set_id(rs.getInt(1));
 				tpl.set_address(rs.getString(2));
@@ -126,25 +123,27 @@ public class DAOProviderImpl implements DAOProvider {
 				tpl.set_phoneNumber(rs.getInt(4));
 				tpl.set_activated(rs.getBoolean(5));
 			}
-			con.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			tpl = null;
+
 		}
-		
+
 		return tpl;
 	}
 
-	public List<Object> readAllProviders(Integer lock) {
-		List<Object> l = new ArrayList<Object>();
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM proveedor", PreparedStatement.RETURN_GENERATED_KEYS);
-			if(lock == LockModeType.PESSIMISTIC)
-				ps = con.prepareStatement("SELECT * FROM proveedor FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+	public List<Object> readAllProviders(Integer lock) throws Exception  {
+		List<Object> l =null;
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		Connection con = null;
+		if (t != null) {
+			l= new ArrayList<Object>();
+			con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM proveedor",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			if (lock == LockModeType.PESSIMISTIC)
+				ps = con.prepareStatement("SELECT * FROM proveedor FOR UPDATE",
+						PreparedStatement.RETURN_GENERATED_KEYS);
 			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()){
+
+			while (rs.next()) {
 				TProvider tpl = new TProvider();
 				tpl.set_id(rs.getInt(1));
 				tpl.set_address(rs.getString(2));
@@ -153,41 +152,32 @@ public class DAOProviderImpl implements DAOProvider {
 				tpl.set_activated(rs.getBoolean(5));
 				l.add(tpl);
 			}
-			con.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			l.clear();
 		}
 		return l;
 	}
 
-	public TProvider readProviderByNIF(String s, Integer lock) {
-		
+	public TProvider readProviderByNIF(String s, Integer lock) throws Exception {
+
 		TProvider tpl = null;
-		try {
-			/*
-			 * STACKOVERFLOW ERROR SOLUTION: (https://stackoverflow.com/questions/26515700/mysql-jdbc-driver-5-1-33-time-zone-issue)
-			 * jdbc:mysql://localhost/db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-			 * Hay que descargarse el JAR executable file y añadirlo a la libreria del proyecto para solucionar ese error y en la BD poner:
-			 * SET GLOBAL time_zone = '+3:00'; para arreglar el error de la zona horaria*/
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + Main.Main.database, Main.Main.user, Main.Main.password);
-			PreparedStatement ps = con.prepareStatement("SELECT ID FROM proveedor WHERE NIF=?", PreparedStatement.RETURN_GENERATED_KEYS);
-			if(lock== LockModeType.PESSIMISTIC)
-			{
-				ps = con.prepareStatement("SELECT ID FROM proveedor WHERE NIF=? FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		Connection con = null;
+		if (t != null) {
+			con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT ID FROM proveedor WHERE NIF=?",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			if (lock == LockModeType.PESSIMISTIC) {
+				ps = con.prepareStatement("SELECT ID FROM proveedor WHERE NIF=? FOR UPDATE",
+						PreparedStatement.RETURN_GENERATED_KEYS);
 			}
 			ps.setString(1, s);
 			ResultSet rs = ps.executeQuery();
-			//ResultSet rs = ps.getGeneratedKeys();
-			if(rs.next()){
+			// ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
 				tpl = new TProvider();
 				tpl.set_id(rs.getInt(1));
 			}
-			con.close();
-		} catch (SQLException | ClassNotFoundException e) {
-			tpl = null;
 		}
-		
+
 		return tpl;
 	}
 }

@@ -24,9 +24,11 @@ public class SAProductImpl implements SAProduct {
 	public Integer createProduct(TProduct tpr) {
 		int id = -1;
 		TProvider tprd;
-		
+		try {
 		if(!tpr.get_name().trim().isEmpty() && tpr.get_unitsProvided() > 0 && tpr.get_pvp() >= 0){
-				tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(tpr.get_providerId(),LockModeType.PESSIMISTIC);
+				
+					tprd = (TProvider) DAOAbstractFactory.getInstance().createDAOProvider().readProvider(tpr.get_providerId(),LockModeType.PESSIMISTIC);
+				
 				if(tprd != null && tprd.get_activated()){
 					if(tpr.get_type() == TProduct.accessory && !((TAccessory)tpr).get_brand().isEmpty() &&
 							!((TAccessory)tpr).get_color().isEmpty() ||
@@ -38,6 +40,9 @@ public class SAProductImpl implements SAProduct {
 							id = DAOAbstractFactory.getInstance().createDAOProduct().createProduct(tpr);
 					}
 				}
+		}
+		} catch (Exception e) {
+			
 		}
 		return id;
 	}
@@ -55,7 +60,7 @@ public class SAProductImpl implements SAProduct {
 
 	public Boolean updateProduct(TProduct tpr) {
 		TProvider tprd;
-		
+		try {
 		if(((TProduct)tpr).get_name().trim().isEmpty())
 			return false;
 		if(((TProduct)tpr).get_stock() < 0)
@@ -80,7 +85,9 @@ public class SAProductImpl implements SAProduct {
 			((TProduct)tpr).set_unitsProvided(((TProduct)tpr).get_stock()-((TProduct)tpr).get_unitsProvided());
 		else
 			((TProduct)tpr).set_unitsProvided(0);
-		
+		}catch(Exception e) {
+			
+		}
 		return  DAOAbstractFactory.getInstance().createDAOProduct().updateProduct(tpr);
 	}
 

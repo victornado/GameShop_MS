@@ -11,9 +11,9 @@ import Transfers.TProvider;
 public interface DAOProvider {
 
 	public Integer createProvider(TProvider tp) throws Exception;
-	public Boolean deleteProvider(TProvider tp);
-	public Boolean updateProvider(TProvider tp);
-	public Object readProvider(Integer id, Integer lock);
-	public List<Object> readAllProviders(Integer lock);
-	public Object readProviderByNIF(String s, Integer lock);
+	public Boolean deleteProvider(TProvider tp) throws Exception;
+	public Boolean updateProvider(TProvider tp) throws Exception;
+	public Object readProvider(Integer id, Integer lock) throws Exception;
+	public List<Object> readAllProviders(Integer lock) throws Exception;
+	public Object readProviderByNIF(String s, Integer lock) throws Exception;
 }

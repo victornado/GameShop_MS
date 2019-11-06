@@ -7,8 +7,6 @@ import java.util.List;
 
 import Transfers.TTicket;
 
-import java.sql.Timestamp;
-
 public interface DAOTicket {
 	
 	public Integer createTicket(TTicket tt) throws Exception;

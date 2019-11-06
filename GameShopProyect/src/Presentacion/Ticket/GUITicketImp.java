@@ -45,7 +45,7 @@ public class GUITicketImp extends GUITicket {
 			Integer id = (Integer)data.getKey();
 			JOptionPane.showMessageDialog(null, "Ticket " + id + " has been correctly inserted into the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
-			_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
+			//_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
 			_leftPane.addInfoToComboBox();
 			break;
 			

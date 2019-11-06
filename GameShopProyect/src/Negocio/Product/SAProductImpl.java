@@ -6,16 +6,15 @@ import javax.swing.JOptionPane;
 
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Querys.LockModeType;
-import Integracion.Querys.Query;
 import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
+import Transfers.TAccessory;
+import Transfers.TGame;
 import Transfers.TProduct;
 import Transfers.TProvider;
 import javafx.util.Pair;
-import Transfers.TAccessory;
-import Transfers.TGame;
 
 /**
  * @author GameShop

@@ -1,6 +1,5 @@
 package Presentacion.Product;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,7 +9,6 @@ import javax.swing.event.ChangeListener;
 
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Presentacion.View.IGUI;
 import Transfers.TAccessory;
 import Transfers.TGame;
 import Transfers.TProduct;

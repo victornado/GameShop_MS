@@ -1,24 +1,5 @@
 package Presentacion.Product;
 
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
-
-import Negocio.SA.SAAbstractFactory;
-import Presentacion.Controller.Controller;
-import Presentacion.Controller.Event;
-import Presentacion.View.IGUI;
-import Transfers.TAccessory;
-import Transfers.TGame;
-import Transfers.TProduct;
-import Transfers.TProvider;
-
-import javax.swing.JSpinner;
-import javax.swing.JTextArea;
-
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -33,6 +14,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+
+import Negocio.SA.SAAbstractFactory;
+import Presentacion.Controller.Controller;
+import Presentacion.Controller.Event;
+import Transfers.TAccessory;
+import Transfers.TGame;
+import Transfers.TProduct;
+import Transfers.TProvider;
 
 @SuppressWarnings("serial")
 public class FormProduct extends JDialog {

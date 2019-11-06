@@ -9,7 +9,6 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.swing.SwingUtilities;
 
-import Presentacion.Controller.Controller;
 import Presentacion.View.InfoDB;
 
 public class Main {

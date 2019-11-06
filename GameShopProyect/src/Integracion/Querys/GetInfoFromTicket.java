@@ -30,9 +30,8 @@ public class GetInfoFromTicket implements Query {
 			PreparedStatement ps = con.prepareStatement(queryString, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, (Integer)data);
 			ResultSet rs = ps.executeQuery();
-			
+			info = new HashMap<Integer, Pair<String, Integer>>();
 			while(rs.next()) {
-				info = new HashMap<Integer, Pair<String, Integer>>();
 				Pair<String, Integer> p = new Pair<String, Integer>(rs.getString(2), rs.getInt(3));
 				info.put(rs.getInt(1), p);
 			}

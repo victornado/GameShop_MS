@@ -18,7 +18,8 @@ public class SqlRunner {
     private final boolean autoCommit, stopOnError;
     private final Connection connection;
     private String delimiter = SqlRunner.DEFAULT_DELIMITER;
-    private final PrintWriter out, err;
+    @SuppressWarnings("unused")
+	private final PrintWriter out, err;
 
     public SqlRunner(final Connection connection, final PrintWriter out, final PrintWriter err, final boolean autoCommit, final boolean stopOnError) {
         if (connection == null) {
@@ -54,7 +55,8 @@ public class SqlRunner {
         }
     }
 
-    private void runScript(final Connection conn, final Reader reader) throws Exception{
+    @SuppressWarnings("unused")
+	private void runScript(final Connection conn, final Reader reader) throws Exception{
         StringBuffer command = null;
         try {
             final LineNumberReader lineReader = new LineNumberReader(reader);

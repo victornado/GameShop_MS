@@ -3,8 +3,6 @@ package Transfers;
 import java.sql.Timestamp;
 import java.util.List;
 
-import Negocio.SA.SAAbstractFactory;
-
 /**
  * @author GameShop
  * @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
@@ -57,7 +55,8 @@ public class TTicket {
 		this._products = _productsId;
 	}
 
-	@Override
+	/*@Override
+	// A modo de depuracion
 	public String toString() {
 		String tabulador = "   ";
 		String ticketInfo = "ID: " + _id + '\n' + "Creation date: " + _date
@@ -69,5 +68,5 @@ public class TTicket {
 				productsInfo += "ID: " + ttp.get_id() + " Name: " + ttp.get_name() + " Stock: " + ((TAsociated)_products.get(i)).get_cantidad() + "\n" + tabulador;
 		}
 		return ticketInfo + productsInfo;
-	}
+	}*/
 }

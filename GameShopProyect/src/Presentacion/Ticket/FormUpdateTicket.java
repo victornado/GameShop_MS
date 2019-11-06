@@ -9,6 +9,7 @@ import Transfers.TTicket;
 @SuppressWarnings("serial")
 public class FormUpdateTicket extends FormTicket {
 	
+	@SuppressWarnings("unused")
 	private TTicket _tTicket;
 	
 	public FormUpdateTicket(TTicket tt) {
@@ -18,6 +19,7 @@ public class FormUpdateTicket extends FormTicket {
 		_tTicket = tt;
 	}
 	
+	@SuppressWarnings("unused")
 	private void acceptButtonAction() {
 		_accept.addActionListener(new ActionListener() {
 			@Override

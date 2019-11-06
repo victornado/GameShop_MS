@@ -7,13 +7,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Negocio.SA.SAAbstractFactory;
+import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
 import Transfers.TProductQuantity;
-import Transfers.TTicket;
 import javafx.util.Pair;
-import Presentacion.Controller.Event;
 
 /** 
 * @author GameShop

@@ -13,6 +13,8 @@ import Integracion.Querys.Query;
 import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
 import Integracion.Ticket.DAOTicket;
+import Integracion.Transacciones.Transaction;
+import Integracion.Transacciones.TransactionManager;
 import Negocio.SA.SAAbstractFactory;
 import Transfers.TAsociated;
 import Transfers.TProduct;
@@ -25,29 +27,14 @@ public class SATicketImpl implements SATicket {
 	public Integer createTicket(TTicket tt) {
 		Integer res = -1;
 		TTicket tti = (TTicket) tt;
-		if (correctInputData(tt)) { // modificar stock de cada producto, calcular precio final
+		TransactionManager tm = TransactionManager.getInstance();
+		Transaction t = tm.newTransaction();
+		try {
+			t.init();
+			if (correctInputData(tt)) { // modificar stock de cada producto, calcular precio final
 
-			double preciofin = 0.0;
-			int units = 0;
-			for (int i = 0; i < tti.get_products().size(); ++i) {
-				// TProduct tp = (TProduct) tti.get_products().get(i);
-				TAsociated ta = (TAsociated) tti.get_products().get(i);
-
-				// units = tp.get_unitsInTicket();
-				// tp =
-				// DAOAbstractFactory.getInstance().createDAOProduct().readProduct(tp.get_id());
-				// preciofin += (tp.get_pvp() * units);
-				units = ta.get_cantidad();
-				preciofin += ta.get_precio() * units;
-			}
-
-			tti.set_finalPrice(preciofin);
-			res = DAOAbstractFactory.getInstance().createDAOTicket().createTicket(tti);
-
-			if (res > 0) {
-				// Si se ha creado el ticket correctamente, actualizamos los valores del stock
-				// en la base de datos
-				units = 0;
+				double preciofin = 0.0;
+				int units = 0;
 				for (int i = 0; i < tti.get_products().size(); ++i) {
 					// TProduct tp = (TProduct) tti.get_products().get(i);
 					TAsociated ta = (TAsociated) tti.get_products().get(i);
@@ -55,17 +42,42 @@ public class SATicketImpl implements SATicket {
 					// units = tp.get_unitsInTicket();
 					// tp =
 					// DAOAbstractFactory.getInstance().createDAOProduct().readProduct(tp.get_id());
-					// DAOAbstractFactory.getInstance().createDAOProduct().updateProduct(tp);
+					// preciofin += (tp.get_pvp() * units);
 					units = ta.get_cantidad();
-					TProduct tp = (TProduct) SAAbstractFactory.getInstance().createSAProduct()
-							.readProduct(ta.get_idProduct());
-
-					tp.set_stock(tp.get_stock() - units);
-					tp.set_unitsProvided(0);
-					DAOAbstractFactory.getInstance().createDAOProduct().updateProduct(tp);
+					preciofin += ta.get_precio() * units;
 				}
-			}
 
+				tti.set_finalPrice(preciofin);
+				res = DAOAbstractFactory.getInstance().createDAOTicket().createTicket(tti);
+
+				if (res > 0) {
+					// Si se ha creado el ticket correctamente, actualizamos los valores del stock
+					// en la base de datos
+					units = 0;
+					for (int i = 0; i < tti.get_products().size(); ++i) {
+						// TProduct tp = (TProduct) tti.get_products().get(i);
+						TAsociated ta = (TAsociated) tti.get_products().get(i);
+
+						// units = tp.get_unitsInTicket();
+						// tp =
+						// DAOAbstractFactory.getInstance().createDAOProduct().readProduct(tp.get_id());
+						// DAOAbstractFactory.getInstance().createDAOProduct().updateProduct(tp);
+						units = ta.get_cantidad();
+						TProduct tp = (TProduct) SAAbstractFactory.getInstance().createSAProduct()
+								.readProduct(ta.get_idProduct());
+
+						tp.set_stock(tp.get_stock() - units);
+						tp.set_unitsProvided(0);
+						DAOAbstractFactory.getInstance().createDAOProduct().updateProduct(tp);
+					}
+				}
+
+			}
+			t.commit();
+		} catch (Exception e) {
+			t.undo();
+		} finally {
+			tm.deleteTransaction();
 		}
 		return res;
 	}
@@ -74,49 +86,79 @@ public class SATicketImpl implements SATicket {
 		boolean deleted = false;
 		DAOTicket daoTicket = DAOAbstractFactory.getInstance().createDAOTicket();
 		DAOProduct daoProduct = DAOAbstractFactory.getInstance().createDAOProduct();
-
-		if (id != null) {
-			TTicket tt = (TTicket) daoTicket.readTicket(id, LockModeType.PESSIMISTIC);
-			for (int i = 0; i < tt.get_products().size(); i++) {
-				TAsociated ta = (TAsociated) tt.get_products().get(i);
-				TProduct tp = daoProduct.readProduct(ta.get_idProduct(), LockModeType.PESSIMISTIC);
-				if (tp != null) {
-					tp.set_stock(ta.get_cantidad() + tp.get_stock());
-					tp.set_unitsProvided(0);
-					daoProduct.updateProduct(tp);
+		TransactionManager tm = TransactionManager.getInstance();
+		Transaction t = tm.newTransaction();
+		try {
+			t.init();
+			if (id != null) {
+				TTicket tt = (TTicket) daoTicket.readTicket(id, LockModeType.PESSIMISTIC);
+				for (int i = 0; i < tt.get_products().size(); i++) {
+					TAsociated ta = (TAsociated) tt.get_products().get(i);
+					TProduct tp = daoProduct.readProduct(ta.get_idProduct(), LockModeType.PESSIMISTIC);
+					if (tp != null) {
+						tp.set_stock(ta.get_cantidad() + tp.get_stock());
+						tp.set_unitsProvided(0);
+						daoProduct.updateProduct(tp);
+					}
 				}
+				deleted = daoTicket.deleteTicket(id);
 			}
-			deleted = daoTicket.deleteTicket(id);
+			t.commit();
+		} catch (Exception e) {
+			t.undo();
+		} finally {
+			tm.deleteTransaction();
 		}
-
 		return deleted;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Object TOAReadTicket(Integer id) throws Exception {
+
 		TProductQuantity toa = null;
 		TTicket tt = null;
 		DAOTicket daoTicket = DAOAbstractFactory.getInstance().createDAOTicket();
+
 		HashMap<Integer, Pair<String, Integer>> productsToShow;
-		if (id != null) {
-			tt = (TTicket) daoTicket.readTicket(id, LockModeType.PESSIMISTIC);
-			toa = new TProductQuantity(id, tt.get_finalPrice(), tt.get_date(), null);
-			Query q = QueryFactory.getInstance().newQuery(QueryEvents.GET_INFO_EVENT);
-			if (q != null) {
+		TransactionManager tm = TransactionManager.getInstance();
+		Transaction t = tm.newTransaction();
+		try {
+			t.init();
+			if (id != null) {
+				tt = (TTicket) daoTicket.readTicket(id, LockModeType.PESSIMISTIC);
+				toa = new TProductQuantity(id, tt.get_finalPrice(), tt.get_date(), null);
+				Query q = QueryFactory.getInstance().newQuery(QueryEvents.GET_INFO_EVENT);
+				if (q != null) {
 
-				productsToShow = (HashMap<Integer, Pair<String, Integer>>) q.execute(id, LockModeType.PESSIMISTIC);
-			} else
-				return null;
+					productsToShow = (HashMap<Integer, Pair<String, Integer>>) q.execute(id, LockModeType.PESSIMISTIC);
+				} else
+					return null;
 
-			// TODO si no funciona el casteo hacer aqui un while() y cambiar la query
-			toa.set_productsToShow(productsToShow);
+				// TODO si no funciona el casteo hacer aqui un while() y cambiar la query
+				toa.set_productsToShow(productsToShow);
+			}
+			t.commit();
+		} catch (Exception e) {
+			t.undo();
+		} finally {
+			tm.deleteTransaction();
 		}
 		return toa;
 	}
 
 	public List<Object> readAllTickets() {
 		List<Object> tickets = null;
-		tickets = DAOAbstractFactory.getInstance().createDAOTicket().readAllTickets(LockModeType.PESSIMISTIC);
+		TransactionManager tm = TransactionManager.getInstance();
+		Transaction t = tm.newTransaction();
+		try {
+			t.init();
+			tickets = DAOAbstractFactory.getInstance().createDAOTicket().readAllTickets(LockModeType.PESSIMISTIC);
+			t.commit();
+		} catch (Exception e) {
+			t.undo();
+		} finally {
+			tm.deleteTransaction();
+		}
 		return tickets;
 	}
 
@@ -128,7 +170,10 @@ public class SATicketImpl implements SATicket {
 
 	private boolean correctInputData(TTicket tt) { // comprobamos que todos los datos introducidos son correctos y
 													// existen
-
+		TransactionManager tm = TransactionManager.getInstance();
+		Transaction t = tm.newTransaction();
+		try {
+			t.init();
 		// Cada uno de los productos existen y hay stock suficiente
 		for (int i = 0; i < tt.get_products().size(); i++) {
 			// TProduct prod = (TProduct) tt.get_products().get(i);
@@ -141,6 +186,12 @@ public class SATicketImpl implements SATicket {
 
 			if ((aux.get_stock() - ta.get_cantidad() < 0))
 				return false;
+		}
+		t.commit();
+		} catch (Exception e) {
+			t.undo();
+		} finally {
+			tm.deleteTransaction();
 		}
 		return true;
 	}
@@ -155,7 +206,8 @@ public class SATicketImpl implements SATicket {
 						.execute(dates.getValue(), LockModeType.PESSIMISTIC);
 			}
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "ERROR: Cannot execute the selected query.\nPlease set a valid date: yyyy-mm-dd hh:mm:ss", "Error",
+			JOptionPane.showMessageDialog(null,
+					"ERROR: Cannot execute the selected query.\nPlease set a valid date: yyyy-mm-dd hh:mm:ss", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
 		return null;
@@ -166,8 +218,8 @@ public class SATicketImpl implements SATicket {
 		String[] splitDateFrom = splitFrom[0].split("-");
 		String[] splitTo = from.split(" ");
 		String[] splitDateTo = splitTo[0].split("-");
-		if(splitDateFrom[0].length() != 4 || splitDateTo[0].length() != 4 || splitDateFrom[1].length() != 2 ||
-				splitDateTo[1].length() != 2 || splitDateFrom[2].length() != 2 || splitDateTo[2].length() != 2)
+		if (splitDateFrom[0].length() != 4 || splitDateTo[0].length() != 4 || splitDateFrom[1].length() != 2
+				|| splitDateTo[1].length() != 2 || splitDateFrom[2].length() != 2 || splitDateTo[2].length() != 2)
 			return new Pair<Boolean, Pair<String, String>>(false, new Pair<String, String>(null, null));
 		return new Pair<Boolean, Pair<String, String>>(true, new Pair<String, String>(from, to));
 	}

@@ -11,8 +11,8 @@ import java.sql.Timestamp;
 
 public interface DAOTicket {
 	
-	public Integer createTicket(TTicket tt);
-	public Boolean deleteTicket(Integer id);
-	public TTicket readTicket(Integer id, Integer lock);
-	public List<Object> readAllTickets(Integer lock);
+	public Integer createTicket(TTicket tt) throws Exception;
+	public Boolean deleteTicket(Integer id)throws Exception;
+	public TTicket readTicket(Integer id, Integer lock)throws Exception;
+	public List<Object> readAllTickets(Integer lock)throws Exception;
 }

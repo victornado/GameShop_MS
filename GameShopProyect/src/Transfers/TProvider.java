@@ -9,7 +9,7 @@ public class TProvider {
 	private String _nif;
 	private String _address;
 	private Integer _phoneNumber;
-		private Integer _id;
+	private Integer _id;
 	private Boolean _activated;
 	
 	// CONSTRUCTORES
@@ -39,7 +39,7 @@ public class TProvider {
 		return _phoneNumber;
 	}
 	public void set_phoneNumber(Integer _phoneNumber) {
-		this._phoneNumber = new Integer(_phoneNumber);
+		this._phoneNumber = _phoneNumber;
 	}
 	public Integer get_id() {
 		return _id;

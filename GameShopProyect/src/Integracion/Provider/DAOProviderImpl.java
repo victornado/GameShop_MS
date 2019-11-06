@@ -169,7 +169,7 @@ public class DAOProviderImpl implements DAOProvider {
 			}
 			ps.setString(1, s);
 			ResultSet rs = ps.executeQuery();
-			// ResultSet rs = ps.getGeneratedKeys();
+
 			if (rs.next()) {
 				tpl = new TProvider();
 				tpl.set_id(rs.getInt(1));

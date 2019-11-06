@@ -16,7 +16,7 @@ public class Main {
 	public static final String applicationName = "GameShop";
 	public static String database = "gameshopapplication";
 	public static String user = "root";
-	public static String password = "1234";
+	public static String password = "1234567890";
 
 
 	public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class Main {
 		try
 		{
 			AudioInputStream audioInputStream = 
-					AudioSystem.getAudioInputStream(new File("resources/gameshop_intro.wav"));/*new File("GameShopProyect" + 
+			AudioSystem.getAudioInputStream(new File("resources/gameshop_intro.wav"));/*new File("GameShopProyect" + 
 			System.getProperty("file.separator") + "resources/gameshop_intro.wav").getAbsoluteFile());*/
 			AudioFormat format = audioInputStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, format);

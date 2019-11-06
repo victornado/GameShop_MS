@@ -75,31 +75,6 @@ public class DAOTicketImpl implements DAOTicket {
 		return ret;
 	}
 
-	/*
-	 * public TTicket readTicket(Integer id) { TTicket tp = null; try {
-	 * Class.forName("com.mysql.cj.jdbc.Driver"); Connection con =
-	 * DriverManager.getConnection("jdbc:mysql://localhost:3306/" +
-	 * Main.Main.database, Main.Main.user, Main.Main.password); PreparedStatement ps
-	 * = con.prepareStatement("SELECT * FROM ticket WHERE ID=?",
-	 * PreparedStatement.RETURN_GENERATED_KEYS); ps.setInt(1, id); ResultSet rs =
-	 * ps.executeQuery();
-	 * 
-	 * if(rs.next()){ tp = new TTicket(); tp.set_id(rs.getInt(1));
-	 * tp.set_date(rs.getTimestamp(2)); tp.set_finalPrice(rs.getDouble(3));
-	 * 
-	 * ps = con.prepareStatement("SELECT * FROM asociado WHERE IDTicket=?");
-	 * ps.setInt(1, id); ResultSet rsAsociado = ps.executeQuery(); List<Object> l =
-	 * new ArrayList<Object>(); while(rsAsociado.next()){ TProduct pp = new
-	 * TProduct(); ps = con.prepareStatement("SELECT * FROM producto WHERE ID=?",
-	 * PreparedStatement.RETURN_GENERATED_KEYS); ps.setInt(1, rsAsociado.getInt(1));
-	 * // Id del producto ResultSet rsProducto = ps.executeQuery();
-	 * if(rsProducto.next()){ pp.set_id(rsProducto.getInt(1));
-	 * pp.set_name(rsProducto.getString(2)); pp.set_stock(rsAsociado.getInt(3));
-	 * l.add(pp); } } tp.set_products(l); } con.close(); } catch (SQLException |
-	 * ClassNotFoundException e) { tp = null; }
-	 * 
-	 * return tp; }
-	 */
 
 	public TTicket readTicket(Integer id, Integer lock) throws Exception {
 		TTicket tp = null;

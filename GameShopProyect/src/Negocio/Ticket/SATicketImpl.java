@@ -15,7 +15,6 @@ import Integracion.Querys.QueryFactory;
 import Integracion.Ticket.DAOTicket;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Negocio.SA.SAAbstractFactory;
 import Transfers.TAsociated;
 import Transfers.TProduct;
 import Transfers.TProductQuantity;
@@ -26,11 +25,12 @@ public class SATicketImpl implements SATicket {
 
 	public Integer createTicket(TTicket tt) {
 		Integer res = -1;
-		TTicket tti = (TTicket) tt;
+		TTicket tti = null;
 		TransactionManager tm = TransactionManager.getInstance();
 		Transaction t = tm.newTransaction();
 		try {
 			t.init();
+			tti = (TTicket) tt;
 			if (correctInputData(tt)) { // modificar stock de cada producto, calcular precio final
 
 				double preciofin = 0.0;
@@ -63,8 +63,8 @@ public class SATicketImpl implements SATicket {
 						// DAOAbstractFactory.getInstance().createDAOProduct().readProduct(tp.get_id());
 						// DAOAbstractFactory.getInstance().createDAOProduct().updateProduct(tp);
 						units = ta.get_cantidad();
-						TProduct tp = (TProduct) SAAbstractFactory.getInstance().createSAProduct()
-								.readProduct(ta.get_idProduct());
+						TProduct tp = DAOAbstractFactory.getInstance().createDAOProduct()
+								.readProduct(ta.get_idProduct(), LockModeType.PESSIMISTIC);
 
 						tp.set_stock(tp.get_stock() - units);
 						tp.set_unitsProvided(0);
@@ -168,12 +168,10 @@ public class SATicketImpl implements SATicket {
 	 * tt.get_products().size()>0; }
 	 */
 
-	private boolean correctInputData(TTicket tt) { // comprobamos que todos los datos introducidos son correctos y
-													// existen
-		TransactionManager tm = TransactionManager.getInstance();
-		Transaction t = tm.newTransaction();
-		try {
-			t.init();
+	private boolean correctInputData(TTicket tt) throws Exception { // comprobamos que todos los datos introducidos son
+																	// correctos y
+		// existen
+
 		// Cada uno de los productos existen y hay stock suficiente
 		for (int i = 0; i < tt.get_products().size(); i++) {
 			// TProduct prod = (TProduct) tt.get_products().get(i);
@@ -187,12 +185,7 @@ public class SATicketImpl implements SATicket {
 			if ((aux.get_stock() - ta.get_cantidad() < 0))
 				return false;
 		}
-		t.commit();
-		} catch (Exception e) {
-			t.undo();
-		} finally {
-			tm.deleteTransaction();
-		}
+
 		return true;
 	}
 

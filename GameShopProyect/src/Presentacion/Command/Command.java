@@ -1,6 +1,6 @@
 package Presentacion.Command;
 
-import javafx.util.Pair;;
+import javafx.util.Pair;
 
 public abstract class Command {
 	

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package modelodediseño.Presentacion.Empleado;
+package Presentacion.Empleado;
 
 import javax.swing.JCheckBox;
 

@@ -1,12 +1,10 @@
 /**
  * 
  */
-package modelodediseño.Presentacion.Empleado;
+package Presentacion.Empleado;
 
 import javax.swing.JDialog;
 import java.awt.event.ActionListener;
-import static rt.jar.java.awt.event.ActionListener.*;
-import static modelodediseño.Presentacion.Controller.ControllerImp.*;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;

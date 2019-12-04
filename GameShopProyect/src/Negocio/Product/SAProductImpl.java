@@ -10,10 +10,10 @@ import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Transfers.TAccessory;
-import Transfers.TGame;
-import Transfers.TProduct;
-import Transfers.TProvider;
+import Negocio.Transfers.TAccessory;
+import Negocio.Transfers.TGame;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TProvider;
 import javafx.util.Pair;
 
 /**

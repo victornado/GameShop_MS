@@ -11,7 +11,7 @@ import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Transfers.TProvider;
+import Negocio.Transfers.TProvider;
 
 /**
  * @author GameShop
@@ -83,6 +83,7 @@ public class SAProviderImpl implements SAProvider {
 					return false;
 			}
 			ok = DAOAbstractFactory.getInstance().createDAOProvider().updateProvider(tp);
+			//Thread.sleep(5000);
 			t.commit();
 		} catch (Exception e) {
 			t.undo();

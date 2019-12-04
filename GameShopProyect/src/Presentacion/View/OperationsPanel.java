@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import Negocio.SA.SAAbstractFactory;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TProvider;
+import Negocio.Transfers.TTicket;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 import Presentacion.Product.FormProduct;
@@ -25,9 +28,6 @@ import Presentacion.Product.FormUpdateProduct;
 import Presentacion.Provider.FormProvider;
 import Presentacion.Provider.FormUpdateProvider;
 import Presentacion.Ticket.FormTicket;
-import Transfers.TProduct;
-import Transfers.TProvider;
-import Transfers.TTicket;
 
 /** 
 * @author GameShop

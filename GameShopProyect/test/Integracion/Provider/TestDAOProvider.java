@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Transfers.TProvider;
+import Negocio.Transfers.TProvider;
 
 /** 
 * @author GameShop
@@ -110,7 +110,7 @@ public class TestDAOProvider {
 		try {
 			TestDAOProvider.t.init();
 			TProvider tp2 = (TProvider) dao.readProvider(tp.get_id(), null);
-			assertTrue(tp.get_id() == tp2.get_id() && tp.get_nif() == tp2.get_nif() && tp.get_address() == tp2.get_address() 
+			assertTrue(tp != null && tp.get_id() == tp2.get_id() && tp.get_nif() == tp2.get_nif() && tp.get_address() == tp2.get_address() 
 					&& tp.get_phoneNumber() == tp2.get_phoneNumber() && tp.get_activated() == true);
 			TestDAOProvider.t.commit();
 			TestDAOProvider.tm.deleteTransaction();

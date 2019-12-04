@@ -7,12 +7,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Negocio.SA.SAAbstractFactory;
+import Negocio.Transfers.TAccessory;
+import Negocio.Transfers.TGame;
+import Negocio.Transfers.TProduct;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
-import Transfers.TAccessory;
-import Transfers.TGame;
-import Transfers.TProduct;
 import javafx.util.Pair;
 import Presentacion.Controller.Event;
 

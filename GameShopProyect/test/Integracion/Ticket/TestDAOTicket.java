@@ -3,9 +3,9 @@ package Integracion.Ticket;
 import java.util.ArrayList;
 import java.util.List;
 
-import Transfers.TProduct;
-import Transfers.TProvider;
-import Transfers.TTicket;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TProvider;
+import Negocio.Transfers.TTicket;
 
 import java.sql.Connection;
 import java.sql.Date;

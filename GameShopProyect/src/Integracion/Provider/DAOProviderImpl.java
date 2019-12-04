@@ -9,7 +9,7 @@ import java.util.List;
 import Integracion.Querys.LockModeType;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Transfers.TProvider;
+import Negocio.Transfers.TProvider;
 
 /**
  * @author GameShop

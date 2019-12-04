@@ -2,7 +2,7 @@ package Negocio.Provider;
 
 import java.util.List;
 
-import Transfers.TProvider;
+import Negocio.Transfers.TProvider;
 
 /** 
 * @author GameShop

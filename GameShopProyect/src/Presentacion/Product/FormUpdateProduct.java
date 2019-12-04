@@ -7,11 +7,11 @@ import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Negocio.Transfers.TAccessory;
+import Negocio.Transfers.TGame;
+import Negocio.Transfers.TProduct;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Transfers.TAccessory;
-import Transfers.TGame;
-import Transfers.TProduct;
 
 @SuppressWarnings("serial")
 public class FormUpdateProduct extends FormProduct {

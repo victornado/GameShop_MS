@@ -2,7 +2,7 @@ package Integracion.Product;
 
 import java.util.List;
 
-import Transfers.TProduct;
+import Negocio.Transfers.TProduct;
 
 /** 
 * @author GameShop

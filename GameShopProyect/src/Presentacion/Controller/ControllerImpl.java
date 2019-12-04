@@ -2,8 +2,8 @@ package Presentacion.Controller;
 
 import javax.swing.JOptionPane;
 
-import Command.Command;
-import Command.CommandFactory;
+import Presentacion.Command.Command;
+import Presentacion.Command.CommandFactory;
 import Presentacion.View.GUIGameShop;
 import Presentacion.View.ViewDispatcher;
 import javafx.util.Pair;

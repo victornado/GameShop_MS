@@ -3,9 +3,9 @@ package Presentacion.Provider;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import Negocio.Transfers.TProvider;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Transfers.TProvider;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;

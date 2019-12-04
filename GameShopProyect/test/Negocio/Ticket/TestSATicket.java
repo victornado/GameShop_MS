@@ -13,10 +13,10 @@ import java.util.List;
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Ticket.DAOTicket;
 import Negocio.SA.SAAbstractFactory;
-import Transfers.TGame;
-import Transfers.TPlatform;
-import Transfers.TProduct;
-import Transfers.TTicket;
+import Negocio.Transfers.TGame;
+import Negocio.Transfers.TPlatform;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TTicket;
 
 
 public class TestSATicket {

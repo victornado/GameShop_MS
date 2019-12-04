@@ -25,11 +25,11 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.AbstractTableModel;
 
 import Negocio.SA.SAAbstractFactory;
+import Negocio.Transfers.TAsociated;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TTicket;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Transfers.TAsociated;
-import Transfers.TProduct;
-import Transfers.TTicket;
 
 @SuppressWarnings("serial")
 public class FormTicket extends JDialog {

@@ -15,10 +15,10 @@ import Integracion.Querys.QueryFactory;
 import Integracion.Ticket.DAOTicket;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Transfers.TAsociated;
-import Transfers.TProduct;
-import Transfers.TProductQuantity;
-import Transfers.TTicket;
+import Negocio.Transfers.TAsociated;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TProductQuantity;
+import Negocio.Transfers.TTicket;
 import javafx.util.Pair;
 
 public class SATicketImpl implements SATicket {

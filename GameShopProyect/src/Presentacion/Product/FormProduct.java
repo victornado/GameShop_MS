@@ -22,12 +22,12 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import Negocio.SA.SAAbstractFactory;
+import Negocio.Transfers.TAccessory;
+import Negocio.Transfers.TGame;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TProvider;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import Transfers.TAccessory;
-import Transfers.TGame;
-import Transfers.TProduct;
-import Transfers.TProvider;
 
 @SuppressWarnings("serial")
 public class FormProduct extends JDialog {

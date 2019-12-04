@@ -4,13 +4,14 @@
 package Presentacion.Product;
 
 import Presentacion.View.ShowAll;
-import Transfers.TProduct;
 
 import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+
+import Negocio.Transfers.TProduct;
 
 
 @SuppressWarnings("serial")

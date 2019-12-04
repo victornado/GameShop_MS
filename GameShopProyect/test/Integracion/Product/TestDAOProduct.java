@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Transfers.TAccessory;
-import Transfers.TGame;
-import Transfers.TPlatform;
-import Transfers.TProduct;
-import Transfers.TProvider;
+import Negocio.Transfers.TAccessory;
+import Negocio.Transfers.TGame;
+import Negocio.Transfers.TPlatform;
+import Negocio.Transfers.TProduct;
+import Negocio.Transfers.TProvider;
 
 /** 
 * @author GameShop

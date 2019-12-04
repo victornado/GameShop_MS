@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Transfers.TTicket;
+import Negocio.Transfers.TTicket;
 
 @SuppressWarnings("serial")
 public class FormUpdateTicket extends FormTicket {

@@ -1,13 +1,14 @@
 package Presentacion.Ticket;
 
 import Presentacion.View.ShowAll;
-import Transfers.TTicket;
 
 import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+
+import Negocio.Transfers.TTicket;
 
 public class ShowAllTickets extends ShowAll {
 	private static final long serialVersionUID = 1L;

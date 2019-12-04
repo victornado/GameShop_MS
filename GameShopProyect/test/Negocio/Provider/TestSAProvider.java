@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Provider.TestDAOProvider;
 import Negocio.SA.SAAbstractFactory;
-import Transfers.TProvider;
+import Negocio.Transfers.TProvider;
 
 /**
 * @author GameShop
@@ -21,7 +21,7 @@ public class TestSAProvider {
 	@Test
 	public void testCreateProviderOk() {
 		// Validez sintactica,proveedor no existente,
-		TProvider tpr1 = new TProvider("Y9969928V","calle2",622237470);
+		TProvider tpr1 = new TProvider("48227382J","calle2",622237470);
 		try {
 			TestDAOProvider.t = TestDAOProvider.tm.newTransaction();
 			TestDAOProvider.t.init();

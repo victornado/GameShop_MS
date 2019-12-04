@@ -7,8 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Negocio.Transfers.TProvider;
 import Presentacion.View.ShowAll;
-import Transfers.TProvider;
 
 /**
  * @author GameShop

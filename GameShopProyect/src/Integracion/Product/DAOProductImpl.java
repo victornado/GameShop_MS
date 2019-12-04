@@ -9,9 +9,9 @@ import java.util.List;
 import Integracion.Querys.LockModeType;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Transfers.TAccessory;
-import Transfers.TGame;
-import Transfers.TProduct;
+import Negocio.Transfers.TAccessory;
+import Negocio.Transfers.TGame;
+import Negocio.Transfers.TProduct;
 
 /**
  * @author GameShop

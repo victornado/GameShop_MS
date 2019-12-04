@@ -5,7 +5,7 @@ package Integracion.Ticket;
 
 import java.util.List;
 
-import Transfers.TTicket;
+import Negocio.Transfers.TTicket;
 
 public interface DAOTicket {
 	

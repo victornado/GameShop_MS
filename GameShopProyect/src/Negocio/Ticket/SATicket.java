@@ -2,7 +2,7 @@ package Negocio.Ticket;
 
 import java.util.List;
 
-import Transfers.TTicket;
+import Negocio.Transfers.TTicket;
 
 /** 
 * <!-- begin-UML-doc -->

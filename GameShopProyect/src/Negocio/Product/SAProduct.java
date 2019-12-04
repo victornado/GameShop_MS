@@ -2,7 +2,7 @@ package Negocio.Product;
 
 import java.util.List;
 
-import Transfers.TProduct;
+import Negocio.Transfers.TProduct;
 import javafx.util.Pair;
 
 /** 

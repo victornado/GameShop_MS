@@ -9,8 +9,8 @@ import java.util.List;
 import Integracion.Querys.LockModeType;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
-import Transfers.TAsociated;
-import Transfers.TTicket;
+import Negocio.Transfers.TAsociated;
+import Negocio.Transfers.TTicket;
 
 public class DAOTicketImpl implements DAOTicket {
 

@@ -6,11 +6,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Negocio.SA.SAAbstractFactory;
+import Negocio.Transfers.TProvider;
 import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
-import Transfers.TProvider;
 import javafx.util.Pair;
 
 /** 

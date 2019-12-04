@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import Integracion.DAO.DAOAbstractFactory;
 import Integracion.Querys.LockModeType;
 import Negocio.SA.SAAbstractFactory;
-import Transfers.TProduct;
+import Negocio.Transfers.TProduct;
 
 /**
 * @author GameShop

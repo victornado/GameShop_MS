@@ -1,13 +1,12 @@
 package Negocio.SA;
 
+import Negocio.Conferencia.SAConferencia;
+import Negocio.Departamento.SADepartamento;
+import Negocio.Empleado.SAEmpleado;
 import Negocio.Product.SAProduct;
 import Negocio.Provider.SAProvider;
 import Negocio.Ticket.SATicket;
 
-/** 
- * @author GameShop
- * @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
 public abstract class SAAbstractFactory {
 
 	private static SAAbstractFactory instance;
@@ -21,4 +20,7 @@ public abstract class SAAbstractFactory {
 	public abstract SAProduct createSAProduct();
 	public abstract SAProvider createSAProvider();
 	public abstract SATicket createSATicket();
+	public abstract SAConferencia createSAConferencia();
+	public abstract SADepartamento createSADepartamento();
+	public abstract SAEmpleado createSAEmpleado();
 }

@@ -29,9 +29,9 @@ public class ControllerImpl extends Controller {
 			JOptionPane.showMessageDialog(null, "ERROR 404: Cannot update the view...", "Fatal error", JOptionPane.ERROR_MESSAGE);
 	}
 
-	@Override
+	/*@Override
 	public void initGameShop(Integer event) {
 		GUIGameShop.getInstance().initGameShop(event);
-	}
+	}*/
 
 }

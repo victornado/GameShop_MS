@@ -173,7 +173,8 @@ public class InfoDB extends JDialog {
 						r.runScript(rd);
 					}
 					dispose();
-					Controller.getInstance().initGameShop(Event.INIT_GAMESHOP);
+					//Controller.getInstance().initGameShop(Event.INIT_GAMESHOP);
+					GUIGameShop.getInstance().initGameShop(Event.INIT_GAMESHOP);
 				}
 				catch (Exception e){
 					JOptionPane.showMessageDialog(null, "Error JDBC connection.", "Failed", JOptionPane.ERROR_MESSAGE);

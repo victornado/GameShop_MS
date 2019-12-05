@@ -1,4 +1,4 @@
-package Realiza;
+package Negocio.Realiza;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;

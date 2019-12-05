@@ -75,7 +75,7 @@ public class ShowPanel extends JPanel {
 		if(nameIdentificator.equalsIgnoreCase("Provider")) {
 			_tabs.addTab("Stats", null, sc, "Show the best " + nameIdentificator + " of the shop");
 		}
-		else {
+		else if(nameIdentificator.equalsIgnoreCase("Ticket") || nameIdentificator.equalsIgnoreCase("Product")) {
 			_tabs.addTab("Stats", null, sc, "Show the " + nameIdentificator + " chart");
 		}
 		

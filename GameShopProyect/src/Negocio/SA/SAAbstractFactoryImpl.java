@@ -1,5 +1,11 @@
 package Negocio.SA;
 
+import Negocio.Conferencia.SAConferencia;
+import Negocio.Conferencia.SAConferenciaIMP;
+import Negocio.Departamento.SADepartamento;
+import Negocio.Departamento.SADepartamentoIMP;
+import Negocio.Empleado.SAEmpleado;
+import Negocio.Empleado.SAEmpleadoIMP;
 import Negocio.Product.SAProduct;
 import Negocio.Product.SAProductImpl;
 import Negocio.Provider.SAProvider;
@@ -23,6 +29,21 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 
 	public SATicket createSATicket() {
 		return new SATicketImpl();
+	}
+
+	@Override
+	public SAConferencia createSAConferencia() {
+		return new SAConferenciaIMP();
+	}
+
+	@Override
+	public SADepartamento createSADepartamento() {
+		return new SADepartamentoIMP();
+	}
+
+	@Override
+	public SAEmpleado createSAEmpleado() {
+		return new SAEmpleadoIMP();
 	}
 
 	

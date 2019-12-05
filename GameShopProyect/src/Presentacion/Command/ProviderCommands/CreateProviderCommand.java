@@ -10,7 +10,6 @@ public class CreateProviderCommand extends Command {
 
 	@Override
 	public Pair<Object, Integer> execute(Object data) {
-
 		TProvider tprov = (TProvider) data;
 		int resRegister = (SAAbstractFactory.getInstance().createSAProvider()).createProvider(tprov);
 		Integer evento = (resRegister != -1) ? Event.RES_REGISTER_PROVIDER_OK : Event.RES_REGISTER_PROVIDER_FAILED;

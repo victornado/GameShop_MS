@@ -1,6 +1,3 @@
-/**
- * 
- */
 package Negocio.Empleado;
 
 import javax.persistence.Entity;

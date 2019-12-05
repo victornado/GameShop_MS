@@ -2,6 +2,9 @@ package Negocio.Transfers;
 
 public class TEmpleado {
 	
+	public static final String Comercial = "Comercial";
+	public static final String Tecnico = "Technician";
+	
 	private Integer ID;
 	private String NIF;
 	private String nombre;

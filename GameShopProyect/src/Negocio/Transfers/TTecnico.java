@@ -2,6 +2,8 @@ package Negocio.Transfers;
 
 public class TTecnico extends TEmpleado {
 	
+	public static Double SOBRESUELDO = 500.50; // sueldoBase += SOBRESUELDO
+	
 	private String especialidad;
 	private Double sobresueldo;
 	

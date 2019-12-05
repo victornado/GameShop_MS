@@ -1,68 +1,69 @@
-/**
- * 
- */
 package Presentacion.Empleado;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author carlo
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+import Negocio.Transfers.TEmpleado;
+import Negocio.Transfers.TProvider;
+import Presentacion.Controller.Controller;
+import Presentacion.Controller.Event;
+
+@SuppressWarnings("serial")
 public class FormUpdateEmployee extends FormEmployee {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	private JCheckBox _reactivate;
+	private TEmpleado _employee;
+	
+	public FormUpdateEmployee(TEmpleado t) {
+		super();
+		_employee = t;
+		this.setTitle("Modify an employee");
+		this.setSize(new Dimension(300, 145));
+		
+		this._reactivate = new JCheckBox("Activated");
+		this._reactivate.setBounds(50, 150, 140, 50); //this._reactivate.setBounds(200, 240, 140, 50);
+		this.add(_reactivate);
+		this._reactivate.addChangeListener(new ChangeListener() {
 
-	/** 
-	* @return the _reactivate
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public JCheckBox get_reactivate() {
-		// begin-user-code
-		return _reactivate;
-		// end-user-code
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				if(_reactivate.isSelected()) {
+					//_employee.set_activated(true);
+					_reactivate.setEnabled(false);
+				}
+				//else
+					//_employee.set_activated(false);
+			}
+			
+		});
+		initForm();
+		
+		this.add(this._reactivate);
 	}
-
-	/** 
-	* @param _reactivate the _reactivate to set
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void set_reactivate(JCheckBox _reactivate) {
-		// begin-user-code
-		this._reactivate = _reactivate;
-		// end-user-code
+	
+	private void initForm() {
+		/*this._nifText.setText(_provider.get_nif());
+		this._addressText.setText(_provider.get_address());
+		this._phoneText.setText(_provider.get_phoneNumber().toString());
+		
+		if(_provider.get_activated()) {
+			this._reactivate.setEnabled(false);
+			this._reactivate.setSelected(true);
+		}*/
 	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	private JCheckBox jCheckBox;
-
-	/** 
-	* @return the jCheckBox
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public JCheckBox getjCheckBox() {
-		// begin-user-code
-		return jCheckBox;
-		// end-user-code
-	}
-
-	/** 
-	* @param jCheckBox the jCheckBox to set
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setjCheckBox(JCheckBox jCheckBox) {
-		// begin-user-code
-		this.jCheckBox = jCheckBox;
-		// end-user-code
+	
+	@Override
+	protected void okButtonAction(){
+		_ok.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 	}
 }

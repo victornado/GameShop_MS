@@ -21,8 +21,11 @@ import Negocio.SA.SAAbstractFactory;
 import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
 import Negocio.Transfers.TTicket;
+import Presentacion.Conferencia.FormConferencia;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
+import Presentacion.Departamento.FormDepartment;
+import Presentacion.Empleado.FormEmployee;
 import Presentacion.Product.FormProduct;
 import Presentacion.Product.FormUpdateProduct;
 import Presentacion.Provider.FormProvider;
@@ -79,6 +82,15 @@ public class OperationsPanel extends JPanel {
 				case "ticket":
 					new FormTicket();
 					break;
+				case "conference":
+					new FormConferencia();
+					break;
+				case "department":
+					new FormDepartment();
+					break;
+				case "employee":
+					new FormEmployee();
+					break;
 				}
 			}
 		});
@@ -109,6 +121,12 @@ public class OperationsPanel extends JPanel {
 						else
 							JOptionPane.showMessageDialog(null, "Error when reading a product from the database.","Failed",JOptionPane.ERROR_MESSAGE);		
 						break;
+					case "conference":
+						break;
+					case "department":
+						break;
+					case "employee":
+						break;
 					}
 				}
 			}
@@ -133,6 +151,12 @@ public class OperationsPanel extends JPanel {
 					case "ticket":
 						Controller.getInstance().action(id, Event.UNSUBSCRIBE_TICKET);
 						break;
+					case "conference":
+						break;
+					case "department":
+						break;
+					case "employee":
+						break;
 					}
 				}
 			}
@@ -143,6 +167,7 @@ public class OperationsPanel extends JPanel {
 		_election.removeAllItems();
 		switch(nameIdentificator){
 		case "provider":
+			// TODO MIRAR ESTO PARA NO LLAMAR DIRECTAMENTE AL SA
 			for(Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
 				_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
 			break;
@@ -153,6 +178,12 @@ public class OperationsPanel extends JPanel {
 		case "ticket":
 			for(Object tt : SAAbstractFactory.getInstance().createSATicket().readAllTickets())
 				_election.addItem(((TTicket)tt).get_id() + " - " + ((TTicket)tt).get_date());
+			break;
+		case "conference":
+			break;
+		case "department":
+			break;
+		case "employee":
 			break;
 		}
 	}

@@ -18,11 +18,11 @@ public class GUIConferenciaImp extends GUIConferencia {
 	protected void alignmentPanels() {
 		this.setLayout(new BorderLayout());
 		
-		this._leftPane = new OperationsPanel(GUIGameshopImp.TAB_PROVIDER);
+		this._leftPane = new OperationsPanel(GUIGameshopImp.TAB_CONFERENCE);
 		this.add(_leftPane, BorderLayout.WEST);
 		_leftPane.setVisible(true);
 		
-		this._rightPane = new ShowPanel(GUIGameshopImp.TAB_PROVIDER);
+		this._rightPane = new ShowPanel(GUIGameshopImp.TAB_CONFERENCE);
 		this.add(_rightPane, BorderLayout.EAST);
 		_rightPane.setVisible(true);
 	}

@@ -1,9 +1,5 @@
 package Presentacion.Controller;
 
-/**
- * @author GameShop
- * @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
 public class Event {
 	
 	// EVENT TO INIT THE APPLICATION
@@ -57,6 +53,57 @@ public class Event {
 	public static final int RES_READ_TICKET_FAILED 						= 125;
 	public static final int RES_READALL_TICKET_OK 						= 126;
 	public static final int RES_READALL_TICKET_FAILED 					= 127;
+	
+	// CONFERENCE (4)
+	public static final int REGISTER_CONFERENCE 							= 14;
+	public static final int UNSUBSCRIBE_CONFERENCE 							= 15;
+	public static final int MODIFY_CONFERENCE 								= 70;
+	public static final int READ_CONFERENCE 								= 16;
+	public static final int READ_ALL_CONFERENCE 							= 17;
+	public static final int RES_REGISTER_CONFERENCE_OK 						= 128;
+	public static final int RES_REGISTER_CONFERENCE_FAILED 					= 129;
+	public static final int RES_UNSUBSCRIBE_CONFERENCE_OK 					= 130;
+	public static final int RES_UNSUBSCRIBE_CONFERENCE_FAILED 				= 131;
+	public static final int RES_MODIFY_CONFERENCE_OK 						= 1140;
+	public static final int RES_MODIFY_CONFERENCE_FAILED 					= 1150;
+	public static final int RES_READ_CONFERENCE_OK 							= 132;
+	public static final int RES_READ_CONFERENCE_FAILED 						= 133;
+	public static final int RES_READALL_CONFERENCE_OK 						= 134;
+	public static final int RES_READALL_CONFERENCE_FAILED 					= 135;
+	
+	// DEPARTMENT (5)
+	public static final int REGISTER_DEPARTMENT 							= 18;
+	public static final int UNSUBSCRIBE_DEPARTMENT 							= 19;
+	public static final int MODIFY_DEPARTMENT 								= 190;
+	public static final int READ_DEPARTMENT 								= 20;
+	public static final int READ_ALL_DEPARTMENT 							= 21;
+	public static final int RES_REGISTER_DEPARTMENT_OK 						= 136;
+	public static final int RES_REGISTER_DEPARTMENT_FAILED 					= 137;
+	public static final int RES_UNSUBSCRIBE_DEPARTMENT_OK 					= 138;
+	public static final int RES_UNSUBSCRIBE_DEPARTMENT_FAILED 				= 139;
+	public static final int RES_MODIFY_DEPARTMENT_OK 						= 1104;
+	public static final int RES_MODIFY_DEPARTMENT_FAILED 					= 1105;
+	public static final int RES_READ_DEPARTMENT_OK 							= 140;
+	public static final int RES_READ_DEPARTMENT_FAILED 						= 141;
+	public static final int RES_READALL_DEPARTMENT_OK 						= 142;
+	public static final int RES_READALL_DEPARTMENT_FAILED 					= 143;
+	
+	// EMPLOYEE (6)
+	public static final int REGISTER_EMPLOYEE 								= 22;
+	public static final int UNSUBSCRIBE_EMPLOYEE 							= 23;
+	public static final int MODIFY_EMPLOYEE 								= 1999;
+	public static final int READ_EMPLOYEE 									= 24;
+	public static final int READ_ALL_EMPLOYEE 								= 25;
+	public static final int RES_REGISTER_EMPLOYEE_OK 						= 144;
+	public static final int RES_REGISTER_EMPLOYEE_FAILED 					= 145;
+	public static final int RES_UNSUBSCRIBE_EMPLOYEE_OK 					= 146;
+	public static final int RES_UNSUBSCRIBE_EMPLOYEE_FAILED 				= 147;
+	public static final int RES_MODIFY_EMPLOYEE_OK 							= 10104;
+	public static final int RES_MODIFY_EMPLOYEE_FAILED 						= 10105;
+	public static final int RES_READ_EMPLOYEE_OK 							= 148;
+	public static final int RES_READ_EMPLOYEE_FAILED 						= 149;
+	public static final int RES_READALL_EMPLOYEE_OK 						= 150;
+	public static final int RES_READALL_EMPLOYEE_FAILED 					= 151;
 	
 	// EVENTS TO SHOW THE QUERY CHARTS
 	public static final int SHOW_PROVIDER_QUERY		 					= 777;

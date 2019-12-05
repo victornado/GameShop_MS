@@ -20,10 +20,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
-/** 
-* @author GameShop
-* @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 @SuppressWarnings("serial")
 public class FormProvider extends JDialog {
 

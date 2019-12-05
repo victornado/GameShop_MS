@@ -1,69 +1,33 @@
-/**
- * 
- */
-package modelodediseño.Presentacion.Empleado;
+package Presentacion.Empleado;
 
-import modelodediseño.Presentacion.View.ShowPanel;
-import modelodediseño.Presentacion.View.OperationsPanel;
+import Presentacion.View.ShowPanel;
+import javafx.util.Pair;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author carlo
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+import java.awt.BorderLayout;
+import Presentacion.View.GUIGameshopImp;
+import Presentacion.View.OperationsPanel;
+
+@SuppressWarnings("serial")
 public class GUIEmployeeImp extends GUIEmployee {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	private ShowPanel showPanel;
-
-	/** 
-	* @return the showPanel
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public ShowPanel getShowPanel() {
-		// begin-user-code
-		return showPanel;
-		// end-user-code
+	
+	private ShowPanel _rightPane;
+	private OperationsPanel _leftPane;
+	
+	@Override
+	protected void alignmentPanels() {
+		this.setLayout(new BorderLayout());
+		
+		this._leftPane = new OperationsPanel(GUIGameshopImp.TAB_EMPLOYEE);
+		this.add(_leftPane, BorderLayout.WEST);
+		_leftPane.setVisible(true);
+		
+		this._rightPane = new ShowPanel(GUIGameshopImp.TAB_EMPLOYEE);
+		this.add(_rightPane, BorderLayout.EAST);
+		_rightPane.setVisible(true);
 	}
-
-	/** 
-	* @param showPanel the showPanel to set
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setShowPanel(ShowPanel showPanel) {
-		// begin-user-code
-		this.showPanel = showPanel;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	private OperationsPanel operationsPanel;
-
-	/** 
-	* @return the operationsPanel
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public OperationsPanel getOperationsPanel() {
-		// begin-user-code
-		return operationsPanel;
-		// end-user-code
-	}
-
-	/** 
-	* @param operationsPanel the operationsPanel to set
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setOperationsPanel(OperationsPanel operationsPanel) {
-		// begin-user-code
-		this.operationsPanel = operationsPanel;
-		// end-user-code
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void actualiza(Pair<Object, Integer> data) {
 	}
 }

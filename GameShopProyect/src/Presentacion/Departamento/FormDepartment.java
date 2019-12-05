@@ -2,12 +2,14 @@ package Presentacion.Departamento;
 
 import javax.swing.JDialog;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
-import Negocio.Transfers.TProvider;
+import Negocio.Transfers.TDepartamento;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -29,7 +31,7 @@ public class FormDepartment extends JDialog {
 	private final JLabel _employees = new JLabel("Employees:");
 	private final JLabel _floor = new JLabel("Floor:");
 	protected JTextField _nameText;
-	protected JTextField _billingText;
+	protected JSpinner _billingElection = new JSpinner(new SpinnerNumberModel(10000.0, 0.0, 1000000.0, 1000.0));
 	protected JTextField _employeesText;
 	protected JTextField _floorText;
 	protected JButton _ok;
@@ -63,7 +65,17 @@ public class FormDepartment extends JDialog {
 		_ok.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					String name = _nameText.getText();
+					Double billing = (Double)_billingElection.getValue();
+					Integer employees = Integer.parseInt(_employeesText.getText());
+					Integer floor = Integer.parseInt(_floorText.getText());
+					TDepartamento td = new TDepartamento(name, billing, employees, floor);
+					Controller.getInstance().action(td, Event.REGISTER_DEPARTMENT);
+				}catch(Exception ex) {
+					closeDialog();
+					Controller.getInstance().action(null, Event.REGISTER_DEPARTMENT);
+				}
 			}
 		});
 	}
@@ -88,10 +100,9 @@ public class FormDepartment extends JDialog {
 		_nameText.setMaximumSize(new Dimension(220,20));
 		_nameText.setMinimumSize(new Dimension(220,20));
 		
-		_billingText = new JTextField();
-		_billingText.setPreferredSize(new Dimension(220,20));
-		_billingText.setMaximumSize(new Dimension(220,20));
-		_billingText.setMinimumSize(new Dimension(220,20));
+		_billingElection.setPreferredSize(new Dimension(70,20));
+		_billingElection.setMaximumSize(new Dimension(70,20));
+		_billingElection.setMinimumSize(new Dimension(70,20));
 		
 		_employeesText = new JTextField();
 		_employeesText.setPreferredSize(new Dimension(220,20));
@@ -114,10 +125,10 @@ public class FormDepartment extends JDialog {
 		_cancel.setMinimumSize(new Dimension(90,20));
 		
 		this.add(_name);
-		this.add(Box.createRigidArea(new Dimension(16, 1)));
 		this.add(_nameText);
 		this.add(_billing);
-		this.add(_billingText);
+		this.add(_billingElection);
+		this.add(Box.createRigidArea(new Dimension(100, 1)));
 		this.add(_employees);
 		this.add(Box.createRigidArea(new Dimension(5, 1)));
 		this.add(_employeesText);

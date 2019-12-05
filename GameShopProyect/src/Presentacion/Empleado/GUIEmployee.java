@@ -1,40 +1,23 @@
-/**
- * 
- */
-package modelodediseño.Presentacion.Empleado;
+package Presentacion.Empleado;
 
 import javax.swing.JPanel;
-import modelodediseño.Presentacion.View.IGUI;
-import java.math.BigInteger;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author carlo
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
-public class GUIEmployee extends JPanel implements IGUI {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	protected void alignmentPanels() {
-		// begin-user-code
-		// TODO Auto-generated method stub
+import Presentacion.View.IGUI;
+import javafx.util.Pair;
 
-		// end-user-code
+@SuppressWarnings("serial")
+public abstract class GUIEmployee extends JPanel implements IGUI {
+	
+	private static GUIEmployee _instance;
+	
+	public static GUIEmployee getInstance() {
+		if(_instance == null) {
+			_instance = new GUIEmployeeImp();
+			_instance.alignmentPanels();
+		}
+		return _instance;
 	}
-
-	/** 
-	* (non-Javadoc)
-	* @see IGUI#actualiza(BigInteger id, BigInteger event)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualiza(BigInteger id, BigInteger event) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
+	
+	protected abstract void alignmentPanels();
+	public abstract void actualiza(Pair<Object, Integer> data);
 }

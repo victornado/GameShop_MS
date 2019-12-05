@@ -10,6 +10,13 @@ package Negocio.Transfers;
  * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
  */
 public class TDepartamento {
+	
+	public TDepartamento(String nombre, Double fact, Integer numEmployees, Integer floor) {
+		this.nEmpleados = numEmployees;
+		this.factura = fact;
+		this.nombre= nombre;
+		this.planta = floor;
+	}
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->

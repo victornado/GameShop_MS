@@ -18,11 +18,11 @@ public class GUIDepartmentImp extends GUIDepartment {
 	protected void alignmentPanels() {
 		this.setLayout(new BorderLayout());
 		
-		this._leftPane = new OperationsPanel(GUIGameshopImp.TAB_PROVIDER);
+		this._leftPane = new OperationsPanel(GUIGameshopImp.TAB_DEPARTMENT);
 		this.add(_leftPane, BorderLayout.WEST);
 		_leftPane.setVisible(true);
 		
-		this._rightPane = new ShowPanel(GUIGameshopImp.TAB_PROVIDER);
+		this._rightPane = new ShowPanel(GUIGameshopImp.TAB_DEPARTMENT);
 		this.add(_rightPane, BorderLayout.EAST);
 		_rightPane.setVisible(true);
 	}

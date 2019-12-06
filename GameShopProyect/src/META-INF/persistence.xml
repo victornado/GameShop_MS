@@ -4,5 +4,7 @@
 		<class>Negocio.Conferencia.Conferencia</class>
 		<class>Negocio.Departamento.Departamento</class>
 		<class>Negocio.Empleado.Empleado</class>
+		<class>Negocio.Empleado.Comercial</class>
+		<class>Negocio.Empleado.Tecnico</class>
 	</persistence-unit>
 </persistence>

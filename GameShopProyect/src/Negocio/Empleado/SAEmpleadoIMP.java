@@ -3,7 +3,17 @@ package Negocio.Empleado;
 import Negocio.Transfers.TEmpleado;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 public class SAEmpleadoIMP implements SAEmpleado {
+	
+
+	public EntityManager em;
+	public SAEmpleadoIMP(EntityManager em)
+	{
+		this.em=em;
+	}
+	
 	
 	public Integer registrarEmpleado(TEmpleado data) {
 		return null;

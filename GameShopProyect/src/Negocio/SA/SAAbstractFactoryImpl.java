@@ -1,5 +1,9 @@
 package Negocio.SA;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import Negocio.Conferencia.SAConferencia;
 import Negocio.Conferencia.SAConferenciaIMP;
 import Negocio.Departamento.SADepartamento;
@@ -33,17 +37,23 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 
 	@Override
 	public SAConferencia createSAConferencia() {
-		return new SAConferenciaIMP();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SAConferenciaImp");
+		EntityManager em = emf.createEntityManager();
+		return new SAConferenciaIMP(em);
 	}
 
 	@Override
 	public SADepartamento createSADepartamento() {
-		return new SADepartamentoIMP();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SADepartamentoImp");
+		EntityManager em = emf.createEntityManager();
+		return new SADepartamentoIMP(em);
 	}
 
 	@Override
 	public SAEmpleado createSAEmpleado() {
-		return new SAEmpleadoIMP();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SAEmpleadoImp");
+		EntityManager em = emf.createEntityManager();
+		return new SAEmpleadoIMP(em);
 	}
 
 	

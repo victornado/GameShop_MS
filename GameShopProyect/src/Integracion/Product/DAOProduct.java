@@ -17,4 +17,6 @@ public interface DAOProduct {
 	public List<Object> readAllProducts(Integer lock) throws Exception;
 	public TProduct readProductByName(String name, Integer lock) throws Exception;
 	// METODO PARA DIFERENCIAR DE SI ES UN JUEGO O UN ACCESORIO
+	//
+	///
 }

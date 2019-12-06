@@ -3,7 +3,7 @@ package Negocio.Product;
 import java.util.List;
 
 import Negocio.Transfers.TProduct;
-import javafx.util.Pair;
+import utils.Pair;
 
 /** 
 * @author GameShop
@@ -16,5 +16,5 @@ public interface SAProduct {
 	public Boolean updateProduct(TProduct tpr);
 	public Object readProduct(Integer id);
 	public List<Object> readAllProducts();
-	public List<Pair<String,Integer>> getProductsCount();
+	public List<Pair<String, Integer>> getProductsCount();
 }

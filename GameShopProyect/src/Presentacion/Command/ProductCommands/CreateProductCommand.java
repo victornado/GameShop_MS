@@ -1,6 +1,6 @@
 package Presentacion.Command.ProductCommands;
 
-import Negocio.SA.SAAbstractFactory;\
+import Negocio.SA.SAAbstractFactory;
 import Negocio.Transfers.TProduct;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;

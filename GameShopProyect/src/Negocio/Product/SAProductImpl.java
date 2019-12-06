@@ -14,13 +14,8 @@ import Negocio.Transfers.TAccessory;
 import Negocio.Transfers.TGame;
 import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
-import javafx.util.Pair;
+import utils.Pair;
 
-/**
- * @author GameShop
- * @generated "UML to Java
- *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
 public class SAProductImpl implements SAProduct {
 
 	public Integer createProduct(TProduct tpr) {

@@ -1,6 +1,6 @@
 package Presentacion.Command.TicketCommands;
 
-import Negocio.SA.SAAbstractFactory;\
+import Negocio.SA.SAAbstractFactory;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
 import utils.Pair;

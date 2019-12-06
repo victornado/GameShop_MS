@@ -1,6 +1,6 @@
 package Presentacion.Command.ProviderCommands;
 
-import java.util.List;\
+import java.util.List;
 
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Command.Command;

@@ -3,6 +3,8 @@ package Presentacion.View;
 import Presentacion.Conferencia.GUIConferencia;
 
 import Presentacion.Controller.Event;
+import Presentacion.Departamento.GUIDepartment;
+import Presentacion.Empleado.GUIEmployee;
 import Presentacion.Product.GUIProduct;
 import Presentacion.Provider.GUIProvider;
 import Presentacion.Ticket.GUITicket;
@@ -103,6 +105,106 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUITicket.getInstance().actualiza(data);
 			break;
 			
+		/******************************* CONFERENCIA *****************************/
+		case Event.UPDATE_LIST_IN_EMPLOYEE:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_REGISTER_CONFERENCE_OK:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_REGISTER_CONFERENCE_FAILED:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_UNSUBSCRIBE_CONFERENCE_OK:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_UNSUBSCRIBE_CONFERENCE_FAILED:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_MODIFY_CONFERENCE_OK:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_MODIFY_CONFERENCE_FAILED:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_READ_CONFERENCE_OK:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_READ_CONFERENCE_FAILED:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_READALL_CONFERENCE_OK:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.RES_READALL_CONFERENCE_FAILED:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+			
+		/****************************** DEPARTAMENTO *****************************/
+		case Event.RES_REGISTER_DEPARTMENT_OK:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_REGISTER_DEPARTMENT_FAILED:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_UNSUBSCRIBE_DEPARTMENT_OK:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_UNSUBSCRIBE_DEPARTMENT_FAILED:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_MODIFY_DEPARTMENT_OK:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_MODIFY_DEPARTMENT_FAILED:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_READ_DEPARTMENT_OK:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_READ_DEPARTMENT_FAILED:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_READALL_DEPARTMENT_OK:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.RES_READALL_DEPARTMENT_FAILED:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+			
+		/******************************** EMPLEADO *******************************/
+		case Event.RES_REGISTER_EMPLOYEE_OK:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_REGISTER_EMPLOYEE_FAILED:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_UNSUBSCRIBE_EMPLOYEE_OK:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_UNSUBSCRIBE_EMPLOYEE_FAILED:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_MODIFY_EMPLOYEE_OK:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_MODIFY_EMPLOYEE_FAILED:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_READ_EMPLOYEE_OK:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_READ_EMPLOYEE_FAILED:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_READALL_EMPLOYEE_OK:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.RES_READALL_EMPLOYEE_FAILED:
+			GUIEmployee.getInstance().actualiza(data);
+			break;
+			
+			
 		/******************************** QUERIES ********************************/
 		case Event.SHOW_PROVIDER_QUERY_OK:
 			GUIProvider.getInstance().actualiza(data);
@@ -121,10 +223,6 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.SHOW_TICKET_QUERY_FAILED:
 			GUITicket.getInstance().actualiza(data);
-			break;		
-		/******************************* CONFERENCIA *****************************/
-		case Event.UPDATE_LIST_IN_EMPLOYEE:
-			GUIConferencia.getInstance().actualiza(data);
 			break;
 		}
 	}

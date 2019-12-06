@@ -86,9 +86,9 @@ public class ShowPanel extends JPanel {
 				Integer event = null;
 				if(_tabs.getSelectedIndex() == 1) {
 					switch(nameIdentificator) {
-					case "provider": event = Event.READ_ALL_PROVIDERS; break;
-					case "ticket": event = Event.READ_ALL_TICKET; break;
-					case "product": event = Event.READ_ALL_PRODUCT; break;
+						case "provider": event = Event.READ_ALL_PROVIDERS; break;
+						case "ticket": event = Event.READ_ALL_TICKET; break;
+						case "product": event = Event.READ_ALL_PRODUCT; break;
 					}
 					Controller.getInstance().action(null, event);
 				}

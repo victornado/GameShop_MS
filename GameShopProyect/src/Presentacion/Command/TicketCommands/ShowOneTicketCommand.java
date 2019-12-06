@@ -1,10 +1,11 @@
 package Presentacion.Command.TicketCommands;
 
 import Negocio.SA.SAAbstractFactory;
+
 import Negocio.Transfers.TProductQuantity;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class ShowOneTicketCommand extends Command {
 

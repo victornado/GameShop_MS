@@ -1,10 +1,11 @@
 package Presentacion.Command.EmployeeCommands;
 
 import Negocio.SA.SAAbstractFactory;
+
 import Negocio.Transfers.TEmpleado;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class UpdateEmployeeCommand extends Command {
 

@@ -1,6 +1,7 @@
 package Presentacion.Provider;
 
 import java.awt.BorderLayout;
+
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -11,7 +12,8 @@ import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
-import javafx.util.Pair;
+import utils.Pair;
+
 
 /** 
 * @author GameShop
@@ -19,9 +21,6 @@ import javafx.util.Pair;
 */
 @SuppressWarnings("serial")
 public class GUIProviderImp extends GUIProvider {
-	
-	private OperationsPanel _leftPane;
-	private ShowPanel _rightPane;
 	
 	@Override
 	protected void alignmentPanels() {

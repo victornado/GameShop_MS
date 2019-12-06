@@ -2,10 +2,12 @@ package Presentacion.Command.DepartmentCommands;
 
 import java.util.List;
 
+
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
+
 
 public class ShowAllDepartmentCommand extends Command {
 

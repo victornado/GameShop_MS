@@ -1,10 +1,11 @@
 package Presentacion.Command.ProviderCommands;
 
 import Negocio.SA.SAAbstractFactory;
+
 import Negocio.Transfers.TProvider;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class UpdateProviderCommand extends Command{
 

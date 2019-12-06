@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -41,6 +42,9 @@ public class OperationsPanel extends JPanel {
 	
 	private JButton _register;
 	private JComboBox<Object> _election;
+	/*********** LIST PARA FORM ***********/
+	private List<Object> _electionForm;
+	/** IMPLEMENTADO JPA, PASAR MAS TARDE A DAO**/
 	private JButton _remove;
 	private JButton _update;
 	private JLabel _registerLabel;
@@ -254,6 +258,14 @@ public class OperationsPanel extends JPanel {
 		registerButtonAction();
 		deleteButtonAction();
 		
+	}
+	
+	public void setElectionForm(List<Object> l) {
+		this._electionForm = l;
+	}
+	
+	public List<Object> getElectionForm(){
+		return this._electionForm;
 	}
 	
 }

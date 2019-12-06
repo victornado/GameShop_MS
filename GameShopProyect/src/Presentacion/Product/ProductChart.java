@@ -1,6 +1,7 @@
 package Presentacion.Product;
 
 import java.awt.Dimension;
+
 import java.awt.FlowLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,7 +17,8 @@ import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.util.Rotation;
 
-import javafx.util.Pair;
+import utils.Pair;
+
 
 @SuppressWarnings("serial")
 public class ProductChart extends JDialog {

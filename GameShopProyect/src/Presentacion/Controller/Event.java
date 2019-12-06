@@ -87,6 +87,7 @@ public class Event {
 	public static final int RES_READ_DEPARTMENT_FAILED 						= 141;
 	public static final int RES_READALL_DEPARTMENT_OK 						= 142;
 	public static final int RES_READALL_DEPARTMENT_FAILED 					= 143;
+	public static final int UPDATE_LIST_EMPLOYEE					 		= 1499;
 	
 	// EMPLOYEE (6)
 	public static final int REGISTER_EMPLOYEE 								= 22;

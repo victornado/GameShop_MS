@@ -2,10 +2,11 @@ package Presentacion.Controller;
 
 import javax.swing.JOptionPane;
 
+
 import Presentacion.Command.Command;
 import Presentacion.Command.CommandFactory;
 import Presentacion.View.ViewDispatcher;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class ControllerImpl extends Controller {
 	
@@ -28,9 +29,5 @@ public class ControllerImpl extends Controller {
 			JOptionPane.showMessageDialog(null, "ERROR 404: Cannot update the view...", "Fatal error", JOptionPane.ERROR_MESSAGE);
 	}
 
-	/*@Override
-	public void initGameShop(Integer event) {
-		GUIGameShop.getInstance().initGameShop(event);
-	}*/
 
 }

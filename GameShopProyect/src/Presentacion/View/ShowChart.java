@@ -1,6 +1,7 @@
 package Presentacion.View;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ import javax.swing.border.TitledBorder;
 
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 @SuppressWarnings("serial")
 public class ShowChart extends JPanel {

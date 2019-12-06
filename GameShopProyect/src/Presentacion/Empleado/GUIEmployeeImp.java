@@ -1,17 +1,18 @@
 package Presentacion.Empleado;
 
 import Presentacion.View.ShowPanel;
-import javafx.util.Pair;
+
+import utils.Pair;
 
 import java.awt.BorderLayout;
+import java.util.List;
+
+import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 
 @SuppressWarnings("serial")
 public class GUIEmployeeImp extends GUIEmployee {
-	
-	private ShowPanel _rightPane;
-	private OperationsPanel _leftPane;
 	
 	@Override
 	protected void alignmentPanels() {
@@ -29,5 +30,11 @@ public class GUIEmployeeImp extends GUIEmployee {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void actualiza(Pair<Object, Integer> data) {
+		switch(data.getValue()) {
+			case Event.UPDATE_LIST_EMPLOYEE:
+				this._leftPane.setElectionForm((List<Object>)data.getKey());
+				break;
+		}
 	}
+	
 }

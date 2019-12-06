@@ -1,6 +1,7 @@
 package Presentacion.Ticket;
 
 import java.awt.BorderLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,8 @@ import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
-import javafx.util.Pair;
+import utils.Pair;
+
 
 /** 
 * @author GameShop

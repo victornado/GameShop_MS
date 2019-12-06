@@ -15,6 +15,7 @@ import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TTecnico;
 import Presentacion.Command.Command;
 import Presentacion.Command.CommandFactory;
+import Presentacion.Conferencia.GUIConferencia;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 import javafx.util.Pair;
@@ -60,8 +61,7 @@ public class FormEmployee extends JDialog {
 	protected JSpinner _sobresueldoText = new JSpinner(new SpinnerNumberModel(1000.0, 0.0, 10000.0, 100.0));
 	
 	public FormEmployee() {
-		_turnElection.addItem("Morning");
-		_turnElection.addItem("Afternoon");
+
 		this.setTitle("Register an employee");
 		this.setIconImage(new ImageIcon("resources/GameShopLogo.png").getImage());
 		this.setResizable(false);
@@ -78,16 +78,31 @@ public class FormEmployee extends JDialog {
 		this.setBounds(new Rectangle(300, 60));
 		this.setLocationRelativeTo(null);
 		
+		this._turnElection.setPreferredSize(new Dimension(160,20));
+		this._turnElection.setMaximumSize(new Dimension(160,20));
+		this._turnElection.setMinimumSize(new Dimension(160,20));
+		this._turnElection.addItem("Morning");
+		this._turnElection.addItem("Afternoon");
+		
 		_typeElection.setPreferredSize(new Dimension(160,20));
 		_typeElection.setMaximumSize(new Dimension(160,20));
 		_typeElection.setMinimumSize(new Dimension(160,20));
 		_typeElection.addItem(TEmpleado.Tecnico);
 		_typeElection.addItem(TEmpleado.Comercial);
 		
+		this._departmentElection.setPreferredSize(new Dimension(160,20));
+		this._departmentElection.setMaximumSize(new Dimension(160,20));
+		this._departmentElection.setMinimumSize(new Dimension(160,20));
+		Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
+		for(Object o : GUIEmployee.getInstance().getOpPanel().getElectionForm() )
+			this._departmentElection.addItem(((TDepartamento)o).getNombre());
+		
 		_next = new JButton("Next");
 		_next.setPreferredSize(new Dimension(80,20));
 		this.add(new JLabel("Type"));
+		this.add(this._turnElection);
 		this.add(_typeElection);
+		this.add(this._departmentElection);
 		this.add(_next);
 		_next.addActionListener(new ActionListener() {
 			@Override
@@ -100,10 +115,6 @@ public class FormEmployee extends JDialog {
 			}
 		});
 		
-		//initComponents();
-		//okButtonAction();
-		//cancelButtonAction();
-		addInfoToDepartmentElection();
 		
 		this.setVisible(true);
 	}
@@ -149,6 +160,11 @@ public class FormEmployee extends JDialog {
 		setVisible(false);
 		dispose();
 	}
+	public void updateComboBox(List<Object> l){
+		this._departmentElection.removeAllItems();
+		for(Object i : l)
+			this._departmentElection.addItem(((TDepartamento) i).getNombre());
+	}
 	
 	private void initComponents() {
 		this.setLayout(new FlowLayout());
@@ -188,7 +204,6 @@ public class FormEmployee extends JDialog {
 		this.add(_nifText);
 		this.add(Box.createRigidArea(new Dimension(30, 1)));
 		this.add(_name);
-		//this.add(Box.createRigidArea(new Dimension(16, 1)));
 		this.add(_nameText);
 		this.add(Box.createRigidArea(new Dimension(30, 1)));
 		this.add(_turn);
@@ -216,25 +231,5 @@ public class FormEmployee extends JDialog {
 		
 		this.setVisible(true);
 	}
-	
-	@SuppressWarnings("unchecked")
-	private void addInfoToDepartmentElection() {
-		try {
-			Command command = CommandFactory.getInstance().parse(Event.READ_ALL_DEPARTMENT);
-			Pair<Object, Integer> data = command.execute(null);
-			List<Object> departments = (List<Object>)data.getKey();
-			if(departments != null) {
-				_departmentElection.setEditable(true);
-				_departmentElection.setToolTipText("Available departments");
-				for(Object o : departments)
-					_departmentElection.addItem(((TDepartamento)o).getNombre());
-			}
-			else{
-				_departmentElection.setToolTipText("Not available");
-				_departmentElection.setEditable(false);
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Error when showing the departments.", "Failed", JOptionPane.ERROR_MESSAGE);
-		}
-	}
+
 }

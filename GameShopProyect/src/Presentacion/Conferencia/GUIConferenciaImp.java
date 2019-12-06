@@ -3,10 +3,11 @@ package Presentacion.Conferencia;
 
 import java.awt.BorderLayout;
 
+import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
-import javafx.util.Pair;
+import utils.Pair;
 
 @SuppressWarnings("serial")
 public class GUIConferenciaImp extends GUIConferencia {
@@ -30,4 +31,5 @@ public class GUIConferenciaImp extends GUIConferencia {
 	public void actualiza(Pair<Object, Integer> data) {
 		
 	}
+
 }

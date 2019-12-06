@@ -1,6 +1,6 @@
 package Presentacion.View;
 
-import javafx.util.Pair;
+import utils.Pair;
 
 public abstract class ViewDispatcher {
 	private static ViewDispatcher _instance;

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -59,6 +60,7 @@ public class FormConferencia extends JDialog {
 		cancelButtonAction();
 		
 		this.setVisible(true);
+		Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
 	}
 	
 	protected void okButtonAction(){

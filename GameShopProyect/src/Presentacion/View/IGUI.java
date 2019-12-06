@@ -1,6 +1,6 @@
 package Presentacion.View;
 
-import javafx.util.Pair;
+import utils.Pair;
 
 /** 
 * @author GameShop

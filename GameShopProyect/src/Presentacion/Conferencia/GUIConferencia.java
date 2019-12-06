@@ -2,8 +2,9 @@ package Presentacion.Conferencia;
 
 import javax.swing.JPanel;
 
+
 import Presentacion.View.IGUI;
-import javafx.util.Pair;
+import utils.Pair;
 
 @SuppressWarnings("serial")
 public abstract class GUIConferencia extends JPanel implements IGUI {

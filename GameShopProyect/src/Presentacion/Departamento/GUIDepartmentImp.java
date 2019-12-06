@@ -1,7 +1,7 @@
 package Presentacion.Departamento;
 
 import Presentacion.View.ShowPanel;
-import javafx.util.Pair;
+import utils.Pair;
 
 import java.awt.BorderLayout;
 
@@ -10,9 +10,6 @@ import Presentacion.View.OperationsPanel;
 
 @SuppressWarnings("serial")
 public class GUIDepartmentImp extends GUIDepartment {
-
-	private ShowPanel _rightPane;
-	private OperationsPanel _leftPane;
 	
 	@Override
 	protected void alignmentPanels() {
@@ -31,4 +28,5 @@ public class GUIDepartmentImp extends GUIDepartment {
 	public void actualiza(Pair<Object, Integer> data) {
 		
 	}	
+	
 }

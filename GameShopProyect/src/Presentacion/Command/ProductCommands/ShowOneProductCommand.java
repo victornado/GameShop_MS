@@ -1,10 +1,11 @@
 package Presentacion.Command.ProductCommands;
 
 import Negocio.SA.SAAbstractFactory;
+
 import Negocio.Transfers.TProduct;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class ShowOneProductCommand extends Command {
 

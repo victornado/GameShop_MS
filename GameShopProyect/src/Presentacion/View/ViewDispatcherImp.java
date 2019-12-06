@@ -1,10 +1,12 @@
 package Presentacion.View;
 
+import Presentacion.Conferencia.GUIConferencia;
+
 import Presentacion.Controller.Event;
 import Presentacion.Product.GUIProduct;
 import Presentacion.Provider.GUIProvider;
 import Presentacion.Ticket.GUITicket;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class ViewDispatcherImp extends ViewDispatcher {
 
@@ -119,6 +121,10 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.SHOW_TICKET_QUERY_FAILED:
 			GUITicket.getInstance().actualiza(data);
+			break;		
+		/******************************* CONFERENCIA *****************************/
+		case Event.UPDATE_LIST_IN_EMPLOYEE:
+			GUIConferencia.getInstance().actualiza(data);
 			break;
 		}
 	}

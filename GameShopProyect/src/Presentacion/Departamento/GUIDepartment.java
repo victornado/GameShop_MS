@@ -2,12 +2,18 @@ package Presentacion.Departamento;
 
 import javax.swing.JPanel;
 
+
 import Presentacion.View.IGUI;
-import javafx.util.Pair;
+import Presentacion.View.OperationsPanel;
+import Presentacion.View.ShowPanel;
+import utils.Pair;
+
 
 @SuppressWarnings("serial")
 public abstract class GUIDepartment extends JPanel implements IGUI {
 	private static GUIDepartment _instance;
+	protected ShowPanel _rightPane;
+	protected OperationsPanel _leftPane;
 	
 	public static GUIDepartment getInstance() {
 		if(_instance == null) {
@@ -19,4 +25,7 @@ public abstract class GUIDepartment extends JPanel implements IGUI {
 	
 	protected abstract void alignmentPanels();
 	public abstract void actualiza(Pair<Object, Integer> data);
+	public OperationsPanel getOpPanel() {
+		return this._leftPane;
+	}
 }

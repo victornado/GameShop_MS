@@ -1,10 +1,11 @@
 package Presentacion.Command.ConferenceCommands;
 
 import Negocio.SA.SAAbstractFactory;
+
 import Negocio.Transfers.TConferencia;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class CreateConferenceCommand extends Command {
 

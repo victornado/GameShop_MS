@@ -1,6 +1,7 @@
 package Presentacion.Product;
 
 import java.awt.BorderLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import Negocio.Transfers.TProduct;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
 import Presentacion.View.ShowPanel;
-import javafx.util.Pair;
+import utils.Pair;
+
 import Presentacion.Controller.Event;
 
 /** 
@@ -22,9 +24,6 @@ import Presentacion.Controller.Event;
 */
 @SuppressWarnings("serial")
 public class GUIProductImp extends GUIProduct {
-	
-	private OperationsPanel _leftPane;
-	private ShowPanel _rightPane;
 	
 	@Override
 	protected void alingmentPanels() {

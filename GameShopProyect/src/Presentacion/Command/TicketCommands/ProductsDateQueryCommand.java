@@ -2,10 +2,11 @@ package Presentacion.Command.TicketCommands;
 
 import java.util.ArrayList;
 
+
 import Negocio.SA.SAAbstractFactory;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class ProductsDateQueryCommand extends Command {
 

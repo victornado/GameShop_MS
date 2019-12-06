@@ -1,9 +1,9 @@
 package Presentacion.Command.TicketCommands;
 
-import Negocio.SA.SAAbstractFactory;
+import Negocio.SA.SAAbstractFactory;\
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class DeleteTicketCommand extends Command {
 

@@ -8,11 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class SAConferenciaImp implements SAConferencia {
-
-	//Mirar donde meter lo de 
-	//EntityManagerFactory emf = Persistence.createEntityManagerFactory("Conferencia");
-	// EntityManager em = emf.createEntityManager();
-	
 	
 	public EntityManager em;
 	public SAConferenciaImp(EntityManager em)

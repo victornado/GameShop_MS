@@ -24,7 +24,7 @@ public class Conferencia implements Serializable {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer asistentes; //sql numero < 9999
+	private Integer asistentes;
 	private String tematica;
 	private String nombre;
 	private Timestamp fecha;

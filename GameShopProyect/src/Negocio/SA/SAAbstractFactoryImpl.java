@@ -38,7 +38,7 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 
 	@Override
 	public SAConferencia createSAConferencia() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShop_MOD");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		emf.close();
 		return new SAConferenciaImp(em);
@@ -46,7 +46,7 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 
 	@Override
 	public SADepartamento createSADepartamento() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SADepartamentoImp");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		emf.close();
 		return new SADepartamentoIMP(em);
@@ -54,7 +54,7 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 
 	@Override
 	public SAEmpleado createSAEmpleado() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SAEmpleadoImp");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		emf.close();
 		return new SAEmpleadoIMP(em);

@@ -1,6 +1,7 @@
 package Presentacion.Empleado;
 
 import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -13,15 +14,10 @@ import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TDepartamento;
 import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TTecnico;
-import Presentacion.Command.Command;
-import Presentacion.Command.CommandFactory;
-import Presentacion.Conferencia.GUIConferencia;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
-import javafx.util.Pair;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.Box;
 import javax.swing.ImageIcon;

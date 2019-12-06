@@ -2,6 +2,7 @@
 package Negocio.Ticket;
 
 import java.util.HashMap;
+
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ import Negocio.Transfers.TAsociated;
 import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProductQuantity;
 import Negocio.Transfers.TTicket;
-import javafx.util.Pair;
+import utils.Pair;
 
 public class SATicketImpl implements SATicket {
 

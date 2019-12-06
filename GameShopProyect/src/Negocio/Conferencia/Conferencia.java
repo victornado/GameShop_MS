@@ -1,7 +1,8 @@
 package Negocio.Conferencia;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 import java.io.Serializable;
 import javax.persistence.Id;
@@ -21,9 +22,9 @@ public class Conferencia implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer asistentes;
+	private Integer asistentes; //sql numero < 9999
 	private String tematica;
 	private String nombre;
 	private Timestamp fecha;

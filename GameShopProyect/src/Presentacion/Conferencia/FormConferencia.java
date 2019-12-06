@@ -60,7 +60,6 @@ public class FormConferencia extends JDialog {
 		cancelButtonAction();
 		
 		this.setVisible(true);
-		Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
 	}
 	
 	protected void okButtonAction(){

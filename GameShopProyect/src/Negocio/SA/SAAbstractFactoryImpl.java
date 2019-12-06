@@ -1,11 +1,12 @@
 package Negocio.SA;
 
 import javax.persistence.EntityManager;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import Negocio.Conferencia.SAConferencia;
-import Negocio.Conferencia.SAConferenciaIMP;
+import Negocio.Conferencia.SAConferenciaImp;
 import Negocio.Departamento.SADepartamento;
 import Negocio.Departamento.SADepartamentoIMP;
 import Negocio.Empleado.SAEmpleado;
@@ -37,15 +38,17 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 
 	@Override
 	public SAConferencia createSAConferencia() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SAConferenciaImp");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShop_MOD");
 		EntityManager em = emf.createEntityManager();
-		return new SAConferenciaIMP(em);
+		emf.close();
+		return new SAConferenciaImp(em);
 	}
 
 	@Override
 	public SADepartamento createSADepartamento() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SADepartamentoImp");
 		EntityManager em = emf.createEntityManager();
+		emf.close();
 		return new SADepartamentoIMP(em);
 	}
 
@@ -53,6 +56,7 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 	public SAEmpleado createSAEmpleado() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("SAEmpleadoImp");
 		EntityManager em = emf.createEntityManager();
+		emf.close();
 		return new SAEmpleadoIMP(em);
 	}
 

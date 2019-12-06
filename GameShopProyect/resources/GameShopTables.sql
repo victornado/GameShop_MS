@@ -55,6 +55,15 @@ CREATE TABLE `asociado` (
   CONSTRAINT `IDProductoP` FOREIGN KEY (`IDProducto`) REFERENCES `producto` (`ID`)
 );
 
+CREATE TABLE `conferencia` (
+ `id`INT(11) NOT NULL AUTO_INCREMENT,
+ `asistentes` INT(4) NOT NULL,
+ `tematica` VARCHAR(50) NOT NULL,
+ `nombre` VARCHAR(50) NOT NULL,
+ `fecha` TIMESTAMP NOT NULL,
+  PRIMARY KEY (id)
+);
+
 
 ----------------------------- 	PROVIDER   ---------------------------------------
 

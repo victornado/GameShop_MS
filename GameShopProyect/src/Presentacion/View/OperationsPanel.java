@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import Negocio.SA.SAAbstractFactory;
+import Negocio.Transfers.TConferencia;
 import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
 import Negocio.Transfers.TTicket;
@@ -176,7 +177,7 @@ public class OperationsPanel extends JPanel {
 		});
 	}
 
-	public void addInfoToComboBox() {
+	public void addInfoToComboBox(/*List<Object> data*/) {
 		_election.removeAllItems();
 		switch(nameIdentificator){
 		case "provider":
@@ -193,6 +194,8 @@ public class OperationsPanel extends JPanel {
 				_election.addItem(((TTicket)tt).get_id() + " - " + ((TTicket)tt).get_date());
 			break;
 		case "conference":
+			for(Object tc : SAAbstractFactory.getInstance().createSAConferencia().mostrarTodasLasConferencias())
+				_election.addItem(((TConferencia)tc).getID() + " - " + ((TConferencia)tc).getNombre());
 			break;
 		case "department":
 			break;

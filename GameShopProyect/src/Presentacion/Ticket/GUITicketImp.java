@@ -48,7 +48,7 @@ public class GUITicketImp extends GUITicket {
 			JOptionPane.showMessageDialog(null, "Ticket " + id + " has been correctly inserted into the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			//_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
-			_leftPane.addInfoToComboBox();
+			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
 			break;
 			
 		case Event.RES_REGISTER_TICKET_FAILED:
@@ -61,7 +61,7 @@ public class GUITicketImp extends GUITicket {
 			JOptionPane.showMessageDialog(null, "The ticket " + a + " has been properly unsubscribed.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
-			_leftPane.addInfoToComboBox();
+			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
 			break;
 			
 		case Event.RES_UNSUBSCRIBE_TICKET_FAILED:

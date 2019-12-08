@@ -5,15 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-public class SADepartamentoIMP implements SADepartamento {
-	
-
-	public EntityManager em;
-	public SADepartamentoIMP(EntityManager em)
-	{
-		this.em=em;
-	}
-	
+public class SADepartamentoImp implements SADepartamento {
 
 	public Integer registrarDepartamento(TDepartamento data) {
 		return null;

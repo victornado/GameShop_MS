@@ -1,11 +1,12 @@
-/**
- * 
- */
 package Negocio.Empleado;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
 import javax.persistence.NamedQuery;
+
+import Negocio.Transfers.TEmpleado;
+import Negocio.Transfers.TTecnico;
+
 import javax.persistence.NamedQueries;
 
 @Entity
@@ -32,5 +33,17 @@ public class Tecnico extends Empleado implements Serializable {
 	}
 	public void setSobresueldo(Double sobresueldo) {
 		this.sobresueldo = sobresueldo;
+	}
+
+	@Override
+	public Double calcularSueldo() {
+		return super.getSueldoBase() + sobresueldo;
+	}
+
+	@Override
+	public TEmpleado toTransfer() {
+		TEmpleado ret = new TTecnico(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(), super.getTipo(),
+				sobresueldo, especialidad);
+		return ret;
 	}
 }

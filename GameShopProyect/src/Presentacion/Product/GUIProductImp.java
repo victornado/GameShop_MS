@@ -48,7 +48,7 @@ public class GUIProductImp extends GUIProduct {
 			JOptionPane.showMessageDialog(null, "Product " + id + " has been correctly inserted in the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProduct()).readAllProducts());
-			_leftPane.addInfoToComboBox();
+			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
 			break;
 		case Event.RES_REGISTER_PRODUCT_FAILED:
 			JOptionPane.showMessageDialog(this, "Error when inserting the product into the database.","Failed",JOptionPane.ERROR_MESSAGE);		
@@ -65,7 +65,7 @@ public class GUIProductImp extends GUIProduct {
 		case Event.RES_MODIFY_PRODUCT_OK:
 			JOptionPane.showMessageDialog(this, "Product correctly updated in the database.","Success",JOptionPane.INFORMATION_MESSAGE);		
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProduct()).readAllProducts());
-			_leftPane.addInfoToComboBox();
+			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
 			break;
 		case Event.RES_MODIFY_PRODUCT_FAILED:
 			JOptionPane.showMessageDialog(this, "Error when modifying the product from the database.","Failed",JOptionPane.ERROR_MESSAGE);		

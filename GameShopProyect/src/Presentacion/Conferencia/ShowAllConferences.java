@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Negocio.Transfers.TConferencia;
+
 @SuppressWarnings("serial")
 public class ShowAllConferences extends ShowAll {
 	private String[] _columnsId = { "ID", "Nombre", "Fecha" };
@@ -37,15 +39,15 @@ public class ShowAllConferences extends ShowAll {
 				
 				switch(columnIndex){
 				case 0:
-					//o = ((TProvider)_providers.get(rowIndex)).get_id();
+					o = ((TConferencia)_conferences.get(rowIndex)).getID();
 					break;
 					
 				case 1:
-					//o = ((TProvider)_providers.get(rowIndex)).get_address();
+					o = ((TConferencia)_conferences.get(rowIndex)).getNombre();
 					break;
 					
 				case 2:
-					//o = ((TProvider)_providers.get(rowIndex)).get_nif();
+					o = ((TConferencia)_conferences.get(rowIndex)).getDate().toString();
 					break;
 				}
 				return o;

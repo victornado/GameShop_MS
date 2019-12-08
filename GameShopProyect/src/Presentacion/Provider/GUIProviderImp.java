@@ -45,7 +45,7 @@ public class GUIProviderImp extends GUIProvider {
 			JOptionPane.showMessageDialog(null, "Provider " + id + " has been correctly insertes into the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProvider()).readAllProviders());
-			_leftPane.addInfoToComboBox();
+			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
 			break;
 			
 		case Event.RES_REGISTER_PROVIDER_FAILED:
@@ -70,7 +70,7 @@ public class GUIProviderImp extends GUIProvider {
 		case Event.RES_MODIFY_PROVIDER_OK:
 			JOptionPane.showMessageDialog(this, "Provider correctly updated in the database.","Success",JOptionPane.INFORMATION_MESSAGE);		
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProvider()).readAllProviders());
-			_leftPane.addInfoToComboBox();
+			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
 			break;
 			
 		case Event.RES_READ_PROVIDER_OK:

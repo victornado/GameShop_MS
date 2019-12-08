@@ -1,22 +1,20 @@
-/**
- * 
- */
 package Negocio.Departamento;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import java.io.Serializable;
+import java.util.Collection;
+
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.NamedQueries;
+
+import Negocio.Empleado.Empleado;
 import Negocio.Transfers.TDepartamento;
 
-/**
- * <!-- begin-UML-doc --> <!-- end-UML-doc -->
- * 
- * @author carlo
- * @generated "UML a JPA
- *            (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "Negocio.Departamento.Departamento.findByid", query = "select obj from Departamento obj where :id = obj.id "),
@@ -25,20 +23,21 @@ import Negocio.Transfers.TDepartamento;
 		@NamedQuery(name = "Negocio.Departamento.Departamento.findByfacturacion", query = "select obj from Departamento obj where :facturacion = obj.facturacion "),
 		@NamedQuery(name = "Negocio.Departamento.Departamento.findByplanta", query = "select obj from Departamento obj where :planta = obj.planta ") })
 public class Departamento implements Serializable {
-	
 	private static final long serialVersionUID = 0;
-	@Id
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private Integer numEmpleados;
 	private Double facturacion;
 	private Integer planta;
+	@OneToMany (mappedBy="departamento") // Está en el lado 1 y el poseedor en el lado N
+	private Collection<Empleado> empleados;
 
 	public Departamento() {
 	}
 
-	public Departamento(Integer id)
-	{
+	public Departamento(Integer id){
 		this.id=id;
 	}
 

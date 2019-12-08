@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
+import Negocio.Empleado.Empleado;
 import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TDepartamento;
 import Negocio.Transfers.TEmpleado;
@@ -83,8 +84,8 @@ public class FormEmployee extends JDialog {
 		_typeElection.setPreferredSize(new Dimension(160,20));
 		_typeElection.setMaximumSize(new Dimension(160,20));
 		_typeElection.setMinimumSize(new Dimension(160,20));
-		_typeElection.addItem(TEmpleado.Tecnico);
-		_typeElection.addItem(TEmpleado.Comercial);
+		_typeElection.addItem(Empleado.Tecnico);
+		_typeElection.addItem(Empleado.Comercial);
 		
 		this._departmentElection.setPreferredSize(new Dimension(160,20));
 		this._departmentElection.setMaximumSize(new Dimension(160,20));
@@ -125,14 +126,14 @@ public class FormEmployee extends JDialog {
 					String turno = (String)_turnElection.getSelectedItem();
 					Double salarioBase = (Double)_salaryElection.getValue();
 					TEmpleado empleado;
-					if(((String)_typeElection.getSelectedItem()).equalsIgnoreCase(TEmpleado.Comercial)) {
+					if(((String)_typeElection.getSelectedItem()).equalsIgnoreCase(Empleado.Comercial)) {
 						Integer nVentas = (Integer)_numVentas.getValue();
-						empleado = new TComercial(nif, nombre, turno, salarioBase, nVentas);
+						empleado = new TComercial(nif, nombre, turno, salarioBase, Empleado.Comercial, nVentas);
 					}
 					else {
 						String especialidad = _specialtyText.getText();
 						Double sobresueldo = (Double)_sobresueldoText.getValue();
-						empleado = new TTecnico(nif, nombre, turno, salarioBase, sobresueldo, especialidad);
+						empleado = new TTecnico(nif, nombre, turno, salarioBase, Empleado.Tecnico, sobresueldo, especialidad);
 					}
 					Controller.getInstance().action(empleado, Event.REGISTER_EMPLOYEE);
 					closeDialog();
@@ -211,7 +212,7 @@ public class FormEmployee extends JDialog {
 		this.add(_department);
 		this.add(_departmentElection);
 		this.add(Box.createRigidArea(new Dimension(100, 1)));
-		if(selected.equalsIgnoreCase(TEmpleado.Comercial)) {
+		if(selected.equalsIgnoreCase(Empleado.Comercial)) {
 			this.add(_ventas);
 			this.add(_numVentas);
 		}

@@ -15,6 +15,8 @@ import javax.swing.event.ChangeListener;
 import Presentacion.Conferencia.ShowAllConferences;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
+import Presentacion.Departamento.ShowAllDepartments;
+import Presentacion.Empleado.ShowAllEmployees;
 import Presentacion.Product.ShowAllProducts;
 import Presentacion.Provider.ShowAllProvider;
 import Presentacion.Ticket.ShowAllTickets;
@@ -49,8 +51,10 @@ public class ShowPanel extends JPanel {
 			this.sa = new ShowAllConferences(null);
 			break;
 		case "department":
+			this.sa = new ShowAllDepartments(null);
 			break;
 		case "employee":
+			this.sa = new ShowAllEmployees(null);
 			break;
 		}
 		this.sc = new ShowChart(nameIdentificator);

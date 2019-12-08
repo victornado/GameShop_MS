@@ -78,6 +78,7 @@ public class SAConferenciaImp implements SAConferencia {
 		}
 		
 		em.getTransaction().commit();
+		
 		em.close();
 		emf.close();
 		

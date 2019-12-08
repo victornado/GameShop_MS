@@ -2,20 +2,19 @@ package Negocio.Transfers;
 
 public class TEmpleado {
 	
-	public static final String Comercial = "Comercial";
-	public static final String Tecnico = "Technician";
-	
 	private Integer ID;
 	private String NIF;
 	private String nombre;
 	private String turno;
 	private Double sueldobase;
+	private String tipo;
 	
-	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase) {
+	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, String tipo) {
 		this.NIF = NIF;
 		this.nombre = nombre;
 		this.turno = turno;
 		this.sueldobase = sueldoBase;
+		this.tipo = tipo;
 	}
 	
 	public String getNIF() {
@@ -56,5 +55,13 @@ public class TEmpleado {
 
 	public void setSueldobase(Double sueldobase) {
 		this.sueldobase = sueldobase;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

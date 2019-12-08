@@ -2,11 +2,11 @@ package Negocio.Transfers;
 
 public class TComercial extends TEmpleado {
 	
-	private static Double COBRO_POR_VENTA = 20.50; // salariobase += nVentas * COBRO_POR_VENTA
+	public static Double COBRO_POR_VENTA = 20.50; // salariobase += nVentas * COBRO_POR_VENTA
 	private Integer nVentas;
 	
-	public TComercial(String NIF, String nombre, String turno, Double sueldoBase, Integer ventas) {
-		super(NIF, nombre, turno, sueldoBase);
+	public TComercial(String NIF, String nombre, String turno, Double sueldoBase, String tipo,  Integer ventas) {
+		super(NIF, nombre, turno, sueldoBase, tipo);
 		nVentas = ventas;
 	}
 
@@ -25,6 +25,7 @@ public class TComercial extends TEmpleado {
 				"Nombre: " + super.getNombre() + '\n' +
 				"Turno: " + super.getTurno() + '\n' +
 				"Sueldo base: " + super.getSueldobase() + '\n' +
+				"Tipo: " + super.getTipo() + '\n' +
 				"Numero de ventas: " + nVentas + " [Cobro por cada venta = " + TComercial.COBRO_POR_VENTA + "]" + '\n');
 	}
 }

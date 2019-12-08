@@ -1,30 +1,133 @@
 package Negocio.Departamento;
 
+import Negocio.Conferencia.Conferencia;
+import Negocio.Transfers.TConferencia;
 import Negocio.Transfers.TDepartamento;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 public class SADepartamentoImp implements SADepartamento {
 
 	public Integer registrarDepartamento(TDepartamento data) {
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		Departamento dep = new Departamento();
+		
+		em.getTransaction().begin();
+		dep.setNombre(data.getNombre());
+		dep.setNumEmpleados(data.getnEmpleados());
+		dep.setPlanta(data.getPlanta());
+		dep.setFacturacion(data.getFactura());
+		
+		em.persist(dep);
+		em.getTransaction().commit();
+		
+		Integer id = dep.getId();
+		
+		em.close();
+		emf.close();
+		
+		return id;
 	}
 
 	public Boolean eliminarDepartamento(Integer id) {
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		Boolean ret = false;
+		
+		em.getTransaction().begin();
+		
+		Departamento dep = em.find(Departamento.class, id);
+		if(dep != null) {
+			em.remove(dep);
+			ret = true;
+		}
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 	
 	public Boolean modificarDepartamento(TDepartamento data) {
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		Boolean ret = false;
+		
+		em.getTransaction().begin();
+		
+		Departamento dep = em.find(Departamento.class, data.getID());
+		if(dep != null){
+			dep.setFacturacion(data.getFactura());
+			dep.setNombre(data.getNombre());
+			dep.setNumEmpleados(data.getnEmpleados());
+			dep.setPlanta(data.getPlanta());
+			ret = true;
+		}
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 
 	public Object mostrarDepartamento(Integer id) {
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		TDepartamento ret = null;
+		
+		em.getTransaction().begin();
+		
+		Departamento dep = em.find(Departamento.class, id);
+		
+		if(dep!=null)
+			ret = dep.toTransfer();
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 
 	public List<Object> mostrarTodosLosDepartamentos() {
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		List<Object> ret = null;
+		
+		em.getTransaction().begin();
+		
+		// Para JPQL si Departamento es una Entity hay que hacer "createQuery" pero si no fuere una Entity seria "createNativeQuery"
+		
+		
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MIRAR SI Dep de la QUERY ES ASI EN BD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		TypedQuery<Departamento> query = em.createQuery("SELECT d FROM Departamento d", Departamento.class);
+		List<Departamento> aux = query.getResultList();
+		
+		if(aux != null) {
+			ret = new ArrayList<Object>();
+			for(Departamento c : aux)
+				ret.add(c.toTransfer());
+		}
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 
 	public Double calcularNomina() {

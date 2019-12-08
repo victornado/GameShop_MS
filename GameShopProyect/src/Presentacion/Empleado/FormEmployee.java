@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
+import Negocio.Departamento.Departamento;
 import Negocio.Empleado.Empleado;
 import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TDepartamento;
@@ -125,15 +126,20 @@ public class FormEmployee extends JDialog {
 					String nombre = _nameText.getText();
 					String turno = (String)_turnElection.getSelectedItem();
 					Double salarioBase = (Double)_salaryElection.getValue();
+					
+					//NO SE SI ESTA BIEN --Vitali 2019
+					Departamento departamento = (Departamento) _departmentElection.getSelectedItem();
+					
+					
 					TEmpleado empleado;
 					if(((String)_typeElection.getSelectedItem()).equalsIgnoreCase(Empleado.Comercial)) {
 						Integer nVentas = (Integer)_numVentas.getValue();
-						empleado = new TComercial(nif, nombre, turno, salarioBase, Empleado.Comercial, nVentas);
+						empleado = new TComercial(nif, nombre, turno, salarioBase, Empleado.Comercial,departamento, nVentas);
 					}
 					else {
 						String especialidad = _specialtyText.getText();
 						Double sobresueldo = (Double)_sobresueldoText.getValue();
-						empleado = new TTecnico(nif, nombre, turno, salarioBase, Empleado.Tecnico, sobresueldo, especialidad);
+						empleado = new TTecnico(nif, nombre, turno, salarioBase, Empleado.Tecnico, departamento, sobresueldo, especialidad);
 					}
 					Controller.getInstance().action(empleado, Event.REGISTER_EMPLOYEE);
 					closeDialog();

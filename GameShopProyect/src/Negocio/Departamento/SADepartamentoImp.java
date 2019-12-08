@@ -126,8 +126,26 @@ public class SADepartamentoImp implements SADepartamento {
 		
 		return ret;
 	}
+	
 //falta
-	public Double calcularNomina() {
-		return null;
+	public Double calcularNomina(Integer id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		Double nominaFinal=0.0;
+		
+		em.getTransaction().begin();
+		
+		Departamento dep = em.find(Departamento.class, id);
+		
+		if(dep!=null)
+		{
+			//Aqui deberia recorrer la collection o hashmap de empleados sumando sueldos
+		}
+		
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+		
+		return nominaFinal;
 	}
 }

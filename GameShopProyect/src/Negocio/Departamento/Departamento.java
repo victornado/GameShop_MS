@@ -33,6 +33,8 @@ public class Departamento implements Serializable {
 	private Integer planta;
 	@OneToMany (mappedBy="departamento") // Está en el lado 1 y el poseedor en el lado N
 	private Collection<Empleado> empleados;
+	//SUGERENCIA: cambiar la colecction por un Hashmap de <Id.empleado, empleado> para poder borrar y meter empleados
+	//rapido
 
 	public Departamento() {
 	}
@@ -85,5 +87,9 @@ public class Departamento implements Serializable {
 				this.getPlanta());
 		sol.setID(this.getId());
 		return sol;
+	}
+	@Override
+	public String toString() { // Vitali
+		return this.getNombre();
 	}
 }

@@ -24,13 +24,13 @@ public class SAEmpleadoImp implements SAEmpleado {
 		
 		if(data.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
 			temp = new TComercial(data.getNIF(), data.getNombre(), data.getTurno(), data.getSueldobase(), data.getTipo(),
-					((TComercial)data).getnVentas());
+					data.getDepartamento(), ((TComercial)data).getnVentas());
 			emp = new Comercial();
 			((Comercial)emp).setnVentas(((TComercial)temp).getnVentas());
 		}
 		else {
 			temp = new TTecnico(data.getNIF(), data.getNombre(), data.getTurno(), data.getSueldobase(), data.getTipo(),
-					((TTecnico)data).getSobresueldo(), ((TTecnico)data).getEspecialidad());
+					data.getDepartamento(), ((TTecnico)data).getSobresueldo(), ((TTecnico)data).getEspecialidad());
 			emp = new Tecnico();
 			((Tecnico)emp).setEspecialidad(((Tecnico)emp).getEspecialidad());
 			((Tecnico)emp).setSobresueldo(((Tecnico)emp).getSobresueldo());
@@ -75,13 +75,13 @@ public class SAEmpleadoImp implements SAEmpleado {
 		return ret;
 	}
 
-	public Boolean modificarEmpleado(TEmpleado data2) {
+	public Boolean modificarEmpleado(TEmpleado data) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
 		
 		// PROVISIONAL PARA PRUEBAS ==> Funciona PERO CAMBIAR EL COMANDO
-		TEmpleado data = new TComercial("48223456S", "Carlos", "Morning", 1025.2, Empleado.Comercial, 127);
+		//TEmpleado data = new TComercial("48223456S", "Carlos", "Morning", 1025.2, Empleado.Comercial, 127);
 		
 		em.getTransaction().begin();
 		
@@ -94,6 +94,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 			emp.setSueldoBase(data.getSueldobase());
 			emp.setTipo(data.getTipo());
 			emp.setTurno(data.getTurno());
+			emp.setDepartamento(data.getDepartamento()); // Vitali
 			if(data.getTipo().equalsIgnoreCase(Empleado.Comercial))
 				((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
 			else {

@@ -10,5 +10,5 @@ public interface SADepartamento {
 	public Object mostrarDepartamento(Integer id);
 	public List<Object> mostrarTodosLosDepartamentos();
 	
-	public Double calcularNomina();
+	public Double calcularNomina(Integer id);
 }

@@ -82,6 +82,12 @@ public abstract class Empleado implements Serializable {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	public void setDepartamento(Departamento depto){
+		this.depto = depto;
+	}
+	public Departamento getDepartamento(){
+		return depto;
+	}
 	public abstract Double calcularSueldo();
 	public abstract TEmpleado toTransfer();
 }

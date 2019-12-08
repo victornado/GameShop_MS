@@ -1,5 +1,7 @@
 package Negocio.Transfers;
 
+import Negocio.Departamento.Departamento;
+
 public class TEmpleado {
 	
 	private Integer ID;
@@ -8,13 +10,15 @@ public class TEmpleado {
 	private String turno;
 	private Double sueldobase;
 	private String tipo;
+	private Departamento dep;
 	
-	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, String tipo) {
+	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Departamento dept) {
 		this.NIF = NIF;
 		this.nombre = nombre;
 		this.turno = turno;
 		this.sueldobase = sueldoBase;
 		this.tipo = tipo;
+		this.dep = dept;
 	}
 	
 	public String getNIF() {
@@ -63,5 +67,11 @@ public class TEmpleado {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	public void setDepartamento(Departamento depto){
+		this.dep = depto;
+	}
+	public Departamento getDepartamento(){
+		return dep;
 	}
 }

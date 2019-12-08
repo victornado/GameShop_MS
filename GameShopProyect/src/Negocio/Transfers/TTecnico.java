@@ -1,5 +1,7 @@
 package Negocio.Transfers;
 
+import Negocio.Departamento.Departamento;
+
 public class TTecnico extends TEmpleado {
 	
 	public static Double SOBRESUELDO = 500.50; // sueldoBase += SOBRESUELDO
@@ -7,8 +9,8 @@ public class TTecnico extends TEmpleado {
 	private String especialidad;
 	private Double sobresueldo;
 	
-	public TTecnico(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Double ss, String e) {
-		super(NIF, nombre, turno, sueldoBase, tipo);
+	public TTecnico(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Departamento dep, Double ss, String e) {
+		super(NIF, nombre, turno, sueldoBase, tipo, dep);
 		this.sobresueldo = ss;
 		this.especialidad = e;
 	}
@@ -35,6 +37,7 @@ public class TTecnico extends TEmpleado {
 				"NIF: " + super.getNIF() + '\n' +
 				"Nombre: " + super.getNombre() + '\n' +
 				"Turno: " + super.getTurno() + '\n' +
+				"Departamento: " + super.getDepartamento().toString() + '\n' +
 				"Sueldo base: " + super.getSueldobase() + '\n' +
 				"Especialidad: " + especialidad + '\n' +
 				"Tipo: " + super.getTipo() + '\n' +

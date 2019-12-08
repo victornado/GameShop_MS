@@ -28,4 +28,15 @@ public class TTecnico extends TEmpleado {
 	public void setSobresueldo(Double sobresueldo) {
 		this.sobresueldo = sobresueldo;
 	}
+	
+	@Override
+	public String toString() {
+		return ("ID: " + super.getID() + '\n' +
+				"NIF: " + super.getNIF() + '\n' +
+				"Nombre: " + super.getNombre() + '\n' +
+				"Turno: " + super.getTurno() + '\n' +
+				"Sueldo base: " + super.getSueldobase() + '\n' +
+				"Especialidad: " + especialidad + '\n' +
+				"Sobresueldo: " + sobresueldo + '\n');
+	}
 }

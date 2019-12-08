@@ -151,4 +151,13 @@ public class TDepartamento {
 		this.planta = planta;
 		// end-user-code
 	}
+	
+	@Override
+	public String toString() {
+		return ("ID: " + ID + '\n' +
+				"Nombre: " + nombre + '\n' +
+				"Empleados: " + nEmpleados + '\n' +
+				"Facturacion: " + factura + '\n' +
+				"Planta: " + planta + '\n');
+	}
 }

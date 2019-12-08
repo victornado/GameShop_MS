@@ -17,4 +17,14 @@ public class TComercial extends TEmpleado {
 	public void setnVentas(Integer nVentas) {
 		this.nVentas = nVentas;
 	}
+	
+	@Override
+	public String toString() {
+		return ("ID: " + super.getID() + '\n' +
+				"NIF: " + super.getNIF() + '\n' +
+				"Nombre: " + super.getNombre() + '\n' +
+				"Turno: " + super.getTurno() + '\n' +
+				"Sueldo base: " + super.getSueldobase() + '\n' +
+				"Numero de ventas: " + nVentas + " [Cobro por cada venta = " + TComercial.COBRO_POR_VENTA + "]" + '\n');
+	}
 }

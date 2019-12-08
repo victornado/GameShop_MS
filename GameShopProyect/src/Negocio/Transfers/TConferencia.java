@@ -9,21 +9,12 @@ public class TConferencia {
 	private Timestamp fecha;
 	private String tematica;
 	private String nombre;
-	private Boolean activo;
 	
 	public TConferencia(String n, String t, Integer a, Timestamp d) {
 		nombre = n;
 		tematica = t;
 		asistentes = a;
 		fecha = d;
-	}
-	
-	public Boolean getActivo() {
-		return activo;
-	}
-
-	public void setActivo(Boolean activo) {
-		this.activo = activo;
 	}
 
 	public Integer getID() {
@@ -63,5 +54,14 @@ public class TConferencia {
 
 	public void setAsistentes(Integer asistentes) {
 		this.asistentes = asistentes;
+	}
+	
+	@Override
+	public String toString() {
+		return ("ID: " + ID + '\n' +
+				"Nombre: " + nombre + '\n' +
+				"Tematica: " + tematica + '\n' +
+				"Fecha: " + fecha.toString() + '\n' +
+				"Asistentes: " + asistentes + '\n');
 	}
 }

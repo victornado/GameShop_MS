@@ -1,10 +1,7 @@
 package Negocio.Departamento;
 
-import Negocio.Conferencia.Conferencia;
-import Negocio.Transfers.TConferencia;
 import Negocio.Transfers.TDepartamento;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +126,7 @@ public class SADepartamentoImp implements SADepartamento {
 		
 		return ret;
 	}
-
+//falta
 	public Double calcularNomina() {
 		return null;
 	}

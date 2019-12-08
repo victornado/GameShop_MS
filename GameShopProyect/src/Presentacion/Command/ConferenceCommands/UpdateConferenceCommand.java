@@ -12,10 +12,10 @@ public class UpdateConferenceCommand extends Command {
 
 	@Override
 	public Pair<Object, Integer> execute(Object data) {
-		TConferencia tc = (TConferencia) data;
-		Boolean ok = SAAbstractFactory.getInstance().createSAConferencia().modificarConferencia(tc);
+		//TConferencia tc = (TConferencia) data;
+		Boolean ok = SAAbstractFactory.getInstance().createSAConferencia().modificarConferencia(null/*tc*/);
 		Integer evento = (!ok) ? Event.RES_MODIFY_CONFERENCE_FAILED : Event.RES_MODIFY_CONFERENCE_OK;
-		Pair<Object, Integer> p = new Pair<Object, Integer>(tc, evento);
+		Pair<Object, Integer> p = new Pair<Object, Integer>(/*tc*/null, evento);
 		return p;
 	}
 

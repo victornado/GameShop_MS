@@ -67,15 +67,18 @@ public class FormConferencia extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String name = _name.getText();
-					String thematic = _thematic.getText();
-					Integer assistants = Integer.parseInt(_assistants.getText());
-					String[] dateInfo = _assistants.getText().split("-");
+					String name = _nameText.getText();
+					String thematic = _thematicText.getText();
+					Integer assistants = (Integer)_assistantsElection.getValue();
+					/*String[] dateInfo = _dateText.getText().split("-");
 					@SuppressWarnings("deprecation")
 					Timestamp date = new Timestamp(
 							Integer.parseInt(dateInfo[0]), Integer.parseInt(dateInfo[1]), Integer.parseInt(dateInfo[2]), 9, 0, 0, 0);
+					TConferencia tc = new TConferencia(name, thematic, assistants, date);*/
+					Timestamp date = Timestamp.valueOf(_dateText.getText());
 					TConferencia tc = new TConferencia(name, thematic, assistants, date);
 					Controller.getInstance().action(tc, Event.REGISTER_CONFERENCE);
+					closeDialog();
 				}catch(Exception ex) {
 					closeDialog();
 					Controller.getInstance().action(null, Event.REGISTER_CONFERENCE);

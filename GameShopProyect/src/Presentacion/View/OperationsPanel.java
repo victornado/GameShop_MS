@@ -126,6 +126,7 @@ public class OperationsPanel extends JPanel {
 							JOptionPane.showMessageDialog(null, "Error when reading a product from the database.","Failed",JOptionPane.ERROR_MESSAGE);		
 						break;
 					case "conference":
+						System.out.println("no se mete");
 						break;
 					case "department":
 						break;
@@ -133,6 +134,9 @@ public class OperationsPanel extends JPanel {
 						break;
 					}
 				}
+				//* ES PARA PROBAR EL UPDATE DE UNA CONFERENCIA ANTES DE CAMBIARLO POR LO DE JOAQUIN *//
+				if(nameIdentificator.equalsIgnoreCase("conference"))
+					Controller.getInstance().action(5, Event.MODIFY_CONFERENCE);
 			}
 		});
 	}
@@ -156,6 +160,7 @@ public class OperationsPanel extends JPanel {
 						Controller.getInstance().action(id, Event.UNSUBSCRIBE_TICKET);
 						break;
 					case "conference":
+						Controller.getInstance().action(id, Event.UNSUBSCRIBE_CONFERENCE);
 						break;
 					case "department":
 						break;
@@ -163,6 +168,10 @@ public class OperationsPanel extends JPanel {
 						break;
 					}
 				}
+				
+				//* ES PARA PROBAR EL BORRADO DE UNA CONFERENCIA ANTES DE CAMBIARLO POR LO DE JOAQUIN *//
+				if(nameIdentificator.equalsIgnoreCase("conference"))
+					Controller.getInstance().action(1, Event.UNSUBSCRIBE_CONFERENCE);
 			}
 		});
 	}

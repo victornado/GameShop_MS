@@ -69,9 +69,8 @@ public class Conferencia implements Serializable {
 	}
 
 	public TConferencia toTransfer() {
-		TConferencia sol = new TConferencia(this.getNombre(), this.getTematica(), this.getAsistentes(),
-				this.getFecha());
-		sol.setID(this.getId());
+		TConferencia sol = new TConferencia(nombre, tematica, asistentes, fecha);
+		sol.setID(id);
 		return sol;
 	}
 }

@@ -13,12 +13,12 @@ public class Comercial extends Empleado implements Serializable {
 
 	public Comercial() {
 	}
-	private Object nVentas;
+	private Integer nVentas;
 
-	public Object getnVentas() {
+	public Integer getnVentas() {
 		return nVentas;
 	}
-	public void setnVentas(Object nVentas) {
+	public void setnVentas(Integer nVentas) {
 		this.nVentas = nVentas;
 	}
 }

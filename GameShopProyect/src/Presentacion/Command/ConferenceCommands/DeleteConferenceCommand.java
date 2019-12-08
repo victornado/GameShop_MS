@@ -12,7 +12,7 @@ public class DeleteConferenceCommand extends Command {
 	@Override
 	public Pair<Object, Integer> execute(Object data) {
 		int id = (Integer) data;
-		boolean resDelete = SAAbstractFactory.getInstance().createSADepartamento().eliminarDepartamento(id);
+		boolean resDelete = SAAbstractFactory.getInstance().createSAConferencia().eliminarConferencia(id);
 		Integer evento = (!resDelete) ? Event.RES_UNSUBSCRIBE_CONFERENCE_FAILED : Event.RES_UNSUBSCRIBE_CONFERENCE_OK;
 		Pair<Object, Integer> p = new Pair<Object, Integer>(id, evento);
 		return p;

@@ -12,6 +12,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import Presentacion.Conferencia.ShowAllConferences;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 import Presentacion.Product.ShowAllProducts;
@@ -43,6 +44,13 @@ public class ShowPanel extends JPanel {
 			break;
 		case "ticket":
 			this.sa = new ShowAllTickets(null);
+			break;
+		case "conference":
+			this.sa = new ShowAllConferences(null);
+			break;
+		case "department":
+			break;
+		case "employee":
 			break;
 		}
 		this.sc = new ShowChart(nameIdentificator);
@@ -89,6 +97,9 @@ public class ShowPanel extends JPanel {
 						case "provider": event = Event.READ_ALL_PROVIDERS; break;
 						case "ticket": event = Event.READ_ALL_TICKET; break;
 						case "product": event = Event.READ_ALL_PRODUCT; break;
+						case "conference": event = Event.READ_ALL_CONFERENCE; break;
+						case "department": event = Event.READ_ALL_DEPARTMENT; break;
+						case "employee": event = Event.READ_ALL_EMPLOYEE; break;
 					}
 					Controller.getInstance().action(null, event);
 				}

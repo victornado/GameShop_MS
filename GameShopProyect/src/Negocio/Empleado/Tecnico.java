@@ -15,22 +15,22 @@ import javax.persistence.NamedQueries;
 public class Tecnico extends Empleado implements Serializable {
 	
 	private static final long serialVersionUID = 0;
-	private Object especialidad;
-	private Object sobresueldo;
+	private String especialidad;
+	private Double sobresueldo;
 	
 	public Tecnico() {
 	}
 
-	public Object getEspecialidad() {
+	public String getEspecialidad() {
 		return especialidad;
 	}
-	public void setEspecialidad(Object especialidad) {
+	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}
-	public Object getSobresueldo() {
+	public Double getSobresueldo() {
 		return sobresueldo;
 	}
-	public void setSobresueldo(Object sobresueldo) {
+	public void setSobresueldo(Double sobresueldo) {
 		this.sobresueldo = sobresueldo;
 	}
 }

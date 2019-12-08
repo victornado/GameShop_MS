@@ -38,10 +38,7 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 
 	@Override
 	public SAConferencia createSAConferencia() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
-		EntityManager em = emf.createEntityManager();
-		emf.close();
-		return new SAConferenciaImp(em);
+		return new SAConferenciaImp();
 	}
 
 	@Override

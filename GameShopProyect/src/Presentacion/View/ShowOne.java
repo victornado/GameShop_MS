@@ -72,6 +72,8 @@ public class ShowOne extends JPanel {
 						break;
 					}
 				}
+				if(nameIdentificator.equalsIgnoreCase("conference"))
+					Controller.getInstance().action(5, Event.READ_CONFERENCE);
 			}
 		});
 	}

@@ -135,6 +135,7 @@ public class FormEmployee extends JDialog {
 						empleado = new TTecnico(nif, nombre, turno, salarioBase, sobresueldo, especialidad);
 					}
 					Controller.getInstance().action(empleado, Event.REGISTER_EMPLOYEE);
+					closeDialog();
 				} catch(Exception ex) {
 					closeDialog();
 					Controller.getInstance().action(null, Event.REGISTER_EMPLOYEE);

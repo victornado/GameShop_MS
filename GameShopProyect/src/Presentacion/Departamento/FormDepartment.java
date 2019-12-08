@@ -72,6 +72,7 @@ public class FormDepartment extends JDialog {
 					Integer floor = Integer.parseInt(_floorText.getText());
 					TDepartamento td = new TDepartamento(name, billing, employees, floor);
 					Controller.getInstance().action(td, Event.REGISTER_DEPARTMENT);
+					closeDialog();
 				}catch(Exception ex) {
 					closeDialog();
 					Controller.getInstance().action(null, Event.REGISTER_DEPARTMENT);

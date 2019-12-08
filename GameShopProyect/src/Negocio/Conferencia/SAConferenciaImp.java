@@ -1,6 +1,9 @@
 package Negocio.Conferencia;
 
 import Negocio.Transfers.TConferencia;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,67 +13,119 @@ import javax.persistence.TypedQuery;
 
 public class SAConferenciaImp implements SAConferencia {
 	
-	public EntityManager em;
-	public SAConferenciaImp(EntityManager em)
-	{
-		this.em=em;
-	}
-	
 	public Integer registrarConferencia(TConferencia data) {
-		em.getTransaction().begin();
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
 		Conferencia con = new Conferencia();
-		//gestionar la creacion de id's ahora que no tocamos el dao ni la bd
+		
+		em.getTransaction().begin();
 		con.setNombre(data.getNombre());
-		con.setTematica(data.getTematica());
 		con.setAsistentes(data.getAsistentes());
 		con.setFecha(data.getDate());
+		con.setTematica(data.getTematica());
+		
 		em.persist(con);
-		em.getTransaction().commit(); 	
-		return con.getId();
+		em.getTransaction().commit();
+		
+		Integer id = con.getId();
+		
+		em.close();
+		emf.close();
+		
+		return id;
 	}
 
 	public Boolean eliminarConferencia(Integer id) {
-		Conferencia con = findConferencia(id);
-		if(con!=null)
-		{
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		Boolean ret = false;
+		
+		em.getTransaction().begin();
+		
+		Conferencia con = em.find(Conferencia.class, id);
+		if(con != null) {
 			em.remove(con);
-			return true;
+			ret = true;
 		}
-		return false;
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 
-	public Boolean modificarConferencia(TConferencia data) {
+	public Boolean modificarConferencia(TConferencia data2) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		Boolean ret = false;
 		
-		//Al reactivar conferencia, como accedemos a la variable 'activo'
+		// PROVISIONAL PARA PRUEBAS ==> Funciona PERO CAMBIAR EL COMANDO
+		Timestamp fecha = Timestamp.valueOf("2019-12-15 14:15:00");
+		TConferencia data = new TConferencia("Changes", "Gender", 300, fecha);
+		data.setID(5);
 		
-		Conferencia con = findConferencia(data.getID());
-		if(con!=null)
-		{
+		em.getTransaction().begin();
+		
+		Conferencia con = em.find(Conferencia.class, data.getID());
+		if(con != null){
 			con.setNombre(data.getNombre());
 			con.setTematica(data.getTematica());
 			con.setAsistentes(data.getAsistentes());
 			con.setFecha(data.getDate());
-			return true;
+			ret = true;
 		}
-		return false;
+		
+		em.getTransaction().commit();
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 
 	public Object mostrarConferencia(Integer id) {
-		Conferencia con = findConferencia(id);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		TConferencia ret = null;
+		
+		em.getTransaction().begin();
+		
+		Conferencia con = em.find(Conferencia.class, 5);
+		
 		if(con!=null)
-			return con;
-		return null;
+			ret = con.toTransfer();
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 
 	public List<Object> mostrarTodasLasConferencias() {
-		//Aqui tenemos una movida tamb
-		//TypedQuery<Conferencia> query = em.createQuery("SELECT * FROM Conferencia c", Conferencia.class);
-		return null;
-	}
-	
-	
-	public Conferencia findConferencia(Integer id)
-	{
-		return em.find(Conferencia.class, id);
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		List<Object> ret = null;
+		
+		em.getTransaction().begin();
+		
+		// Para JPQL si Conferencia es una Entity hay que hacer "createQuery" pero si no fuere una Entity seria "createNativeQuery"
+		TypedQuery<Conferencia> query = em.createQuery("SELECT c FROM Conferencia c", Conferencia.class);
+		List<Conferencia> aux = query.getResultList();
+		
+		if(aux != null) {
+			ret = new ArrayList<Object>();
+			for(Conferencia c : aux)
+				ret.add(c.toTransfer());
+		}
+		
+		em.getTransaction().commit();
+		
+		em.close();
+		emf.close();
+		
+		return ret;
 	}
 }

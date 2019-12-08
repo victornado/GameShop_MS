@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
-import javafx.util.Pair;
+import utils.Pair;
 
 public class TProductQuantity {
 	private Integer _idTicket;

@@ -7,7 +7,7 @@ import Negocio.SA.SAAbstractFactory;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
 
-public class UpdateComboBox extends Command {
+public class UpdateComboBoxDpto extends Command {
 
 	@Override
 	public Pair<Object, Integer> execute(Object data) throws Exception {

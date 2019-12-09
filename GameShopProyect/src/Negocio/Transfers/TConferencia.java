@@ -10,6 +10,8 @@ public class TConferencia {
 	private String tematica;
 	private String nombre;
 	
+	private String stringFecha; // String para almacenar la fecha en fomrato string y ver en el SA que es un formate de fecha correcto
+	
 	public TConferencia(String n, String t, Integer a, Timestamp d) {
 		nombre = n;
 		tematica = t;
@@ -60,6 +62,14 @@ public class TConferencia {
 		return Timestamp.valueOf(timeData);
 	}
 	
+	public String getStringFecha() {
+		return stringFecha;
+	}
+
+	public void setStringFecha(String stringFecha) {
+		this.stringFecha = stringFecha;
+	}
+
 	@Override
 	public String toString() {
 		return ("ID: " + ID + '\n' +

@@ -62,7 +62,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.READ_EMPLOYEE, new ShowOneEmployeeCommand());
 		_availableCommands.put(Event.READ_ALL_EMPLOYEE, new ShowAllEmployeeCommand());
 		
-		_availableCommands.put(Event.UPDATE_LIST_EMPLOYEE, new UpdateComboBox());
+		_availableCommands.put(Event.UPDATE_LIST_EMPLOYEE, new UpdateComboBoxDpto());
 
 		/********************************** QUERIES **********************************/
 		_availableCommands.put(Event.SHOW_PROVIDER_QUERY, new BestProviderQueryCommand());

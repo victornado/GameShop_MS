@@ -139,7 +139,17 @@ public class SAConferenciaImp implements SAConferencia {
 			validos = false;
 		else if(data.getTematica() == null || data.getTematica().length() > 50)
 			validos = false;
-		else if()
+		else if(validos) {
+			// Miramos que el formato de fecha sea el correcto
+			String[] fullDate = data.getStringFecha().split(" ");
+			String[] date = fullDate[0].split("-");
+			String[] hours = fullDate[1].split(":");
+			
+			if(date[0].length() != 4 || (date[1].length() < 1 || date[1].length() > 2) || (date[2].length() < 1 || date[2].length() > 2))
+				validos = false;
+			else if((hours[0] < 0 || hours[0] > 23) || (hours[1] > 59 || hours[1] < 0) || (hours[2] > 59 || hours[2] < 0))
+				validos = false;
+		}
 		
 		return validos;
 	}

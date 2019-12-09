@@ -202,11 +202,11 @@ public class OperationsPanel extends JPanel {
 				_election.addItem(((TConferencia)tc).getID() + " - " + ((TConferencia)tc).getNombre());
 			}break;
 		case "department":
-			Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
+			/*Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
 			if(this._electionForm != null) {
 			for(Object tc : this._electionForm)
 				_election.addItem(((TDepartamento)tc).getID() + " - " + ((TDepartamento)tc).getNombre());
-			}break;
+			}*/break;
 		case "employee":
 			Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
 			if(this._electionForm != null) {

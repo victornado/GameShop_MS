@@ -47,6 +47,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.MODIFY_CONFERENCE, new UpdateConferenceCommand());
 		_availableCommands.put(Event.READ_CONFERENCE, new ShowOneConferenceCommand());
 		_availableCommands.put(Event.READ_ALL_CONFERENCE, new ShowAllConferenceCommand());
+		_availableCommands.put(Event.UPDATE_LIST_CONFERENCE, new UpdateComboBoxConference());
 
 		/******************************** DEPARTMENT ********************************/
 		_availableCommands.put(Event.REGISTER_DEPARTMENT, new CreateDepartmentCommand());
@@ -54,6 +55,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.MODIFY_DEPARTMENT, new UpdateDepartmentCommand());
 		_availableCommands.put(Event.READ_DEPARTMENT, new ShowOneDepartmentCommand());
 		_availableCommands.put(Event.READ_ALL_DEPARTMENT, new ShowAllDepartmentCommand());
+		_availableCommands.put(Event.UPDATE_LIST_CONFERENCE, new UpdateComboBoxDpto());
 
 		/********************************* EMPLOYEE *********************************/
 		_availableCommands.put(Event.REGISTER_EMPLOYEE, new CreateEmployeeCommand());
@@ -61,8 +63,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.MODIFY_EMPLOYEE, new UpdateEmployeeCommand());
 		_availableCommands.put(Event.READ_EMPLOYEE, new ShowOneEmployeeCommand());
 		_availableCommands.put(Event.READ_ALL_EMPLOYEE, new ShowAllEmployeeCommand());
-		
-		_availableCommands.put(Event.UPDATE_LIST_EMPLOYEE, new UpdateComboBoxDpto());
+		_availableCommands.put(Event.UPDATE_LIST_EMPLOYEE, new UpdateComboBoxEmployee());
 
 		/********************************** QUERIES **********************************/
 		_availableCommands.put(Event.SHOW_PROVIDER_QUERY, new BestProviderQueryCommand());

@@ -136,8 +136,8 @@ public class OperationsPanel extends JPanel {
 					}
 				}
 				//* ES PARA PROBAR EL UPDATE DE UNA CONFERENCIA ANTES DE CAMBIARLO POR LO DE JOAQUIN *//
-				if(nameIdentificator.equalsIgnoreCase("conference"))
-					Controller.getInstance().action(5, Event.MODIFY_CONFERENCE);
+				/*if(nameIdentificator.equalsIgnoreCase("conference"))
+					Controller.getInstance().action(5, Event.MODIFY_CONFERENCE);*/
 			}
 		});
 	}
@@ -171,8 +171,8 @@ public class OperationsPanel extends JPanel {
 				}
 				
 				//* ES PARA PROBAR EL BORRADO DE UNA CONFERENCIA ANTES DE CAMBIARLO POR LO DE JOAQUIN *//
-				if(nameIdentificator.equalsIgnoreCase("conference"))
-					Controller.getInstance().action(1, Event.UNSUBSCRIBE_CONFERENCE);
+				/*if(nameIdentificator.equalsIgnoreCase("conference"))
+					Controller.getInstance().action(1, Event.UNSUBSCRIBE_CONFERENCE);*/
 			}
 		});
 	}

@@ -31,7 +31,7 @@ public class Departamento implements Serializable {
 	private Integer numEmpleados;
 	private Double facturacion;
 	private Integer planta;
-	@OneToMany (mappedBy="departamento") // Está en el lado 1 y el poseedor en el lado N
+	@OneToMany (mappedBy="depto") // Está en el lado 1 y el poseedor en el lado N
 	private Collection<Empleado> empleados;
 	//SUGERENCIA: cambiar la colecction por un Hashmap de <Id.empleado, empleado> para poder borrar y meter empleados
 	//rapido

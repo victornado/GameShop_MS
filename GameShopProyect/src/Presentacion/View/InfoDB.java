@@ -177,7 +177,8 @@ public class InfoDB extends JDialog {
 					GUIGameShop.getInstance().initGameShop(Event.INIT_GAMESHOP);
 				}
 				catch (Exception e){
-					JOptionPane.showMessageDialog(null, "Error JDBC connection.", "Failed", JOptionPane.ERROR_MESSAGE);
+					e.printStackTrace();
+					//JOptionPane.showMessageDialog(null, "Error JDBC connection.", "Failed", JOptionPane.ERROR_MESSAGE);
 					/*try {
 						Stmt.execute("DROP SCHEMA " + Main.Main.database);
 					} catch (SQLException e1) {

@@ -8,7 +8,7 @@ import javax.persistence.NamedQueries;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = "Realiza.Realiza.findByids", query = "select obj from Realiza obj where :main = obj.ids "),
+		@NamedQuery(name = "Realiza.Realiza.findByids", query = "select obj from Realiza obj where :ids = obj.ids "),
 		@NamedQuery(name = "Realiza.Realiza.findByduracion", query = "select obj from Realiza obj where :duracion = obj.duracion ") })
 public class Realiza implements Serializable {
 	private static final long serialVersionUID = 0;

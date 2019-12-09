@@ -1,5 +1,6 @@
 package Negocio.Conferencia;
 
+import Negocio.Realiza.Realiza;
 import Negocio.Transfers.TConferencia;
 
 import java.sql.Timestamp;
@@ -14,24 +15,30 @@ import javax.persistence.TypedQuery;
 public class SAConferenciaImp implements SAConferencia {
 	
 	public Integer registrarConferencia(TConferencia data) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
-		EntityManager em = emf.createEntityManager();
-		Conferencia con = new Conferencia();
-		
-		em.getTransaction().begin();
-		con.setNombre(data.getNombre());
-		con.setAsistentes(data.getAsistentes());
-		con.setFecha(data.getDate());
-		con.setTematica(data.getTematica());
-		
-		em.persist(con);
-		em.getTransaction().commit();
-		
-		Integer id = con.getId();
-		
-		em.close();
-		emf.close();
-		
+		Integer id = -1;
+		if(validezDeDatos(data)) {
+			data.setDate(data.toTimestamp(data.getStringFecha()));
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+			EntityManager em = emf.createEntityManager();
+			Conferencia con = new Conferencia();
+			Realiza real = new Realiza();
+			
+			em.getTransaction().begin();
+			
+			con.setNombre(data.getNombre());
+			con.setAsistentes(data.getAsistentes());
+			con.setFecha(data.getDate());
+			con.setTematica(data.getTematica());
+			
+			em.persist(con);
+			em.persist(real);
+			em.getTransaction().commit();
+			
+			id = con.getId();
+			
+			em.close();
+			emf.close();
+		}
 		return id;
 	}
 
@@ -57,30 +64,33 @@ public class SAConferenciaImp implements SAConferencia {
 	}
 
 	public Boolean modificarConferencia(TConferencia data2) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
-		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
 		
-		// PROVISIONAL PARA PRUEBAS ==> Funciona PERO CAMBIAR EL COMANDO
-		Timestamp fecha = Timestamp.valueOf("2019-12-15 14:15:00");
-		TConferencia data = new TConferencia("Changes", "Gender", 300, fecha);
-		data.setID(5);
-		
-		em.getTransaction().begin();
-		
-		Conferencia con = em.find(Conferencia.class, data.getID());
-		if(con != null){
-			con.setNombre(data.getNombre());
-			con.setTematica(data.getTematica());
-			con.setAsistentes(data.getAsistentes());
-			con.setFecha(data.getDate());
-			ret = true;
+		if(validezDeDatos(data2)) {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+			EntityManager em = emf.createEntityManager();
+			
+			// PROVISIONAL PARA PRUEBAS ==> Funciona PERO CAMBIAR EL COMANDO
+			Timestamp fecha = Timestamp.valueOf("2019-12-15 14:15:00");
+			TConferencia data = new TConferencia("Changes", "Gender", 300, fecha);
+			data.setID(5);
+			
+			em.getTransaction().begin();
+			
+			Conferencia con = em.find(Conferencia.class, data.getID());
+			if(con != null){
+				con.setNombre(data.getNombre());
+				con.setTematica(data.getTematica());
+				con.setAsistentes(data.getAsistentes());
+				con.setFecha(data.getDate());
+				ret = true;
+			}
+			
+			em.getTransaction().commit();
+			
+			em.close();
+			emf.close();
 		}
-		
-		em.getTransaction().commit();
-		
-		em.close();
-		emf.close();
 		
 		return ret;
 	}
@@ -147,7 +157,9 @@ public class SAConferenciaImp implements SAConferencia {
 			
 			if(date[0].length() != 4 || (date[1].length() < 1 || date[1].length() > 2) || (date[2].length() < 1 || date[2].length() > 2))
 				validos = false;
-			else if((hours[0] < 0 || hours[0] > 23) || (hours[1] > 59 || hours[1] < 0) || (hours[2] > 59 || hours[2] < 0))
+			else if((Integer.parseInt(hours[0]) > 23 || Integer.parseInt(hours[0]) < 0) ||
+					(Integer.parseInt(hours[1]) > 59 || Integer.parseInt(hours[1]) < 0) ||
+					(Integer.parseInt(hours[2]) > 59 || Integer.parseInt(hours[2]) < 0))
 				validos = false;
 		}
 		

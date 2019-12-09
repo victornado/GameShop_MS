@@ -1,6 +1,8 @@
 package Negocio.Transfers;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TConferencia {
 	
@@ -9,6 +11,9 @@ public class TConferencia {
 	private Timestamp fecha;
 	private String tematica;
 	private String nombre;
+	
+	// Lista de TRealiza que contiene los empleados que van a hacer es conferencia
+	private List<TRealiza> empleadosEnConferencias = new ArrayList<TRealiza>();
 	
 	private String stringFecha; // String para almacenar la fecha en fomrato string y ver en el SA que es un formate de fecha correcto
 	
@@ -68,6 +73,14 @@ public class TConferencia {
 
 	public void setStringFecha(String stringFecha) {
 		this.stringFecha = stringFecha;
+	}
+
+	public List<TRealiza> getEmpleadosEnConferencias() {
+		return empleadosEnConferencias;
+	}
+
+	public void setEmpleadosEnConferencias(List<TRealiza> empleadosEnConferencias) {
+		this.empleadosEnConferencias = empleadosEnConferencias;
 	}
 
 	@Override

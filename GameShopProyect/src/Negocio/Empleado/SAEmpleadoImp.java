@@ -16,38 +16,42 @@ import Negocio.Transfers.TTecnico;
 public class SAEmpleadoImp implements SAEmpleado {
 	
 	public Integer registrarEmpleado(TEmpleado data) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
-		EntityManager em = emf.createEntityManager();
-		Empleado emp = null;
+		Integer idRet = -1;
 		
-		em.getTransaction().begin();
-		
-		if(data.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
-			emp = new Comercial();
-			((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
+		if(validezDeDatos(data)) {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+			EntityManager em = emf.createEntityManager();
+			Empleado emp = null;
+			
+			em.getTransaction().begin();
+			
+			if(data.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
+				emp = new Comercial();
+				((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
+			}
+			else {
+				emp = new Tecnico();
+				((Tecnico)emp).setEspecialidad(((TTecnico)data).getEspecialidad());
+				((Tecnico)emp).setSobresueldo(((TTecnico)data).getSobresueldo());
+			}
+			
+			emp.setNIF(data.getNIF());
+			emp.setNombre(data.getNombre());
+			emp.setSueldoBase(data.getSueldobase());
+			emp.setTurno(data.getTurno());
+			if(data.getDepartamento() ==  null)
+				emp.setDepartamento(null);
+			else
+				emp.setDepartamento(em.find(Departamento.class, data.getDepartamento()));
+					
+			em.persist(emp);
+			em.getTransaction().commit();
+			
+			idRet = emp.getId();
+			
+			em.close();
+			emf.close();
 		}
-		else {
-			emp = new Tecnico();
-			((Tecnico)emp).setEspecialidad(((TTecnico)data).getEspecialidad());
-			((Tecnico)emp).setSobresueldo(((TTecnico)data).getSobresueldo());
-		}
-		
-		emp.setNIF(data.getNIF());
-		emp.setNombre(data.getNombre());
-		emp.setSueldoBase(data.getSueldobase());
-		emp.setTurno(data.getTurno());
-		if(data.getDepartamento() ==  null)
-			emp.setDepartamento(null);
-		else
-			emp.setDepartamento(em.find(Departamento.class, data.getDepartamento()));
-				
-		em.persist(emp);
-		em.getTransaction().commit();
-		
-		Integer idRet = emp.getId();
-		
-		em.close();
-		emf.close();
 		
 		return idRet;
 	}
@@ -74,33 +78,37 @@ public class SAEmpleadoImp implements SAEmpleado {
 	}
 
 	public Boolean modificarEmpleado(TEmpleado data) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
-		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
 		
-		em.getTransaction().begin();
-		
-		Empleado emp = em.find(Empleado.class, data.getID());
-		
-		if(emp != null) {
-			ret = true;
-			emp.setNIF(data.getNIF());
-			emp.setNombre(data.getNombre());
-			emp.setSueldoBase(data.getSueldobase());
-			emp.setTurno(data.getTurno());
-			emp.setDepartamento(em.find(Departamento.class, data.getID()));
-			if(data.getTipo().equalsIgnoreCase(Empleado.Comercial))
-				((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
-			else {
-				((Tecnico)emp).setEspecialidad(((TTecnico)data).getEspecialidad());
-				((Tecnico)emp).setSobresueldo(((TTecnico)data).getSobresueldo());
+		if(validezDeDatos(data)) {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+			EntityManager em = emf.createEntityManager();
+			
+			
+			em.getTransaction().begin();
+			
+			Empleado emp = em.find(Empleado.class, data.getID());
+			
+			if(emp != null) {
+				ret = true;
+				emp.setNIF(data.getNIF());
+				emp.setNombre(data.getNombre());
+				emp.setSueldoBase(data.getSueldobase());
+				emp.setTurno(data.getTurno());
+				emp.setDepartamento(em.find(Departamento.class, data.getID()));
+				if(data.getTipo().equalsIgnoreCase(Empleado.Comercial))
+					((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
+				else {
+					((Tecnico)emp).setEspecialidad(((TTecnico)data).getEspecialidad());
+					((Tecnico)emp).setSobresueldo(((TTecnico)data).getSobresueldo());
+				}
 			}
+			
+			em.getTransaction().commit();
+			
+			em.close();
+			emf.close();
 		}
-		
-		em.getTransaction().commit();
-		
-		em.close();
-		emf.close();
 		
 		return ret;
 	}
@@ -148,5 +156,20 @@ public class SAEmpleadoImp implements SAEmpleado {
 		emf.close();
 		
 		return ret;
+	}
+	
+	private Boolean validezDeDatos(TEmpleado data) {
+		 Boolean validos = true;
+		 
+		 if(data.getNIF().length() != 9)
+			 validos = false;
+		 else if(data.getNombre() != null || data.getNombre().length() > 70)
+			 validos = false;
+		 else if(!(data.getTipo().equalsIgnoreCase(Empleado.Comercial) || data.getTipo().equalsIgnoreCase(Empleado.Tecnico)))
+			 validos = false;
+		 else if(!(data.getTurno().equalsIgnoreCase("Morning") || data.getTurno().equalsIgnoreCase("Afternoon")))
+			 validos = false;
+		 
+		 return validos;
 	}
 }

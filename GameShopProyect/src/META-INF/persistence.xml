@@ -13,6 +13,8 @@
 		<class>Negocio.Empleado.Empleado</class>
 		<class>Negocio.Empleado.Comercial</class>
 		<class>Negocio.Empleado.Tecnico</class>
+		<class>Negocio.Realiza.Realiza</class>
+		<class>Negocio.Realiza.RealizaEmbeddable</class>
 		 <properties>
 	       <!--property name = "javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/ IS DEPRECATED -->
 	       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

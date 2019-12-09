@@ -32,7 +32,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import Integracion.DAO.*;
-import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 
 @SuppressWarnings("serial")

@@ -70,7 +70,7 @@ public class GUIProviderImp extends GUIProvider {
 		case Event.RES_MODIFY_PROVIDER_OK:
 			JOptionPane.showMessageDialog(this, "Provider correctly updated in the database.","Success",JOptionPane.INFORMATION_MESSAGE);		
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProvider()).readAllProviders());
-			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
+			_leftPane.addInfoToComboBox();
 			break;
 			
 		case Event.RES_READ_PROVIDER_OK:
@@ -89,9 +89,11 @@ public class GUIProviderImp extends GUIProvider {
 		case Event.RES_READALL_PROVIDERS_OK:
 			_rightPane.update((List<Object>)data.getKey());
 			break;
+			
 		case Event.SHOW_PROVIDER_QUERY_OK:
 			_rightPane.updateBestProvider((String)data.getKey());
 			break;
+			
 		case Event.SHOW_PROVIDER_QUERY_FAILED:
 			JOptionPane.showMessageDialog(this, (String)data.getKey(),"Failed",JOptionPane.ERROR_MESSAGE);	
 			break;

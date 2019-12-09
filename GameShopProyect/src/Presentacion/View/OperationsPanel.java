@@ -45,7 +45,7 @@ public class OperationsPanel extends JPanel {
 	
 	private JButton _register;
 	private JComboBox<Object> _election;
-	/*********** LIST PARA COMBOBOX ***********/
+	/******** LIST AUXILIAR PARA COMBOBOX ********/
 	private List<Object> _electionForm = null;
 	/** IMPLEMENTADO JPA, PASAR MAS TARDE A DAO**/
 	private JButton _remove;
@@ -280,7 +280,6 @@ public class OperationsPanel extends JPanel {
 		
 		this.add(Box.createVerticalGlue());
 		
-		addInfoToComboBox();
 		registerButtonAction();
 		deleteButtonAction();
 		

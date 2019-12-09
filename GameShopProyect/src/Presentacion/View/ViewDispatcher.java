@@ -9,7 +9,7 @@ public abstract class ViewDispatcher {
 		if(_instance == null)
 			_instance = new ViewDispatcherImp();
 		return _instance;
-	}
+	}	
 	
 	public abstract void createView(Pair<Object, Integer> data);
 }

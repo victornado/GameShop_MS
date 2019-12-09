@@ -108,9 +108,9 @@ public class GUIGameshopImp extends GUIGameShop {
 		_guis.add(GUIDepartment.getInstance());
 		_guis.add(GUIEmployee.getInstance());
 		initTabs();
-		GUIDepartment.getInstance().getOpPanel().addInfoToComboBox();
-		GUIConferencia.getInstance().getOpPanel().addInfoToComboBox();
-		GUIEmployee.getInstance().getOpPanel().addInfoToComboBox();
+		GUIDepartment.getInstance().getOpPanel().addInfoToComboBox();	GUIDepartment.getInstance().getShowPanel().update(GUIDepartment.getInstance().getOpPanel().getElectionForm());
+		GUIConferencia.getInstance().getOpPanel().addInfoToComboBox();	GUIConferencia.getInstance().getShowPanel().update(GUIConferencia.getInstance().getOpPanel().getElectionForm());
+		GUIEmployee.getInstance().getOpPanel().addInfoToComboBox();		GUIEmployee.getInstance().getShowPanel().update(GUIEmployee.getInstance().getOpPanel().getElectionForm());
 	}
 
 }

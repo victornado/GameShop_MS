@@ -32,10 +32,12 @@ public class GUIEmployeeImp extends GUIEmployee {
 	public void actualiza(Pair<Object, Integer> data) {
 		switch(data.getValue()) {
 			case Event.UPDATE_LIST_DEPARTMENT:
-				this._leftPane.setElectionForm((List<Object>)data.getKey());
+				if(this._leftPane != null)
+					this._leftPane.setElectionForm((List<Object>)data.getKey());
 				break;
 			case Event.UPDATE_LIST_EMPLOYEE:
-				this._leftPane.setElectionForm((List<Object>)data.getKey());
+				if(this._leftPane != null)
+					this._leftPane.setElectionForm((List<Object>)data.getKey());
 				break;
 		}
 	}

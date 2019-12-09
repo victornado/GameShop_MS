@@ -45,7 +45,7 @@ public class GUIProviderImp extends GUIProvider {
 			JOptionPane.showMessageDialog(null, "Provider " + id + " has been correctly insertes into the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			_rightPane.update((SAAbstractFactory.getInstance().createSAProvider()).readAllProviders());
-			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
+			_leftPane.addInfoToComboBox();
 			break;
 			
 		case Event.RES_REGISTER_PROVIDER_FAILED:

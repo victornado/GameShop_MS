@@ -1,7 +1,5 @@
 package Negocio.Transfers;
 
-import Negocio.Departamento.Departamento;
-
 public class TEmpleado {
 	
 	private Integer ID;

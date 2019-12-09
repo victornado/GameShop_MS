@@ -46,7 +46,7 @@ public class OperationsPanel extends JPanel {
 	private JButton _register;
 	private JComboBox<Object> _election;
 	/*********** LIST PARA COMBOBOX ***********/
-	private List<Object> _electionForm;
+	private List<Object> _electionForm = null;
 	/** IMPLEMENTADO JPA, PASAR MAS TARDE A DAO**/
 	private JButton _remove;
 	private JButton _update;
@@ -179,7 +179,7 @@ public class OperationsPanel extends JPanel {
 		});
 	}
 
-	public void addInfoToComboBox(/*List<Object> data*/) {
+	public void addInfoToComboBox() {
 		_election.removeAllItems();
 		switch(nameIdentificator){
 		case "provider":
@@ -198,15 +198,16 @@ public class OperationsPanel extends JPanel {
 		case "conference":
 			Controller.getInstance().action(null, Event.UPDATE_LIST_CONFERENCE);
 			if(this._electionForm != null) {
-			for(Object tc : this._electionForm)
-				_election.addItem(((TConferencia)tc).getID() + " - " + ((TConferencia)tc).getNombre());
-			}break;
+				for(Object tc : this._electionForm)
+					_election.addItem(((TConferencia)tc).getID() + " - " + ((TConferencia)tc).getNombre());
+			}
+			break;
 		case "department":
-			/*Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
+			Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
 			if(this._electionForm != null) {
-			for(Object tc : this._electionForm)
-				_election.addItem(((TDepartamento)tc).getID() + " - " + ((TDepartamento)tc).getNombre());
-			}*/break;
+				for(Object tc : this._electionForm)
+					_election.addItem(((TDepartamento)tc).getID() + " - " + ((TDepartamento)tc).getNombre());
+			}break;
 		case "employee":
 			Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
 			if(this._electionForm != null) {

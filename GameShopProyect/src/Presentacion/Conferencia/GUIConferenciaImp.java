@@ -4,6 +4,8 @@ package Presentacion.Conferencia;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
 import Presentacion.View.OperationsPanel;
@@ -12,9 +14,6 @@ import utils.Pair;
 
 @SuppressWarnings("serial")
 public class GUIConferenciaImp extends GUIConferencia {
-
-	private OperationsPanel _leftPane;
-	private ShowPanel _rightPane;
 	
 	@Override
 	protected void alignmentPanels() {
@@ -32,11 +31,21 @@ public class GUIConferenciaImp extends GUIConferencia {
 	@Override
 	public void actualiza(Pair<Object, Integer> data) {
 		switch(data.getValue()) {
+		case Event.RES_REGISTER_CONFERENCE_OK:
+			JOptionPane.showMessageDialog(null, "Conference " + data.getKey() + " has been correctly insertes into the database.", "Success",
+					JOptionPane.INFORMATION_MESSAGE);
+			this._leftPane.addInfoToComboBox();
+			break;
+		case Event.RES_REGISTER_CONFERENCE_FAILED:
+			JOptionPane.showMessageDialog(this, "Error entering the conference in the database.","Failed",JOptionPane.ERROR_MESSAGE);		
+			break;
 		case Event.UPDATE_LIST_CONFERENCE:
-			this._leftPane.setElectionForm((List<Object>)data.getKey());
+			if(this._leftPane != null)
+				this._leftPane.setElectionForm((List<Object>)data.getKey());
 			break;
 		case Event.UPDATE_LIST_EMPLOYEE:
-			this._leftPane.setElectionForm((List<Object>)data.getKey());
+			if(this._leftPane != null) 
+				this._leftPane.setElectionForm((List<Object>)data.getKey());
 			break;
 		}
 	}

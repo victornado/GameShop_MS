@@ -8,7 +8,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import Negocio.Conferencia.Conferencia;
 import Negocio.Departamento.Departamento;
+import Negocio.Realiza.Realiza;
+import Negocio.Realiza.RealizaEmbeddable;
 import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TTecnico;
@@ -62,6 +65,15 @@ public class SAEmpleadoImp implements SAEmpleado {
 		Boolean ret = false;
 		
 		em.getTransaction().begin();
+		
+		Realiza real = em.find(Realiza.class, id);
+		if(real != null) {
+			Conferencia c = em.find(Conferencia.class, real.getIds().getConferencia());
+			em.remove(real);
+			if(em.find(Realiza.class, c.getId()) == null) { // No hay empleados en esa conferecia ==> Eliminar la conferencia
+				em.remove(c);
+			}
+		}
 		
 		Empleado con = em.find(Empleado.class, id);
 		if(con != null) {
@@ -163,7 +175,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		 
 		 if(data.getNIF().length() != 9)
 			 validos = false;
-		 else if(data.getNombre() != null || data.getNombre().length() > 70)
+		 else if(data.getNombre() == null || data.getNombre().length() > 70)
 			 validos = false;
 		 else if(!(data.getTipo().equalsIgnoreCase(Empleado.Comercial) || data.getTipo().equalsIgnoreCase(Empleado.Tecnico)))
 			 validos = false;

@@ -94,7 +94,7 @@ public class FormEmployee extends JDialog {
 		this._departmentElection.setMaximumSize(new Dimension(160,20));
 		this._departmentElection.setMinimumSize(new Dimension(160,20));
 		this._departmentElection.addItem(FormEmployee.SIN_DEPARTAMENTO);
-		Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
+		Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
 		for(Object o : GUIEmployee.getInstance().getOpPanel().getElectionForm() )
 			this._departmentElection.addItem(((TDepartamento)o).getID() + " - " + ((TDepartamento)o).getNombre());
 		

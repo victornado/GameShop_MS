@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Negocio.Transfers.TEmpleado;
+
 @SuppressWarnings("serial")
 public class ShowAllEmployees extends ShowAll {
 
@@ -38,19 +40,15 @@ public class ShowAllEmployees extends ShowAll {
 				
 				switch(columnIndex){
 				case 0:
-					//o = ((TProvider)_providers.get(rowIndex)).get_id();
+					o = ((TEmpleado)_employees.get(rowIndex)).getID();
 					break;
 					
 				case 1:
-					//o = ((TProvider)_providers.get(rowIndex)).get_address();
+					o = ((TEmpleado)_employees.get(rowIndex)).getNIF();
 					break;
 					
 				case 2:
-					//o = ((TProvider)_providers.get(rowIndex)).get_nif();
-					break;
-					
-				case 3:
-					//o = ((TProvider)_providers.get(rowIndex)).get_phoneNumber();
+					o = ((TEmpleado)_employees.get(rowIndex)).getSueldobase();
 					break;
 				}
 				return o;

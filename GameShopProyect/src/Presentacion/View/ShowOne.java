@@ -70,10 +70,17 @@ public class ShowOne extends JPanel {
 					case "ticket":
 						Controller.getInstance().action(id, Event.READ_TICKET);
 						break;
+					case "conference":
+						break;
+					case "department":
+						break;
+					case "employee":
+						break;
 					}
 				}
-				if(nameIdentificator.equalsIgnoreCase("conference"))
-					Controller.getInstance().action(5, Event.READ_CONFERENCE);
+				/*if(nameIdentificator.equalsIgnoreCase("conference"))
+					Controller.getInstance().action(5, Event.READ_CONFERENCE);*/
+				SAAbstractFactory.getInstance().createSAEmpleado().mostrarEmpleado(5);
 			}
 		});
 	}

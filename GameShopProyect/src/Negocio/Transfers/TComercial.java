@@ -1,14 +1,15 @@
 package Negocio.Transfers;
 
 import Negocio.Departamento.Departamento;
+import Negocio.Empleado.Empleado;
 
 public class TComercial extends TEmpleado {
 	
 	public static Double COBRO_POR_VENTA = 20.50; // salariobase += nVentas * COBRO_POR_VENTA
 	private Integer nVentas;
 	
-	public TComercial(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Integer dep,  Integer ventas) {
-		super(NIF, nombre, turno, sueldoBase, tipo, dep);
+	public TComercial(String NIF, String nombre, String turno, Double sueldoBase, Integer dep,  Integer ventas, String tipo) {
+		super(NIF, nombre, turno, sueldoBase, dep, tipo);
 		nVentas = ventas;
 	}
 
@@ -28,7 +29,7 @@ public class TComercial extends TEmpleado {
 				"Turno: " + super.getTurno() + '\n' +
 				"Departamento: " + super.getDepartamento().toString() + '\n' +
 				"Sueldo base: " + super.getSueldobase() + '\n' +
-				"Tipo: " + super.getTipo() + '\n' +
+				"Tipo: " + Empleado.Comercial + '\n' +
 				"Numero de ventas: " + nVentas + " [Cobro por cada venta = " + TComercial.COBRO_POR_VENTA + "]" + '\n');
 	}
 }

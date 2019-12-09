@@ -12,10 +12,11 @@ import Negocio.Transfers.TEmpleado;
 public class Comercial extends Empleado implements Serializable {
 
 	private static final long serialVersionUID = 0;
+	
+	private Integer nVentas;
 
 	public Comercial() {
 	}
-	private Integer nVentas;
 
 	public Integer getnVentas() {
 		return nVentas;
@@ -31,7 +32,11 @@ public class Comercial extends Empleado implements Serializable {
 	}
 	@Override
 	public TEmpleado toTransfer() {
-		TEmpleado ret = new TComercial(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(), super.getTipo(),super.getDepartamento().getId(), nVentas);		
+		TEmpleado ret = new TComercial(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(),
+				null, nVentas, Empleado.Comercial);
+		if(super.getDepartamento() != null)
+			ret.setDepartamento(super.getDepartamento().getId());
+		ret.setID(super.getId());
 		return ret;
 	}
 }

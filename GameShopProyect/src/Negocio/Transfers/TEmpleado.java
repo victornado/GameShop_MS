@@ -9,16 +9,16 @@ public class TEmpleado {
 	private String nombre;
 	private String turno;
 	private Double sueldobase;
-	private String tipo;
 	private Integer dep;
+	private String tipo;
 	
-	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Integer dept) {
+	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, Integer dept, String tipo) {
 		this.NIF = NIF;
 		this.nombre = nombre;
 		this.turno = turno;
 		this.sueldobase = sueldoBase;
-		this.tipo = tipo;
 		this.dep = dept;
+		this.tipo = tipo;
 	}
 	
 	public String getNIF() {
@@ -60,18 +60,16 @@ public class TEmpleado {
 	public void setSueldobase(Double sueldobase) {
 		this.sueldobase = sueldobase;
 	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 	public void setDepartamento(Integer depto){
 		this.dep = depto;
 	}
 	public Integer getDepartamento(){
 		return dep;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }

@@ -56,12 +56,12 @@ CREATE TABLE `asociado` (
 );
 
 CREATE TABLE `conferencia` (
- `id`INT(11) NOT NULL AUTO_INCREMENT,
- `asistentes` INT(4) NOT NULL,
- `nombre` VARCHAR(50) NOT NULL,
- `fecha` TIMESTAMP NOT NULL,
- `tematica` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (id)
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `asistentes` int(4) NOT NULL,
+  `fecha` timestamp NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `tematica` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`,`nombre`)
 );
 
 CREATE TABLE `departamento` (
@@ -77,27 +77,28 @@ CREATE TABLE `empleado` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `nif` char(9) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `nombre` varchar(70) NOT NULL,
-  `turno` varchar(20) NOT NULL,
   `sueldoBase` double NOT NULL,
-  `idDpto` int(4) DEFAULT NULL,
+  `turno` varchar(20) NOT NULL,
+  `depto_id` int(4) DEFAULT NULL,
+  `dtype` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_idx` (`idDpto`),
-  CONSTRAINT `id` FOREIGN KEY (`idDpto`) REFERENCES `departamento` (`id`)
+  KEY `id_idx` (`depto_id`),
+  CONSTRAINT `id` FOREIGN KEY (`depto_id`) REFERENCES `departamento` (`id`)
 );
 
 CREATE TABLE `comercial` (
-  `idComercial` int(4) NOT NULL,
-  `numVentas` int(4) NOT NULL,
-  KEY `idEmp_idx` (`idComercial`),
-  CONSTRAINT `idEmp` FOREIGN KEY (`idComercial`) REFERENCES `empleado` (`id`)
+  `nVentas` int(4) NOT NULL,
+  `id` int(4) NOT NULL,
+  KEY `idEmp_idx` (`id`),
+  CONSTRAINT `idEmp` FOREIGN KEY (`id`) REFERENCES `empleado` (`id`)
 );
 
 CREATE TABLE `tecnico` (
-  `idTecnico` int(11) NOT NULL,
   `especialidad` varchar(70) NOT NULL,
   `sobresueldo` double NOT NULL,
-  KEY `idEmp_idx` (`idTecnico`),
-  CONSTRAINT `idEmpTecnico` FOREIGN KEY (`idTecnico`) REFERENCES `empleado` (`id`)
+  `id` int(11) NOT NULL,
+  KEY `idEmp_idx` (`id`),
+  CONSTRAINT `idEmpTecnico` FOREIGN KEY (`id`) REFERENCES `empleado` (`id`)
 );
 
 

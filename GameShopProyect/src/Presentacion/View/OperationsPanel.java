@@ -107,7 +107,6 @@ public class OperationsPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				Object	id;
 				
-				
 				if(_election.getItemCount() > 0){
 					id = Integer.parseInt(_election.getSelectedItem().toString().split(" - ")[0]);
 					switch(nameIdentificator){
@@ -135,9 +134,7 @@ public class OperationsPanel extends JPanel {
 						break;
 					}
 				}
-				//* ES PARA PROBAR EL UPDATE DE UNA CONFERENCIA ANTES DE CAMBIARLO POR LO DE JOAQUIN *//
-				/*if(nameIdentificator.equalsIgnoreCase("conference"))
-					Controller.getInstance().action(5, Event.MODIFY_CONFERENCE);*/
+				//SAAbstractFactory.getInstance().createSAEmpleado().modificarEmpleado(null);
 			}
 		});
 	}
@@ -169,10 +166,6 @@ public class OperationsPanel extends JPanel {
 						break;
 					}
 				}
-				
-				//* ES PARA PROBAR EL BORRADO DE UNA CONFERENCIA ANTES DE CAMBIARLO POR LO DE JOAQUIN *//
-				/*if(nameIdentificator.equalsIgnoreCase("conference"))
-					Controller.getInstance().action(1, Event.UNSUBSCRIBE_CONFERENCE);*/
 			}
 		});
 	}

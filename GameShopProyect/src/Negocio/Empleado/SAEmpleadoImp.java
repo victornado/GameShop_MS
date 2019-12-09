@@ -35,8 +35,11 @@ public class SAEmpleadoImp implements SAEmpleado {
 		emp.setNIF(data.getNIF());
 		emp.setNombre(data.getNombre());
 		emp.setSueldoBase(data.getSueldobase());
-		emp.setTipo(data.getTipo());
 		emp.setTurno(data.getTurno());
+		if(data.getDepartamento() ==  null)
+			emp.setDepartamento(null);
+		else
+			emp.setDepartamento(em.find(Departamento.class, data.getDepartamento()));
 				
 		em.persist(emp);
 		em.getTransaction().commit();
@@ -56,7 +59,6 @@ public class SAEmpleadoImp implements SAEmpleado {
 		
 		em.getTransaction().begin();
 		
-		// TODO Ver de que tabla se elimina pq hay 3 tablas de empleado
 		Empleado con = em.find(Empleado.class, id);
 		if(con != null) {
 			em.remove(con);
@@ -76,9 +78,6 @@ public class SAEmpleadoImp implements SAEmpleado {
 		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
 		
-		// PROVISIONAL PARA PRUEBAS ==> Funciona PERO CAMBIAR EL COMANDO
-		//TEmpleado data = new TComercial("48223456S", "Carlos", "Morning", 1025.2, Empleado.Comercial, 127);
-		
 		em.getTransaction().begin();
 		
 		Empleado emp = em.find(Empleado.class, data.getID());
@@ -88,7 +87,6 @@ public class SAEmpleadoImp implements SAEmpleado {
 			emp.setNIF(data.getNIF());
 			emp.setNombre(data.getNombre());
 			emp.setSueldoBase(data.getSueldobase());
-			emp.setTipo(data.getTipo());
 			emp.setTurno(data.getTurno());
 			emp.setDepartamento(em.find(Departamento.class, data.getID()));
 			if(data.getTipo().equalsIgnoreCase(Empleado.Comercial))
@@ -135,8 +133,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		em.getTransaction().begin();
 		
 		// Para JPQL si Conferencia es una Entity hay que hacer "createQuery" pero si no fuere una Entity seria "createNativeQuery"
-		TypedQuery<Empleado> query = em.createQuery("SELECT * FROM empleado e JOIN comercial c ON e.id = c.idComercial "
-				+ "JOIN tecnico t ON e.id = t.idTecnico", Empleado.class);
+		TypedQuery<Empleado> query = em.createQuery("SELECT e FROM Empleado e", Empleado.class);
 		List<Empleado> aux = query.getResultList();
 		
 		if(aux != null) {

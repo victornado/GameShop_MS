@@ -100,10 +100,10 @@ public class FormEmployee extends JDialog {
 		
 		_next = new JButton("Next");
 		_next.setPreferredSize(new Dimension(80,20));
-		this.add(new JLabel("Type"));
-		this.add(this._turnElection);
+		this.add(new JLabel("Type:"));
+		//this.add(this._typeElection);
 		this.add(_typeElection);
-		this.add(this._departmentElection);
+		//this.add(this._departmentElection);
 		this.add(_next);
 		_next.addActionListener(new ActionListener() {
 			@Override
@@ -144,12 +144,12 @@ public class FormEmployee extends JDialog {
 					TEmpleado empleado;
 					if(((String)_typeElection.getSelectedItem()).equalsIgnoreCase(Empleado.Comercial)) {
 						Integer nVentas = (Integer)_numVentas.getValue();
-						empleado = new TComercial(nif, nombre, turno, salarioBase, Empleado.Comercial, departamento, nVentas);
+						empleado = new TComercial(nif, nombre, turno, salarioBase, departamento, nVentas, Empleado.Comercial);
 					}
 					else {
 						String especialidad = _specialtyText.getText();
 						Double sobresueldo = (Double)_sobresueldoText.getValue();
-						empleado = new TTecnico(nif, nombre, turno, salarioBase, Empleado.Tecnico, departamento, sobresueldo, especialidad);
+						empleado = new TTecnico(nif, nombre, turno, salarioBase, departamento, sobresueldo, especialidad, Empleado.Tecnico);
 					}
 					Controller.getInstance().action(empleado, Event.REGISTER_EMPLOYEE);
 					closeDialog();
@@ -182,7 +182,7 @@ public class FormEmployee extends JDialog {
 	
 	private void initComponents() {
 		this.setLayout(new FlowLayout());
-		this.setBounds(new Rectangle(280, 220));
+		this.setBounds(new Rectangle(280, 300));
 		this.setLocationRelativeTo(null);
 		
 		String selected = (String)_typeElection.getSelectedItem();

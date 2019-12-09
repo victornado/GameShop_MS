@@ -28,7 +28,7 @@ public abstract class Empleado implements Serializable {
 	private static final long serialVersionUID = 0;
 	
 	public static final String Comercial = "Comercial";
-	public static final String Tecnico = "Technician";
+	public static final String Tecnico = "Tecnico";
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -36,7 +36,6 @@ public abstract class Empleado implements Serializable {
 	private String nombre;
 	private Double sueldoBase;
 	private String turno;
-	private String tipo;
 	@ManyToOne
 	private Departamento depto;
 
@@ -75,12 +74,6 @@ public abstract class Empleado implements Serializable {
 	}
 	public void setTurno(String turno) {
 		this.turno = turno;
-	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 	public void setDepartamento(Departamento depto){
 		this.depto = depto;

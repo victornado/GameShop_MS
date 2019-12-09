@@ -85,11 +85,11 @@ public class Departamento implements Serializable {
 	public TDepartamento toTransfer() {
 		TDepartamento sol = new TDepartamento(this.getNombre(), this.getFacturacion(), this.getNumEmpleados(),
 				this.getPlanta());
-		sol.setID(this.getId());
+		sol.setID(id);
 		return sol;
 	}
 	@Override
-	public String toString() { // Vitali
-		return this.getNombre();
+	public String toString() {
+		return nombre;
 	}
 }

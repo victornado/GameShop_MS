@@ -9,8 +9,8 @@ public class TTecnico extends TEmpleado {
 	private String especialidad;
 	private Double sobresueldo;
 	
-	public TTecnico(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Integer dep, Double ss, String e) {
-		super(NIF, nombre, turno, sueldoBase, tipo, dep);
+	public TTecnico(String NIF, String nombre, String turno, Double sueldoBase, Integer dep, Double ss, String e, String tipo) {
+		super(NIF, nombre, turno, sueldoBase, dep, tipo);
 		this.sobresueldo = ss;
 		this.especialidad = e;
 	}
@@ -40,7 +40,6 @@ public class TTecnico extends TEmpleado {
 				"Departamento: " + super.getDepartamento().toString() + '\n' +
 				"Sueldo base: " + super.getSueldobase() + '\n' +
 				"Especialidad: " + especialidad + '\n' +
-				"Tipo: " + super.getTipo() + '\n' +
 				"Sobresueldo: " + sobresueldo + '\n');
 	}
 }

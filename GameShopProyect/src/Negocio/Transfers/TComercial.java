@@ -7,7 +7,7 @@ public class TComercial extends TEmpleado {
 	public static Double COBRO_POR_VENTA = 20.50; // salariobase += nVentas * COBRO_POR_VENTA
 	private Integer nVentas;
 	
-	public TComercial(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Departamento dep,  Integer ventas) {
+	public TComercial(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Integer dep,  Integer ventas) {
 		super(NIF, nombre, turno, sueldoBase, tipo, dep);
 		nVentas = ventas;
 	}

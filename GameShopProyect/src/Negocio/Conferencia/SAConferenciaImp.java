@@ -46,7 +46,7 @@ public class SAConferenciaImp implements SAConferencia {
 		if(con != null) {
 			em.remove(con);
 			ret = true;
-		}
+		}		
 		
 		em.getTransaction().commit();
 		

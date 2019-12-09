@@ -1,9 +1,5 @@
 package Negocio.Empleado;
 
-import Negocio.Transfers.TComercial;
-import Negocio.Transfers.TEmpleado;
-import Negocio.Transfers.TTecnico;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,35 +8,35 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import Negocio.Departamento.Departamento;
+import Negocio.Transfers.TComercial;
+import Negocio.Transfers.TEmpleado;
+import Negocio.Transfers.TTecnico;
+
 public class SAEmpleadoImp implements SAEmpleado {
 	
 	public Integer registrarEmpleado(TEmpleado data) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		Empleado emp = null;
-		TEmpleado temp = null;
 		
 		em.getTransaction().begin();
 		
 		if(data.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
-			temp = new TComercial(data.getNIF(), data.getNombre(), data.getTurno(), data.getSueldobase(), data.getTipo(),
-					data.getDepartamento(), ((TComercial)data).getnVentas());
 			emp = new Comercial();
-			((Comercial)emp).setnVentas(((TComercial)temp).getnVentas());
+			((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
 		}
 		else {
-			temp = new TTecnico(data.getNIF(), data.getNombre(), data.getTurno(), data.getSueldobase(), data.getTipo(),
-					data.getDepartamento(), ((TTecnico)data).getSobresueldo(), ((TTecnico)data).getEspecialidad());
 			emp = new Tecnico();
-			((Tecnico)emp).setEspecialidad(((Tecnico)emp).getEspecialidad());
-			((Tecnico)emp).setSobresueldo(((Tecnico)emp).getSobresueldo());
+			((Tecnico)emp).setEspecialidad(((TTecnico)data).getEspecialidad());
+			((Tecnico)emp).setSobresueldo(((TTecnico)data).getSobresueldo());
 		}
 		
-		emp.setNIF(temp.getNIF());
-		emp.setNombre(temp.getNombre());
-		emp.setSueldoBase(temp.getSueldobase());
-		emp.setTipo(temp.getTipo());
-		emp.setTurno(temp.getTurno());
+		emp.setNIF(data.getNIF());
+		emp.setNombre(data.getNombre());
+		emp.setSueldoBase(data.getSueldobase());
+		emp.setTipo(data.getTipo());
+		emp.setTurno(data.getTurno());
 				
 		em.persist(emp);
 		em.getTransaction().commit();
@@ -94,7 +90,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 			emp.setSueldoBase(data.getSueldobase());
 			emp.setTipo(data.getTipo());
 			emp.setTurno(data.getTurno());
-			emp.setDepartamento(data.getDepartamento()); // Vitali
+			emp.setDepartamento(em.find(Departamento.class, data.getID()));
 			if(data.getTipo().equalsIgnoreCase(Empleado.Comercial))
 				((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
 			else {
@@ -139,8 +135,8 @@ public class SAEmpleadoImp implements SAEmpleado {
 		em.getTransaction().begin();
 		
 		// Para JPQL si Conferencia es una Entity hay que hacer "createQuery" pero si no fuere una Entity seria "createNativeQuery"
-		TypedQuery<Empleado> query = em.createQuery("SELECT * FROM empleado e JOIN comercial c JOIN tecnico t "
-				+ "WHERE e.id=c.idComercial=t.idTecnico", Empleado.class);
+		TypedQuery<Empleado> query = em.createQuery("SELECT * FROM empleado e JOIN comercial c ON e.id = c.idComercial "
+				+ "JOIN tecnico t ON e.id = t.idTecnico", Empleado.class);
 		List<Empleado> aux = query.getResultList();
 		
 		if(aux != null) {

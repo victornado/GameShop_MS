@@ -9,7 +9,7 @@ public class TTecnico extends TEmpleado {
 	private String especialidad;
 	private Double sobresueldo;
 	
-	public TTecnico(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Departamento dep, Double ss, String e) {
+	public TTecnico(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Integer dep, Double ss, String e) {
 		super(NIF, nombre, turno, sueldoBase, tipo, dep);
 		this.sobresueldo = ss;
 		this.especialidad = e;

@@ -79,7 +79,7 @@ CREATE TABLE `empleado` (
   `nombre` varchar(70) NOT NULL,
   `turno` varchar(20) NOT NULL,
   `sueldoBase` double NOT NULL,
-  `idDpto` int(4) NOT NULL,
+  `idDpto` int(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_idx` (`idDpto`),
   CONSTRAINT `id` FOREIGN KEY (`idDpto`) REFERENCES `departamento` (`id`)

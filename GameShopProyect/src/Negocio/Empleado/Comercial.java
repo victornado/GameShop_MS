@@ -31,7 +31,7 @@ public class Comercial extends Empleado implements Serializable {
 	}
 	@Override
 	public TEmpleado toTransfer() {
-		TEmpleado ret = new TComercial(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(), super.getTipo(),super.getDepartamento(), nVentas);		
+		TEmpleado ret = new TComercial(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(), super.getTipo(),super.getDepartamento().getId(), nVentas);		
 		return ret;
 	}
 }

@@ -10,9 +10,9 @@ public class TEmpleado {
 	private String turno;
 	private Double sueldobase;
 	private String tipo;
-	private Departamento dep;
+	private Integer dep;
 	
-	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Departamento dept) {
+	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, String tipo, Integer dept) {
 		this.NIF = NIF;
 		this.nombre = nombre;
 		this.turno = turno;
@@ -68,10 +68,10 @@ public class TEmpleado {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public void setDepartamento(Departamento depto){
+	public void setDepartamento(Integer depto){
 		this.dep = depto;
 	}
-	public Departamento getDepartamento(){
+	public Integer getDepartamento(){
 		return dep;
 	}
 }

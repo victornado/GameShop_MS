@@ -43,6 +43,13 @@ public class SADepartamentoImp implements SADepartamento {
 		
 		Departamento dep = em.find(Departamento.class, id);
 		if(dep != null) {
+			// TODO LLAMAR A TODOS LOS EMPLEADOS PERTENECIENTES A ESE DPTO PARA PONERLO A NULL
+			
+			
+			
+			
+			
+			
 			em.remove(dep);
 			ret = true;
 		}

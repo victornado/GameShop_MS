@@ -49,6 +49,8 @@ public class FormEmployee extends JDialog {
 	private JButton _cancel;
 	private JButton _next;
 	
+	public static final String SIN_DEPARTAMENTO = "Sin departamento";
+	
 	// COMERCIAL
 	private final JLabel _ventas = new JLabel("Sales:");
 	protected JSpinner _numVentas = new JSpinner(new SpinnerNumberModel(0, 0, 10000, 1));
@@ -91,9 +93,10 @@ public class FormEmployee extends JDialog {
 		this._departmentElection.setPreferredSize(new Dimension(160,20));
 		this._departmentElection.setMaximumSize(new Dimension(160,20));
 		this._departmentElection.setMinimumSize(new Dimension(160,20));
+		this._departmentElection.addItem(FormEmployee.SIN_DEPARTAMENTO);
 		Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
 		for(Object o : GUIEmployee.getInstance().getOpPanel().getElectionForm() )
-			this._departmentElection.addItem(((TDepartamento)o).getNombre());
+			this._departmentElection.addItem(((TDepartamento)o).getID() + " - " + ((TDepartamento)o).getNombre());
 		
 		_next = new JButton("Next");
 		_next.setPreferredSize(new Dimension(80,20));
@@ -127,14 +130,21 @@ public class FormEmployee extends JDialog {
 					String turno = (String)_turnElection.getSelectedItem();
 					Double salarioBase = (Double)_salaryElection.getValue();
 					
-					//NO SE SI ESTA BIEN --Vitali 2019
-					Departamento departamento = (Departamento) _departmentElection.getSelectedItem();
+					// Para ver si ha seleccionado o no un departamento
+					Integer departamento;
+					if(((String)_departmentElection.getSelectedItem()).equalsIgnoreCase(FormEmployee.SIN_DEPARTAMENTO)){
+						departamento = null;
+					}
+					else {
+						String[] infoDpto = ((String)_departmentElection.getSelectedItem()).split(" - ");
+						departamento = Integer.parseInt(infoDpto[0]);
+					}
 					
-					
+					// Guardar datos
 					TEmpleado empleado;
 					if(((String)_typeElection.getSelectedItem()).equalsIgnoreCase(Empleado.Comercial)) {
 						Integer nVentas = (Integer)_numVentas.getValue();
-						empleado = new TComercial(nif, nombre, turno, salarioBase, Empleado.Comercial,departamento, nVentas);
+						empleado = new TComercial(nif, nombre, turno, salarioBase, Empleado.Comercial, departamento, nVentas);
 					}
 					else {
 						String especialidad = _specialtyText.getText();

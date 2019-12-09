@@ -43,7 +43,7 @@ public class Tecnico extends Empleado implements Serializable {
 	@Override
 	public TEmpleado toTransfer() {
 		TEmpleado ret = new TTecnico(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(), super.getTipo(),
-				super.getDepartamento(), sobresueldo, especialidad);
+				super.getDepartamento().getId(), sobresueldo, especialidad);
 		return ret;
 	}
 }

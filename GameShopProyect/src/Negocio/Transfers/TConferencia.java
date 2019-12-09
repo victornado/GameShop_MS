@@ -56,6 +56,10 @@ public class TConferencia {
 		this.asistentes = asistentes;
 	}
 	
+	public Timestamp toTimestamp(String timeData) {
+		return Timestamp.valueOf(timeData);
+	}
+	
 	@Override
 	public String toString() {
 		return ("ID: " + ID + '\n' +

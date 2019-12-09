@@ -129,4 +129,18 @@ public class SAConferenciaImp implements SAConferencia {
 		
 		return ret;
 	}
+	
+	private Boolean validezDeDatos(TConferencia data){
+		Boolean validos = true;
+		
+		if(data.getAsistentes() < 0)
+			validos = false;
+		else if(data.getNombre() == null || data.getNombre().length() > 50)
+			validos = false;
+		else if(data.getTematica() == null || data.getTematica().length() > 50)
+			validos = false;
+		else if()
+		
+		return validos;
+	}
 }

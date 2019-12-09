@@ -70,13 +70,20 @@ public class FormConferencia extends JDialog {
 					String name = _nameText.getText();
 					String thematic = _thematicText.getText();
 					Integer assistants = (Integer)_assistantsElection.getValue();
-					/*String[] dateInfo = _dateText.getText().split("-");
-					@SuppressWarnings("deprecation")
-					Timestamp date = new Timestamp(
-							Integer.parseInt(dateInfo[0]), Integer.parseInt(dateInfo[1]), Integer.parseInt(dateInfo[2]), 9, 0, 0, 0);
-					TConferencia tc = new TConferencia(name, thematic, assistants, date);*/
+					
+					
+					
+					
+					
+					// TODO pasarle un STRING FECHA y llamar luego al toTimestamp()
 					Timestamp date = Timestamp.valueOf(_dateText.getText());
 					TConferencia tc = new TConferencia(name, thematic, assistants, date);
+					
+					
+					
+					
+					
+					
 					Controller.getInstance().action(tc, Event.REGISTER_CONFERENCE);
 					closeDialog();
 				}catch(Exception ex) {

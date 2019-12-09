@@ -20,6 +20,8 @@ import javax.swing.border.TitledBorder;
 
 import Negocio.SA.SAAbstractFactory;
 import Negocio.Transfers.TConferencia;
+import Negocio.Transfers.TDepartamento;
+import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
 import Negocio.Transfers.TTicket;
@@ -43,7 +45,7 @@ public class OperationsPanel extends JPanel {
 	
 	private JButton _register;
 	private JComboBox<Object> _election;
-	/*********** LIST PARA FORM ***********/
+	/*********** LIST PARA COMBOBOX ***********/
 	private List<Object> _electionForm;
 	/** IMPLEMENTADO JPA, PASAR MAS TARDE A DAO**/
 	private JButton _remove;
@@ -87,6 +89,8 @@ public class OperationsPanel extends JPanel {
 				case "ticket":
 					new FormTicket();
 					break;
+	/***************************************************************************************************************************************/
+
 				case "conference":
 					new FormConferencia();
 					break;
@@ -125,6 +129,8 @@ public class OperationsPanel extends JPanel {
 						else
 							JOptionPane.showMessageDialog(null, "Error when reading a product from the database.","Failed",JOptionPane.ERROR_MESSAGE);		
 						break;
+						
+		/***************************************************************************************************************************************/
 					case "conference":
 						System.out.println("no se mete");
 						break;
@@ -134,7 +140,6 @@ public class OperationsPanel extends JPanel {
 						break;
 					}
 				}
-				//SAAbstractFactory.getInstance().createSAEmpleado().modificarEmpleado(null);
 			}
 		});
 	}
@@ -157,12 +162,16 @@ public class OperationsPanel extends JPanel {
 					case "ticket":
 						Controller.getInstance().action(id, Event.UNSUBSCRIBE_TICKET);
 						break;
+		/***************************************************************************************************************************************/
+
 					case "conference":
 						Controller.getInstance().action(id, Event.UNSUBSCRIBE_CONFERENCE);
 						break;
 					case "department":
+						Controller.getInstance().action(id, Event.UNSUBSCRIBE_DEPARTMENT);
 						break;
 					case "employee":
+						Controller.getInstance().action(id, Event.UNSUBSCRIBE_EMPLOYEE);
 						break;
 					}
 				}
@@ -174,7 +183,6 @@ public class OperationsPanel extends JPanel {
 		_election.removeAllItems();
 		switch(nameIdentificator){
 		case "provider":
-			// TODO MIRAR ESTO PARA NO LLAMAR DIRECTAMENTE AL SA
 			for(Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
 				_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
 			break;
@@ -186,15 +194,27 @@ public class OperationsPanel extends JPanel {
 			for(Object tt : SAAbstractFactory.getInstance().createSATicket().readAllTickets())
 				_election.addItem(((TTicket)tt).get_id() + " - " + ((TTicket)tt).get_date());
 			break;
+	/****************************************************************************************************************************/			
 		case "conference":
-			for(Object tc : SAAbstractFactory.getInstance().createSAConferencia().mostrarTodasLasConferencias())
+			Controller.getInstance().action(null, Event.UPDATE_LIST_CONFERENCE);
+			if(this._electionForm != null) {
+			for(Object tc : this._electionForm)
 				_election.addItem(((TConferencia)tc).getID() + " - " + ((TConferencia)tc).getNombre());
-			break;
+			}break;
 		case "department":
-			break;
+			Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
+			if(this._electionForm != null) {
+			for(Object tc : this._electionForm)
+				_election.addItem(((TDepartamento)tc).getID() + " - " + ((TDepartamento)tc).getNombre());
+			}break;
 		case "employee":
-			break;
+			Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
+			if(this._electionForm != null) {
+			for(Object tc : this._electionForm)
+				_election.addItem(((TEmpleado)tc).getID() + " - " + ((TEmpleado)tc).getNombre());
+			}break;
 		}
+		
 	}
 	
 	

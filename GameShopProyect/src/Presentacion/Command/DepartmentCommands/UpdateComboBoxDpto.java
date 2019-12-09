@@ -12,7 +12,7 @@ public class UpdateComboBoxDpto extends Command {
 	@Override
 	public Pair<Object, Integer> execute(Object data) throws Exception {
 		List<Object> td = (SAAbstractFactory.getInstance().createSADepartamento().mostrarTodosLosDepartamentos());
-		Integer evento = Event.UPDATE_LIST_EMPLOYEE;
+		Integer evento = Event.UPDATE_LIST_DEPARTMENT;
 		Pair<Object, Integer> p = new Pair<Object, Integer>(td, evento);
 		return p;
 	}

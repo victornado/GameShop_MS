@@ -106,9 +106,6 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 			
 		/******************************* CONFERENCIA *****************************/
-		/*case Event.UPDATE_LIST_EMPLOYEE:
-			GUIConferencia.getInstance().actualiza(data);
-			break;*/
 		case Event.RES_REGISTER_CONFERENCE_OK:
 			GUIConferencia.getInstance().actualiza(data);
 			break;
@@ -137,6 +134,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIConferencia.getInstance().actualiza(data);
 			break;
 		case Event.RES_READALL_CONFERENCE_FAILED:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.UPDATE_LIST_CONFERENCE:
 			GUIConferencia.getInstance().actualiza(data);
 			break;
 			
@@ -171,11 +171,12 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.RES_READALL_DEPARTMENT_FAILED:
 			GUIDepartment.getInstance().actualiza(data);
 			break;
-			
-		/******************************** EMPLEADO *******************************/
-		case Event.UPDATE_LIST_EMPLOYEE: // Para actualizar la lista de depatamentos en el FormEmployee
+		case Event.UPDATE_LIST_DEPARTMENT:
+			GUIDepartment.getInstance().actualiza(data);
 			GUIEmployee.getInstance().actualiza(data);
 			break;
+			
+		/******************************** EMPLEADO *******************************/
 		case Event.RES_REGISTER_EMPLOYEE_OK:
 			GUIEmployee.getInstance().actualiza(data);
 			break;
@@ -205,6 +206,11 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.RES_READALL_EMPLOYEE_FAILED:
 			GUIEmployee.getInstance().actualiza(data);
+			break;
+		case Event.UPDATE_LIST_EMPLOYEE:
+			GUIEmployee.getInstance().actualiza(data);
+			GUIDepartment.getInstance().actualiza(data);
+			GUIConferencia.getInstance().actualiza(data);
 			break;
 			
 			

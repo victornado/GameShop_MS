@@ -2,6 +2,7 @@
 package Presentacion.Conferencia;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import Presentacion.Controller.Event;
 import Presentacion.View.GUIGameshopImp;
@@ -27,9 +28,17 @@ public class GUIConferenciaImp extends GUIConferencia {
 		this.add(_rightPane, BorderLayout.EAST);
 		_rightPane.setVisible(true);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actualiza(Pair<Object, Integer> data) {
-		
+		switch(data.getValue()) {
+		case Event.UPDATE_LIST_CONFERENCE:
+			this._leftPane.setElectionForm((List<Object>)data.getKey());
+			break;
+		case Event.UPDATE_LIST_EMPLOYEE:
+			this._leftPane.setElectionForm((List<Object>)data.getKey());
+			break;
+		}
 	}
 
 }

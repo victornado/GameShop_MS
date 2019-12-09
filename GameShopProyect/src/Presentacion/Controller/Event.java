@@ -3,7 +3,7 @@ package Presentacion.Controller;
 public class Event {
 	
 	// EVENT TO INIT THE APPLICATION
-	public static final int INIT_GAMESHOP								= 1337;
+	public static final int INIT_GAMESHOP								= 6666;
 
 	// PROVIDER (1)
 	public static final int REGISTER_PROVIDER 							= 0;
@@ -70,7 +70,7 @@ public class Event {
 	public static final int RES_READ_CONFERENCE_FAILED 						= 133;
 	public static final int RES_READALL_CONFERENCE_OK 						= 134;
 	public static final int RES_READALL_CONFERENCE_FAILED 					= 135;
-	//public static final int UPDATE_LIST_IN_EMPLOYEE							= 44444;
+	public static final int UPDATE_LIST_CONFERENCE							= 13009;
 	
 	// DEPARTMENT (5)
 	public static final int REGISTER_DEPARTMENT 							= 18;
@@ -88,7 +88,7 @@ public class Event {
 	public static final int RES_READ_DEPARTMENT_FAILED 						= 141;
 	public static final int RES_READALL_DEPARTMENT_OK 						= 142;
 	public static final int RES_READALL_DEPARTMENT_FAILED 					= 143;
-	public static final int UPDATE_LIST_EMPLOYEE					 		= 1499;
+	public static final int UPDATE_LIST_DEPARTMENT					 		= 1499;
 	
 	// EMPLOYEE (6)
 	public static final int REGISTER_EMPLOYEE 								= 22;
@@ -106,6 +106,7 @@ public class Event {
 	public static final int RES_READ_EMPLOYEE_FAILED 						= 149;
 	public static final int RES_READALL_EMPLOYEE_OK 						= 150;
 	public static final int RES_READALL_EMPLOYEE_FAILED 					= 151;
+	public static final int UPDATE_LIST_EMPLOYEE							= 1300;
 	
 	// EVENTS TO SHOW THE QUERY CHARTS
 	public static final int SHOW_PROVIDER_QUERY		 					= 777;

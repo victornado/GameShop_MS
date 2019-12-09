@@ -106,9 +106,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 			
 		/******************************* CONFERENCIA *****************************/
-		case Event.UPDATE_LIST_IN_EMPLOYEE:
+		/*case Event.UPDATE_LIST_EMPLOYEE:
 			GUIConferencia.getInstance().actualiza(data);
-			break;
+			break;*/
 		case Event.RES_REGISTER_CONFERENCE_OK:
 			GUIConferencia.getInstance().actualiza(data);
 			break;
@@ -173,6 +173,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 			
 		/******************************** EMPLEADO *******************************/
+		case Event.UPDATE_LIST_EMPLOYEE: // Para actualizar la lista de depatamentos en el FormEmployee
+			GUIEmployee.getInstance().actualiza(data);
+			break;
 		case Event.RES_REGISTER_EMPLOYEE_OK:
 			GUIEmployee.getInstance().actualiza(data);
 			break;

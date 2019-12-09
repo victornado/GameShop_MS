@@ -21,7 +21,7 @@ import Negocio.Transfers.TDepartamento;
 		@NamedQuery(name = "Negocio.Departamento.Departamento.findBynombre", query = "select obj from Departamento obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "Negocio.Departamento.Departamento.findBynumEmpleados", query = "select obj from Departamento obj where :numEmpleados = obj.numEmpleados "),
 		@NamedQuery(name = "Negocio.Departamento.Departamento.findByfacturacion", query = "select obj from Departamento obj where :facturacion = obj.facturacion "),
-		@NamedQuery(name = "Negocio.Departamento.Departamento.findByplanta", query = "select obj from Departamento obj where :planta = obj.planta ") })
+		@NamedQuery(name = "Negocio.Departamento.Departamento.findBynumPlanta", query = "select obj from Departamento obj where :numPlanta = obj.numPlanta ") })
 public class Departamento implements Serializable {
 	private static final long serialVersionUID = 0;
 	
@@ -30,7 +30,7 @@ public class Departamento implements Serializable {
 	private String nombre;
 	private Integer numEmpleados;
 	private Double facturacion;
-	private Integer planta;
+	private Integer numPlanta;
 	@OneToMany (mappedBy="depto") // Está en el lado 1 y el poseedor en el lado N
 	private Collection<Empleado> empleados;
 	//SUGERENCIA: cambiar la colecction por un Hashmap de <Id.empleado, empleado> para poder borrar y meter empleados
@@ -75,11 +75,11 @@ public class Departamento implements Serializable {
 	}
 	
 	public Integer getPlanta() {
-		return planta;
+		return numPlanta;
 	}
 
 	public void setPlanta(Integer planta) {
-		this.planta = planta;
+		this.numPlanta = planta;
 	}
 
 	public TDepartamento toTransfer() {

@@ -70,7 +70,7 @@ public class Event {
 	public static final int RES_READ_CONFERENCE_FAILED 						= 133;
 	public static final int RES_READALL_CONFERENCE_OK 						= 134;
 	public static final int RES_READALL_CONFERENCE_FAILED 					= 135;
-	public static final int UPDATE_LIST_IN_EMPLOYEE							= 44444;
+	//public static final int UPDATE_LIST_IN_EMPLOYEE							= 44444;
 	
 	// DEPARTMENT (5)
 	public static final int REGISTER_DEPARTMENT 							= 18;

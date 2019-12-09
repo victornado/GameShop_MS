@@ -75,7 +75,7 @@ public class FormEmployee extends JDialog {
 		});
 		
 		this.setLayout(new FlowLayout());
-		this.setBounds(new Rectangle(300, 60));
+		this.setBounds(new Rectangle(300, 100));
 		this.setLocationRelativeTo(null);
 		
 		this._turnElection.setPreferredSize(new Dimension(160,20));

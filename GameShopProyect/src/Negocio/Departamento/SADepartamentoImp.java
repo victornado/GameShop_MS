@@ -113,10 +113,6 @@ public class SADepartamentoImp implements SADepartamento {
 		
 		em.getTransaction().begin();
 		
-		// Para JPQL si Departamento es una Entity hay que hacer "createQuery" pero si no fuere una Entity seria "createNativeQuery"
-		
-		
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! MIRAR SI Dep de la QUERY ES ASI EN BD!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		TypedQuery<Departamento> query = em.createQuery("SELECT d FROM Departamento d", Departamento.class);
 		List<Departamento> aux = query.getResultList();
 		

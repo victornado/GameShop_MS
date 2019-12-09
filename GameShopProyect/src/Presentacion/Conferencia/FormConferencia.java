@@ -9,8 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Timestamp;
-import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -70,20 +68,9 @@ public class FormConferencia extends JDialog {
 					String name = _nameText.getText();
 					String thematic = _thematicText.getText();
 					Integer assistants = (Integer)_assistantsElection.getValue();
-					
-					
-					
-					
-					
-					// TODO pasarle un STRING FECHA y llamar luego al toTimestamp()
-					Timestamp date = Timestamp.valueOf(_dateText.getText());
-					TConferencia tc = new TConferencia(name, thematic, assistants, date);
-					
-					
-					
-					
-					
-					
+					TConferencia tc = new TConferencia(name, thematic, assistants, null);
+					String date = _dateText.getText();
+					tc.setStringFecha(date);
 					Controller.getInstance().action(tc, Event.REGISTER_CONFERENCE);
 					closeDialog();
 				}catch(Exception ex) {

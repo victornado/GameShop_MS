@@ -37,7 +37,7 @@ public class TTecnico extends TEmpleado {
 				"NIF: " + super.getNIF() + '\n' +
 				"Nombre: " + super.getNombre() + '\n' +
 				"Turno: " + super.getTurno() + '\n' +
-				"Departamento: " + super.getDepartamento().toString() + '\n' +
+				"Departamento: " + super.getDepartamento() + '\n' +
 				"Sueldo base: " + super.getSueldobase() + '\n' +
 				"Especialidad: " + especialidad + '\n' +
 				"Sobresueldo: " + sobresueldo + '\n');

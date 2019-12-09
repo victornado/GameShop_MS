@@ -207,13 +207,15 @@ public class OperationsPanel extends JPanel {
 			if(this._electionForm != null) {
 				for(Object tc : this._electionForm)
 					_election.addItem(((TDepartamento)tc).getID() + " - " + ((TDepartamento)tc).getNombre());
-			}break;
+			}
+			break;
 		case "employee":
 			Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
 			if(this._electionForm != null) {
-			for(Object tc : this._electionForm)
-				_election.addItem(((TEmpleado)tc).getID() + " - " + ((TEmpleado)tc).getNombre());
-			}break;
+				for(Object tc : this._electionForm)
+					_election.addItem(((TEmpleado)tc).getID() + " - " + ((TEmpleado)tc).getNombre());
+			}
+			break;
 		}
 		
 	}

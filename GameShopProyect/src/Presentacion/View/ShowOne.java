@@ -19,6 +19,9 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import Negocio.SA.SAAbstractFactory;
+import Negocio.Transfers.TConferencia;
+import Negocio.Transfers.TDepartamento;
+import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
 import Negocio.Transfers.TTicket;
@@ -71,16 +74,19 @@ public class ShowOne extends JPanel {
 						Controller.getInstance().action(id, Event.READ_TICKET);
 						break;
 					case "conference":
+						Controller.getInstance().action(id, Event.READ_CONFERENCE);
 						break;
 					case "department":
+						Controller.getInstance().action(id, Event.READ_DEPARTMENT);
 						break;
 					case "employee":
+						Controller.getInstance().action(id, Event.READ_EMPLOYEE);
 						break;
 					}
 				}
 				/*if(nameIdentificator.equalsIgnoreCase("conference"))
 					Controller.getInstance().action(5, Event.READ_CONFERENCE);*/
-				SAAbstractFactory.getInstance().createSAEmpleado().mostrarEmpleado(5);
+				//SAAbstractFactory.getInstance().createSAEmpleado().mostrarEmpleado(5);
 			}
 		});
 	}
@@ -125,10 +131,10 @@ public class ShowOne extends JPanel {
 		this.add(Box.createVerticalGlue());
 		
 		addShowButtonAction();
-		fillList();
+		//fillList();
 	}
 
-	public void fillList() {
+	public void fillList(List<Object> l) {
 		_election.removeAllItems();
 		switch(nameIdentificator){
 		case "provider":
@@ -143,11 +149,26 @@ public class ShowOne extends JPanel {
 			for(Object tt : SAAbstractFactory.getInstance().createSATicket().readAllTickets())
 				_election.addItem(((TTicket)tt).get_id() + " - " + ((TTicket)tt).get_date());
 			break;
+			
+		/*****************************************************************************************************************/
+			
+		case "conference":
+			for(Object o : l)
+				_election.addItem(((TConferencia)o).getID() + " - " + ((TConferencia)o).getNombre());
+			break;
+		case "department":
+			for(Object o : l)
+				_election.addItem(((TDepartamento)o).getID() + " - " + ((TDepartamento)o).getNombre());
+			break;
+		case "employee":
+			for(Object o : l)
+				_election.addItem(((TEmpleado)o).getID() + " - " + ((TEmpleado)o).getNombre());
+			break;
 		}
 	}
 	
 	public void update(List<Object> l) {
-		fillList();
+		fillList(l);
 	}
 
 	public void set_info(String text) {

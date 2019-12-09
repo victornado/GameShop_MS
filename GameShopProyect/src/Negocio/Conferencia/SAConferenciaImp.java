@@ -197,10 +197,12 @@ public class SAConferenciaImp implements SAConferencia {
 		else if(validos) {
 			// Miramos que el formato de fecha sea el correcto
 			String[] fullDate = data.getStringFecha().split(" ");
-			String[] date = fullDate[0].split("-");
-			String[] hours = fullDate[1].split(":");
+			String[] date = fullDate[0].split("-"); // yyyy-mm-dd
+			String[] hours = fullDate[1].split(":");// hh:mm:ss
 			
-			if(date[0].length() != 4 || (date[1].length() < 1 || date[1].length() > 2) || (date[2].length() < 1 || date[2].length() > 2))
+			if((date[0].length() != 4 || Integer.parseInt(date[0]) < 2019) ||
+					(Integer.parseInt(date[1]) < 1 || Integer.parseInt(date[1]) > 12) ||
+					(Integer.parseInt(date[2]) < 1 || Integer.parseInt(date[2]) > 31))
 				validos = false;
 			else if((Integer.parseInt(hours[0]) > 23 || Integer.parseInt(hours[0]) < 0) ||
 					(Integer.parseInt(hours[1]) > 59 || Integer.parseInt(hours[1]) < 0) ||

@@ -7,6 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import Negocio.Transfers.TDepartamento;
+
 @SuppressWarnings("serial")
 public class ShowAllDepartments extends ShowAll {
 
@@ -38,15 +40,15 @@ public class ShowAllDepartments extends ShowAll {
 				
 				switch(columnIndex){
 				case 0:
-					//o = ((TProvider)_providers.get(rowIndex)).get_id();
+					o = ((TDepartamento)_departments.get(rowIndex)).getID();
 					break;
 					
 				case 1:
-					//o = ((TProvider)_providers.get(rowIndex)).get_address();
+					o = ((TDepartamento)_departments.get(rowIndex)).getNombre();
 					break;
 					
 				case 2:
-					//o = ((TProvider)_providers.get(rowIndex)).get_nif();
+					o = ((TDepartamento)_departments.get(rowIndex)).getnEmpleados();
 					break;
 				}
 				return o;

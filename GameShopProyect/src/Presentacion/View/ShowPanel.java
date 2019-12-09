@@ -119,7 +119,7 @@ public class ShowPanel extends JPanel {
 	
 	public void update(List<Object> l) {
 		sa.update(l);
-		so.fillList();
+		so.fillList(l);
 		so.set_info("");
 	}
 	

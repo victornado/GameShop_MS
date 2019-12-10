@@ -39,7 +39,7 @@ public class SAConferenciaImp implements SAConferencia {
 					con.setAsistentes(data.getAsistentes());
 					con.setFecha(data.getDate());
 					con.setTematica(data.getTematica());
-					
+					con.setRealiza(null);
 					em.persist(con);
 					em.getTransaction().commit();
 					id = con.getId();

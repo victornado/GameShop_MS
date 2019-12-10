@@ -27,7 +27,7 @@ public class SADepartamentoImp implements SADepartamento {
 		dep.setNombre(data.getNombre());
 		dep.setPlanta(data.getPlanta());
 		dep.setFacturacion(data.getFactura());
-
+		dep.setEmpleados(null);
 		em.persist(dep);
 		em.getTransaction().commit();
 

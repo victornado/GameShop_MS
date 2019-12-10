@@ -1,7 +1,5 @@
 package Negocio.Realiza;
 
-import java.util.List;
-
 import Negocio.Transfers.TRealiza;
 
 public interface SARealiza {

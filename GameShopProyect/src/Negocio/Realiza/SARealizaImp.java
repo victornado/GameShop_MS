@@ -14,18 +14,19 @@ public class SARealizaImp implements SARealiza{
 
 	@Override
 	public RealizaEmbeddable createRealiza(TRealiza r) {
-		Integer id=-1;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		
-		RealizaEmbeddable rE;
-		rE.setConferencia(r.);
-		
+		RealizaEmbeddable rE= new RealizaEmbeddable();
+		rE.setConferencia(r.getIdConf());
+		rE.setEmpleado(r.getIdEmp());
 		TypedQuery<Realiza> q=em.createNamedQuery("Realiza.Realiza.findByids", Realiza.class);
 		q.setParameter("ids", rE);
+		
 		if(q.getResultList().isEmpty()) {
 			
 		}
+		else em.getTransaction().rollback();
 	}
 	@Override
 	public Boolean deleteRealiza(Integer idEmpleado) {

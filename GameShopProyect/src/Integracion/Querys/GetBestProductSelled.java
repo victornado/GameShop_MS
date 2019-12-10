@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.util.Pair;
+import utils.Pair;
+
+
 
 public class GetBestProductSelled implements Query {
 

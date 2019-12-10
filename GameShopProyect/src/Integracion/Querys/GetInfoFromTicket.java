@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 
-import javafx.util.Pair;
+import utils.Pair;
+
+
 
 public class GetInfoFromTicket implements Query {
 

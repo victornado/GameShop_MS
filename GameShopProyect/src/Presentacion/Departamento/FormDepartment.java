@@ -51,7 +51,7 @@ public class FormDepartment extends JDialog {
 		});
 		
 		this.setLayout(new FlowLayout());
-		this.setBounds(new Rectangle(300, 140));
+		this.setBounds(new Rectangle(300, 165));
 		this.setLocationRelativeTo(null);
 		
 		initComponents();
@@ -106,9 +106,9 @@ public class FormDepartment extends JDialog {
 		_billingElection.setMinimumSize(new Dimension(70,20));
 		
 		_employeesText = new JTextField();
-		_employeesText.setPreferredSize(new Dimension(220,20));
-		_employeesText.setMaximumSize(new Dimension(220,20));
-		_employeesText.setMinimumSize(new Dimension(220,20));
+		_employeesText.setPreferredSize(new Dimension(180,20));
+		_employeesText.setMaximumSize(new Dimension(180,20));
+		_employeesText.setMinimumSize(new Dimension(180,20));
 		
 		_floorText = new JTextField();
 		_floorText.setPreferredSize(new Dimension(220,20));
@@ -129,7 +129,7 @@ public class FormDepartment extends JDialog {
 		this.add(_nameText);
 		this.add(_billing);
 		this.add(_billingElection);
-		this.add(Box.createRigidArea(new Dimension(100, 1)));
+		this.add(Box.createRigidArea(new Dimension(110, 1)));
 		this.add(_employees);
 		this.add(Box.createRigidArea(new Dimension(5, 1)));
 		this.add(_employeesText);

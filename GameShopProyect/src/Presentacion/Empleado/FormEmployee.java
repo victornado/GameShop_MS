@@ -95,9 +95,11 @@ public class FormEmployee extends JDialog {
 		this._departmentElection.setMinimumSize(new Dimension(160,20));
 		this._departmentElection.addItem(FormEmployee.SIN_DEPARTAMENTO);
 		Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
-		for(Object o : GUIEmployee.getInstance().getOpPanel().getElectionForm() )
+		List<Object> l = GUIEmployee.getInstance().getOpPanel().getElectionForm();
+		if(l != null) {
+		for(Object o : l )
 			this._departmentElection.addItem(((TDepartamento)o).getID() + " - " + ((TDepartamento)o).getNombre());
-		
+		}
 		_next = new JButton("Next");
 		_next.setPreferredSize(new Dimension(80,20));
 		this.add(new JLabel("Type:"));

@@ -108,6 +108,17 @@ public class Event {
 	public static final int RES_READALL_EMPLOYEE_FAILED 					= 151;
 	public static final int UPDATE_LIST_EMPLOYEE							= 1300;
 	
+	// REALIZA (7)
+	public static final int REALIZA_ASIGNAR									= 13050;
+	public static final int REALIZA_ASIGNAR_FAILED							= 13060;
+	public static final int REALIZA_ASIGNAR_OK								= 17700;
+	public static final int REALIZA_DESASIGNAR								= 13800;
+	public static final int REALIZA_DESASIGNAR_FAILED						= 19300;
+	public static final int REALIZA_DESASIGNAR_OK							= 11300;
+	public static final int REALIZA_MODIFICAR								= 13100;
+	public static final int REALIZA_MODIFICAR_FAILED						= 13002;
+	public static final int REALIZA_MODIFICAR_OK							= 13010;
+	
 	// EVENTS TO SHOW THE QUERY CHARTS
 	public static final int SHOW_PROVIDER_QUERY		 					= 777;
 	public static final int SHOW_PROVIDER_QUERY_OK		 				= 778;

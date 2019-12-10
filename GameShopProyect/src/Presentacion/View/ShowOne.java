@@ -136,34 +136,36 @@ public class ShowOne extends JPanel {
 
 	public void fillList(List<Object> l) {
 		_election.removeAllItems();
-		switch(nameIdentificator){
-		case "provider":
-			for(Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
-				_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
-			break;
-		case "product":
-			for(Object temp : SAAbstractFactory.getInstance().createSAProduct().readAllProducts())
-				_election.addItem(((TProduct) temp).get_id() + " - " + ((TProduct)temp).get_type()+" - "+((TProduct)temp).get_name());
-			break;
-		case "ticket":
-			for(Object tt : SAAbstractFactory.getInstance().createSATicket().readAllTickets())
-				_election.addItem(((TTicket)tt).get_id() + " - " + ((TTicket)tt).get_date());
-			break;
-			
-		/*****************************************************************************************************************/
-			
-		case "conference":
-			for(Object o : l)
-				_election.addItem(((TConferencia)o).getID() + " - " + ((TConferencia)o).getNombre());
-			break;
-		case "department":
-			for(Object o : l)
-				_election.addItem(((TDepartamento)o).getID() + " - " + ((TDepartamento)o).getNombre());
-			break;
-		case "employee":
-			for(Object o : l)
-				_election.addItem(((TEmpleado)o).getID() + " - " + ((TEmpleado)o).getNombre());
-			break;
+		if(l != null) {
+			switch(nameIdentificator){
+			case "provider":
+				for(Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
+					_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
+				break;
+			case "product":
+				for(Object temp : SAAbstractFactory.getInstance().createSAProduct().readAllProducts())
+					_election.addItem(((TProduct) temp).get_id() + " - " + ((TProduct)temp).get_type()+" - "+((TProduct)temp).get_name());
+				break;
+			case "ticket":
+				for(Object tt : SAAbstractFactory.getInstance().createSATicket().readAllTickets())
+					_election.addItem(((TTicket)tt).get_id() + " - " + ((TTicket)tt).get_date());
+				break;
+				
+			/*****************************************************************************************************************/
+				
+			case "conference":
+				for(Object o : l)
+					_election.addItem(((TConferencia)o).getID() + " - " + ((TConferencia)o).getNombre());
+				break;
+			case "department":
+				for(Object o : l)
+					_election.addItem(((TDepartamento)o).getID() + " - " + ((TDepartamento)o).getNombre());
+				break;
+			case "employee":
+				for(Object o : l)
+					_election.addItem(((TEmpleado)o).getID() + " - " + ((TEmpleado)o).getNombre());
+				break;
+			}
 		}
 	}
 	

@@ -21,8 +21,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
-import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TRealiza;
+import Presentacion.Controller.Controller;
+import Presentacion.Controller.Event;
 
 @SuppressWarnings("serial")
 public class FormRealiza extends JDialog {
@@ -38,7 +39,7 @@ public class FormRealiza extends JDialog {
 	private JButton cancel;
 	
 	// Tabla para empleados
-	private String[]_columnIds = {"ID", "Name", "Duracion"};
+	private String[]_columnIds = {"IDEmp", "IDConf", "Duracion"};
 	private JButton add;
 	private JButton quitar;
 	private AbstractTableModel model;
@@ -46,10 +47,10 @@ public class FormRealiza extends JDialog {
 	private JScrollPane jsp;
 	
 	// Lista que contiene los empleados que queremos asociar a esa conferencia
-	private List<Object> empleadosEnConferencia = new ArrayList<Object>(); 
+	private List<TRealiza> empleadosEnConferencia = new ArrayList<TRealiza>();
 	
 	public FormRealiza() {
-		this.setTitle("Add new ticket");
+		this.setTitle("Asisgnar empleados a conferencias");
 		this.setIconImage(new ImageIcon("resources/GameShopLogo.png").getImage());
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -77,10 +78,31 @@ public class FormRealiza extends JDialog {
 	}
 
 	private void removeButtonAction() {
+		quitar.addActionListener(new ActionListener() {
+			@SuppressWarnings("unlikely-arg-type")
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(grid.getSelectedRow() != -1) {
+					Integer empleadoAeliminar = grid.getSelectedColumn();
+					empleadosEnConferencia.remove(empleadoAeliminar);
+					model.fireTableDataChanged();
+				}
+			}
+		});
 	}
 
 	private void addButtonAction() {
-		
+		add.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Integer idEmp = Integer.parseInt((((String)empleados.getSelectedItem()).split(" - "))[0]);
+				Integer idConf = Integer.parseInt((((String)conferencias.getSelectedItem()).split(" - "))[0]);
+				Integer d = Integer.parseInt(duracion.getText());
+				TRealiza in = new TRealiza(idEmp, idConf, d);
+				empleadosEnConferencia.add(in);
+				model.fireTableDataChanged();
+			}
+		});
 	}
 
 	private void okButtonAction() {
@@ -88,13 +110,10 @@ public class FormRealiza extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(empleadosEnConferencia.size() > 0) {
-					TRealiza tr = new TRealiza(
-							Integer.parseInt((((String)empleados.getSelectedItem()).split(" - "))[0]),
-							Integer.parseInt((((String)conferencias.getSelectedItem()).split(" - "))[0]),
-							Integer.parseInt(duracion.getText()));
-					
 					closeDialog();
-					//Controller.getInstance().action(tr, Event.ASIGNAR_CONFERENCIA);
+					
+					for(int i = 0; i < empleadosEnConferencia.size(); ++i)
+						Controller.getInstance().action(empleadosEnConferencia.get(i), Event.REALIZA_ASIGNAR);
 				}
 			}
 		});
@@ -125,7 +144,7 @@ public class FormRealiza extends JDialog {
 		sizeComponent(empleados, new Dimension(150, 20));
 		sizeComponent(conferencias, new Dimension(150, 20));
 		
-		add = new JButton("Añadir empleado");
+		add = new JButton("Anadir empleado");
 		sizeComponent(add, new Dimension(80, 20));
 		quitar = new JButton("Quitar empleado");
 		sizeComponent(quitar, new Dimension(80, 20));
@@ -168,10 +187,10 @@ public class FormRealiza extends JDialog {
 				
 				switch(columnIndex){
 				case 0:
-					o = ((TEmpleado)empleadosEnConferencia.get(rowIndex)).getID();
+					o = ((TRealiza)empleadosEnConferencia.get(rowIndex)).getIdEmp();
 					break;
 				case 1:
-					o = ((TEmpleado)empleadosEnConferencia.get(rowIndex)).getNombre();
+					o = ((TRealiza)empleadosEnConferencia.get(rowIndex)).getIdConf();
 					break;
 				case 2:
 					Integer.parseInt(duracion.getText());

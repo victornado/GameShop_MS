@@ -64,7 +64,6 @@ public class SAEmpleadoImp implements SAEmpleado {
 			em.close();
 			emf.close();
 		}
-
 		return idRet;
 	}
 

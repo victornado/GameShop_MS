@@ -31,7 +31,7 @@ import Presentacion.Controller.Event;
 
 @SuppressWarnings("serial")
 public class FormRealiza extends JDialog {
-	private final JLabel elegirEmpleado = new JLabel("Empleados:");
+	protected final JLabel elegirEmpleado = new JLabel("Empleados:");
 	private final JLabel elegirConferencia = new JLabel("Conferencias:");
 	protected final JLabel elegirDuracion = new JLabel("Duracion:");
 	protected JComboBox<Object> empleados = new JComboBox<Object>();
@@ -52,6 +52,9 @@ public class FormRealiza extends JDialog {
 	
 	// Lista que contiene los empleados que queremos asociar a esa conferencia
 	protected List<TRealiza> empleadosEnConferencia = new ArrayList<TRealiza>();
+	
+	// Lista para ver si ya se ha metido un empleado o no EN LA TABLA
+	private List<Integer> empleadosUsados = new ArrayList<Integer>();
 	
 	public FormRealiza() {
 		this.setTitle("Asisgnar empleados a conferencias");
@@ -97,28 +100,32 @@ public class FormRealiza extends JDialog {
 
 	protected void removeButtonAction() {
 		quitar.addActionListener(new ActionListener() {
-			@SuppressWarnings("unlikely-arg-type")
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(grid.getSelectedRow() != -1) {
-					Integer empleadoAeliminar = grid.getSelectedColumn();
-					empleadosEnConferencia.remove(empleadoAeliminar);
+				Integer empleadoAeliminarEnLista = grid.getSelectedRow();
+				if(empleadoAeliminarEnLista != -1) {
+					TRealiza aEliminar = empleadosEnConferencia.get(empleadoAeliminarEnLista);
+					empleadosEnConferencia.remove(aEliminar);
 					model.fireTableDataChanged();
 				}
 			}
 		});
 	}
 
-	private void addButtonAction() {
+	protected void addButtonAction() {
 		add.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {				
 				Integer idEmp = Integer.parseInt((((String)empleados.getSelectedItem()).split(" - "))[0]);
-				Integer idConf = Integer.parseInt((((String)conferencias.getSelectedItem()).split(" - "))[0]);
-				Integer d = Integer.parseInt(duracion.getText());
-				TRealiza in = new TRealiza(idEmp, idConf, d);
-				empleadosEnConferencia.add(in);
-				model.fireTableDataChanged();
+				if(!empleadosUsados.contains(idEmp) && !duracion.getText().equalsIgnoreCase("")) {
+					empleadosUsados.add(idEmp);
+					Integer idConf = Integer.parseInt((((String)conferencias.getSelectedItem()).split(" - "))[0]);
+					Integer d = Integer.parseInt(duracion.getText());
+					TRealiza in = new TRealiza(idEmp, idConf, d);
+					empleadosEnConferencia.add(in);
+					
+					model.fireTableDataChanged();
+				}
 			}
 		});
 	}
@@ -131,6 +138,9 @@ public class FormRealiza extends JDialog {
 					closeDialog();
 					
 					Controller.getInstance().action(empleadosEnConferencia, Event.REALIZA_ASIGNAR);
+					
+					// Eliminamos todos los ids de los empleados pues ya no nos sirve
+					empleadosUsados.clear();
 				}
 			}
 		});
@@ -197,9 +207,10 @@ public class FormRealiza extends JDialog {
 					o = ((TRealiza)empleadosEnConferencia.get(rowIndex)).getIdConf();
 					break;
 				case 2:
-					Integer.parseInt(duracion.getText());
+					o = ((TRealiza)empleadosEnConferencia.get(rowIndex)).getDuracion();
 					break;
 				}
+				
 				return o;
 			}
 			@Override

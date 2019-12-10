@@ -69,9 +69,13 @@ public class SAConferenciaImp implements SAConferencia {
 			Conferencia con = em.find(Conferencia.class, id);
 			
 			if (con != null) {
-				Realiza real = em.find(Realiza.class, id);
+				
 				con.setActivo(false);
-				if(real==null) {//TODO llamar funcion realiza->borrar
+				if(con.getRealiza()==null || !con.getRealiza().isEmpty()) {
+					for (Realiza r : con.getRealiza()) {
+						em.remove(r);
+					}
+					//TODO llamar funcion realiza->borrar
 				
 				}
 				ret = true;

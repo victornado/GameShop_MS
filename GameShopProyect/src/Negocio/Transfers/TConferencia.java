@@ -113,6 +113,7 @@ public class TConferencia {
 			str.append('\t' + tr.getIdEmp() + " - " + tr.getDuracion() + " mins" + '\n');
 			
 		return ("ID: " + ID + '\n' +
+				"Activo: " + getActivo() + '\n' +
 				"Nombre: " + nombre + '\n' +
 				"Tematica: " + tematica + '\n' +
 				"Fecha: " + fecha.toString() + '\n' +

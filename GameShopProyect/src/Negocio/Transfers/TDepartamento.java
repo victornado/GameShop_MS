@@ -76,6 +76,7 @@ public class TDepartamento {
 	@Override
 	public String toString() {
 		return ("ID: " + ID + '\n' +
+				"Activo: " + getActivo()+ '\n' +
 				"Nombre: " + nombre + '\n' +
 				"Empleados: " + nEmpleados + '\n' +
 				"Facturacion: " + factura + '\n' +

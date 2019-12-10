@@ -78,9 +78,9 @@ public class SAEmpleadoImp implements SAEmpleado {
 		
 		Empleado con = em.find(Empleado.class, id);
 		if(con != null) {//si existe el empleado
-			if(!con.getRealiza().isEmpty()){//buscamos los realiza
+			if(con.getRealiza()==null || !con.getRealiza().isEmpty()){//buscamos los realiza
 				for(Realiza r: con.getRealiza()){
-					//TODO llamar al realiza r-->borrar
+					em.remove(r);
 				}
 			}
 			con.setActivo(false);

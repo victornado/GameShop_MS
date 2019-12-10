@@ -82,7 +82,7 @@ public class GUIGameshopImp extends GUIGameShop {
 		_tabs.setMinimumSize(new Dimension(700, 500));
 		_tabs.setMaximumSize(new Dimension(700, 500));
 
-		_tabs.addTab(GUIGameshopImp.TAB_PROVIDER, null, (GUIProviderImp) _guis.get(0), "Provider tab");
+		/*_tabs.addTab(GUIGameshopImp.TAB_PROVIDER, null, (GUIProviderImp) _guis.get(0), "Provider tab");
 
 		_tabs.addTab(GUIGameshopImp.TAB_PRODUCT, null, (GUIProductImp) _guis.get(1), "Product tab");
 
@@ -92,9 +92,9 @@ public class GUIGameshopImp extends GUIGameShop {
 
 		_tabs.addTab(GUIGameshopImp.TAB_DEPARTMENT, null, (GUIDepartmentImp) _guis.get(4), "Department tab");
 
-		_tabs.addTab(GUIGameshopImp.TAB_EMPLOYEE, null, (GUIEmployeeImp) _guis.get(5), "Employee tab");
+		_tabs.addTab(GUIGameshopImp.TAB_EMPLOYEE, null, (GUIEmployeeImp) _guis.get(5), "Employee tab");*/
 		
-		_tabs.addTab(GUIGameshopImp.TAB_ASIGNACION, null, (GUIRealizaImp) _guis.get(6), "Asignar empleados a conferencias");
+		_tabs.addTab(GUIGameshopImp.TAB_ASIGNACION, null, (GUIRealizaImp) _guis.get(0), "Asignar empleados a conferencias");
 
 		this.add(_tabs, BorderLayout.CENTER);
 	}

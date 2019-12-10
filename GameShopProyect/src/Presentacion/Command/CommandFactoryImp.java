@@ -8,6 +8,9 @@ import Presentacion.Command.DepartmentCommands.*;
 import Presentacion.Command.EmployeeCommands.*;
 import Presentacion.Command.ProductCommands.*;
 import Presentacion.Command.ProviderCommands.*;
+import Presentacion.Command.RealizaCommand.RealizaAsignarCommand;
+import Presentacion.Command.RealizaCommand.RealizaDesasignarCommand;
+import Presentacion.Command.RealizaCommand.RealizaModificarCommand;
 import Presentacion.Command.TicketCommands.*;
 import Presentacion.Controller.Event;
 
@@ -64,6 +67,11 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.READ_EMPLOYEE, new ShowOneEmployeeCommand());
 		_availableCommands.put(Event.READ_ALL_EMPLOYEE, new ShowAllEmployeeCommand());
 		_availableCommands.put(Event.UPDATE_LIST_EMPLOYEE, new UpdateComboBoxEmployee());
+		
+		/********************************** REALIZA **********************************/
+		_availableCommands.put(Event.REALIZA_ASIGNAR, new RealizaAsignarCommand());
+		_availableCommands.put(Event.REALIZA_DESASIGNAR, new RealizaDesasignarCommand());
+		_availableCommands.put(Event.REALIZA_MODIFICAR, new RealizaModificarCommand());
 
 		/********************************** QUERIES **********************************/
 		_availableCommands.put(Event.SHOW_PROVIDER_QUERY, new BestProviderQueryCommand());

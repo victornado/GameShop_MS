@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -29,25 +30,25 @@ import Presentacion.Controller.Event;
 public class FormRealiza extends JDialog {
 	private final JLabel elegirEmpleado = new JLabel("Empleados:");
 	private final JLabel elegirConferencia = new JLabel("Conferencias:");
-	private final JLabel elegirDuracion = new JLabel("Duracion:");
-	private JComboBox<Object> empleados = new JComboBox<Object>();;
-	private JComboBox<Object> conferencias = new JComboBox<Object>();;
+	protected final JLabel elegirDuracion = new JLabel("Duracion:");
+	protected JComboBox<Object> empleados = new JComboBox<Object>();
+	protected JComboBox<Object> conferencias = new JComboBox<Object>();
 	
-	private JTextField duracion = new JTextField();
+	protected JTextField duracion = new JTextField();
 	
 	protected JButton ok;
 	private JButton cancel;
 	
 	// Tabla para empleados
 	private String[]_columnIds = {"IDEmp", "IDConf", "Duracion"};
-	private JButton add;
-	private JButton quitar;
-	private AbstractTableModel model;
-	private JTable grid;
-	private JScrollPane jsp;
+	protected JButton add;
+	protected JButton quitar;
+	protected AbstractTableModel model;
+	protected JTable grid;
+	protected JScrollPane jsp;
 	
 	// Lista que contiene los empleados que queremos asociar a esa conferencia
-	private List<TRealiza> empleadosEnConferencia = new ArrayList<TRealiza>();
+	protected List<TRealiza> empleadosEnConferencia = new ArrayList<TRealiza>();
 	
 	public FormRealiza() {
 		this.setTitle("Asisgnar empleados a conferencias");
@@ -77,7 +78,7 @@ public class FormRealiza extends JDialog {
 		//rellenarListaEmpleadosAsociados();
 	}
 
-	private void removeButtonAction() {
+	protected void removeButtonAction() {
 		quitar.addActionListener(new ActionListener() {
 			@SuppressWarnings("unlikely-arg-type")
 			@Override
@@ -105,15 +106,14 @@ public class FormRealiza extends JDialog {
 		});
 	}
 
-	private void okButtonAction() {
+	protected void okButtonAction() {
 		ok.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(empleadosEnConferencia.size() > 0) {
 					closeDialog();
 					
-					for(int i = 0; i < empleadosEnConferencia.size(); ++i)
-						Controller.getInstance().action(empleadosEnConferencia.get(i), Event.REALIZA_ASIGNAR);
+					Controller.getInstance().action(empleadosEnConferencia, Event.REALIZA_ASIGNAR);
 				}
 			}
 		});
@@ -155,12 +155,15 @@ public class FormRealiza extends JDialog {
 		sizeComponent(ok, new Dimension(75, 20));
 		cancel = new JButton("Cancel");
 		sizeComponent(cancel, new Dimension(75, 20));
+		sizeComponent(duracion, new Dimension(75, 20));
 		
 		//this.add(Box.createRigidArea(new Dimension(20, 1)));
 		addComponentToDialog(elegirConferencia);
 		addComponentToDialog(conferencias);
+		this.add(Box.createRigidArea(new Dimension(30, 1)));
 		addComponentToDialog(elegirEmpleado);
 		addComponentToDialog(empleados);
+		this.add(Box.createRigidArea(new Dimension(50, 1)));
 		addComponentToDialog(elegirDuracion);
 		addComponentToDialog(duracion);
 		addComponentToDialog(add);
@@ -204,7 +207,8 @@ public class FormRealiza extends JDialog {
 			}
 			@Override
 			public boolean isCellEditable(int row, int col) {
-				return false;
+				grid.setEditingColumn(2);
+				return true;
 			}
 		};
 		
@@ -253,5 +257,6 @@ public class FormRealiza extends JDialog {
 		setVisible(false);
 		dispose();
 	}
-	
+
+
 }

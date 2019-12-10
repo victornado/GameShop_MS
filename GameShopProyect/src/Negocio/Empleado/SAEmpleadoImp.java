@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import Negocio.Conferencia.Conferencia;
@@ -15,6 +16,7 @@ import Negocio.Realiza.RealizaEmbeddable;
 import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TTecnico;
+import utils.Pair;
 
 public class SAEmpleadoImp implements SAEmpleado {
 	
@@ -133,6 +135,11 @@ public class SAEmpleadoImp implements SAEmpleado {
 		em.getTransaction().begin();
 		
 		Empleado emp = em.find(Empleado.class, id);
+		
+		// Buscamos en Realiza la conferencia a la que pertenece este empleado
+		/*Query query = em.createNativeQuery("SELECT conferencia, duracion FROM realiza WHERE empleado=?");
+		query.setParameter(1, id);
+		List<Pair<>> aux = query.getResultList(); // Todas las conferencia a las que pertenece este empleado*/
 		
 		if(emp != null)
 			ret = emp.toTransfer();

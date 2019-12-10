@@ -23,7 +23,24 @@ public class TDepartamento {
 	private Integer nEmpleados;
 	private Double factura;
 	private Integer planta;
+	private Integer version;
+	private Boolean activo;
+	
+	public Integer getVersion() {
+		return version;
+	}
 
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
 
 	public Integer getID() {
 		return ID;

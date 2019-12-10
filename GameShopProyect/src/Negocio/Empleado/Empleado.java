@@ -5,14 +5,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import javax.persistence.NamedQueries;
 
 import Negocio.Departamento.Departamento;
+import Negocio.Realiza.Realiza;
 import Negocio.Transfers.TEmpleado;
 
 @Entity
@@ -22,7 +27,8 @@ import Negocio.Transfers.TEmpleado;
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findBynombre", query = "select obj from Empleado obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findBysueldoBase", query = "select obj from Empleado obj where :sueldoBase = obj.sueldoBase "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findByturno", query = "select obj from Empleado obj where :turno = obj.turno "),//{)
-		@NamedQuery(name = "Negocio.Empleado.Empleado.finBydepto", query = "select obj from Empleado obj where :depto = obj.depto ") })
+		@NamedQuery(name = "Negocio.Empleado.Empleado.finBydepto", query = "select obj from Empleado obj where :depto = obj.depto "),
+		@NamedQuery(name = "Negocio.Empleado.Empleado.findByrealiza", query = "select obj from Empleado obj where :realiza MEMBER OF obj.realiza ")})
 @Inheritance(strategy=InheritanceType.JOINED) // CREAMOS 3 TABLAS, UNA PARA CADA ENTIDAD
 public abstract class Empleado implements Serializable {
 	private static final long serialVersionUID = 0;
@@ -38,6 +44,11 @@ public abstract class Empleado implements Serializable {
 	private String turno;
 	@ManyToOne
 	private Departamento depto;
+	private Boolean activo;
+	@Version
+	private Integer version;
+	@OneToMany(mappedBy = "empleado")
+	private Set<Realiza> realiza;
 
 	public Empleado() {}
 
@@ -83,4 +94,26 @@ public abstract class Empleado implements Serializable {
 	}
 	public abstract Double calcularSueldo();
 	public abstract TEmpleado toTransfer();
+	
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	public Set<Realiza> getRealiza() {
+		return realiza;
+	}
+	public void setRealiza(Set<Realiza> realiza) {
+		this.realiza = realiza;
+	}
 }

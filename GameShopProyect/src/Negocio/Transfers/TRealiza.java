@@ -5,6 +5,15 @@ public class TRealiza {
 	private Integer duracion;
 	private Integer idEmp;
 	private Integer idConf;
+	private Integer version;
+	
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 	
 	public TRealiza(Integer idEmp, Integer idConf, Integer duracion) {
 		this.idConf = idConf;

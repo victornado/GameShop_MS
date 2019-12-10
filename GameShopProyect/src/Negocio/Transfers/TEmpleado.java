@@ -1,5 +1,8 @@
 package Negocio.Transfers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TEmpleado {
 	
 	private Integer ID;
@@ -9,6 +12,26 @@ public class TEmpleado {
 	private Double sueldobase;
 	private Integer dep;
 	private String tipo;
+	private Integer version;
+	private Boolean activo;
+	
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+	
+	private List<TRealiza> conferenciasAlasQuePertenece = new ArrayList<TRealiza>();
 	
 	public TEmpleado(String NIF, String nombre, String turno, Double sueldoBase, Integer dept, String tipo) {
 		this.NIF = NIF;

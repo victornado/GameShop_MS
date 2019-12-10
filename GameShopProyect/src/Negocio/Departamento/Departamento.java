@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import javax.persistence.NamedQueries;
 
 import Negocio.Empleado.Empleado;
@@ -33,8 +34,9 @@ public class Departamento implements Serializable {
 	private Integer numPlanta;
 	@OneToMany (mappedBy="depto") // Está en el lado 1 y el poseedor en el lado N
 	private Collection<Empleado> empleados;
-	//SUGERENCIA: cambiar la colecction por un Hashmap de <Id.empleado, empleado> para poder borrar y meter empleados
-	//rapido
+	private Boolean activo;
+	@Version
+	private Integer version;
 
 	public Departamento() {
 	}
@@ -91,5 +93,21 @@ public class Departamento implements Serializable {
 	@Override
 	public String toString() {
 		return nombre;
+	}
+	
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 }

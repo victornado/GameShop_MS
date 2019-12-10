@@ -14,6 +14,11 @@ public class RealizaEmbeddable implements Serializable {
 
 	public RealizaEmbeddable() {
 	}
+	
+	public RealizaEmbeddable(Integer emp, Integer conf) {
+		this.Empleado = emp;
+		this.Conferencia = conf;
+	}
 
 	public Integer getConferencia() {
 		return Conferencia;

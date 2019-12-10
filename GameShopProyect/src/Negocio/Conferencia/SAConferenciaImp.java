@@ -4,14 +4,17 @@ import Negocio.Realiza.Realiza;
 import Negocio.Realiza.RealizaEmbeddable;
 import Negocio.Transfers.TConferencia;
 import Negocio.Transfers.TRealiza;
+import utils.Pair;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 public class SAConferenciaImp implements SAConferencia {
@@ -28,6 +31,7 @@ public class SAConferenciaImp implements SAConferencia {
 				RealizaEmbeddable losIds = null;
 				
 				em.getTransaction().begin();
+				//TypedQuery<Conferencia> 
 				con.setNombre(data.getNombre());
 				con.setAsistentes(data.getAsistentes());
 				con.setFecha(data.getDate());
@@ -36,6 +40,15 @@ public class SAConferenciaImp implements SAConferencia {
 				em.getTransaction().commit();
 				
 				id = con.getId();
+				
+				// Metemos en la lista de TRealiza el idEmp que teniamos y su duracion pero como idConf era null, metems en esa misma
+				// posicion los mismos datos que teniamos pero con el idConf que acabamos de dar de alta
+				for(int i = 0; i < data.getEmpleadosEnConferencias().size(); ++i) {
+					if(data.getEmpleadosEnConferencias().get(i).getIdConf() == null)
+						data.getEmpleadosEnConferencias().set
+						(i, new TRealiza(data.getEmpleadosEnConferencias().get(i).getIdEmp(),
+								id, data.getEmpleadosEnConferencias().get(i).getDuracion()));
+				}
 				
 				em.getTransaction().begin();
 				for(TRealiza tr : data.getEmpleadosEnConferencias()) {
@@ -67,6 +80,8 @@ public class SAConferenciaImp implements SAConferencia {
 			
 			em.getTransaction().begin();
 			
+			//RealizaEmbeddable embe = new RealizaEmbeddable(em.find(, ), id);
+			
 			Conferencia con = em.find(Conferencia.class, id);
 			Realiza real = em.find(Realiza.class, id);
 			if(con != null && real != null) {
@@ -82,6 +97,7 @@ public class SAConferenciaImp implements SAConferencia {
 			
 			return ret;
 		}catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -95,9 +111,9 @@ public class SAConferenciaImp implements SAConferencia {
 				EntityManager em = emf.createEntityManager();
 				
 				// PROVISIONAL PARA PRUEBAS ==> Funciona PERO CAMBIAR EL COMANDO
-				Timestamp fecha = Timestamp.valueOf("2019-12-15 14:15:00");
-				TConferencia data = new TConferencia("Changes", "Gender", 300, fecha);
-				data.setID(5);
+				Timestamp fecha = Timestamp.valueOf("2019-12-17 14:15:00");
+				TConferencia data = new TConferencia("CAMBIOS", "HOLAAA", 300, fecha);
+				data.setID(8);
 				
 				em.getTransaction().begin();
 				
@@ -130,6 +146,7 @@ public class SAConferenciaImp implements SAConferencia {
 		}
 	}
 
+	@SuppressWarnings({ "unchecked", "null" })
 	public Object mostrarConferencia(Integer id) {
 		TConferencia ret = null;
 		
@@ -140,6 +157,20 @@ public class SAConferenciaImp implements SAConferencia {
 			em.getTransaction().begin();
 			
 			Conferencia con = em.find(Conferencia.class, 5);
+			
+			// Buscamos en Realiza los empleados de esta conferencia para guardarlos en la lista de TConferencia
+			// y luego mostrar todos
+			Query query = em.createNativeQuery("SELECT empleado, duracion FROM realiza WHERE conferencia=?");
+			query.setParameter(1, id);
+			List<Pair<Integer, Integer>> aux = query.getResultList();
+			
+			List<TRealiza> lista = new Vector<TRealiza>();
+			for(int i = 0; i < aux.size(); ++i) {
+				Pair<Integer, Integer> a = aux.get(i);
+				lista.add(new TRealiza(a.getKey(), id, a.getValue()));
+			}
+				
+			ret.setEmpleadosEnConferencias(lista);
 			
 			if(con != null)
 				ret = con.toTransfer();

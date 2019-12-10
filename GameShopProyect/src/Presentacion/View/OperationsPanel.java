@@ -132,7 +132,7 @@ public class OperationsPanel extends JPanel {
 						
 		/***************************************************************************************************************************************/
 					case "conference":
-						System.out.println("no se mete");
+						//SAAbstractFactory.getInstance().createSAConferencia().modificarConferencia(null);
 						break;
 					case "department":
 						break;

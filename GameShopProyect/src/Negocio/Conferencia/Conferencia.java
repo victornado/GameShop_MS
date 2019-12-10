@@ -7,8 +7,13 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import javax.persistence.NamedQueries;
 import java.sql.Timestamp;
+import java.util.Set;
+
+import Negocio.Realiza.Realiza;
 import Negocio.Transfers.TConferencia;
 
 @Entity
@@ -17,7 +22,9 @@ import Negocio.Transfers.TConferencia;
 		@NamedQuery(name = "Negocio.Conferencia.Conferencia.findByasistentes", query = "select obj from Conferencia obj where :asistentes = obj.asistentes "),
 		@NamedQuery(name = "Negocio.Conferencia.Conferencia.findBytematica", query = "select obj from Conferencia obj where :tematica = obj.tematica "),
 		@NamedQuery(name = "Negocio.Conferencia.Conferencia.findBynombre", query = "select obj from Conferencia obj where :nombre = obj.nombre "),
-		@NamedQuery(name = "Negocio.Conferencia.Conferencia.findByfecha", query = "select obj from Conferencia obj where :fecha = obj.fecha ") })
+		@NamedQuery(name = "Negocio.Conferencia.Conferencia.findByfecha", query = "select obj from Conferencia obj where :fecha = obj.fecha "),
+		@NamedQuery(name = "Negocio.Conferencia.Conferencia.findByrealiza", query = "select obj from Conferencia obj where :realiza MEMBER OF obj.realiza "),
+		@NamedQuery(name = "Negocio.Conferencia.Conferencia.findByversion", query = "select obj from Conferencia obj where :version = obj.version ")})
 public class Conferencia implements Serializable {
 
 	private static final long serialVersionUID = 0;
@@ -28,6 +35,11 @@ public class Conferencia implements Serializable {
 	private String tematica;
 	private String nombre;
 	private Timestamp fecha;
+	private Boolean activo;
+	@Version
+	private Integer version;
+	@OneToMany(mappedBy = "conferencia")
+	private Set<Realiza> realiza;
 	
 	
 	public Conferencia() {
@@ -72,4 +84,29 @@ public class Conferencia implements Serializable {
 		sol.setID(id);
 		return sol;
 	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	
+	public Set<Realiza> getRealiza() {
+		return realiza;
+	}
+	
+	public void setRealiza(Set<Realiza> realiza) {
+		this.realiza = realiza;
+	}
+	
 }

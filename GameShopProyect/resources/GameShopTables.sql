@@ -61,6 +61,7 @@ CREATE TABLE `conferencia` (
   `fecha` timestamp NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `tematica` varchar(50) NOT NULL,
+  `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`,`nombre`)
 );
 
@@ -70,6 +71,7 @@ CREATE TABLE `departamento` (
   `numEmpleados` int(4) NOT NULL,
   `facturacion` double NOT NULL,
   `numPlanta` int(2) NOT NULL,
+  `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -80,7 +82,8 @@ CREATE TABLE `empleado` (
   `sueldoBase` double NOT NULL,
   `turno` varchar(20) NOT NULL,
   `depto_id` int(4) DEFAULT NULL,
-  `dtype` varchar(45) DEFAULT NULL,
+  `dtype` varchar(45) NOT NULL,
+  `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_idx` (`depto_id`),
   CONSTRAINT `id` FOREIGN KEY (`depto_id`) REFERENCES `departamento` (`id`)
@@ -99,6 +102,17 @@ CREATE TABLE `tecnico` (
   `id` int(11) NOT NULL,
   KEY `idEmp_idx` (`id`),
   CONSTRAINT `idEmpTecnico` FOREIGN KEY (`id`) REFERENCES `empleado` (`id`)
+);
+
+CREATE TABLE `realiza` (
+  `duracion` int(3) NOT NULL,
+  `conferencia` int(4) NOT NULL,
+  `empleado` int(4) NOT NULL,
+  `uuid` varchar(45) NOT NULL,
+  KEY `idEmp_idx` (`empleado`),
+  KEY `idConfe` (`conferencia`),
+  CONSTRAINT `idConfe` FOREIGN KEY (`conferencia`) REFERENCES `conferencia` (`id`),
+  CONSTRAINT `idEmple` FOREIGN KEY (`empleado`) REFERENCES `empleado` (`id`)
 );
 
 

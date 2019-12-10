@@ -29,7 +29,12 @@ public class SAEmpleadoImp implements SAEmpleado {
 			Empleado emp = null;
 			
 			em.getTransaction().begin();
+			TypedQuery<Empleado> q=em.createQuery("SELECT e FROM empleados e where NIF=?", Empleado.class);
+			q.setParameter(1, data.getNIF());
+			List<Empleado>l=q.getResultList();
 			
+			if(l.isEmpty()){//comprobamos que no exista el empleado
+				
 			if(data.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
 				emp = new Comercial();
 				((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
@@ -51,9 +56,12 @@ public class SAEmpleadoImp implements SAEmpleado {
 					
 			em.persist(emp);
 			em.getTransaction().commit();
-			
 			idRet = emp.getId();
 			
+			}
+			else//si existe 
+				em.getTransaction().rollback();
+
 			em.close();
 			emf.close();
 		}
@@ -68,22 +76,20 @@ public class SAEmpleadoImp implements SAEmpleado {
 		
 		em.getTransaction().begin();
 		
-		Realiza real = em.find(Realiza.class, id);
-		if(real != null) {
-			Conferencia c = em.find(Conferencia.class, real.getIds().getConferencia());
-			em.remove(real);
-			if(em.find(Realiza.class, c.getId()) == null) { // No hay empleados en esa conferecia ==> Eliminar la conferencia
-				em.remove(c);
-			}
-		}
-		
 		Empleado con = em.find(Empleado.class, id);
-		if(con != null) {
-			em.remove(con);
+		if(con != null) {//si existe el empleado
+			if(!con.getRealiza().isEmpty()){//buscamos los realiza
+				for(Realiza r: con.getRealiza()){
+					//TODO llamar al realiza r-->borrar
+				}
+			}
+			em.remove(con);//TODO BORRADO LOGICO
 			ret = true;
+			em.getTransaction().commit();
 		}
+		else //si no existe
+			em.getTransaction().rollback();
 		
-		em.getTransaction().commit();
 		
 		em.close();
 		emf.close();

@@ -1,6 +1,7 @@
 package Presentacion.Realiza;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -20,6 +21,7 @@ public class GUIRealizaImp extends GUIRealiza {
 		panel.setVisible(true);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actualiza(Pair<Object, Integer> data) {
 		
@@ -46,6 +48,14 @@ public class GUIRealizaImp extends GUIRealiza {
 			break;
 		case Event.REALIZA_MODIFICAR_FAILED:
 			JOptionPane.showMessageDialog(this, "Error modificando la asignacion de la conferencia.","Failed",JOptionPane.ERROR_MESSAGE);
+			break;
+			
+		case Event.UPDATE_LIST_EMPLOYEE:
+			this.getPanel().setElectionForm((List<Object>)data.getKey());
+			break;
+			
+		case Event.UPDATE_LIST_CONFERENCE:
+			this.getPanel().setElectionForm((List<Object>)data.getKey());
 			break;
 		}
 	}

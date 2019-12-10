@@ -22,6 +22,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
+import Negocio.Transfers.TConferencia;
+import Negocio.Transfers.TDepartamento;
+import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TRealiza;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
@@ -75,7 +78,21 @@ public class FormRealiza extends JDialog {
 		addButtonAction();
 		removeButtonAction();
 		
-		//rellenarListaEmpleadosAsociados();
+		Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
+		if(GUIRealiza.getInstance().getPanel().getElectionForm() != null) {
+			for(Object o : GUIRealiza.getInstance().getPanel().getElectionForm() ) {
+				if(((TEmpleado)o).getActivo()) 
+					this.empleados.addItem(((TEmpleado)o).getID() + " - " + ((TEmpleado)o).getNIF());
+			}
+		}
+		Controller.getInstance().action(null, Event.UPDATE_LIST_CONFERENCE);
+		if(GUIRealiza.getInstance().getPanel().getElectionForm() != null) {
+			for(Object o : GUIRealiza.getInstance().getPanel().getElectionForm() ) {
+				if(((TConferencia)o).getActivo()) 
+					this.conferencias.addItem(((TConferencia)o).getID() + " - " + ((TConferencia)o).getNombre());
+			}
+		}
+		
 	}
 
 	protected void removeButtonAction() {
@@ -118,25 +135,9 @@ public class FormRealiza extends JDialog {
 			}
 		});
 	}
-	
-	/*private void addInfoToComboBox() {
-		conferencias.removeAllItems();
-		empleados.removeAllItems();
-		
-		Controller.getInstance().action(null, Event.UPDATE_LIST_CONFERENCE);
-		if(_electionForm != null) {
-			for(Object tc : this._electionForm)
-				conferencias.addItem(((TConferencia)tc).getID() + " - " + ((TConferencia)tc).getNombre());
-		}
-		
-		Controller.getInstance().action(null, Event.UPDATE_LIST_EMPLOYEE);
-		if(_electionForm != null) {
-			for(Object tc : this._electionForm)
-				empleados.addItem(((TEmpleado)tc).getID() + " - " + ((TEmpleado)tc).getNombre());
-		}
-	}*/
 
 	private void initComponents() {
+
 		elegirEmpleado.setAlignmentX(Component.CENTER_ALIGNMENT);
 		elegirConferencia.setAlignmentX(Component.CENTER_ALIGNMENT);
 		elegirDuracion.setAlignmentX(Component.CENTER_ALIGNMENT);

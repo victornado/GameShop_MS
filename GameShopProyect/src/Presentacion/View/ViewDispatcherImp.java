@@ -7,6 +7,7 @@ import Presentacion.Departamento.GUIDepartment;
 import Presentacion.Empleado.GUIEmployee;
 import Presentacion.Product.GUIProduct;
 import Presentacion.Provider.GUIProvider;
+import Presentacion.Realiza.GUIRealiza;
 import Presentacion.Ticket.GUITicket;
 import utils.Pair;
 
@@ -138,6 +139,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.UPDATE_LIST_CONFERENCE:
 			GUIConferencia.getInstance().actualiza(data);
+			GUIRealiza.getInstance().actualiza(data);
 			break;
 			
 		/****************************** DEPARTAMENTO *****************************/
@@ -209,6 +211,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.UPDATE_LIST_EMPLOYEE:
 			GUIEmployee.getInstance().actualiza(data);
+			GUIRealiza.getInstance().actualiza(data);
 			//GUIDepartment.getInstance().actualiza(data);
 			//GUIConferencia.getInstance().actualiza(data);
 			break;

@@ -54,8 +54,7 @@ public class SADepartamentoImp implements SADepartamento {
 			for (Empleado empleado : e) {
 				empleado.setDepartamento(null);//TODO ver si no peta
 			}
-
-			em.remove(dep);//TODO borrado logico
+			dep.setActivo(false);
 			ret = true;
 		}
 

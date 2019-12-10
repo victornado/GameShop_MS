@@ -47,30 +47,6 @@ public class SAConferenciaImp implements SAConferencia {
 					em.getTransaction().rollback();
 				}
 				
-				
-				// Metemos en la lista de TRealiza el idEmp que teniamos y su duracion pero como idConf era null, metems en esa misma
-				// posicion los mismos datos que teniamos pero con el idConf que acabamos de dar de alta
-				/*
-				for(int i = 0; i < data.getEmpleadosEnConferencias().size(); ++i) {
-					if(data.getEmpleadosEnConferencias().get(i).getIdConf() == null)
-						data.getEmpleadosEnConferencias().set
-						(i, new TRealiza(data.getEmpleadosEnConferencias().get(i).getIdEmp(),
-								id, data.getEmpleadosEnConferencias().get(i).getDuracion()));
-				}
-				
-				em.getTransaction().begin();
-				for(TRealiza tr : data.getEmpleadosEnConferencias()) {
-					real = new Realiza();
-					losIds = new RealizaEmbeddable();
-					real.setDuracion(tr.getDuracion());
-					losIds.setConferencia(tr.getIdConf());
-					losIds.setEmpleado(tr.getIdEmp());
-					real.setIds(losIds);
-					em.persist(real);
-				}
-				em.getTransaction().commit();
-				*/
-				
 				em.close();
 				emf.close();
 			}
@@ -94,8 +70,10 @@ public class SAConferenciaImp implements SAConferencia {
 			
 			if (con != null) {
 				Realiza real = em.find(Realiza.class, id);
-				em.remove(con);//TODO BORRAR LOGICO
-				if(real==null)//TODO llamar funcion realiza->borrar
+				con.setActivo(false);
+				if(real==null) {//TODO llamar funcion realiza->borrar
+				
+				}
 				ret = true;
 				em.getTransaction().commit();
 			}
@@ -174,7 +152,7 @@ public class SAConferenciaImp implements SAConferencia {
 
 			em.getTransaction().begin();
 
-			Conferencia con = em.find(Conferencia.class, 5);
+			Conferencia con = em.find(Conferencia.class, id);
 
 			// Buscamos en Realiza los empleados de esta conferencia para
 			// guardarlos en la lista de TConferencia

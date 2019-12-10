@@ -83,7 +83,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 					//TODO llamar al realiza r-->borrar
 				}
 			}
-			em.remove(con);//TODO BORRADO LOGICO
+			con.setActivo(false);
 			ret = true;
 			em.getTransaction().commit();
 		}

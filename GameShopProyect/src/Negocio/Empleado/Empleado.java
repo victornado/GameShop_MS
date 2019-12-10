@@ -50,10 +50,13 @@ public abstract class Empleado implements Serializable {
 	@OneToMany(mappedBy = "empleado")
 	private Set<Realiza> realiza;
 
-	public Empleado() {}
+	public Empleado() {
+		this.activo = true;
+	}
 
 	public Empleado(Integer id){
 		this.id=id;
+		this.activo = true;
 	}
 
 	public Integer getId() {

@@ -50,7 +50,7 @@ public class FormConferencia extends JDialog {
 		});
 		
 		this.setLayout(new FlowLayout());
-		this.setBounds(new Rectangle(300, 160));
+		this.setBounds(new Rectangle(300, 170));
 		this.setLocationRelativeTo(null);
 		
 		initComponents();
@@ -110,15 +110,15 @@ public class FormConferencia extends JDialog {
 		_thematicText.setMaximumSize(new Dimension(220,20));
 		_thematicText.setMinimumSize(new Dimension(220,20));
 		
-		_assistantsElection.setPreferredSize(new Dimension(220,20));
-		_assistantsElection.setMaximumSize(new Dimension(220,20));
-		_assistantsElection.setMinimumSize(new Dimension(220,20));
+		_assistantsElection.setPreferredSize(new Dimension(180,20));
+		_assistantsElection.setMaximumSize(new Dimension(180,20));
+		_assistantsElection.setMinimumSize(new Dimension(180,20));
 		
 		_dateText = new JTextField();
-		_dateText.setPreferredSize(new Dimension(100,20));
-		_dateText.setMaximumSize(new Dimension(100,20));
-		_dateText.setMinimumSize(new Dimension(100,20));
-		_dateText.setText("yyyy-mm-dd");
+		_dateText.setPreferredSize(new Dimension(150,20));
+		_dateText.setMaximumSize(new Dimension(150,20));
+		_dateText.setMinimumSize(new Dimension(150,20));
+		_dateText.setText("yyyy-mm-dd hh:mm:ss");
 		
 		_ok = new JButton("OK");
 		_ok.setPreferredSize(new Dimension(70,20));
@@ -126,9 +126,9 @@ public class FormConferencia extends JDialog {
 		_ok.setMinimumSize(new Dimension(70,20));
 		
 		_cancel = new JButton("Cancel");
-		_cancel.setPreferredSize(new Dimension(90,20));
-		_cancel.setMaximumSize(new Dimension(90,20));
-		_cancel.setMinimumSize(new Dimension(90,20));
+		_cancel.setPreferredSize(new Dimension(100,20));
+		_cancel.setMaximumSize(new Dimension(100,20));
+		_cancel.setMinimumSize(new Dimension(100,20));
 		
 		this.add(_name);
 		this.add(Box.createRigidArea(new Dimension(15, 1)));
@@ -141,7 +141,7 @@ public class FormConferencia extends JDialog {
 		this.add(_date);
 		this.add(Box.createRigidArea(new Dimension(5, 1)));
 		this.add(_dateText);
-		this.add(Box.createRigidArea(new Dimension(120, 1)));
+		this.add(Box.createRigidArea(new Dimension(20, 1)));
 		this.add(_ok);
 		this.add(_cancel);
 	}

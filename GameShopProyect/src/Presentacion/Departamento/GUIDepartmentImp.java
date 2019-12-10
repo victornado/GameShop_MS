@@ -92,7 +92,6 @@ public class GUIDepartmentImp extends GUIDepartment {
 		case Event.UPDATE_LIST_EMPLOYEE:
 			if(this._leftPane != null) {
 				this._leftPane.setElectionForm((List<Object>)data.getKey());
-				this._rightPane.update((List<Object>)data.getKey());
 			}
 			break;
 		}

@@ -29,15 +29,15 @@ public class SAEmpleadoImp implements SAEmpleado {
 			Empleado emp = null;
 			
 			em.getTransaction().begin();
-			TypedQuery<Empleado> q=em.createQuery("SELECT e FROM empleados e where NIF=?", Empleado.class);
-			q.setParameter(1, data.getNIF());
+			TypedQuery<Empleado> q=em.createNamedQuery("Negocio.Empleado.Empleado.findByNIF", Empleado.class);
+			q.setParameter( "NIF",data.getNIF());
 			List<Empleado>l=q.getResultList();
 			
 			if(l.isEmpty()){//comprobamos que no exista el empleado
-				
-			if(data.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
-				emp = new Comercial();
-				((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
+					
+				if(data.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
+					emp = new Comercial();
+					((Comercial)emp).setnVentas(((TComercial)data).getnVentas());
 			}
 			else {
 				emp = new Tecnico();

@@ -173,7 +173,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.UPDATE_LIST_DEPARTMENT:
 			GUIDepartment.getInstance().actualiza(data);
-			//GUIEmployee.getInstance().actualiza(data);
+			GUIEmployee.getInstance().actualiza(data);
 			break;
 			
 		/******************************** EMPLEADO *******************************/

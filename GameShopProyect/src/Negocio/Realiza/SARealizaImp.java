@@ -23,6 +23,7 @@ public class SARealizaImp implements SARealiza{
 		TypedQuery<Realiza> q=em.createNamedQuery("Realiza.Realiza.findByids", Realiza.class);
 		q.setParameter("ids", rE);
 		
+		
 		if(q.getResultList().isEmpty()) {
 			
 		}

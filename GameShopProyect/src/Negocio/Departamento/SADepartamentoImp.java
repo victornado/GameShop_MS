@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -23,15 +24,15 @@ public class SADepartamentoImp implements SADepartamento {
 		TypedQuery<Departamento> q=em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
 		q.setParameter("nombre",data.getNombre());
 		if(q.getResultList().isEmpty()) {
-		em.getTransaction().begin();
-		dep.setNombre(data.getNombre());
-		dep.setPlanta(data.getPlanta());
-		dep.setFacturacion(data.getFactura());
-		dep.setEmpleados(null);
-		em.persist(dep);
-		em.getTransaction().commit();
+			em.getTransaction().begin();
+			dep.setNombre(data.getNombre());
+			dep.setPlanta(data.getPlanta());
+			dep.setFacturacion(data.getFactura());
+			dep.setEmpleados(null);
+			em.persist(dep);
+			em.getTransaction().commit();
 
-		id = dep.getId();
+			id = dep.getId();
 		}
 		else em.getTransaction().rollback();
 		em.close();
@@ -49,8 +50,9 @@ public class SADepartamentoImp implements SADepartamento {
 
 		Departamento dep = em.find(Departamento.class, id);
 		if (dep != null) {
+			em.lock(dep, LockModeType.OPTIMISTIC);
 			Collection<Empleado> e = dep.getEmpleados();
-			for (Empleado empleado : e) {
+			for (Empleado empleado : e) { //Segun los apuntes no hace falta hacer bloqueo sobre los empleados 
 				empleado.setDepartamento(null);//TODO ver si no peta
 			}
 			dep.setActivo(false);
@@ -66,6 +68,7 @@ public class SADepartamentoImp implements SADepartamento {
 	}
 
 	public Boolean modificarDepartamento(TDepartamento data) {
+		//no hace falta bloqueo segun los apuntes
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
@@ -98,7 +101,10 @@ public class SADepartamentoImp implements SADepartamento {
 		Departamento dep = em.find(Departamento.class, id);
 
 		if (dep != null)
+		{
+			em.lock(dep, LockModeType.OPTIMISTIC);
 			ret = dep.toTransfer();
+		}
 
 		em.getTransaction().commit();
 
@@ -120,8 +126,11 @@ public class SADepartamentoImp implements SADepartamento {
 
 		if (aux != null) {
 			ret = new ArrayList<Object>();
-			for (Departamento c : aux)
+			for (Departamento c : aux) {
+				em.lock(c, LockModeType.OPTIMISTIC);
 				ret.add(c.toTransfer());
+			}
+			
 		}
 
 		em.getTransaction().commit();
@@ -139,11 +148,12 @@ public class SADepartamentoImp implements SADepartamento {
 
 		em.getTransaction().begin();
 
-		Departamento dep = em.find(Departamento.class, id);
+		Departamento dep = em.find(Departamento.class, id,LockModeType.OPTIMISTIC);
 
 		if (dep != null) {
 			Collection<Empleado> e = dep.getEmpleados();
 			for (Empleado empleado : e) {
+				em.lock(e, LockModeType.OPTIMISTIC);
 				nominaFinal += empleado.calcularSueldo();
 			}
 			em.getTransaction().commit();

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -52,7 +53,8 @@ public class SAEmpleadoImp implements SAEmpleado {
 				if (data.getDepartamento() == null || !em.find(Departamento.class, data.getDepartamento()).getActivo())
 					emp.setDepartamento(null);
 				else
-					emp.setDepartamento(em.find(Departamento.class, data.getDepartamento()));
+					emp.setDepartamento(em.find(Departamento.class, data.getDepartamento(),
+							LockModeType.OPTIMISTIC_FORCE_INCREMENT));
 
 				em.persist(emp);
 				em.getTransaction().commit();
@@ -76,12 +78,13 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 		Empleado con = em.find(Empleado.class, id);
 		if (con != null) {// si existe el empleado
+			em.lock(con, LockModeType.OPTIMISTIC);
 			if (con.getRealiza() == null || !con.getRealiza().isEmpty()) {// buscamos los realiza
 				for (Realiza r : con.getRealiza()) {
 					em.remove(r);
 				}
 			}
-			Departamento d = em.find(Departamento.class, con.getDepartamento());
+			Departamento d = em.find(Departamento.class, con.getDepartamento(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 			if (d != null) {
 				d.getEmpleados().remove(con);
 				con.setDepartamento(null);
@@ -117,7 +120,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 				emp.setNombre(data.getNombre());
 				emp.setSueldoBase(data.getSueldobase());
 				emp.setTurno(data.getTurno());
-				emp.setDepartamento(em.find(Departamento.class, data.getID()));
+				emp.setDepartamento(em.find(Departamento.class, data.getID(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
 				if (data.getTipo().equalsIgnoreCase(Empleado.Comercial))
 					((Comercial) emp).setnVentas(((TComercial) data).getnVentas());
 				else {
@@ -152,8 +155,11 @@ public class SAEmpleadoImp implements SAEmpleado {
 		 * Todas las conferencia a las que pertenece este empleado
 		 */
 
-		if (emp != null)
+		if (emp != null) {
+			em.lock(emp, LockModeType.OPTIMISTIC);
 			ret = emp.toTransfer();
+		}
+			
 
 		em.getTransaction().commit();
 
@@ -177,8 +183,11 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 		if (aux != null) {
 			ret = new ArrayList<Object>();
-			for (Empleado e : aux)
+			for (Empleado e : aux) {
+				em.lock(e, LockModeType.OPTIMISTIC);
 				ret.add(e.toTransfer());
+			}
+				
 		}
 
 		em.getTransaction().commit();

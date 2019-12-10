@@ -14,6 +14,7 @@ import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -71,7 +72,7 @@ public class SAConferenciaImp implements SAConferencia {
 			Conferencia con = em.find(Conferencia.class, id);
 			
 			if (con != null) {
-				
+				em.lock(con, LockModeType.OPTIMISTIC);
 				con.setActivo(false);
 				if(con.getRealiza()==null || !con.getRealiza().isEmpty()) {
 					for (Realiza r : con.getRealiza()) {
@@ -164,6 +165,7 @@ public class SAConferenciaImp implements SAConferencia {
 			// guardarlos en la lista de TConferencia
 			// y luego mostrar todos
 			if (con != null){
+				em.lock(con, LockModeType.OPTIMISTIC);
 				ret = con.toTransfer();
 				em.getTransaction().commit();
 			}
@@ -196,8 +198,11 @@ public class SAConferenciaImp implements SAConferencia {
 
 			if (aux != null) {
 				ret = new ArrayList<Object>();
-				for (Conferencia c : aux)
+				for (Conferencia c : aux) {
+					em.lock(c, LockModeType.OPTIMISTIC);
 					ret.add(c.toTransfer());
+				}
+					
 				em.getTransaction().commit();
 			}
 			else em.getTransaction().rollback();

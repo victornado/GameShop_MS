@@ -106,6 +106,7 @@ public class FormRealiza extends JDialog {
 				if(empleadoAeliminarEnLista != -1) {
 					TRealiza aEliminar = empleadosEnConferencia.get(empleadoAeliminarEnLista);
 					empleadosEnConferencia.remove(aEliminar);
+					empleadosUsados.remove(aEliminar.getIdEmp());
 					model.fireTableDataChanged();
 				}
 			}
@@ -219,8 +220,17 @@ public class FormRealiza extends JDialog {
 			}
 			@Override
 			public boolean isCellEditable(int row, int col) {
-				grid.setEditingColumn(2);
-				return true;
+				switch (col) {
+		         case 0:
+		        	 return false;
+		         case 1:
+		             return false;
+		         case 2:
+		        	 //grid.setEditingColumn(2);
+		        	 return true;
+		         default:
+		             return false;
+				}
 			}
 		};
 		
@@ -245,9 +255,9 @@ public class FormRealiza extends JDialog {
 	}
 	
 	private void setColumnsWidth() {
-		columnWidth(0, 40);
-		columnWidth(1, 140);
-		columnWidth(2, 50);
+		columnWidth(0, 100);
+		columnWidth(1, 100);
+		columnWidth(2, 100);
 	}
 	
 	private void columnWidth(int column, int width) {
@@ -269,6 +279,5 @@ public class FormRealiza extends JDialog {
 		setVisible(false);
 		dispose();
 	}
-
 
 }

@@ -62,6 +62,7 @@ CREATE TABLE `conferencia` (
   `nombre` varchar(50) NOT NULL,
   `tematica` varchar(50) NOT NULL,
   `activo` tinyint(1) NOT NULL,
+  `version` int(4) NOT NULL,
   PRIMARY KEY (`id`,`nombre`)
 );
 
@@ -72,6 +73,7 @@ CREATE TABLE `departamento` (
   `facturacion` double NOT NULL,
   `numPlanta` int(2) NOT NULL,
   `activo` tinyint(1) NOT NULL,
+   `version` int(4) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -84,6 +86,7 @@ CREATE TABLE `empleado` (
   `depto_id` int(4) DEFAULT NULL,
   `dtype` varchar(45) NOT NULL,
   `activo` tinyint(1) NOT NULL,
+   `version` int(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_idx` (`depto_id`),
   CONSTRAINT `id` FOREIGN KEY (`depto_id`) REFERENCES `departamento` (`id`)

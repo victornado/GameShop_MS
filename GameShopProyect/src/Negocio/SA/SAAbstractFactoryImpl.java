@@ -10,6 +10,8 @@ import Negocio.Product.SAProduct;
 import Negocio.Product.SAProductImpl;
 import Negocio.Provider.SAProvider;
 import Negocio.Provider.SAProviderImpl;
+import Negocio.Realiza.SARealiza;
+import Negocio.Realiza.SARealizaImp;
 import Negocio.Ticket.SATicket;
 import Negocio.Ticket.SATicketImpl;
 
@@ -43,6 +45,11 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 	@Override
 	public SAEmpleado createSAEmpleado() {
 		return new SAEmpleadoImp();
+	}
+
+	@Override
+	public SARealiza createSARealiza() {
+		return new SARealizaImp();
 	}
 	
 }

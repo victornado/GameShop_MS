@@ -43,9 +43,11 @@ public class Conferencia implements Serializable {
 	
 	
 	public Conferencia() {
+		this.activo = true;
 	}
 	
 	public Conferencia(Integer id){
+		this.activo = true;
 		this.id=id;
 	}
 	public Integer getId() {

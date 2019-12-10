@@ -1,8 +1,10 @@
 package Negocio.Departamento;
 
+import Negocio.Empleado.Empleado;
 import Negocio.Transfers.TDepartamento;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,21 +18,26 @@ public class SADepartamentoImp implements SADepartamento {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		Departamento dep = new Departamento();
+		Integer id=-1;
 		
+		TypedQuery<Departamento> q=em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
+		q.setParameter("nombre",data.getNombre());
+		if(q.getResultList().isEmpty()) {
 		em.getTransaction().begin();
 		dep.setNombre(data.getNombre());
 		dep.setNumEmpleados(data.getnEmpleados());
 		dep.setPlanta(data.getPlanta());
 		dep.setFacturacion(data.getFactura());
-		
+
 		em.persist(dep);
 		em.getTransaction().commit();
-		
-		Integer id = dep.getId();
-		
+
+		id = dep.getId();
+		}
+		else em.getTransaction().rollback();
 		em.close();
 		emf.close();
-		
+
 		return id;
 	}
 
@@ -38,51 +45,49 @@ public class SADepartamentoImp implements SADepartamento {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
-		
+
 		em.getTransaction().begin();
-		
+
 		Departamento dep = em.find(Departamento.class, id);
-		if(dep != null) {
-			// TODO LLAMAR A TODOS LOS EMPLEADOS PERTENECIENTES A ESE DPTO PARA PONERLO A NULL
-			
-			
-			
-			
-			
-			
-			em.remove(dep);
+		if (dep != null) {
+			Collection<Empleado> e = dep.getEmpleados();
+			for (Empleado empleado : e) {
+				empleado.setDepartamento(null);//TODO ver si no peta
+			}
+
+			em.remove(dep);//TODO borrado logico
 			ret = true;
 		}
-		
+
 		em.getTransaction().commit();
-		
+
 		em.close();
 		emf.close();
-		
+
 		return ret;
 	}
-	
+
 	public Boolean modificarDepartamento(TDepartamento data) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
-		
+
 		em.getTransaction().begin();
-		
+
 		Departamento dep = em.find(Departamento.class, data.getID());
-		if(dep != null){
+		if (dep != null) {
 			dep.setFacturacion(data.getFactura());
 			dep.setNombre(data.getNombre());
 			dep.setNumEmpleados(data.getnEmpleados());
 			dep.setPlanta(data.getPlanta());
 			ret = true;
 		}
-		
+
 		em.getTransaction().commit();
-		
+
 		em.close();
 		emf.close();
-		
+
 		return ret;
 	}
 
@@ -90,19 +95,19 @@ public class SADepartamentoImp implements SADepartamento {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		TDepartamento ret = null;
-		
+
 		em.getTransaction().begin();
-		
+
 		Departamento dep = em.find(Departamento.class, id);
-		
-		if(dep!=null)
+
+		if (dep != null)
 			ret = dep.toTransfer();
-		
+
 		em.getTransaction().commit();
-		
+
 		em.close();
 		emf.close();
-		
+
 		return ret;
 	}
 
@@ -110,45 +115,47 @@ public class SADepartamentoImp implements SADepartamento {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		List<Object> ret = null;
-		
+
 		em.getTransaction().begin();
-		
+
 		TypedQuery<Departamento> query = em.createQuery("SELECT d FROM Departamento d", Departamento.class);
 		List<Departamento> aux = query.getResultList();
-		
-		if(aux != null) {
+
+		if (aux != null) {
 			ret = new ArrayList<Object>();
-			for(Departamento c : aux)
+			for (Departamento c : aux)
 				ret.add(c.toTransfer());
 		}
-		
+
 		em.getTransaction().commit();
-		
+
 		em.close();
 		emf.close();
-		
+
 		return ret;
 	}
-	
-//falta
+
 	public Double calcularNomina(Integer id) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
-		Double nominaFinal=0.0;
-		
+		Double nominaFinal = 0.0;
+
 		em.getTransaction().begin();
-		
+
 		Departamento dep = em.find(Departamento.class, id);
-		
-		if(dep!=null)
-		{
-			//Aqui deberia recorrer la collection o hashmap de empleados sumando sueldos
-		}
-		
-		em.getTransaction().commit();
+
+		if (dep != null) {
+			Collection<Empleado> e = dep.getEmpleados();
+			for (Empleado empleado : e) {
+				nominaFinal += empleado.calcularSueldo();
+			}
+			em.getTransaction().commit();
+		} else
+			em.getTransaction().rollback();
+
 		em.close();
 		emf.close();
-		
+
 		return nominaFinal;
 	}
 }

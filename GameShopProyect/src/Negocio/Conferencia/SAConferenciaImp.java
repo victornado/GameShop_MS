@@ -32,10 +32,9 @@ public class SAConferenciaImp implements SAConferencia {
 				RealizaEmbeddable losIds = null;
 				
 				em.getTransaction().begin();
-				TypedQuery<Conferencia>  query =em.createQuery("SELECT c FROM Conferencia c WHERE nombre=? ",Conferencia.class);
-				query.setParameter(1, data.getNombre());
-				List<Conferencia>lC=query.getResultList();
-				if(lC.isEmpty()){//vemos que no existe la conferencia
+				TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre", Conferencia.class);
+				q.setParameter("nombre",data.getNombre());
+				if(q.getResultList().isEmpty()) {//vemos que no existe la conferencia
 					con.setNombre(data.getNombre());
 					con.setAsistentes(data.getAsistentes());
 					con.setFecha(data.getDate());

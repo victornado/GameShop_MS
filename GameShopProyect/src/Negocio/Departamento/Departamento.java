@@ -39,9 +39,11 @@ public class Departamento implements Serializable {
 	private Integer version;
 
 	public Departamento() {
+		this.activo = true;
 	}
 
 	public Departamento(Integer id){
+		this.activo = true;
 		this.id=id;
 	}
 
@@ -109,5 +111,13 @@ public class Departamento implements Serializable {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public Collection<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public void setEmpleados(Collection<Empleado> empleados) {
+		this.empleados = empleados;
 	}
 }

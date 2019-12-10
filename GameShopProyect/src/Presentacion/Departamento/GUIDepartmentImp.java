@@ -67,6 +67,7 @@ public class GUIDepartmentImp extends GUIDepartment {
 			
 		case Event.RES_READ_DEPARTMENT_OK:
 			TDepartamento tp = (TDepartamento)data.getKey();
+			this._leftPane.setEntityToUse(tp);
 			_rightPane.setInfoInScreen(tp.toString());
 			break;
 			

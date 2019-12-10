@@ -78,13 +78,6 @@ public class FormUpdateProvider extends FormProvider{
 					closeDialog();
 					Controller.getInstance().action(null, Event.MODIFY_PROVIDER);
 				}
-				
-				// LO DE ANTES:
-				/*_provider.set_nif(_nifText.getText());
-				_provider.set_address(_addressText.getText());
-				_provider.set_phoneNumber(Integer.parseInt(_phoneText.getText()));
-				Controller.getInstance().action(_provider, Event.MODIFY_PROVIDER);
-				closeDialog();*/
 			}
 		});
 	}

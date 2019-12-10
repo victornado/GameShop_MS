@@ -68,6 +68,7 @@ public class GUIEmployeeImp extends GUIEmployee {
 			
 		case Event.RES_READ_EMPLOYEE_OK:
 			TEmpleado tp = (TEmpleado)data.getKey();
+			this._leftPane.setEntityToUse(tp);
 			_rightPane.setInfoInScreen(tp.toString());
 			break;
 			

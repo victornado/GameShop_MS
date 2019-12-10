@@ -27,17 +27,16 @@ public class FormUpdateEmployee extends FormEmployee {
 		
 		this._reactivate = new JCheckBox("Activated");
 		this._reactivate.setBounds(50, 150, 140, 50); //this._reactivate.setBounds(200, 240, 140, 50);
-		this.add(_reactivate);
 		this._reactivate.addChangeListener(new ChangeListener() {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				if(_reactivate.isSelected()) {
-					//_employee.set_activated(true);
+					_employee.setActivo(true);
 					_reactivate.setEnabled(false);
 				}
-				//else
-					//_employee.set_activated(false);
+				else
+					_employee.setActivo(false);
 			}
 			
 		});
@@ -47,14 +46,10 @@ public class FormUpdateEmployee extends FormEmployee {
 	}
 	
 	private void initForm() {
-		/*this._nifText.setText(_provider.get_nif());
-		this._addressText.setText(_provider.get_address());
-		this._phoneText.setText(_provider.get_phoneNumber().toString());
-		
-		if(_provider.get_activated()) {
+		if(this._employee.getActivo()) {
 			this._reactivate.setEnabled(false);
 			this._reactivate.setSelected(true);
-		}*/
+		}
 	}
 	
 	@Override

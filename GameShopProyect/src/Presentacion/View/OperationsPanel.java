@@ -26,10 +26,13 @@ import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
 import Negocio.Transfers.TTicket;
 import Presentacion.Conferencia.FormConferencia;
+import Presentacion.Conferencia.FormUpdateConferencia;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 import Presentacion.Departamento.FormDepartment;
+import Presentacion.Departamento.FormUpdateDepartment;
 import Presentacion.Empleado.FormEmployee;
+import Presentacion.Empleado.FormUpdateEmployee;
 import Presentacion.Product.FormProduct;
 import Presentacion.Product.FormUpdateProduct;
 import Presentacion.Provider.FormProvider;
@@ -41,13 +44,14 @@ public class OperationsPanel extends JPanel {
 	
 	private JButton _register;
 	private JComboBox<Object> _election;
-	/******** LIST AUXILIAR PARA COMBOBOX ********/
-	private List<Object> _electionForm = null;
-	/** IMPLEMENTADO JPA, PASAR MAS TARDE A DAO**/
 	private JButton _remove;
 	private JButton _update;
 	private JLabel _registerLabel;
 	private JLabel _updaterLabel;
+	
+	
+	private List<Object> _electionForm = null;
+	private Object _entityToUse = null;
 
 	private String nameIdentificator;
 	
@@ -102,6 +106,7 @@ public class OperationsPanel extends JPanel {
 	}
 	
 	private void updateButtonAction() {
+		
 		this._update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -128,11 +133,16 @@ public class OperationsPanel extends JPanel {
 						
 		/***************************************************************************************************************************************/
 					case "conference":
-						//SAAbstractFactory.getInstance().createSAConferencia().modificarConferencia(null);
+						Controller.getInstance().action(id, Event.READ_CONFERENCE);
+						new FormUpdateConferencia((TConferencia)_entityToUse);
 						break;
 					case "department":
+						Controller.getInstance().action(id, Event.READ_DEPARTMENT);
+						new FormUpdateDepartment((TDepartamento)_entityToUse);
 						break;
 					case "employee":
+						Controller.getInstance().action(id, Event.READ_EMPLOYEE);
+						new FormUpdateEmployee((TEmpleado)_entityToUse);
 						break;
 					}
 				}
@@ -282,13 +292,20 @@ public class OperationsPanel extends JPanel {
 		deleteButtonAction();
 		
 	}
-	
-	public void setElectionForm(List<Object> l) {
-		this._electionForm = l;
+	public List<Object> getElectionForm() {
+		return _electionForm;
 	}
-	
-	public List<Object> getElectionForm(){
-		return this._electionForm;
+
+	public void setElectionForm(List<Object> _electionForm) {
+		this._electionForm = _electionForm;
+	}
+
+	public Object getEntityToUse() {
+		return _entityToUse;
+	}
+
+	public void setEntityToUse(Object _entityToUse) {
+		this._entityToUse = _entityToUse;
 	}
 	
 }

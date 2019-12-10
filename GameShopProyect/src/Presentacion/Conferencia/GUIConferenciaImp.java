@@ -66,6 +66,7 @@ public class GUIConferenciaImp extends GUIConferencia {
 			
 		case Event.RES_READ_CONFERENCE_OK:
 			TConferencia tp = (TConferencia)data.getKey();
+			this._leftPane.setEntityToUse(tp);
 			_rightPane.setInfoInScreen(tp.toString());
 			break;
 			

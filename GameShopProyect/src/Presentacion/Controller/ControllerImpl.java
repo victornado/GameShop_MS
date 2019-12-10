@@ -20,7 +20,7 @@ public class ControllerImpl extends Controller {
 				retExecute = command.execute(data);
 			} catch (Exception e) {
 				e.printStackTrace();
-				//JOptionPane.showMessageDialog(null, "ERROR 404: Cannot set the option...", "Fatal error", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null, "Cannot set the option...", "Fatal error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		

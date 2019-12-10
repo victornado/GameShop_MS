@@ -3,6 +3,8 @@
  */
 package Negocio.Transfers;
 
+import java.util.List;
+
 /** 
  * <!-- begin-UML-doc -->
  * <!-- end-UML-doc -->
@@ -11,8 +13,8 @@ package Negocio.Transfers;
  */
 public class TDepartamento {
 	
-	public TDepartamento(String nombre, Double fact, Integer numEmployees, Integer floor) {
-		this.nEmpleados = numEmployees;
+	public TDepartamento(String nombre, Double fact, List<Integer> employees, Integer floor) {
+		this.empleados = employees;
 		this.factura = fact;
 		this.nombre= nombre;
 		this.planta = floor;
@@ -20,7 +22,7 @@ public class TDepartamento {
 	
 	private Integer ID;
 	private String nombre;
-	private Integer nEmpleados;
+	private  List<Integer> empleados;
 	private Double factura;
 	private Integer planta;
 	private Integer version;
@@ -54,11 +56,11 @@ public class TDepartamento {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Integer getnEmpleados() {
-		return nEmpleados;
+	public List<Integer> getEmpleados() {
+		return empleados;
 	}
-	public void setnEmpleados(Integer nEmpleados) {
-		this.nEmpleados = nEmpleados;
+	public void setEmpleados(List<Integer> nEmpleados) {
+		this.empleados = nEmpleados;
 	}
 	public Double getFactura() {
 		return factura;
@@ -78,8 +80,10 @@ public class TDepartamento {
 		return ("ID: " + ID + '\n' +
 				"Activo: " + getActivo()+ '\n' +
 				"Nombre: " + nombre + '\n' +
-				"Empleados: " + nEmpleados + '\n' +
+				"num Empleados: " + empleados.size() + '\n' +
 				"Facturacion: " + factura + '\n' +
-				"Planta: " + planta + '\n');
+				"Planta: " + planta + '\n' +
+				"empleados: " +'\n' + empleados);
+				
 	}
 }

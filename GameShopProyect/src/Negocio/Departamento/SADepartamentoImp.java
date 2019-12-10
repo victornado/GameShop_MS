@@ -25,7 +25,6 @@ public class SADepartamentoImp implements SADepartamento {
 		if(q.getResultList().isEmpty()) {
 		em.getTransaction().begin();
 		dep.setNombre(data.getNombre());
-		dep.setNumEmpleados(data.getnEmpleados());
 		dep.setPlanta(data.getPlanta());
 		dep.setFacturacion(data.getFactura());
 
@@ -77,7 +76,6 @@ public class SADepartamentoImp implements SADepartamento {
 		if (dep != null) {
 			dep.setFacturacion(data.getFactura());
 			dep.setNombre(data.getNombre());
-			dep.setNumEmpleados(data.getnEmpleados());
 			dep.setPlanta(data.getPlanta());
 			ret = true;
 		}

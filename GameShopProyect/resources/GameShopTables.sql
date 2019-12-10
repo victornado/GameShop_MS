@@ -69,7 +69,6 @@ CREATE TABLE `conferencia` (
 CREATE TABLE `departamento` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
-  `numEmpleados` int(4) NOT NULL,
   `facturacion` double NOT NULL,
   `numPlanta` int(2) NOT NULL,
   `activo` tinyint(1) NOT NULL,

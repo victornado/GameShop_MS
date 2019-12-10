@@ -40,8 +40,7 @@ public class SARealizaImp implements SARealiza{
 	}
 	@Override
 	public Boolean deleteRealiza(Integer idEmpleado) {
-		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 	@Override

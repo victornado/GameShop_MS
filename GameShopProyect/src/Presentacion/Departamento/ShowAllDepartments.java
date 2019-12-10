@@ -48,7 +48,7 @@ public class ShowAllDepartments extends ShowAll {
 					break;
 					
 				case 2:
-					o = ((TDepartamento)_departments.get(rowIndex)).getnEmpleados();
+					o = ((TDepartamento)_departments.get(rowIndex)).getEmpleados().size();
 					break;
 				}
 				return o;

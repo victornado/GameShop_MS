@@ -28,11 +28,9 @@ public class FormDepartment extends JDialog {
 	
 	private final JLabel _name = new JLabel("Name:");
 	private final JLabel _billing = new JLabel("Billing:");
-	private final JLabel _employees = new JLabel("Employees:");
 	private final JLabel _floor = new JLabel("Floor:");
 	protected JTextField _nameText;
 	protected JSpinner _billingElection = new JSpinner(new SpinnerNumberModel(10000.0, 0.0, 1000000.0, 1000.0));
-	protected JTextField _employeesText;
 	protected JTextField _floorText;
 	protected JButton _ok;
 	private JButton _cancel;
@@ -51,7 +49,7 @@ public class FormDepartment extends JDialog {
 		});
 		
 		this.setLayout(new FlowLayout());
-		this.setBounds(new Rectangle(300, 165));
+		this.setBounds(new Rectangle(300, 140));
 		this.setLocationRelativeTo(null);
 		
 		initComponents();
@@ -68,9 +66,8 @@ public class FormDepartment extends JDialog {
 				try {
 					String name = _nameText.getText();
 					Double billing = (Double)_billingElection.getValue();
-					Integer employees = Integer.parseInt(_employeesText.getText());
 					Integer floor = Integer.parseInt(_floorText.getText());
-					TDepartamento td = new TDepartamento(name, billing, employees, floor);
+					TDepartamento td = new TDepartamento(name, billing,null, floor);
 					Controller.getInstance().action(td, Event.REGISTER_DEPARTMENT);
 					closeDialog();
 				}catch(Exception ex) {
@@ -105,11 +102,6 @@ public class FormDepartment extends JDialog {
 		_billingElection.setMaximumSize(new Dimension(70,20));
 		_billingElection.setMinimumSize(new Dimension(70,20));
 		
-		_employeesText = new JTextField();
-		_employeesText.setPreferredSize(new Dimension(180,20));
-		_employeesText.setMaximumSize(new Dimension(180,20));
-		_employeesText.setMinimumSize(new Dimension(180,20));
-		
 		_floorText = new JTextField();
 		_floorText.setPreferredSize(new Dimension(220,20));
 		_floorText.setMaximumSize(new Dimension(220,20));
@@ -129,10 +121,8 @@ public class FormDepartment extends JDialog {
 		this.add(_nameText);
 		this.add(_billing);
 		this.add(_billingElection);
-		this.add(Box.createRigidArea(new Dimension(110, 1)));
-		this.add(_employees);
+		this.add(Box.createRigidArea(new Dimension(130, 1)));
 		this.add(Box.createRigidArea(new Dimension(5, 1)));
-		this.add(_employeesText);
 		this.add(_floor);
 		this.add(_floorText);
 		this.add(_ok);

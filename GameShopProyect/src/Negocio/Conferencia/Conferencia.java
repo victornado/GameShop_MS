@@ -84,6 +84,7 @@ public class Conferencia implements Serializable {
 	public TConferencia toTransfer() {
 		TConferencia sol = new TConferencia(nombre, tematica, asistentes, fecha);
 		sol.setID(id);
+		sol.setActivo(getActivo());
 		return sol;
 	}
 

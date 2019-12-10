@@ -90,6 +90,7 @@ public class Departamento implements Serializable {
 		TDepartamento sol = new TDepartamento(this.getNombre(), this.getFacturacion(), this.getNumEmpleados(),
 				this.getPlanta());
 		sol.setID(id);
+		sol.setActivo(getActivo());
 		return sol;
 	}
 	@Override

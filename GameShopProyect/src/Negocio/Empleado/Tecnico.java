@@ -46,6 +46,7 @@ public class Tecnico extends Empleado implements Serializable {
 				null, sobresueldo, especialidad, Empleado.Tecnico);
 		if(super.getDepartamento() != null)
 			ret.setDepartamento(super.getDepartamento().getId());
+		ret.setActivo(getActivo());
 		ret.setID(super.getId());
 		return ret;
 	}

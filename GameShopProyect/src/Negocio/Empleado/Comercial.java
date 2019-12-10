@@ -37,6 +37,7 @@ public class Comercial extends Empleado implements Serializable {
 		if(super.getDepartamento() != null)
 			ret.setDepartamento(super.getDepartamento().getId());
 		ret.setID(super.getId());
+		ret.setActivo(getActivo());
 		return ret;
 	}
 }

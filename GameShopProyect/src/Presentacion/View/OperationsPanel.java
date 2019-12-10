@@ -36,10 +36,6 @@ import Presentacion.Provider.FormProvider;
 import Presentacion.Provider.FormUpdateProvider;
 import Presentacion.Ticket.FormTicket;
 
-/** 
-* @author GameShop
-* @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 @SuppressWarnings("serial")
 public class OperationsPanel extends JPanel {
 	

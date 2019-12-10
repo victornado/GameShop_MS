@@ -1,13 +1,14 @@
 package Presentacion.Realiza;
 
-import Presentacion.View.OperationsPanel;
-import Presentacion.View.ShowPanel;
+import javax.swing.JPanel;
+
+import Presentacion.View.IGUI;
 import utils.Pair;
 
-public abstract class GUIRealiza {
+@SuppressWarnings("serial")
+public abstract class GUIRealiza extends JPanel implements IGUI {
 	private static GUIRealiza _instance;
-	protected ShowPanel _rightPane;
-	protected OperationsPanel _leftPane;
+	protected PanelRealiza panel;
 	
 	public static GUIRealiza getInstance() {
 		if(_instance == null) {
@@ -19,10 +20,7 @@ public abstract class GUIRealiza {
 
 	protected abstract void alignmentPanels();
 	public abstract void actualiza(Pair<Object, Integer> data);
-	public OperationsPanel getOpPanel() {
-		return this._leftPane;
-	}
-	public ShowPanel getShowPanel() {
-		return this._rightPane;
+	public PanelRealiza getPanel() {
+		return panel;
 	}
 }

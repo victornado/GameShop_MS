@@ -24,6 +24,8 @@ import Presentacion.Product.GUIProduct;
 import Presentacion.Product.GUIProductImp;
 import Presentacion.Provider.GUIProvider;
 import Presentacion.Provider.GUIProviderImp;
+import Presentacion.Realiza.GUIRealiza;
+import Presentacion.Realiza.GUIRealizaImp;
 import Presentacion.Ticket.GUITicket;
 import Presentacion.Ticket.GUITicketImp;
 
@@ -36,6 +38,7 @@ public class GUIGameshopImp extends GUIGameShop {
 	public static final String TAB_PRODUCT = "Product";
 	public static final String TAB_TICKET = "Ticket";
 	public static final String TAB_CONFERENCE = "Conference";
+	public static final String TAB_ASIGNACION = "Asignaciones";
 	private static List<Object> _guis = new ArrayList<Object>();
 
 	private JTabbedPane _tabs;
@@ -90,6 +93,8 @@ public class GUIGameshopImp extends GUIGameShop {
 		_tabs.addTab(GUIGameshopImp.TAB_DEPARTMENT, null, (GUIDepartmentImp) _guis.get(4), "Department tab");
 
 		_tabs.addTab(GUIGameshopImp.TAB_EMPLOYEE, null, (GUIEmployeeImp) _guis.get(5), "Employee tab");
+		
+		_tabs.addTab(GUIGameshopImp.TAB_ASIGNACION, null, (GUIRealizaImp) _guis.get(0), "Asignar empleados a conferencias");
 
 		this.add(_tabs, BorderLayout.CENTER);
 	}
@@ -107,6 +112,7 @@ public class GUIGameshopImp extends GUIGameShop {
 		_guis.add(GUIConferencia.getInstance());
 		_guis.add(GUIDepartment.getInstance());
 		_guis.add(GUIEmployee.getInstance());
+		_guis.add(GUIRealiza.getInstance());
 		initTabs();
 		GUIDepartment.getInstance().getOpPanel().addInfoToComboBox();
 		GUIDepartment.getInstance().getShowPanel().update(GUIDepartment.getInstance().getOpPanel().getElectionForm());

@@ -1,11 +1,17 @@
 package Presentacion.Realiza;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -14,6 +20,13 @@ public class PanelRealiza extends JPanel {
 	private JButton asignar;
 	private JButton desasignar;
 	private JButton modificar;
+	
+	private JLabel etiquetaAsignar;
+	private JLabel etiquetaDesasignar;
+	private JLabel etiquetaModificar;
+	
+	/******** LIST AUXILIAR PARA COMBOBOX ********/
+	private List<Object> _electionForm = null;
 	
 	public PanelRealiza() {
 		initPanel();
@@ -33,8 +46,80 @@ public class PanelRealiza extends JPanel {
 		
 		this.setVisible(true);
 	}
+	
+	private void addModificarButtonAction() {
+		modificar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new FormModificarRealiza();
+			}
+		});
+	}
+
+	private void addDesasignarButtonAction() {
+		desasignar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new FormDesasignarRealiza();
+			}
+		});
+	}
+
+	private void addAsiganrButtonAction() {
+		asignar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new FormRealiza();
+			}
+		});
+	}
 
 	private void initComponents() {
+		etiquetaAsignar = new JLabel("Asignar conferencia - empleado");
+		etiquetaAsignar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		etiquetaAsignar.setVisible(true);
+		etiquetaDesasignar = new JLabel("Desasignar conferencia - empleado");
+		etiquetaDesasignar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		etiquetaDesasignar.setVisible(true);
+		etiquetaModificar = new JLabel("Modificar conferencia - empleado");
+		etiquetaModificar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		etiquetaModificar.setVisible(true);
 		
+		asignar = new JButton("Asignar");
+		asignar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		asignar.setSize(new Dimension(100, 50));
+		asignar.setVisible(true);
+		desasignar = new JButton("Desasignar");
+		desasignar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		desasignar.setSize(new Dimension(100, 50));
+		desasignar.setVisible(true);
+		modificar = new JButton("Modificar");
+		modificar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		modificar.setSize(new Dimension(100, 50));
+		modificar.setVisible(true);
+		
+		this.add(Box.createRigidArea(new Dimension(1, 50)));
+		this.add(etiquetaAsignar);
+		this.add(asignar);
+		this.add(Box.createRigidArea(new Dimension(1, 50)));
+		this.add(etiquetaDesasignar);
+		this.add(desasignar);
+		this.add(Box.createRigidArea(new Dimension(1, 50)));
+		this.add(etiquetaModificar);
+		this.add(modificar);
+		this.add(Box.createRigidArea(new Dimension(1, 50)));
+		
+		addAsiganrButtonAction();
+		addDesasignarButtonAction();
+		addModificarButtonAction();
+		//addInfoToComboBox();
+	}
+	
+	public void setElectionForm(List<Object> l) {
+		this._electionForm = l;
+	}
+	
+	public List<Object> getElectionForm(){
+		return this._electionForm;
 	}
 }

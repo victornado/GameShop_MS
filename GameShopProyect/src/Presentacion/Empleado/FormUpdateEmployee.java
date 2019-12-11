@@ -30,11 +30,17 @@ public class FormUpdateEmployee extends FormEmployee {
 		super();
 		_employee = t;
 		this.setTitle("Modify employee");
+		this._typeElection.setSelectedItem(t.getTipo());
 		
 		if(t.getTipo().equalsIgnoreCase(Empleado.Comercial)) {
 			this.add(_ventas);
 			this.add(_numVentas);
+			_numVentas.setValue((Integer)((TComercial)t).getnVentas());
 			this.add(Box.createRigidArea(new Dimension(90, 1)));
+			this.remove(_especialidad);
+			this.remove(_specialtyText);
+			this.remove(_sobresueldo);
+			this.remove(_sobresueldoText);
 		}else {
 			this.add(Box.createRigidArea(new Dimension(300, 1)));
 			this.add(_especialidad);

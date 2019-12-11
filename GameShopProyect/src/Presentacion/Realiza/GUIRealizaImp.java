@@ -46,6 +46,11 @@ public class GUIRealizaImp extends GUIRealiza {
 			JOptionPane.showMessageDialog(null, "La conferencia " + c.getConferencia() + " ha sido modificada correctamente.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
 			break;
+			
+		case Event.READ_CONFERENCE_FORM:
+			this.panel.set_entityToUse(data.getKey());
+			break;
+			
 		case Event.REALIZA_MODIFICAR_FAILED:
 			JOptionPane.showMessageDialog(this, "Error modificando la asignacion de la conferencia.","Failed",JOptionPane.ERROR_MESSAGE);
 			break;

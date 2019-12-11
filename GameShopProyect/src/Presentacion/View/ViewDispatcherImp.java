@@ -143,6 +143,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.READ_CONFERENCE_FORM:
 			GUIConferencia.getInstance().actualiza(data);
+			GUIRealiza.getInstance().actualiza(data);
 			break;
 			
 		/****************************** DEPARTAMENTO *****************************/

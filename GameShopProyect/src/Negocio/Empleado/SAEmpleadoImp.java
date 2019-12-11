@@ -125,7 +125,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 				emp.setSueldoBase(data.getSueldobase());
 				emp.setTurno(data.getTurno());
 				if(data.getDepartamento() != null)
-					emp.setDepartamento(em.find(Departamento.class, data.getID(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
+					emp.setDepartamento(em.find(Departamento.class, data.getDepartamento(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
 				else
 					emp.setDepartamento(null);
 				

@@ -40,23 +40,9 @@ public class FormModificarRealiza extends FormRealiza {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(grid.getRowCount() > 0) {
-					empleadosEnConferencia.clear();
-					Integer idEmp, idConf, duracion;
-					TRealiza in = null;
-					
-					for(int i = 0; i < grid.getRowCount(); ++i) {
-						idEmp = (Integer)grid.getValueAt(i, 0);
-						idConf = (Integer)grid.getValueAt(i, 1);
-						duracion = (Integer)grid.getValueAt(i, 2);
-						in = new TRealiza(idEmp, idConf, duracion);
-						empleadosEnConferencia.add(in);
-						// TODO si no funciona limpiando la lista y añadiendo datos cogidos de la tabla, hacer una lista
-						// auxiliar y copiar "empleadosEnConferencia" en esta lista nueva
-					}
 					
 					closeDialog();
 					
-					// Pasamos la lista al comando y este hace el for
 					Controller.getInstance().action(empleadosEnConferencia, Event.REALIZA_MODIFICAR);
 				}
 			}
@@ -78,9 +64,9 @@ public class FormModificarRealiza extends FormRealiza {
 				
 				// Ahora necesitamos rellenar la tabla con todo lo que haya en la BBDD.Realiza con ese "idConf" ==>
 				// ==> actualizar la lista de FromRealiza con los datos que devuelve el "readConferencia.getListaEmpleadosEnConferencia();"
-				Controller.getInstance().action(idConf, Event.READ_CONFERENCE);// ==> comando de read conferencia
-				
-				// TODO actualizar la lista mencionada antes
+				Controller.getInstance().action(idConf, Event.READ_CONFERENCE_FORM);// ==> comando de read conferencia
+				empleadosEnConferencia = GUIRealiza.getInstance().getPanel().get_entityToUse().getEmpleadosEnConferencias();
+				model.fireTableDataChanged();
 			}
 		});
 	}

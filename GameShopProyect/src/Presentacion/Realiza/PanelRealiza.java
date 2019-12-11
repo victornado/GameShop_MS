@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import Negocio.Transfers.TConferencia;
+
 @SuppressWarnings("serial")
 public class PanelRealiza extends JPanel {
 	private JButton asignar;
@@ -27,6 +29,7 @@ public class PanelRealiza extends JPanel {
 	
 	/******** LIST AUXILIAR PARA COMBOBOX ********/
 	private List<Object> _electionForm = null;
+	private TConferencia _entityToUse = null;
 	
 	public PanelRealiza() {
 		initPanel();
@@ -112,7 +115,6 @@ public class PanelRealiza extends JPanel {
 		addAsiganrButtonAction();
 		addDesasignarButtonAction();
 		addModificarButtonAction();
-		//addInfoToComboBox();
 	}
 	
 	public void setElectionForm(List<Object> l) {
@@ -121,5 +123,13 @@ public class PanelRealiza extends JPanel {
 	
 	public List<Object> getElectionForm(){
 		return this._electionForm;
+	}
+	
+	public TConferencia get_entityToUse() {
+		return _entityToUse;
+	}
+
+	public void set_entityToUse(Object object) {
+		this._entityToUse = (TConferencia) object;
 	}
 }

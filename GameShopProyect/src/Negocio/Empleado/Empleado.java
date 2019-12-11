@@ -28,7 +28,7 @@ import Negocio.Transfers.TEmpleado;
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findByNIF", query = "select obj from Empleado obj where :NIF = obj.NIF "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findBynombre", query = "select obj from Empleado obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findBysueldoBase", query = "select obj from Empleado obj where :sueldoBase = obj.sueldoBase "),
-		@NamedQuery(name = "Negocio.Empleado.Empleado.findByturno", query = "select obj from Empleado obj where :turno = obj.turno "),//{)
+		@NamedQuery(name = "Negocio.Empleado.Empleado.findByturno", query = "select obj from Empleado obj where :turno = obj.turno "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.finBydepto", query = "select obj from Empleado obj where :depto = obj.depto "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findByrealiza", query = "select obj from Empleado obj where :realiza MEMBER OF obj.realiza ")})
 @Inheritance(strategy=InheritanceType.JOINED) // CREAMOS 3 TABLAS, UNA PARA CADA ENTIDAD

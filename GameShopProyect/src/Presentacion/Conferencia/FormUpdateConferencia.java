@@ -9,19 +9,21 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Negocio.Transfers.TConferencia;
+import Presentacion.Controller.Controller;
+import Presentacion.Controller.Event;
 
 
 @SuppressWarnings("serial")
 public class FormUpdateConferencia extends FormConferencia {
 
 	private JCheckBox _reactivate;
-	private TConferencia _conference;
+	private TConferencia tc;
 	
 	public FormUpdateConferencia(TConferencia tc) {
 		super();
-		_conference = tc;
+		this.tc = tc;
 		this.setTitle("Modify a conference");
-		this.setSize(new Dimension(300, 145));
+		this.setSize(new Dimension(300, 160));
 		
 		this._reactivate = new JCheckBox("Activated");
 		this._reactivate.setBounds(50, 150, 140, 50);
@@ -31,11 +33,11 @@ public class FormUpdateConferencia extends FormConferencia {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				if(_reactivate.isSelected()) {
-					//_conference.set_activated(true);
+					tc.setActivo(true);
 					_reactivate.setEnabled(false);
 				}
-				//else
-					//_conference.set_activated(false);
+				else
+					tc.setActivo(false);
 			}
 			
 		});
@@ -45,14 +47,15 @@ public class FormUpdateConferencia extends FormConferencia {
 	}
 	
 	private void initForm() {
-		/*this._nifText.setText(_provider.get_nif());
-		this._addressText.setText(_provider.get_address());
-		this._phoneText.setText(_provider.get_phoneNumber().toString());
+		_nameText.setText(tc.getNombre());
+		_thematicText.setText(tc.getTematica());
+		_assistantsElection.setValue(tc.getAsistentes());
+		_dateText.setText(tc.getDate().toString());
 		
-		if(_provider.get_activated()) {
-			this._reactivate.setEnabled(false);
-			this._reactivate.setSelected(true);
-		}*/
+		if(tc.getActivo()) {
+			_reactivate.setEnabled(false);
+			_reactivate.setSelected(true);
+		}
 	}
 	
 	@Override
@@ -60,7 +63,16 @@ public class FormUpdateConferencia extends FormConferencia {
 		_ok.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				String nombre = _nameText.getText();
+				String tematica = _thematicText.getText();
+				Integer asistentes = (Integer)_assistantsElection.getValue();
+				String fecha = _dateText.getText();
+				TConferencia newTc = new TConferencia(nombre, tematica, asistentes, null);
+				newTc.setStringFecha(fecha);
+				newTc.setID(tc.getID());
+				newTc.setActivo(tc.getActivo());
+				Controller.getInstance().action(newTc, Event.MODIFY_CONFERENCE);
+				closeDialog();
 			}
 		});
 	}

@@ -28,8 +28,6 @@ public class SAConferenciaImp implements SAConferencia {
 				EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 				EntityManager em = emf.createEntityManager();
 				Conferencia con = new Conferencia();
-				Realiza real = null;
-				RealizaEmbeddable losIds = null;
 				
 				em.getTransaction().begin();
 				data.setDate(Timestamp.valueOf(data.getStringFecha()));
@@ -101,6 +99,7 @@ public class SAConferenciaImp implements SAConferencia {
 
 		try {
 			if (validezDeDatos(data)) {
+				data.setDate(Timestamp.valueOf(data.getStringFecha()));
 				EntityManagerFactory emf = Persistence
 						.createEntityManagerFactory("GameShopPersistence");
 				EntityManager em = emf.createEntityManager();
@@ -216,6 +215,8 @@ public class SAConferenciaImp implements SAConferencia {
 					|| (Integer.parseInt(date[2]) < 1 || Integer
 							.parseInt(date[2]) > 31))
 				validos = false;
+			
+			
 			else if ((Integer.parseInt(hours[0]) > 23 || Integer
 					.parseInt(hours[0]) < 0)
 					|| (Integer.parseInt(hours[1]) > 59 || Integer

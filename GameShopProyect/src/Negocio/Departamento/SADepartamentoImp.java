@@ -16,28 +16,32 @@ import javax.persistence.TypedQuery;
 public class SADepartamentoImp implements SADepartamento {
 
 	public Integer registrarDepartamento(TDepartamento data) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
-		EntityManager em = emf.createEntityManager();
-		Departamento dep = new Departamento();
-		Integer id=-1;
+		Integer id = -1;
 		
-		TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
-		q.setParameter("nombre",data.getNombre());
-		if(q.getResultList().isEmpty()) {
-			em.getTransaction().begin();
-			dep.setNombre(data.getNombre());
-			dep.setPlanta(data.getPlanta());
-			dep.setFacturacion(data.getFactura());
-			dep.setEmpleados(null);
-			em.persist(dep);
-			em.getTransaction().commit();
+		if(validarDatos(data)) {
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+			EntityManager em = emf.createEntityManager();
+			Departamento dep = new Departamento();
+			
+			
+			TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
+			q.setParameter("nombre",data.getNombre());
+			if(q.getResultList().isEmpty()) {
+				em.getTransaction().begin();
+				dep.setNombre(data.getNombre());
+				dep.setPlanta(data.getPlanta());
+				dep.setFacturacion(data.getFactura());
+				dep.setEmpleados(null);
+				em.persist(dep);
+				em.getTransaction().commit();
 
-			id = dep.getId();
+				id = dep.getId();
+			}
+			else em.getTransaction().rollback();
+			em.close();
+			emf.close();
 		}
-		else em.getTransaction().rollback();
-		em.close();
-		emf.close();
-
+		
 		return id;
 	}
 
@@ -173,7 +177,12 @@ public class SADepartamentoImp implements SADepartamento {
 	private Boolean validarDatos(TDepartamento td) {
 		Boolean ret = true; 
 		
-		//if(td)
+		if(td.getNombre().length() > 100)
+			ret = false;
+		else if(td.getFactura() < 0.0)
+			ret = false;
+		else if(td.getPlanta() < 0)
+			ret = false;
 		
 		return ret;
 	}

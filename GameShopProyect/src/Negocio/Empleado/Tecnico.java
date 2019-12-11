@@ -14,23 +14,26 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "Negocio.Empleado.Tecnico.findByespecialidad", query = "select obj from Tecnico obj where :especialidad = obj.especialidad "),
 		@NamedQuery(name = "Negocio.Empleado.Tecnico.findBysobresueldo", query = "select obj from Tecnico obj where :sobresueldo = obj.sobresueldo ") })
 public class Tecnico extends Empleado implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
 	private String especialidad;
 	private Double sobresueldo;
-	
+
 	public Tecnico() {
 	}
 
 	public String getEspecialidad() {
 		return especialidad;
 	}
+
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}
+
 	public Double getSobresueldo() {
 		return sobresueldo;
 	}
+
 	public void setSobresueldo(Double sobresueldo) {
 		this.sobresueldo = sobresueldo;
 	}
@@ -42,9 +45,9 @@ public class Tecnico extends Empleado implements Serializable {
 
 	@Override
 	public TEmpleado toTransfer() {
-		TEmpleado ret = new TTecnico(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(),
-				null, sobresueldo, especialidad, Empleado.Tecnico);
-		if(super.getDepartamento() != null)
+		TEmpleado ret = new TTecnico(super.getNIF(), super.getNombre(), super.getTurno(), super.getSueldoBase(), null,
+				sobresueldo, especialidad, Empleado.Tecnico);
+		if (super.getDepartamento() != null)
 			ret.setDepartamento(super.getDepartamento().getId());
 		ret.setActivo(getActivo());
 		ret.setID(super.getId());

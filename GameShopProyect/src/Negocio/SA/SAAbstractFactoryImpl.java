@@ -16,12 +16,12 @@ import Negocio.Ticket.SATicket;
 import Negocio.Ticket.SATicketImpl;
 
 public class SAAbstractFactoryImpl extends SAAbstractFactory {
-	
+
 	@Override
 	public SAProduct createSAProduct() {
 		return new SAProductImpl();
 	}
-	
+
 	@Override
 	public SAProvider createSAProvider() {
 		return new SAProviderImpl();
@@ -51,5 +51,5 @@ public class SAAbstractFactoryImpl extends SAAbstractFactory {
 	public SARealiza createSARealiza() {
 		return new SARealizaImp();
 	}
-	
+
 }

@@ -19,10 +19,10 @@ import Negocio.Transfers.TRealiza;
 		@NamedQuery(name = "Realiza.Realiza.findByduracion", query = "select obj from Realiza obj where :duracion = obj.duracion "),
 		@NamedQuery(name = "Realiza.Realiza.findByconferencia", query = "select obj from Realiza obj where :conferencia = obj.conferencia "),
 		@NamedQuery(name = "Realiza.Realiza.findByempleado", query = "select obj from Realiza obj where :empleado = obj.empleado "),
-		@NamedQuery(name = "Realiza.Realiza.findByversion", query = "select obj from Realiza obj where :version = obj.version ")})
+		@NamedQuery(name = "Realiza.Realiza.findByversion", query = "select obj from Realiza obj where :version = obj.version ") })
 public class Realiza implements Serializable {
 	private static final long serialVersionUID = 0;
-	
+
 	@EmbeddedId
 	private RealizaEmbeddable ids;
 	private Integer duracion;
@@ -35,22 +35,23 @@ public class Realiza implements Serializable {
 
 	public Realiza() {
 	}
-	
+
 	public RealizaEmbeddable getIds() {
 		return ids;
 	}
-	
+
 	public void setIds(RealizaEmbeddable ids) {
 		this.ids = ids;
 	}
-	
+
 	public Integer getDuracion() {
 		return duracion;
 	}
-	
+
 	public void setDuracion(Integer duracion) {
 		this.duracion = duracion;
 	}
+
 	public Conferencia getConferencia() {
 		return conferencia;
 	}
@@ -58,19 +59,24 @@ public class Realiza implements Serializable {
 	public void setConferencia(Conferencia conferencia) {
 		this.conferencia = conferencia;
 	}
+
 	public Empleado getEmpleado() {
 		return empleado;
 	}
+
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
 	}
+
 	public Integer getVersion() {
 		return version;
 	}
+
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+
 	public TRealiza toTransfer() {
-		return new TRealiza(ids.getEmpleado(),ids.getConferencia(),duracion);
+		return new TRealiza(ids.getEmpleado(), ids.getConferencia(), duracion);
 	}
 }

@@ -30,15 +30,16 @@ import Negocio.Transfers.TEmpleado;
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findBysueldoBase", query = "select obj from Empleado obj where :sueldoBase = obj.sueldoBase "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.findByturno", query = "select obj from Empleado obj where :turno = obj.turno "),
 		@NamedQuery(name = "Negocio.Empleado.Empleado.finBydepto", query = "select obj from Empleado obj where :depto = obj.depto "),
-		@NamedQuery(name = "Negocio.Empleado.Empleado.findByrealiza", query = "select obj from Empleado obj where :realiza MEMBER OF obj.realiza ")})
-@Inheritance(strategy=InheritanceType.JOINED) // CREAMOS 3 TABLAS, UNA PARA CADA ENTIDAD
+		@NamedQuery(name = "Negocio.Empleado.Empleado.findByrealiza", query = "select obj from Empleado obj where :realiza MEMBER OF obj.realiza ") })
+@Inheritance(strategy = InheritanceType.JOINED) // CREAMOS 3 TABLAS, UNA PARA CADA ENTIDAD
 public abstract class Empleado implements Serializable {
 	private static final long serialVersionUID = 0;
-	
+
 	public static final String Comercial = "Comercial";
 	public static final String Tecnico = "Tecnico";
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String NIF;
 	private String nombre;
@@ -56,50 +57,63 @@ public abstract class Empleado implements Serializable {
 		this.activo = true;
 	}
 
-	public Empleado(Integer id){
-		this.id=id;
+	public Empleado(Integer id) {
+		this.id = id;
 		this.activo = true;
 	}
 
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNIF() {
 		return NIF;
 	}
+
 	public void setNIF(String NIF) {
 		this.NIF = NIF;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public Double getSueldoBase() {
 		return sueldoBase;
 	}
+
 	public void setSueldoBase(Double sueldoBase) {
 		this.sueldoBase = sueldoBase;
 	}
+
 	public String getTurno() {
 		return turno;
 	}
+
 	public void setTurno(String turno) {
 		this.turno = turno;
 	}
-	public void setDepartamento(Departamento depto){
+
+	public void setDepartamento(Departamento depto) {
 		this.depto = depto;
 	}
-	public Departamento getDepartamento(){
+
+	public Departamento getDepartamento() {
 		return depto;
 	}
+
 	public abstract Double calcularSueldo();
+
 	public abstract TEmpleado toTransfer();
-	
+
 	public Boolean getActivo() {
 		return activo;
 	}
@@ -115,9 +129,11 @@ public abstract class Empleado implements Serializable {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+
 	public List<Realiza> getRealiza() {
 		return realiza;
 	}
+
 	public void setRealiza(List<Realiza> realiza) {
 		this.realiza = realiza;
 	}

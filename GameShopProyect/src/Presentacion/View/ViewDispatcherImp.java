@@ -15,7 +15,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 
 	@Override
 	public void createView(Pair<Object, Integer> data) {
-		switch(data.getValue()) {
+		switch (data.getValue()) {
 		/******************************** PROVIDER ********************************/
 		case Event.RES_REGISTER_PROVIDER_OK:
 			GUIProvider.getInstance().actualiza(data);
@@ -47,7 +47,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.RES_READALL_PROVIDERS_FAILED:
 			GUIProvider.getInstance().actualiza(data);
 			break;
-			
+
 		/******************************** PRODUCT ********************************/
 		case Event.RES_REGISTER_PRODUCT_OK:
 			GUIProduct.getInstance().actualiza(data);
@@ -79,7 +79,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.RES_READALL_PRODUCT_FAILED:
 			GUIProduct.getInstance().actualiza(data);
 			break;
-			
+
 		/******************************** TICKET ********************************/
 		case Event.RES_REGISTER_TICKET_OK:
 			GUITicket.getInstance().actualiza(data);
@@ -105,7 +105,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.RES_READALL_TICKET_FAILED:
 			GUITicket.getInstance().actualiza(data);
 			break;
-			
+
 		/******************************* CONFERENCIA *****************************/
 		case Event.RES_REGISTER_CONFERENCE_OK:
 			GUIConferencia.getInstance().actualiza(data);
@@ -145,7 +145,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIConferencia.getInstance().actualiza(data);
 			GUIRealiza.getInstance().actualiza(data);
 			break;
-			
+
 		/****************************** DEPARTAMENTO *****************************/
 		case Event.RES_REGISTER_DEPARTMENT_OK:
 			GUIDepartment.getInstance().actualiza(data);
@@ -191,7 +191,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.READ_DEPARTMENT_FORM:
 			GUIDepartment.getInstance().actualiza(data);
 			break;
-			
+
 		/******************************** EMPLEADO *******************************/
 		case Event.RES_REGISTER_EMPLOYEE_OK:
 			GUIEmployee.getInstance().actualiza(data);
@@ -226,13 +226,13 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.UPDATE_LIST_EMPLOYEE:
 			GUIEmployee.getInstance().actualiza(data);
 			GUIRealiza.getInstance().actualiza(data);
-			//GUIDepartment.getInstance().actualiza(data);
-			//GUIConferencia.getInstance().actualiza(data);
+			// GUIDepartment.getInstance().actualiza(data);
+			// GUIConferencia.getInstance().actualiza(data);
 			break;
 		case Event.READ_EMPLOYEE_FORM:
 			GUIEmployee.getInstance().actualiza(data);
 			break;
-			
+
 		/******************************** REALIZA ********************************/
 		case Event.REALIZA_ASIGNAR_OK:
 			GUIRealiza.getInstance().actualiza(data);
@@ -252,8 +252,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.REALIZA_MODIFICAR_FAILED:
 			GUIRealiza.getInstance().actualiza(data);
 			break;
-			
-			
+
 		/******************************** QUERIES ********************************/
 		case Event.SHOW_PROVIDER_QUERY_OK:
 			GUIProvider.getInstance().actualiza(data);

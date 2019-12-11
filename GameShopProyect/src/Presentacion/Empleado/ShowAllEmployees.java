@@ -37,18 +37,18 @@ public class ShowAllEmployees extends ShowAll {
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				Object o = null;
-				
-				switch(columnIndex){
+
+				switch (columnIndex) {
 				case 0:
-					o = ((TEmpleado)_employees.get(rowIndex)).getID();
+					o = ((TEmpleado) _employees.get(rowIndex)).getID();
 					break;
-					
+
 				case 1:
-					o = ((TEmpleado)_employees.get(rowIndex)).getNIF();
+					o = ((TEmpleado) _employees.get(rowIndex)).getNIF();
 					break;
-					
+
 				case 2:
-					o = ((TEmpleado)_employees.get(rowIndex)).getSueldobase();
+					o = ((TEmpleado) _employees.get(rowIndex)).getSueldobase();
 					break;
 				}
 				return o;
@@ -69,10 +69,11 @@ public class ShowAllEmployees extends ShowAll {
 		setColumnsWidth();
 		_grid.setVisible(true);
 
-		this.add(new JScrollPane(_grid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-		
+		this.add(new JScrollPane(_grid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+
 	}
-	
+
 	private void setColumnsWidth() {
 		_grid.getColumnModel().getColumn(0).setPreferredWidth(20);
 		_grid.getColumnModel().getColumn(1).setPreferredWidth(150);

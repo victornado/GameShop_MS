@@ -15,12 +15,12 @@ public class ShowAllDepartments extends ShowAll {
 	private String[] _columnsId = { "ID", "Nombre", "Num. empleados" };
 	private List<Object> _departments;
 	AbstractTableModel model;
-	
+
 	public ShowAllDepartments(List<Object> l) {
 		_departments = l;
 		initComponents();
 	}
-	
+
 	private void initComponents() {
 		model = new AbstractTableModel() {
 
@@ -37,18 +37,18 @@ public class ShowAllDepartments extends ShowAll {
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				Object o = null;
-				
-				switch(columnIndex){
+
+				switch (columnIndex) {
 				case 0:
-					o = ((TDepartamento)_departments.get(rowIndex)).getID();
+					o = ((TDepartamento) _departments.get(rowIndex)).getID();
 					break;
-					
+
 				case 1:
-					o = ((TDepartamento)_departments.get(rowIndex)).getNombre();
+					o = ((TDepartamento) _departments.get(rowIndex)).getNombre();
 					break;
-					
+
 				case 2:
-					o = ((TDepartamento)_departments.get(rowIndex)).getEmpleados().size();
+					o = ((TDepartamento) _departments.get(rowIndex)).getEmpleados().size();
 					break;
 				}
 				return o;
@@ -69,10 +69,11 @@ public class ShowAllDepartments extends ShowAll {
 		setColumnsWidth();
 		_grid.setVisible(true);
 
-		this.add(new JScrollPane(_grid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-		
+		this.add(new JScrollPane(_grid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+
 	}
-	
+
 	private void setColumnsWidth() {
 		_grid.getColumnModel().getColumn(0).setPreferredWidth(20);
 		_grid.getColumnModel().getColumn(1).setPreferredWidth(150);

@@ -25,7 +25,7 @@ import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class FormDepartment extends JDialog {
-	
+
 	private final JLabel _name = new JLabel("Name:");
 	private final JLabel _billing = new JLabel("Billing:");
 	private final JLabel _floor = new JLabel("Floor:");
@@ -34,8 +34,8 @@ public class FormDepartment extends JDialog {
 	protected JTextField _floorText;
 	protected JButton _ok;
 	private JButton _cancel;
-	
-	public FormDepartment(){
+
+	public FormDepartment() {
 		this.setTitle("Register a department");
 		this.setIconImage(new ImageIcon("resources/GameShopLogo.png").getImage());
 		this.setResizable(false);
@@ -47,76 +47,76 @@ public class FormDepartment extends JDialog {
 				closeDialog();
 			}
 		});
-		
+
 		this.setLayout(new FlowLayout());
 		this.setBounds(new Rectangle(300, 140));
 		this.setLocationRelativeTo(null);
-		
+
 		initComponents();
 		okButtonAction();
 		cancelButtonAction();
-		
+
 		this.setVisible(true);
 	}
-	
-	protected void okButtonAction(){
-		_ok.addActionListener(new ActionListener(){
+
+	protected void okButtonAction() {
+		_ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String name = _nameText.getText();
-					Double billing = (Double)_billingElection.getValue();
+					Double billing = (Double) _billingElection.getValue();
 					Integer floor = Integer.parseInt(_floorText.getText());
-					TDepartamento td = new TDepartamento(name, billing,null, floor);
+					TDepartamento td = new TDepartamento(name, billing, null, floor);
 					Controller.getInstance().action(td, Event.REGISTER_DEPARTMENT);
 					closeDialog();
-				}catch(Exception ex) {
+				} catch (Exception ex) {
 					closeDialog();
 					Controller.getInstance().action(null, Event.REGISTER_DEPARTMENT);
 				}
 			}
 		});
 	}
-	
-	private void cancelButtonAction(){
-		_cancel.addActionListener(new ActionListener(){
+
+	private void cancelButtonAction() {
+		_cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeDialog();
 			}
 		});
 	}
-	
+
 	protected void closeDialog() {
 		setVisible(false);
 		dispose();
 	}
-	
+
 	private void initComponents() {
 		_nameText = new JTextField();
-		_nameText.setPreferredSize(new Dimension(220,20));
-		_nameText.setMaximumSize(new Dimension(220,20));
-		_nameText.setMinimumSize(new Dimension(220,20));
-		
-		_billingElection.setPreferredSize(new Dimension(70,20));
-		_billingElection.setMaximumSize(new Dimension(70,20));
-		_billingElection.setMinimumSize(new Dimension(70,20));
-		
+		_nameText.setPreferredSize(new Dimension(220, 20));
+		_nameText.setMaximumSize(new Dimension(220, 20));
+		_nameText.setMinimumSize(new Dimension(220, 20));
+
+		_billingElection.setPreferredSize(new Dimension(70, 20));
+		_billingElection.setMaximumSize(new Dimension(70, 20));
+		_billingElection.setMinimumSize(new Dimension(70, 20));
+
 		_floorText = new JTextField();
-		_floorText.setPreferredSize(new Dimension(220,20));
-		_floorText.setMaximumSize(new Dimension(220,20));
-		_floorText.setMinimumSize(new Dimension(220,20));
-		
+		_floorText.setPreferredSize(new Dimension(220, 20));
+		_floorText.setMaximumSize(new Dimension(220, 20));
+		_floorText.setMinimumSize(new Dimension(220, 20));
+
 		_ok = new JButton("OK");
-		_ok.setPreferredSize(new Dimension(70,20));
-		_ok.setMaximumSize(new Dimension(70,20));
-		_ok.setMinimumSize(new Dimension(70,20));
-		
+		_ok.setPreferredSize(new Dimension(70, 20));
+		_ok.setMaximumSize(new Dimension(70, 20));
+		_ok.setMinimumSize(new Dimension(70, 20));
+
 		_cancel = new JButton("Cancel");
-		_cancel.setPreferredSize(new Dimension(90,20));
-		_cancel.setMaximumSize(new Dimension(90,20));
-		_cancel.setMinimumSize(new Dimension(90,20));
-		
+		_cancel.setPreferredSize(new Dimension(90, 20));
+		_cancel.setMaximumSize(new Dimension(90, 20));
+		_cancel.setMinimumSize(new Dimension(90, 20));
+
 		this.add(_name);
 		this.add(_nameText);
 		this.add(_billing);

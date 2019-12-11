@@ -72,7 +72,6 @@ public class FormConferencia extends JDialog {
 					String date = _dateText.getText();
 					tc.setStringFecha(date);
 					
-					// PARA PROBAR LA TABLA METEMOS A MANO LOS EMPLEADOS (Empleado = 6 con 30 mins)
 					tc.addEmployeeToConference(6, 30);
 					
 					Controller.getInstance().action(tc, Event.REGISTER_CONFERENCE);

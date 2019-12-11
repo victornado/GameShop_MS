@@ -17,16 +17,16 @@ public class SADepartamentoImp implements SADepartamento {
 
 	public Integer registrarDepartamento(TDepartamento data) {
 		Integer id = -1;
-		
-		if(validarDatos(data)) {
+
+		if (validarDatos(data)) {
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 			EntityManager em = emf.createEntityManager();
 			Departamento dep = new Departamento();
-			
-			
-			TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
-			q.setParameter("nombre",data.getNombre());
-			if(q.getResultList().isEmpty()) {
+
+			TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre",
+					Departamento.class);
+			q.setParameter("nombre", data.getNombre());
+			if (q.getResultList().isEmpty()) {
 				em.getTransaction().begin();
 				dep.setNombre(data.getNombre());
 				dep.setPlanta(data.getPlanta());
@@ -36,12 +36,12 @@ public class SADepartamentoImp implements SADepartamento {
 				em.getTransaction().commit();
 
 				id = dep.getId();
-			}
-			else em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
 			em.close();
 			emf.close();
 		}
-		
+
 		return id;
 	}
 
@@ -56,16 +56,14 @@ public class SADepartamentoImp implements SADepartamento {
 		if (dep != null && dep.getActivo()) {
 			em.lock(dep, LockModeType.OPTIMISTIC);
 			Collection<Empleado> e = dep.getEmpleados();
-			for (Empleado empleado : e) { //Segun los apuntes no hace falta hacer bloqueo sobre los empleados 
-				empleado.setDepartamento(null);//TODO ver si no peta
+			for (Empleado empleado : e) { // Segun los apuntes no hace falta hacer bloqueo sobre los empleados
+				empleado.setDepartamento(null);
 			}
 			dep.setActivo(false);
-			
+
 			em.getTransaction().commit();
 			ret = true;
 		}
-
-		
 
 		em.close();
 		emf.close();
@@ -75,9 +73,9 @@ public class SADepartamentoImp implements SADepartamento {
 
 	public Boolean modificarDepartamento(TDepartamento data) {
 		Boolean ret = false;
-		
-		if(validarDatos(data)){
-			//no hace falta bloqueo segun los apuntes
+
+		if (validarDatos(data)) {
+			// no hace falta bloqueo segun los apuntes
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 			EntityManager em = emf.createEntityManager();
 
@@ -85,26 +83,27 @@ public class SADepartamentoImp implements SADepartamento {
 
 			Departamento dep = em.find(Departamento.class, data.getID());
 			if (dep != null) {
-				TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
-				q.setParameter("nombre",data.getNombre());
-				if(!q.getResultList().isEmpty()) {//no te deja cambiar el departamento si el nombre introducido ya existe
+				TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre",
+						Departamento.class);
+				q.setParameter("nombre", data.getNombre());
+				if (!q.getResultList().isEmpty()) {// no te deja cambiar el departamento si el nombre introducido ya
+													// existe
 					dep.setFacturacion(data.getFactura());
 					dep.setNombre(data.getNombre());
 					dep.setPlanta(data.getPlanta());
 					dep.setActivo(data.getActivo());
-					
+
 					em.getTransaction().commit();
 					ret = true;
-				}
-				else em.getTransaction().rollback();
-			}
-			else em.getTransaction().rollback();
-			
+				} else
+					em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
 
 			em.close();
 			emf.close();
 		}
-		
+
 		return ret;
 	}
 
@@ -117,8 +116,7 @@ public class SADepartamentoImp implements SADepartamento {
 
 		Departamento dep = em.find(Departamento.class, id);
 
-		if (dep != null)
-		{
+		if (dep != null) {
 			em.lock(dep, LockModeType.OPTIMISTIC);
 			ret = dep.toTransfer();
 		}
@@ -147,7 +145,7 @@ public class SADepartamentoImp implements SADepartamento {
 				em.lock(c, LockModeType.OPTIMISTIC);
 				ret.add(c.toTransfer());
 			}
-			
+
 		}
 
 		em.getTransaction().commit();
@@ -165,7 +163,7 @@ public class SADepartamentoImp implements SADepartamento {
 
 		em.getTransaction().begin();
 
-		Departamento dep = em.find(Departamento.class, id,LockModeType.OPTIMISTIC);
+		Departamento dep = em.find(Departamento.class, id, LockModeType.OPTIMISTIC);
 
 		if (dep != null) {
 			Collection<Empleado> e = dep.getEmpleados();
@@ -182,17 +180,17 @@ public class SADepartamentoImp implements SADepartamento {
 
 		return nominaFinal;
 	}
-	
+
 	private Boolean validarDatos(TDepartamento td) {
-		Boolean ret = true; 
-		
-		if(td.getNombre().length() > 100)
+		Boolean ret = true;
+
+		if (td.getNombre().length() > 100)
 			ret = false;
-		else if(td.getFactura() < 0.0)
+		else if (td.getFactura() < 0.0)
 			ret = false;
-		else if(td.getPlanta() < 0)
+		else if (td.getPlanta() < 0)
 			ret = false;
-		
+
 		return ret;
 	}
 }

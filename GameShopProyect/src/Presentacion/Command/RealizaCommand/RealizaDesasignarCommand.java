@@ -2,7 +2,6 @@ package Presentacion.Command.RealizaCommand;
 
 import Negocio.Realiza.RealizaEmbeddable;
 import Negocio.SA.SAAbstractFactory;
-import Negocio.Transfers.TRealiza;
 import Presentacion.Command.Command;
 import Presentacion.Controller.Event;
 import utils.Pair;

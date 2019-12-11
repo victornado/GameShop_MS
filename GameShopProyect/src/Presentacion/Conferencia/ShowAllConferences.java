@@ -14,12 +14,12 @@ public class ShowAllConferences extends ShowAll {
 	private String[] _columnsId = { "ID", "Nombre", "Fecha" };
 	private List<Object> _conferences;
 	AbstractTableModel model;
-	
+
 	public ShowAllConferences(List<Object> l) {
 		_conferences = l;
 		initComponents();
 	}
-	
+
 	private void initComponents() {
 		model = new AbstractTableModel() {
 
@@ -36,18 +36,18 @@ public class ShowAllConferences extends ShowAll {
 			@Override
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				Object o = null;
-				
-				switch(columnIndex){
+
+				switch (columnIndex) {
 				case 0:
-					o = ((TConferencia)_conferences.get(rowIndex)).getID();
+					o = ((TConferencia) _conferences.get(rowIndex)).getID();
 					break;
-					
+
 				case 1:
-					o = ((TConferencia)_conferences.get(rowIndex)).getNombre();
+					o = ((TConferencia) _conferences.get(rowIndex)).getNombre();
 					break;
-					
+
 				case 2:
-					o = ((TConferencia)_conferences.get(rowIndex)).getDate().toString();
+					o = ((TConferencia) _conferences.get(rowIndex)).getDate().toString();
 					break;
 				}
 				return o;
@@ -68,16 +68,16 @@ public class ShowAllConferences extends ShowAll {
 		setColumnsWidth();
 		_grid.setVisible(true);
 
-		this.add(new JScrollPane(_grid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
-		
+		this.add(new JScrollPane(_grid, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 	}
-	
+
 	private void setColumnsWidth() {
 		_grid.getColumnModel().getColumn(0).setPreferredWidth(20);
 		_grid.getColumnModel().getColumn(1).setPreferredWidth(150);
 		_grid.getColumnModel().getColumn(2).setPreferredWidth(50);
 	}
-	
+
 	@Override
 	public void update(List<Object> l) {
 		_conferences = l;

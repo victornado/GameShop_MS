@@ -135,7 +135,6 @@ public class SATicketImpl implements SATicket {
 				} else
 					return null;
 
-				// TODO si no funciona el casteo hacer aqui un while() y cambiar la query
 				toa.set_productsToShow(productsToShow);
 			}
 			t.commit();

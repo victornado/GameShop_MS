@@ -1,22 +1,16 @@
 package Negocio.Conferencia;
 
-import Negocio.Empleado.Empleado;
 import Negocio.Realiza.Realiza;
-import Negocio.Realiza.RealizaEmbeddable;
 import Negocio.Transfers.TConferencia;
-import Negocio.Transfers.TRealiza;
-import utils.Pair;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 public class SAConferenciaImp implements SAConferencia {
@@ -77,7 +71,7 @@ public class SAConferenciaImp implements SAConferencia {
 						em.remove(r);
 					}
 				}
-				
+
 				em.getTransaction().commit();
 				ret = true;
 			} else
@@ -99,30 +93,31 @@ public class SAConferenciaImp implements SAConferencia {
 		try {
 			if (validezDeDatos(data)) {
 				data.setDate(Timestamp.valueOf(data.getStringFecha()));
-				EntityManagerFactory emf = Persistence
-						.createEntityManagerFactory("GameShopPersistence");
+				EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 				EntityManager em = emf.createEntityManager();
-				
+
 				em.getTransaction().begin();
 
 				Conferencia con = em.find(Conferencia.class, data.getID());
-				
+
 				if (con != null) {
-					TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre", Conferencia.class);
-					q.setParameter("nombre",data.getNombre());
-					if(!q.getResultList().isEmpty()) {//no te deja modificar el nombre si el que ha introducido ya esta disponible
+					TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre",
+							Conferencia.class);
+					q.setParameter("nombre", data.getNombre());
+					if (!q.getResultList().isEmpty()) {// no te deja modificar el nombre si el que ha introducido ya
+														// esta disponible
 						con.setNombre(data.getNombre());
 						con.setTematica(data.getTematica());
 						con.setAsistentes(data.getAsistentes());
 						con.setFecha(data.getDate());
 						con.setActivo(data.getActivo());
-						
+
 						em.getTransaction().commit();
 						ret = true;
-					}
-					else em.getTransaction().rollback();
-				}
-				else em.getTransaction().rollback();
+					} else
+						em.getTransaction().rollback();
+				} else
+					em.getTransaction().rollback();
 				em.close();
 				emf.close();
 			}
@@ -144,8 +139,7 @@ public class SAConferenciaImp implements SAConferencia {
 			Conferencia con = em.find(Conferencia.class, id);
 
 			// Buscamos en Realiza los empleados de esta conferencia para
-			// guardarlos en la lista de TConferencia
-			// y luego mostrar todos
+			// guardarlos en la lista de TConferencia y luego mostrar todos
 			if (con != null) {
 				em.lock(con, LockModeType.OPTIMISTIC);
 				ret = con.toTransfer();
@@ -170,9 +164,7 @@ public class SAConferenciaImp implements SAConferencia {
 
 			em.getTransaction().begin();
 
-			// Para JPQL si Conferencia es una Entity hay que hacer
-			// "createQuery" pero si no fuere una Entity seria
-			// "createNativeQuery"
+			// Para JPQL si Conferencia es una Entity hay que hacer "createQuery" pero si no fuere una Entity seria "createNativeQuery"
 			TypedQuery<Conferencia> query = em.createQuery("SELECT c FROM Conferencia c", Conferencia.class);
 			List<Conferencia> aux = query.getResultList();
 

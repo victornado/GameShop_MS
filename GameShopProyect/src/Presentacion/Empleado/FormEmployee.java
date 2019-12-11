@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import Negocio.Departamento.Departamento;
 import Negocio.Empleado.Empleado;
 import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TDepartamento;
@@ -33,7 +32,7 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class FormEmployee extends JDialog {
-	
+
 	private final JLabel _nif = new JLabel("NIF:");
 	private final JLabel _name = new JLabel("Name:");
 	private final JLabel _turn = new JLabel("Turn:");
@@ -48,9 +47,9 @@ public class FormEmployee extends JDialog {
 	protected JButton _ok;
 	protected JButton _cancel;
 	private JButton _next;
-	
+
 	public static final String SIN_DEPARTAMENTO = "Sin departamento";
-	
+
 	// COMERCIAL
 	protected final JLabel _ventas = new JLabel("Sales:");
 	protected JSpinner _numVentas = new JSpinner(new SpinnerNumberModel(0, 0, 10000, 1));
@@ -59,7 +58,7 @@ public class FormEmployee extends JDialog {
 	protected JTextField _specialtyText;
 	protected final JLabel _sobresueldo = new JLabel("Sobresueldo:");
 	protected JSpinner _sobresueldoText = new JSpinner(new SpinnerNumberModel(1000.0, 0.0, 10000.0, 100.0));
-	
+
 	public FormEmployee() {
 
 		this.setTitle("Register an employee");
@@ -73,83 +72,85 @@ public class FormEmployee extends JDialog {
 				closeDialog();
 			}
 		});
-		
+
 		this.setLayout(new FlowLayout());
 		this.setBounds(new Rectangle(300, 100));
 		this.setLocationRelativeTo(null);
-		
-		this._turnElection.setPreferredSize(new Dimension(160,20));
-		this._turnElection.setMaximumSize(new Dimension(160,20));
-		this._turnElection.setMinimumSize(new Dimension(160,20));
+
+		this._turnElection.setPreferredSize(new Dimension(160, 20));
+		this._turnElection.setMaximumSize(new Dimension(160, 20));
+		this._turnElection.setMinimumSize(new Dimension(160, 20));
 		this._turnElection.addItem("Morning");
 		this._turnElection.addItem("Afternoon");
-		
-		this._departmentElection.setPreferredSize(new Dimension(160,20));
-		this._departmentElection.setMaximumSize(new Dimension(160,20));
-		this._departmentElection.setMinimumSize(new Dimension(160,20));
+
+		this._departmentElection.setPreferredSize(new Dimension(160, 20));
+		this._departmentElection.setMaximumSize(new Dimension(160, 20));
+		this._departmentElection.setMinimumSize(new Dimension(160, 20));
 		this._departmentElection.addItem(FormEmployee.SIN_DEPARTAMENTO);
-	
+
 		initForm();
 	}
-	
-	protected void okButtonAction(){
-		_ok.addActionListener(new ActionListener(){
+
+	protected void okButtonAction() {
+		_ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String nif = _nifText.getText();
 					String nombre = _nameText.getText();
-					String turno = (String)_turnElection.getSelectedItem();
-					Double salarioBase = (Double)_salaryElection.getValue();
-					
+					String turno = (String) _turnElection.getSelectedItem();
+					Double salarioBase = (Double) _salaryElection.getValue();
+
 					// Para ver si ha seleccionado o no un departamento
 					Integer departamento;
-					if(((String)_departmentElection.getSelectedItem()).equalsIgnoreCase(FormEmployee.SIN_DEPARTAMENTO)){
+					if (((String) _departmentElection.getSelectedItem())
+							.equalsIgnoreCase(FormEmployee.SIN_DEPARTAMENTO)) {
 						departamento = null;
-					}
-					else {
-						String[] infoDpto = ((String)_departmentElection.getSelectedItem()).split(" - ");
+					} else {
+						String[] infoDpto = ((String) _departmentElection.getSelectedItem()).split(" - ");
 						departamento = Integer.parseInt(infoDpto[0]);
 					}
-					
+
 					// Guardar datos
 					TEmpleado empleado;
-					if(((String)_typeElection.getSelectedItem()).equalsIgnoreCase(Empleado.Comercial)) {
-						Integer nVentas = (Integer)_numVentas.getValue();
-						empleado = new TComercial(nif, nombre, turno, salarioBase, departamento, nVentas, Empleado.Comercial);
-					}
-					else {
+					if (((String) _typeElection.getSelectedItem()).equalsIgnoreCase(Empleado.Comercial)) {
+						Integer nVentas = (Integer) _numVentas.getValue();
+						empleado = new TComercial(nif, nombre, turno, salarioBase, departamento, nVentas,
+								Empleado.Comercial);
+					} else {
 						String especialidad = _specialtyText.getText();
-						Double sobresueldo = (Double)_sobresueldoText.getValue();
-						empleado = new TTecnico(nif, nombre, turno, salarioBase, departamento, sobresueldo, especialidad, Empleado.Tecnico);
+						Double sobresueldo = (Double) _sobresueldoText.getValue();
+						empleado = new TTecnico(nif, nombre, turno, salarioBase, departamento, sobresueldo,
+								especialidad, Empleado.Tecnico);
 					}
 					Controller.getInstance().action(empleado, Event.REGISTER_EMPLOYEE);
 					closeDialog();
-				} catch(Exception ex) {
+				} catch (Exception ex) {
 					closeDialog();
 					Controller.getInstance().action(null, Event.REGISTER_EMPLOYEE);
 				}
 			}
 		});
 	}
-	
+
 	protected void initForm() {
-		_typeElection.setPreferredSize(new Dimension(160,20));
-		_typeElection.setMaximumSize(new Dimension(160,20));
-		_typeElection.setMinimumSize(new Dimension(160,20));
+		_typeElection.setPreferredSize(new Dimension(160, 20));
+		_typeElection.setMaximumSize(new Dimension(160, 20));
+		_typeElection.setMinimumSize(new Dimension(160, 20));
 		_typeElection.addItem(Empleado.Tecnico);
 		_typeElection.addItem(Empleado.Comercial);
-		
+
 		Controller.getInstance().action(null, Event.UPDATE_LIST_DEPARTMENT);
 		List<Object> l = GUIEmployee.getInstance().getOpPanel().getElectionForm();
-		if(l != null) {
-		for(Object o : l ) {
-			if(((TDepartamento)o).getActivo())
-				this._departmentElection.addItem(((TDepartamento)o).getID() + " - " + ((TDepartamento)o).getNombre());
+		if (l != null) {
+			for (Object o : l) {
+				if (((TDepartamento) o).getActivo())
+					this._departmentElection
+							.addItem(((TDepartamento) o).getID() + " - " + ((TDepartamento) o).getNombre());
 			}
 		}
 		_next = new JButton("Next");
-		_next.setPreferredSize(new Dimension(80,20));
+		_next.setPreferredSize(new Dimension(80, 20));
 		this.add(new JLabel("Type:"));
 		this.add(_typeElection);
 		this.add(_next);
@@ -163,61 +164,62 @@ public class FormEmployee extends JDialog {
 				cancelButtonAction();
 			}
 		});
-		
+
 		this.setVisible(true);
 	}
-	
-	protected void cancelButtonAction(){
-		_cancel.addActionListener(new ActionListener(){
+
+	protected void cancelButtonAction() {
+		_cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeDialog();
 			}
 		});
 	}
-	
+
 	protected void closeDialog() {
 		setVisible(false);
 		dispose();
 	}
-	public void updateComboBox(List<Object> l){
+
+	public void updateComboBox(List<Object> l) {
 		this._departmentElection.removeAllItems();
-		for(Object i : l)
+		for (Object i : l)
 			this._departmentElection.addItem(((TDepartamento) i).getNombre());
 	}
-	
+
 	protected void initComponents() {
 		this.setLayout(new FlowLayout());
 		this.setBounds(new Rectangle(280, 300));
 		this.setLocationRelativeTo(null);
-		
-		String selected = (String)_typeElection.getSelectedItem();
-		
+
+		String selected = (String) _typeElection.getSelectedItem();
+
 		_nifText = new JTextField();
-		_nifText.setPreferredSize(new Dimension(150,20));
-		_nifText.setMaximumSize(new Dimension(150,20));
-		_nifText.setMinimumSize(new Dimension(150,20));
-		
+		_nifText.setPreferredSize(new Dimension(150, 20));
+		_nifText.setMaximumSize(new Dimension(150, 20));
+		_nifText.setMinimumSize(new Dimension(150, 20));
+
 		_nameText = new JTextField();
-		_nameText.setPreferredSize(new Dimension(150,20));
-		_nameText.setMaximumSize(new Dimension(150,20));
-		_nameText.setMinimumSize(new Dimension(150,20));
-		
+		_nameText.setPreferredSize(new Dimension(150, 20));
+		_nameText.setMaximumSize(new Dimension(150, 20));
+		_nameText.setMinimumSize(new Dimension(150, 20));
+
 		_specialtyText = new JTextField();
-		_specialtyText.setPreferredSize(new Dimension(150,20));
-		_specialtyText.setMaximumSize(new Dimension(150,20));
-		_specialtyText.setMinimumSize(new Dimension(150,20));
-		
+		_specialtyText.setPreferredSize(new Dimension(150, 20));
+		_specialtyText.setMaximumSize(new Dimension(150, 20));
+		_specialtyText.setMinimumSize(new Dimension(150, 20));
+
 		_ok = new JButton("OK");
-		_ok.setPreferredSize(new Dimension(70,20));
-		_ok.setMaximumSize(new Dimension(70,20));
-		_ok.setMinimumSize(new Dimension(70,20));
-		
+		_ok.setPreferredSize(new Dimension(70, 20));
+		_ok.setMaximumSize(new Dimension(70, 20));
+		_ok.setMinimumSize(new Dimension(70, 20));
+
 		_cancel = new JButton("Cancel");
-		_cancel.setPreferredSize(new Dimension(90,20));
-		_cancel.setMaximumSize(new Dimension(90,20));
-		_cancel.setMinimumSize(new Dimension(90,20));
-		
+		_cancel.setPreferredSize(new Dimension(90, 20));
+		_cancel.setMaximumSize(new Dimension(90, 20));
+		_cancel.setMinimumSize(new Dimension(90, 20));
+
 		_typeElection.setEnabled(false);
 		this.add(Box.createRigidArea(new Dimension(50, 1)));
 		this.add(_nif);
@@ -235,28 +237,27 @@ public class FormEmployee extends JDialog {
 		this.add(Box.createRigidArea(new Dimension(90, 1)));
 		this.add(_department);
 		this.add(_departmentElection);
-		if(selected != null && selected.equalsIgnoreCase(Empleado.Comercial)) {
+		if (selected != null && selected.equalsIgnoreCase(Empleado.Comercial)) {
 			this.add(_ventas);
 			this.add(_numVentas);
 			this.add(Box.createRigidArea(new Dimension(90, 1)));
 
 			this.add(_ok);
 			this.add(_cancel);
-			
+
 			this.setVisible(true);
-		}
-		else if(selected != null){
+		} else if (selected != null) {
 			this.add(Box.createRigidArea(new Dimension(10, 1)));
 			this.add(_especialidad);
 			this.add(_specialtyText);
 			this.add(_sobresueldo);
 			this.add(_sobresueldoText);
 			this.add(Box.createRigidArea(new Dimension(100, 1)));
-			TTecnico.SOBRESUELDO = (Double)_sobresueldoText.getValue();
-			
+			TTecnico.SOBRESUELDO = (Double) _sobresueldoText.getValue();
+
 			this.add(_ok);
 			this.add(_cancel);
-			
+
 			this.setVisible(true);
 		}
 

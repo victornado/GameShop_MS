@@ -2,11 +2,6 @@ package Negocio.Realiza;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import java.util.UUID;
 
 @Embeddable
 public class RealizaEmbeddable implements Serializable {

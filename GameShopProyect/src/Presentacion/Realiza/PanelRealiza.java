@@ -22,34 +22,34 @@ public class PanelRealiza extends JPanel {
 	private JButton asignar;
 	private JButton desasignar;
 	private JButton modificar;
-	
+
 	private JLabel etiquetaAsignar;
 	private JLabel etiquetaDesasignar;
 	private JLabel etiquetaModificar;
-	
+
 	/******** LIST AUXILIAR PARA COMBOBOX ********/
 	private List<Object> _electionForm = null;
 	private TConferencia _entityToUse = null;
-	
+
 	public PanelRealiza() {
 		initPanel();
 	}
-	
+
 	private void initPanel() {
 		this.setPreferredSize(new Dimension(300, 700));
 		this.setMinimumSize(new Dimension(300, 700));
 		this.setMaximumSize(new Dimension(300, 700));
-		
+
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
-		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Asignar un empleado a una conferencia",
-				TitledBorder.LEFT, TitledBorder.TOP));
-		
+
+		this.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 1),
+				"Asignar un empleado a una conferencia", TitledBorder.LEFT, TitledBorder.TOP));
+
 		initComponents();
-		
+
 		this.setVisible(true);
 	}
-	
+
 	private void addModificarButtonAction() {
 		modificar.addActionListener(new ActionListener() {
 			@Override
@@ -87,7 +87,7 @@ public class PanelRealiza extends JPanel {
 		etiquetaModificar = new JLabel("Modificar conferencia - empleado");
 		etiquetaModificar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		etiquetaModificar.setVisible(true);
-		
+
 		asignar = new JButton("Asignar");
 		asignar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		asignar.setSize(new Dimension(100, 50));
@@ -100,7 +100,7 @@ public class PanelRealiza extends JPanel {
 		modificar.setAlignmentX(Component.CENTER_ALIGNMENT);
 		modificar.setSize(new Dimension(100, 50));
 		modificar.setVisible(true);
-		
+
 		this.add(Box.createRigidArea(new Dimension(1, 50)));
 		this.add(etiquetaAsignar);
 		this.add(asignar);
@@ -111,20 +111,20 @@ public class PanelRealiza extends JPanel {
 		this.add(etiquetaModificar);
 		this.add(modificar);
 		this.add(Box.createRigidArea(new Dimension(1, 50)));
-		
+
 		addAsiganrButtonAction();
 		addDesasignarButtonAction();
 		addModificarButtonAction();
 	}
-	
+
 	public void setElectionForm(List<Object> l) {
 		this._electionForm = l;
 	}
-	
-	public List<Object> getElectionForm(){
+
+	public List<Object> getElectionForm() {
 		return this._electionForm;
 	}
-	
+
 	public TConferencia get_entityToUse() {
 		return _entityToUse;
 	}

@@ -93,7 +93,7 @@ public class GUIGameshopImp extends GUIGameShop {
 		_tabs.addTab(GUIGameshopImp.TAB_DEPARTMENT, null, (GUIDepartmentImp) _guis.get(4), "Department tab");
 
 		_tabs.addTab(GUIGameshopImp.TAB_EMPLOYEE, null, (GUIEmployeeImp) _guis.get(5), "Employee tab");
-		
+
 		_tabs.addTab(GUIGameshopImp.TAB_ASIGNACION, null, (GUIRealizaImp) _guis.get(6), "Asignar empleados a conferencias");
 
 		this.add(_tabs, BorderLayout.CENTER);
@@ -118,7 +118,7 @@ public class GUIGameshopImp extends GUIGameShop {
 		GUIDepartment.getInstance().getShowPanel().update(GUIDepartment.getInstance().getOpPanel().getElectionForm());
 		GUIConferencia.getInstance().getOpPanel().addInfoToComboBox();
 		GUIConferencia.getInstance().getShowPanel().update(GUIConferencia.getInstance().getOpPanel().getElectionForm());
-		GUIEmployee.getInstance().getOpPanel().addInfoToComboBox();	
+		GUIEmployee.getInstance().getOpPanel().addInfoToComboBox();
 		GUIEmployee.getInstance().getShowPanel().update(GUIEmployee.getInstance().getOpPanel().getElectionForm());
 	}
 

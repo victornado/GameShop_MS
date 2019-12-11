@@ -7,17 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import Negocio.Conferencia.Conferencia;
 import Negocio.Departamento.Departamento;
 import Negocio.Realiza.Realiza;
-import Negocio.Realiza.RealizaEmbeddable;
 import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TTecnico;
-import utils.Pair;
 
 public class SAEmpleadoImp implements SAEmpleado {
 
@@ -79,14 +75,14 @@ public class SAEmpleadoImp implements SAEmpleado {
 		Empleado con = em.find(Empleado.class, id);
 		if (con != null) {// si existe el empleado
 			em.lock(con, LockModeType.OPTIMISTIC);
-			if (con.getRealiza() != null ) {// buscamos los realiza
+			if (con.getRealiza() != null) {// buscamos los realiza
 				for (Realiza r : con.getRealiza()) {
 					em.remove(r);
 				}
 			}
 			Departamento d = null;
-			if(con.getDepartamento() != null)
-				d = em.find(Departamento.class, con.getDepartamento().getId(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			if (con.getDepartamento() != null)
+				d = em.find(Departamento.class, con.getDepartamento().getId(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 			if (d != null) {
 				d.getEmpleados().remove(con);
 				con.setDepartamento(null);
@@ -94,7 +90,6 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 			con.setActivo(false);
 
-			
 			em.getTransaction().commit();
 			ret = true;
 		} else // si no existe
@@ -118,17 +113,18 @@ public class SAEmpleadoImp implements SAEmpleado {
 			Empleado emp = em.find(Empleado.class, data.getID());
 
 			if (emp != null) {
-				
+
 				emp.setNIF(data.getNIF());
 				emp.setActivo(data.getActivo());
 				emp.setNombre(data.getNombre());
 				emp.setSueldoBase(data.getSueldobase());
 				emp.setTurno(data.getTurno());
-				if(data.getDepartamento() != null)
-					emp.setDepartamento(em.find(Departamento.class, data.getDepartamento(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
+				if (data.getDepartamento() != null)
+					emp.setDepartamento(em.find(Departamento.class, data.getDepartamento(),
+							LockModeType.OPTIMISTIC_FORCE_INCREMENT));
 				else
 					emp.setDepartamento(null);
-				
+
 				if (data.getTipo().equalsIgnoreCase(Empleado.Comercial))
 					((Comercial) emp).setnVentas(((TComercial) data).getnVentas());
 				else {
@@ -137,9 +133,9 @@ public class SAEmpleadoImp implements SAEmpleado {
 				}
 				em.getTransaction().commit();
 				ret = true;
-			}else em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
 
-			
 			em.close();
 			emf.close();
 		}
@@ -168,7 +164,6 @@ public class SAEmpleadoImp implements SAEmpleado {
 			em.lock(emp, LockModeType.OPTIMISTIC);
 			ret = emp.toTransfer();
 		}
-			
 
 		em.getTransaction().commit();
 
@@ -196,7 +191,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 				em.lock(e, LockModeType.OPTIMISTIC);
 				ret.add(e.toTransfer());
 			}
-				
+
 		}
 
 		em.getTransaction().commit();

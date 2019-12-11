@@ -7,15 +7,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-/** 
-* @author GameShop
-* @generated "UML to Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 @SuppressWarnings("serial")
 public abstract class ShowAll extends JPanel {
-	
+
 	protected JTable _grid;
-	
+
 	public ShowAll() {
 		initGUI();
 	}
@@ -28,7 +24,7 @@ public abstract class ShowAll extends JPanel {
 
 		this.setVisible(true);
 	}
-	
+
 	public abstract void update(List<Object> l);
-	
+
 }

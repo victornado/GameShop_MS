@@ -13,16 +13,22 @@ public abstract class SAAbstractFactory {
 	private static SAAbstractFactory instance;
 
 	public static SAAbstractFactory getInstance() {
-		if(instance == null)
+		if (instance == null)
 			instance = new SAAbstractFactoryImpl();
 		return instance;
 	}
-	
+
 	public abstract SAProduct createSAProduct();
+
 	public abstract SAProvider createSAProvider();
+
 	public abstract SATicket createSATicket();
+
 	public abstract SAConferencia createSAConferencia();
+
 	public abstract SADepartamento createSADepartamento();
+
 	public abstract SAEmpleado createSAEmpleado();
+
 	public abstract SARealiza createSARealiza();
 }

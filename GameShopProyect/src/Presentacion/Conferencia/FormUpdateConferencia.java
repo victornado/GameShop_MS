@@ -65,14 +65,12 @@ public class FormUpdateConferencia extends FormConferencia {
 		_ok.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//String nombre = _nameText.getText();
 				String tematica = _thematicText.getText();
 				Integer asistentes = (Integer)_assistantsElection.getValue();
 				String fecha = _dateText.getText();
 				TConferencia newTc = new TConferencia(tc.getNombre(), tematica, asistentes, null);
 				newTc.setStringFecha(fecha);
 				newTc.setID(tc.getID());
-				// TODO newTc.setActivo(tc.getActivo());
 				newTc.setActivo(_reactivate.isSelected());
 				Controller.getInstance().action(newTc, Event.MODIFY_CONFERENCE);
 				closeDialog();

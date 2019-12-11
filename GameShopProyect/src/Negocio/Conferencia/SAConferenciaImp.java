@@ -41,6 +41,7 @@ public class SAConferenciaImp implements SAConferencia {
 					con.setFecha(data.getDate());
 					con.setTematica(data.getTematica());
 					con.setRealiza(null);
+					con.setActivo(true);
 					em.persist(con);
 					em.getTransaction().commit();
 					id = con.getId();
@@ -71,15 +72,13 @@ public class SAConferenciaImp implements SAConferencia {
 
 			Conferencia con = em.find(Conferencia.class, id);
 			
-			if (con != null) {
+			if (con != null && con.getActivo()) {
 				em.lock(con, LockModeType.OPTIMISTIC);
 				con.setActivo(false);
 				if(con.getRealiza()==null || !con.getRealiza().isEmpty()) {
 					for (Realiza r : con.getRealiza()) {
 						em.remove(r);
-					}
-					//TODO llamar funcion realiza->borrar
-				
+					}	
 				}
 				ret = true;
 				em.getTransaction().commit();
@@ -97,21 +96,14 @@ public class SAConferenciaImp implements SAConferencia {
 		}
 	}
 
-	public Boolean modificarConferencia(TConferencia data2) {
+	public Boolean modificarConferencia(TConferencia data) {
 		Boolean ret = false;
 
 		try {
-			if (validezDeDatos(data2)) {
+			if (validezDeDatos(data)) {
 				EntityManagerFactory emf = Persistence
 						.createEntityManagerFactory("GameShopPersistence");
 				EntityManager em = emf.createEntityManager();
-
-				// PROVISIONAL PARA PRUEBAS ==> Funciona PERO CAMBIAR EL COMANDO
-				Timestamp fecha = Timestamp.valueOf("2019-12-17 14:15:00");
-				TConferencia data = new TConferencia("CAMBIOS", "HOLAAA", 300,
-						fecha);
-				data.setID(8);
-				//fin
 				
 				em.getTransaction().begin();
 
@@ -122,22 +114,9 @@ public class SAConferenciaImp implements SAConferencia {
 					con.setTematica(data.getTematica());
 					con.setAsistentes(data.getAsistentes());
 					con.setFecha(data.getDate());
-					Realiza real = em.find(Realiza.class, data.getID());
-					RealizaEmbeddable ids = null;
-					if(real!=null)//TODO llamar al realiza-->MODIFICAR
+					con.setActivo(data.getActivo());
 					ret = true;
-					/*
-					for (TRealiza tr : data.getEmpleadosEnConferencias()) {
-						real.setDuracion(tr.getDuracion());
-						ids = new RealizaEmbeddable();
-						ids.setConferencia(tr.getIdConf());
-						ids.setEmpleado(tr.getIdEmp());
-						real.setIds(ids);
-					}
-					*/
-				
-
-				em.getTransaction().commit();
+					em.getTransaction().commit();
 				}
 				else em.getTransaction().rollback();
 				em.close();

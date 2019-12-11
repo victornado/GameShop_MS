@@ -1,5 +1,7 @@
 package Negocio.Realiza;
 
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
@@ -17,6 +19,8 @@ public class SARealizaImp implements SARealiza{
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 		EntityManager em = emf.createEntityManager();
 		
+		em.getTransaction().begin();
+		
 		RealizaEmbeddable rE= new RealizaEmbeddable();
 		rE.setConferencia(r.getIdConf());
 		rE.setEmpleado(r.getIdEmp());
@@ -27,7 +31,6 @@ public class SARealizaImp implements SARealiza{
 			Realiza real = new Realiza();
 			real.setIds(rE);
 			real.setDuracion(r.getDuracion());
-			
 			real.setConferencia(em.find(Conferencia.class, r.getIdConf(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
 			real.setEmpleado(em.find(Empleado.class, r.getIdEmp(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
 			em.persist(real);
@@ -40,11 +43,30 @@ public class SARealizaImp implements SARealiza{
 		return rE;
 	}
 	@Override
-	public Boolean deleteRealiza(Integer idEmpleado) {
+	public Boolean deleteRealiza(RealizaEmbeddable ids) {
 		//Cuando se haga el em.find de empleado y conferencia hay que añadir "LockModeType.OPTIMISTIC_FORCE_INCREMENT"
 		//ya que necesitamos que el lado N (realiza) repercuta en el lado 1 (empleado y confe)
-		return null;
+		boolean ok=false;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		Realiza real=em.find(Realiza.class, ids);
+		if(real!=null) {//esta en la base de datos
+			Empleado e= em.find(Empleado.class, ids.getEmpleado(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			Set<Realiza>aux1 = e.getRealiza();
+			aux1.remove(real);
+			e.setRealiza(aux1);
+			Conferencia c= em.find(Conferencia.class, ids.getConferencia(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			Set<Realiza>aux2 = c.getRealiza();
+			aux2.remove(real);
+			c.setRealiza(aux2);
+			em.remove(real);
+			em.getTransaction().commit();
+			ok=true;
+		}
+		else em.getTransaction().rollback();
 		
+		return ok;
 	}
 
 	@Override
@@ -54,5 +76,5 @@ public class SARealizaImp implements SARealiza{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

@@ -49,7 +49,7 @@ public class SADepartamentoImp implements SADepartamento {
 		em.getTransaction().begin();
 
 		Departamento dep = em.find(Departamento.class, id);
-		if (dep != null) {
+		if (dep != null && dep.getActivo()) {
 			em.lock(dep, LockModeType.OPTIMISTIC);
 			Collection<Empleado> e = dep.getEmpleados();
 			for (Empleado empleado : e) { //Segun los apuntes no hace falta hacer bloqueo sobre los empleados 
@@ -80,6 +80,7 @@ public class SADepartamentoImp implements SADepartamento {
 			dep.setFacturacion(data.getFactura());
 			dep.setNombre(data.getNombre());
 			dep.setPlanta(data.getPlanta());
+			dep.setActivo(data.getActivo());
 			ret = true;
 		}
 

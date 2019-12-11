@@ -1,20 +1,23 @@
 package Negocio.Conferencia;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import java.io.Serializable;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.persistence.NamedQueries;
-import java.sql.Timestamp;
-import java.util.Set;
 
 import Negocio.Realiza.Realiza;
 import Negocio.Transfers.TConferencia;
+import Negocio.Transfers.TRealiza;
 
 @Entity
 @NamedQueries({
@@ -84,6 +87,11 @@ public class Conferencia implements Serializable {
 	public TConferencia toTransfer() {
 		TConferencia sol = new TConferencia(nombre, tematica, asistentes, fecha);
 		sol.setID(id);
+		List<TRealiza>aux= new ArrayList<TRealiza>();
+		for (Realiza t : realiza) {
+			aux.add(t.toTransfer());
+		}
+		sol.setEmpleadosEnConferencias(aux);
 		sol.setActivo(getActivo());
 		return sol;
 	}

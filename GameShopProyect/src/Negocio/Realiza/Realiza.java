@@ -1,17 +1,17 @@
 package Negocio.Realiza;
 
+import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-
-import java.io.Serializable;
-import javax.persistence.EmbeddedId;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Version;
 
 import Negocio.Conferencia.Conferencia;
 import Negocio.Empleado.Empleado;
-
-import javax.persistence.NamedQueries;
+import Negocio.Transfers.TRealiza;
 
 @Entity
 @NamedQueries({
@@ -69,5 +69,8 @@ public class Realiza implements Serializable {
 	}
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+	public TRealiza toTransfer() {
+		return new TRealiza(ids.getEmpleado(),ids.getConferencia(),duracion);
 	}
 }

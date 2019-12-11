@@ -31,7 +31,7 @@ public class TConferencia {
 	}
 
 	// Lista de TRealiza que contiene los empleados que van a hacer es conferencia
-	private List<TRealiza> empleadosEnConferencias = new ArrayList<TRealiza>();
+	private List<TRealiza> empleadosEnConferencias ;
 	
 	private String stringFecha; // String para almacenar la fecha en fomrato string y ver en el SA que es un formate de fecha correcto
 	
@@ -40,6 +40,7 @@ public class TConferencia {
 		tematica = t;
 		asistentes = a;
 		fecha = d;
+		empleadosEnConferencias = new ArrayList<TRealiza>();
 	}
 
 	public Integer getID() {

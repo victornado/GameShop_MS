@@ -77,8 +77,9 @@ public class SAConferenciaImp implements SAConferencia {
 						em.remove(r);
 					}
 				}
-				ret = true;
+				
 				em.getTransaction().commit();
+				ret = true;
 			} else
 				em.getTransaction().rollback();
 
@@ -115,8 +116,9 @@ public class SAConferenciaImp implements SAConferencia {
 						con.setAsistentes(data.getAsistentes());
 						con.setFecha(data.getDate());
 						con.setActivo(data.getActivo());
-						ret = true;
+						
 						em.getTransaction().commit();
+						ret = true;
 					}
 					else em.getTransaction().rollback();
 				}

@@ -91,7 +91,6 @@ public class ShowOne extends JPanel {
 		});
 	}
 	
-
 	private void initComponents() {
 		this.add(Box.createVerticalGlue());
 		

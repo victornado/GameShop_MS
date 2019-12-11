@@ -177,6 +177,12 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIDepartment.getInstance().actualiza(data);
 			GUIEmployee.getInstance().actualiza(data);
 			break;
+		case Event.CALCULAR_NOMINA_DEPARTAMENTO_OK:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.CALCULAR_NOMINA_DEPARTAMENTO_FAILED:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
 			
 		/******************************** EMPLEADO *******************************/
 		case Event.RES_REGISTER_EMPLOYEE_OK:

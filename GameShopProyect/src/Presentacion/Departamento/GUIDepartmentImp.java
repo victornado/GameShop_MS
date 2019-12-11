@@ -84,7 +84,7 @@ public class GUIDepartmentImp extends GUIDepartment {
 			break;
 			
 		case Event.CALCULAR_NOMINA_DEPARTAMENTO_OK:
-			_rightPane.mostrarNomina((String)data.getKey());
+			_rightPane.mostrarNomina(data.getKey().toString());
 			break;
 			
 		case Event.CALCULAR_NOMINA_DEPARTAMENTO_FAILED:

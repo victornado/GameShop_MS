@@ -126,6 +126,7 @@ public class ShowPanel extends JPanel {
 	public void update(List<Object> l) {
 		sa.update(l);
 		so.fillList(l);
+		if(cnp != null) cnp.fillList(l);
 		so.set_info("");
 	}
 	
@@ -134,7 +135,7 @@ public class ShowPanel extends JPanel {
 	}
 	
 	public void mostrarNomina(String info) {
-		this.cnp.set_info(info);
+		cnp.set_info(info);
 	}
 	
 }

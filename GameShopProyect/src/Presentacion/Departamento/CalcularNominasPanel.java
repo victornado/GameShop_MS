@@ -82,15 +82,15 @@ public class CalcularNominasPanel extends JPanel {
 		info = new JTextArea();
 		info.setWrapStyleWord(true);
 		info.setLineWrap(true);
-		info.setPreferredSize(new Dimension(300, 190));
-		info.setMinimumSize(new Dimension(300, 190));
-		info.setMaximumSize(new Dimension(300, 190));
+		info.setPreferredSize(new Dimension(300, 50));
+		info.setMinimumSize(new Dimension(300, 50));
+		info.setMaximumSize(new Dimension(300, 50));
 		info.setEditable(false);
 		info.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Nomina total",
 				TitledBorder.LEFT, TitledBorder.TOP));
 		info.setFont(new Font("Arial", 0, 11));
 		info.setVisible(true);
-		this.add(new JScrollPane(info, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
+		this.add(info);
 		
 		addMostrarButtonAction();
 	}
@@ -108,6 +108,6 @@ public class CalcularNominasPanel extends JPanel {
 	}
 
 	public void set_info(String text) {
-		info.setText(text);
+		info.setText("Nomina = " + text + " euros");
 	}
 }

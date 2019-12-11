@@ -12,7 +12,7 @@ public class CalcularNominaCommand extends Command {
 	public Pair<Object, Integer> execute(Object data) throws Exception {
 		Integer idDep = (Integer)data;
 		Double nomina = SAAbstractFactory.getInstance().createSADepartamento().calcularNomina(idDep);
-		Integer event = nomina <= 0.0 ? Event.CALCULAR_NOMINA_DEPARTAMENTO_FAILED : Event.CALCULAR_NOMINA_DEPARTAMENTO_OK;
+		Integer event = Event.CALCULAR_NOMINA_DEPARTAMENTO_OK;//nomina <= 0.0 ? Event.CALCULAR_NOMINA_DEPARTAMENTO_FAILED : Event.CALCULAR_NOMINA_DEPARTAMENTO_OK;
 		Pair<Object, Integer> p = new Pair<Object, Integer>(nomina, event);
 		return p;
 	}

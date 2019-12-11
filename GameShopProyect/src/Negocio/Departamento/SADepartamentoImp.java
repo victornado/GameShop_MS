@@ -21,7 +21,7 @@ public class SADepartamentoImp implements SADepartamento {
 		Departamento dep = new Departamento();
 		Integer id=-1;
 		
-		TypedQuery<Departamento> q=em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
+		TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
 		q.setParameter("nombre",data.getNombre());
 		if(q.getResultList().isEmpty()) {
 			em.getTransaction().begin();
@@ -68,27 +68,30 @@ public class SADepartamentoImp implements SADepartamento {
 	}
 
 	public Boolean modificarDepartamento(TDepartamento data) {
-		//no hace falta bloqueo segun los apuntes
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
-		EntityManager em = emf.createEntityManager();
 		Boolean ret = false;
+		
+		if(validarDatos(data)){
+			//no hace falta bloqueo segun los apuntes
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+			EntityManager em = emf.createEntityManager();
 
-		em.getTransaction().begin();
+			em.getTransaction().begin();
 
-		Departamento dep = em.find(Departamento.class, data.getID());
-		if (dep != null) {
-			dep.setFacturacion(data.getFactura());
-			dep.setNombre(data.getNombre());
-			dep.setPlanta(data.getPlanta());
-			dep.setActivo(data.getActivo());
-			ret = true;
+			Departamento dep = em.find(Departamento.class, data.getID());
+			if (dep != null) {
+				dep.setFacturacion(data.getFactura());
+				dep.setNombre(data.getNombre());
+				dep.setPlanta(data.getPlanta());
+				dep.setActivo(data.getActivo());
+				ret = true;
+			}
+
+			em.getTransaction().commit();
+
+			em.close();
+			emf.close();
 		}
-
-		em.getTransaction().commit();
-
-		em.close();
-		emf.close();
-
+		
 		return ret;
 	}
 
@@ -165,5 +168,13 @@ public class SADepartamentoImp implements SADepartamento {
 		emf.close();
 
 		return nominaFinal;
+	}
+	
+	private Boolean validarDatos(TDepartamento td) {
+		Boolean ret = true; 
+		
+		//if(td)
+		
+		return ret;
 	}
 }

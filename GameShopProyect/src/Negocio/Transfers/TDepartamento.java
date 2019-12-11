@@ -22,7 +22,7 @@ public class TDepartamento {
 	
 	private Integer ID;
 	private String nombre;
-	private  List<Integer> empleados;
+	private List<Integer> empleados;
 	private Double factura;
 	private Integer planta;
 	private Integer version;

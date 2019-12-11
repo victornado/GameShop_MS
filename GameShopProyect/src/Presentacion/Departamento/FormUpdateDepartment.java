@@ -9,7 +9,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Negocio.Transfers.TDepartamento;
-import Negocio.Transfers.TProvider;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
 
@@ -17,29 +16,27 @@ import Presentacion.Controller.Event;
 public class FormUpdateDepartment extends FormDepartment {
 
 	private JCheckBox _reactivate;
-	private TDepartamento _department;
+	private TDepartamento td;
 	
 	public FormUpdateDepartment(TDepartamento td) {
 		super();
-		_department = td;
-		this.setTitle("Modify a Provider");
+		this.td = td;
+		this.setTitle("Modify a department");
 		this.setSize(new Dimension(300, 145));
 		
 		this._reactivate = new JCheckBox("Activated");
-		this._reactivate.setBounds(50, 150, 140, 50); //this._reactivate.setBounds(200, 240, 140, 50);
+		this._reactivate.setBounds(50, 150, 140, 50);
 		this.add(_reactivate);
 		this._reactivate.addChangeListener(new ChangeListener() {
-
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				if(_reactivate.isSelected()) {
-					//_department.set_activated(true);
+					td.setActivo(true);
 					_reactivate.setEnabled(false);
 				}
-				//else
-					//_department.set_activated(false);
+				else
+					td.setActivo(false);
 			}
-			
 		});
 		initForm();
 		
@@ -47,14 +44,14 @@ public class FormUpdateDepartment extends FormDepartment {
 	}
 	
 	private void initForm() {
-		/*this._nifText.setText(_provider.get_nif());
-		this._addressText.setText(_provider.get_address());
-		this._phoneText.setText(_provider.get_phoneNumber().toString());
+		_nameText.setText(td.getNombre());
+		_billingElection.setValue(((Double)td.getFactura()));
+		_floorText.setText(td.getPlanta().toString());
 		
-		if(_provider.get_activated()) {
-			this._reactivate.setEnabled(false);
-			this._reactivate.setSelected(true);
-		}*/
+		if(td.getActivo()) {
+			_reactivate.setEnabled(false);
+			_reactivate.setSelected(true);
+		}
 	}
 	
 	@Override
@@ -62,7 +59,15 @@ public class FormUpdateDepartment extends FormDepartment {
 		_ok.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				String nombre = _nameText.getText();
+				Double fact = (Double)_billingElection.getValue();
+				Integer planta = Integer.parseInt(_floorText.getText());
+				TDepartamento newTd = new TDepartamento(nombre, fact, td.getEmpleados(), planta);
+				newTd.setID(td.getID());
+				newTd.setActivo(td.getActivo());
+				newTd.setVersion(td.getVersion());
+				Controller.getInstance().action(newTd, Event.MODIFY_DEPARTMENT);
+				closeDialog();
 			}
 		});
 	}

@@ -98,7 +98,7 @@ public class SAConferenciaImp implements SAConferencia {
 
 		try {
 			if (validezDeDatos(data)) {
-				//data.setDate(Timestamp.valueOf(data.getStringFecha()));
+				data.setDate(Timestamp.valueOf(data.getStringFecha()));
 				EntityManagerFactory emf = Persistence
 						.createEntityManagerFactory("GameShopPersistence");
 				EntityManager em = emf.createEntityManager();
@@ -110,7 +110,7 @@ public class SAConferenciaImp implements SAConferencia {
 				if (con != null) {
 					TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre", Conferencia.class);
 					q.setParameter("nombre",data.getNombre());
-					if(q.getResultList().isEmpty()) {//no te deja modificar el nombre si el que ha introducido ya esta disponible
+					if(!q.getResultList().isEmpty()) {//no te deja modificar el nombre si el que ha introducido ya esta disponible
 						con.setNombre(data.getNombre());
 						con.setTematica(data.getTematica());
 						con.setAsistentes(data.getAsistentes());
@@ -217,8 +217,8 @@ public class SAConferenciaImp implements SAConferencia {
 				validos = false;
 
 			else if ((Integer.parseInt(hours[0]) > 23 || Integer.parseInt(hours[0]) < 0)
-					|| (Integer.parseInt(hours[1]) > 59 || Integer.parseInt(hours[1]) < 0))
-					//|| (Integer.parseInt(hours[2]) > 59 || Integer.parseInt(hours[2]) < 0))
+					|| (Integer.parseInt(hours[1]) > 59 || Integer.parseInt(hours[1]) < 0)
+					|| (Integer.parseInt(hours[2]) > 59 || Integer.parseInt(hours[2]) < 0))
 				validos = false;
 		}
 

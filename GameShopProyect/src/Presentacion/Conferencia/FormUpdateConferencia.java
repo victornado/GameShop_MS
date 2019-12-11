@@ -51,7 +51,7 @@ public class FormUpdateConferencia extends FormConferencia {
 		_nameText.setEnabled(false);
 		_thematicText.setText(tc.getTematica());
 		_assistantsElection.setValue(tc.getAsistentes());
-		_dateText.setText(tc.getDate().toString());
+		_dateText.setText(tc.getDate().toString().substring(0, tc.getDate().toString().length()-2));
 		_dateText.setEnabled(false);
 		
 		if(tc.getActivo()) {
@@ -68,9 +68,9 @@ public class FormUpdateConferencia extends FormConferencia {
 				//String nombre = _nameText.getText();
 				String tematica = _thematicText.getText();
 				Integer asistentes = (Integer)_assistantsElection.getValue();
-				//String fecha = _dateText.getText();
-				TConferencia newTc = new TConferencia(tc.getNombre(), tematica, asistentes, tc.getDate());
-				//newTc.setStringFecha(fecha);
+				String fecha = _dateText.getText();
+				TConferencia newTc = new TConferencia(tc.getNombre(), tematica, asistentes, null);
+				newTc.setStringFecha(fecha);
 				newTc.setID(tc.getID());
 				// TODO newTc.setActivo(tc.getActivo());
 				newTc.setActivo(_reactivate.isSelected());

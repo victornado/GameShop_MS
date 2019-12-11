@@ -23,7 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 
 import Negocio.Transfers.TConferencia;
-import Negocio.Transfers.TDepartamento;
 import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TRealiza;
 import Presentacion.Controller.Controller;
@@ -138,6 +137,7 @@ public class FormRealiza extends JDialog {
 				if(empleadosEnConferencia.size() > 0) {
 					closeDialog();
 					
+					// Pasamos la lista al comando y este hace el for
 					Controller.getInstance().action(empleadosEnConferencia, Event.REALIZA_ASIGNAR);
 					
 					// Eliminamos todos los ids de los empleados pues ya no nos sirve
@@ -220,17 +220,7 @@ public class FormRealiza extends JDialog {
 			}
 			@Override
 			public boolean isCellEditable(int row, int col) {
-				switch (col) {
-		         case 0:
-		        	 return false;
-		         case 1:
-		             return false;
-		         case 2:
-		        	 //grid.setEditingColumn(2);
-		        	 return true;
-		         default:
-		             return false;
-				}
+				return false;
 			}
 		};
 		

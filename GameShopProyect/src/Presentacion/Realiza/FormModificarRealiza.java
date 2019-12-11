@@ -1,7 +1,11 @@
 package Presentacion.Realiza;
 
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 
 import Negocio.Transfers.TRealiza;
 import Presentacion.Controller.Controller;
@@ -10,14 +14,24 @@ import Presentacion.Controller.Event;
 @SuppressWarnings("serial")
 public class FormModificarRealiza extends FormRealiza {
 	// Modificar tiene lo mismo que el normal pero ya esta todo relleno y solo tenemos que quitar la parte que pide la duracion
+	private JButton modificarTiempo = new JButton("Modificar");
 	
 	public FormModificarRealiza() {
 		super.setTitle("Modifica asignaciones de empleados a conferencias");
-		elegirDuracion.setVisible(false);
-		duracion.setVisible(false);
+		duracion.setEnabled(false);
 		quitar.setVisible(false);
 		empleados.setVisible(false);
 		elegirEmpleado.setVisible(false);
+		
+		modificarTiempo.setPreferredSize(new Dimension(75, 20));
+		modificarTiempo.setMinimumSize(new Dimension(75, 20));
+		modificarTiempo.setMaximumSize(new Dimension(75, 20));
+		modificarTiempo.setAlignmentX(Component.CENTER_ALIGNMENT);
+		modificarTiempo.setVisible(true);
+		modificarTiempo.setEnabled(false);
+		this.add(modificarTiempo);
+		
+		modificarButtonAction();
 	}
 	
 	@Override
@@ -36,9 +50,14 @@ public class FormModificarRealiza extends FormRealiza {
 						duracion = (Integer)grid.getValueAt(i, 2);
 						in = new TRealiza(idEmp, idConf, duracion);
 						empleadosEnConferencia.add(in);
+						// TODO si no funciona limpiando la lista y añadiendo datos cogidos de la tabla, hacer una lista
+						// auxiliar y copiar "empleadosEnConferencia" en esta lista nueva
 					}
 					
 					closeDialog();
+					
+					// Pasamos la lista al comando y este hace el for
+					Controller.getInstance().action(empleadosEnConferencia, Event.REALIZA_MODIFICAR);
 				}
 			}
 		});
@@ -53,8 +72,29 @@ public class FormModificarRealiza extends FormRealiza {
 				Integer idConf = Integer.parseInt(((String)conferencias.getSelectedItem()).split(" - ")[0]);
 				conferencias.setEnabled(false);
 				
-				// Ahora necesitamos rellenar la tabla con todo lo que haya en la BBDD.Realiza con ese "idConf"
-				// TODO Controller.getInstance().action(idConf, Event.GET_ALL_REALIZA);
+				modificarTiempo.setEnabled(true);
+				duracion.setEnabled(true);
+				
+				
+				// Ahora necesitamos rellenar la tabla con todo lo que haya en la BBDD.Realiza con ese "idConf" ==>
+				// ==> actualizar la lista de FromRealiza con los datos que devuelve el "readConferencia.getListaEmpleadosEnConferencia();"
+				Controller.getInstance().action(idConf, Event.READ_CONFERENCE);// ==> comando de read conferencia
+				
+				// TODO actualizar la lista mencionada antes
+			}
+		});
+	}
+	
+	private void modificarButtonAction() {
+		modificarTiempo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Integer empleadoEnTabla = grid.getSelectedRow();
+				if(empleadoEnTabla != -1) {
+					Integer nuevaDuracion = Integer.parseInt((String)duracion.getText());
+					empleadosEnConferencia.get(empleadoEnTabla).setDuracion(nuevaDuracion);
+					model.fireTableDataChanged();
+				}
 			}
 		});
 	}

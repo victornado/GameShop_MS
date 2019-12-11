@@ -45,6 +45,7 @@ public class FormUpdateDepartment extends FormDepartment {
 	
 	private void initForm() {
 		_nameText.setText(td.getNombre());
+		_nameText.setEnabled(false);
 		_billingElection.setValue(((Double)td.getFactura()));
 		_floorText.setText(td.getPlanta().toString());
 		
@@ -64,8 +65,7 @@ public class FormUpdateDepartment extends FormDepartment {
 				Integer planta = Integer.parseInt(_floorText.getText());
 				TDepartamento newTd = new TDepartamento(nombre, fact, td.getEmpleados(), planta);
 				newTd.setID(td.getID());
-				newTd.setActivo(td.getActivo());
-				newTd.setVersion(td.getVersion());
+				newTd.setActivo(_reactivate.isSelected());
 				Controller.getInstance().action(newTd, Event.MODIFY_DEPARTMENT);
 				closeDialog();
 			}

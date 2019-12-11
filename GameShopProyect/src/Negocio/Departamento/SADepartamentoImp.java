@@ -87,7 +87,7 @@ public class SADepartamentoImp implements SADepartamento {
 			if (dep != null) {
 				TypedQuery<Departamento> q = em.createNamedQuery("Negocio.Departamento.Departamento.findBynombre", Departamento.class);
 				q.setParameter("nombre",data.getNombre());
-				if(q.getResultList().isEmpty()) {//no te deja cambiar el departamento si el nombre introducido ya existe
+				if(!q.getResultList().isEmpty()) {//no te deja cambiar el departamento si el nombre introducido ya existe
 					dep.setFacturacion(data.getFactura());
 					dep.setNombre(data.getNombre());
 					dep.setPlanta(data.getPlanta());

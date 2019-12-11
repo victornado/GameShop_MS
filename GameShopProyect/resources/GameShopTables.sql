@@ -63,7 +63,7 @@ CREATE TABLE `conferencia` (
   `tematica` varchar(50) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   `version` int(4) NOT NULL,
-  PRIMARY KEY (`id`,`nombre`)
+  PRIMARY KEY (`id`,`nombre`,`fecha`)
 );
 
 CREATE TABLE `departamento` (
@@ -73,7 +73,7 @@ CREATE TABLE `departamento` (
   `numPlanta` int(2) NOT NULL,
   `activo` tinyint(1) NOT NULL,
    `version` int(4) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`,`nombre`)
 );
 
 CREATE TABLE `empleado` (
@@ -86,7 +86,7 @@ CREATE TABLE `empleado` (
   `dtype` varchar(45) NOT NULL,
   `activo` tinyint(1) NOT NULL,
    `version` int(4) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`,`nif`),
   KEY `id_idx` (`depto_id`),
   CONSTRAINT `id` FOREIGN KEY (`depto_id`) REFERENCES `departamento` (`id`)
 );
@@ -120,18 +120,3 @@ CREATE TABLE `realiza` (
   CONSTRAINT `conferencia_id` FOREIGN KEY (`conferencia`) REFERENCES `conferencia` (`id`),
   CONSTRAINT `empleado_id` FOREIGN KEY (`empleado`) REFERENCES `empleado` (`id`)
 );
-
-
------------------------------ 	PROVIDER   ---------------------------------------
-
---INSERT INTO proveedor(ID,direccion,NIF,telefono,activo) values (1,'calle igual','76664094B',622237470,true);
---INSERT INTO proveedor(ID,direccion,NIF,telefono,activo) values (2,'calle igual','16374546H',999888777,false);
---INSERT INTO proveedor(ID,direccion,NIF,telefono,activo) values (3,'calle igual','99296921X',222333444,false);
---INSERT INTO proveedor(ID,direccion,NIF,telefono,activo) values (4,'calle igual','45176319H',622237470,false);
-
------------------------------ 	PRODUCT   ---------------------------------------
-
---INSERT INTO `producto` (`ID`, `nombre`, `descripcion`, `PVP`, `stock`, `IDProveedor`, `activo`, `unidadesProv`, `genero`, `tipo`) VALUES ('1', 'Fifa', 'descripcion', '2', '6', '1', '1', '1', '6', 'Horror', 'VideoGame');
---INSERT INTO `producto` (`ID`, `nombre`, `descripcion`, `PVP`, `stock`, `IDProveedor`, `activo`, `unidadesProv`, `genero`, `tipo`)
-						--VALUES ('2', 'FORTNITE', 'descripcion', '20', '6', '1', '1', '6', 'Shooter', 'VideoGame');
-

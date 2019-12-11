@@ -24,16 +24,17 @@ public class SAConferenciaImp implements SAConferencia {
 	public Integer registrarConferencia(TConferencia data) {
 		Integer id = -1;
 		try {
-			if(validezDeDatos(data)) {
+			if (validezDeDatos(data)) {
 				EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 				EntityManager em = emf.createEntityManager();
 				Conferencia con = new Conferencia();
-				
+
 				em.getTransaction().begin();
 				data.setDate(Timestamp.valueOf(data.getStringFecha()));
-				TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre", Conferencia.class);
-				q.setParameter("nombre",data.getNombre());
-				if(q.getResultList().isEmpty()) {//vemos que no existe la conferencia
+				TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre",
+						Conferencia.class);
+				q.setParameter("nombre", data.getNombre());
+				if (q.getResultList().isEmpty()) {// vemos que no existe la conferencia
 					con.setNombre(data.getNombre());
 					con.setAsistentes(data.getAsistentes());
 					con.setFecha(data.getDate());
@@ -43,17 +44,16 @@ public class SAConferenciaImp implements SAConferencia {
 					em.persist(con);
 					em.getTransaction().commit();
 					id = con.getId();
-					
-				}
-				else {//si existe
+
+				} else {// si existe
 					em.getTransaction().rollback();
 				}
-				
+
 				em.close();
 				emf.close();
 			}
 			return id;
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return -1;
 		}
 	}
@@ -62,27 +62,25 @@ public class SAConferenciaImp implements SAConferencia {
 		Boolean ret = false;
 
 		try {
-			EntityManagerFactory emf = Persistence
-					.createEntityManagerFactory("GameShopPersistence");
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 			EntityManager em = emf.createEntityManager();
 
 			em.getTransaction().begin();
 
 			Conferencia con = em.find(Conferencia.class, id);
-			
+
 			if (con != null && con.getActivo()) {
 				em.lock(con, LockModeType.OPTIMISTIC);
 				con.setActivo(false);
-				if(con.getRealiza()==null || !con.getRealiza().isEmpty()) {
+				if (con.getRealiza() == null || !con.getRealiza().isEmpty()) {
 					for (Realiza r : con.getRealiza()) {
 						em.remove(r);
-					}	
+					}
 				}
 				ret = true;
 				em.getTransaction().commit();
-			}
-			else em.getTransaction().rollback();
-			
+			} else
+				em.getTransaction().rollback();
 
 			em.close();
 			emf.close();
@@ -109,13 +107,18 @@ public class SAConferenciaImp implements SAConferencia {
 				Conferencia con = em.find(Conferencia.class, data.getID());
 				
 				if (con != null) {
-					con.setNombre(data.getNombre());
-					con.setTematica(data.getTematica());
-					con.setAsistentes(data.getAsistentes());
-					con.setFecha(data.getDate());
-					con.setActivo(data.getActivo());
-					ret = true;
-					em.getTransaction().commit();
+					TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre", Conferencia.class);
+					q.setParameter("nombre",data.getNombre());
+					if(q.getResultList().isEmpty()) {//no te deja modificar el nombre si el que ha introducido ya esta disponible
+						con.setNombre(data.getNombre());
+						con.setTematica(data.getTematica());
+						con.setAsistentes(data.getAsistentes());
+						con.setFecha(data.getDate());
+						con.setActivo(data.getActivo());
+						ret = true;
+						em.getTransaction().commit();
+					}
+					else em.getTransaction().rollback();
 				}
 				else em.getTransaction().rollback();
 				em.close();
@@ -131,8 +134,7 @@ public class SAConferenciaImp implements SAConferencia {
 		TConferencia ret = null;
 
 		try {
-			EntityManagerFactory emf = Persistence
-					.createEntityManagerFactory("GameShopPersistence");
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 			EntityManager em = emf.createEntityManager();
 
 			em.getTransaction().begin();
@@ -142,12 +144,12 @@ public class SAConferenciaImp implements SAConferencia {
 			// Buscamos en Realiza los empleados de esta conferencia para
 			// guardarlos en la lista de TConferencia
 			// y luego mostrar todos
-			if (con != null){
+			if (con != null) {
 				em.lock(con, LockModeType.OPTIMISTIC);
 				ret = con.toTransfer();
 				em.getTransaction().commit();
-			}
-			else em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
 			em.close();
 			emf.close();
 
@@ -161,8 +163,7 @@ public class SAConferenciaImp implements SAConferencia {
 		List<Object> ret = null;
 
 		try {
-			EntityManagerFactory emf = Persistence
-					.createEntityManagerFactory("GameShopPersistence");
+			EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 			EntityManager em = emf.createEntityManager();
 
 			em.getTransaction().begin();
@@ -170,8 +171,7 @@ public class SAConferenciaImp implements SAConferencia {
 			// Para JPQL si Conferencia es una Entity hay que hacer
 			// "createQuery" pero si no fuere una Entity seria
 			// "createNativeQuery"
-			TypedQuery<Conferencia> query = em.createQuery(
-					"SELECT c FROM Conferencia c", Conferencia.class);
+			TypedQuery<Conferencia> query = em.createQuery("SELECT c FROM Conferencia c", Conferencia.class);
 			List<Conferencia> aux = query.getResultList();
 
 			if (aux != null) {
@@ -180,10 +180,10 @@ public class SAConferenciaImp implements SAConferencia {
 					em.lock(c, LockModeType.OPTIMISTIC);
 					ret.add(c.toTransfer());
 				}
-					
+
 				em.getTransaction().commit();
-			}
-			else em.getTransaction().rollback();
+			} else
+				em.getTransaction().rollback();
 
 			em.close();
 			emf.close();
@@ -210,19 +210,13 @@ public class SAConferenciaImp implements SAConferencia {
 			String[] hours = fullDate[1].split(":");// hh:mm:ss
 
 			if ((date[0].length() != 4 || Integer.parseInt(date[0]) < 2019)
-					|| (Integer.parseInt(date[1]) < 1 || Integer
-							.parseInt(date[1]) > 12)
-					|| (Integer.parseInt(date[2]) < 1 || Integer
-							.parseInt(date[2]) > 31))
+					|| (Integer.parseInt(date[1]) < 1 || Integer.parseInt(date[1]) > 12)
+					|| (Integer.parseInt(date[2]) < 1 || Integer.parseInt(date[2]) > 31))
 				validos = false;
-			
-			
-			else if ((Integer.parseInt(hours[0]) > 23 || Integer
-					.parseInt(hours[0]) < 0)
-					|| (Integer.parseInt(hours[1]) > 59 || Integer
-							.parseInt(hours[1]) < 0)
-					|| (Integer.parseInt(hours[2]) > 59 || Integer
-							.parseInt(hours[2]) < 0))
+
+			else if ((Integer.parseInt(hours[0]) > 23 || Integer.parseInt(hours[0]) < 0)
+					|| (Integer.parseInt(hours[1]) > 59 || Integer.parseInt(hours[1]) < 0)
+					|| (Integer.parseInt(hours[2]) > 59 || Integer.parseInt(hours[2]) < 0))
 				validos = false;
 		}
 

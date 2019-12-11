@@ -154,7 +154,7 @@ public class SADepartamentoImp implements SADepartamento {
 		if (dep != null) {
 			Collection<Empleado> e = dep.getEmpleados();
 			for (Empleado empleado : e) {
-				em.lock(e, LockModeType.OPTIMISTIC);
+				em.lock(dep, LockModeType.OPTIMISTIC);
 				nominaFinal += empleado.calcularSueldo();
 			}
 			em.getTransaction().commit();

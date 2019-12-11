@@ -86,7 +86,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 			}
 			Departamento d = null;
 			if(con.getDepartamento() != null)
-				d = em.find(Departamento.class, con.getDepartamento(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				d = em.find(Departamento.class, con.getDepartamento().getId(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 			if (d != null) {
 				d.getEmpleados().remove(con);
 				con.setDepartamento(null);
@@ -119,10 +119,15 @@ public class SAEmpleadoImp implements SAEmpleado {
 			if (emp != null) {
 				ret = true;
 				emp.setNIF(data.getNIF());
+				emp.setActivo(data.getActivo());
 				emp.setNombre(data.getNombre());
 				emp.setSueldoBase(data.getSueldobase());
 				emp.setTurno(data.getTurno());
-				emp.setDepartamento(em.find(Departamento.class, data.getID(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
+				if(data.getDepartamento() != null)
+					emp.setDepartamento(em.find(Departamento.class, data.getID(),LockModeType.OPTIMISTIC_FORCE_INCREMENT));
+				else
+					emp.setDepartamento(null);
+				
 				if (data.getTipo().equalsIgnoreCase(Empleado.Comercial))
 					((Comercial) emp).setnVentas(((TComercial) data).getnVentas());
 				else {

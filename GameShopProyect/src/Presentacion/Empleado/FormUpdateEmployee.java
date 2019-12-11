@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Negocio.Empleado.Empleado;
+import Negocio.Transfers.TComercial;
 import Negocio.Transfers.TDepartamento;
 import Negocio.Transfers.TEmpleado;
 import Negocio.Transfers.TProvider;
@@ -38,11 +39,12 @@ public class FormUpdateEmployee extends FormEmployee {
 			this.add(Box.createRigidArea(new Dimension(300, 1)));
 			this.add(_especialidad);
 			this.add(_specialtyText);
+			this._specialtyText.setText(((TTecnico)t).getEspecialidad());
 			this.add(Box.createRigidArea(new Dimension(10, 1)));
 			this.add(_sobresueldo);
 			this.add(_sobresueldoText);
+			this._sobresueldoText.setValue(((TTecnico)t).getSobresueldo());
 			this.add(Box.createRigidArea(new Dimension(100, 1)));
-			TTecnico.SOBRESUELDO = (Double)_sobresueldoText.getValue();
 		}
 
 		this.add(_ok);
@@ -70,6 +72,17 @@ public class FormUpdateEmployee extends FormEmployee {
 		
 		this.add(this._reactivate);
 		this.setVisible(true);
+		if(t.getDepartamento() != null) {
+			Controller.getInstance().action(t.getDepartamento(), Event.READ_DEPARTMENT);
+			this._departmentElection.setSelectedItem(_employee.getDepartamento() + " - " + ((TDepartamento)GUIEmployee.getInstance().getOpPanel().getEntityToUse()).getNombre());
+		}else{
+			this._departmentElection.setSelectedIndex(0);
+		}
+		this._nameText.setText(t.getNombre());
+		this._nifText.setText(t.getNIF());
+		this._nifText.setEnabled(false);
+		this._salaryElection.setValue(t.getSueldobase());
+		this._turnElection.setSelectedItem(t.getTurno());
 	}
 	
 	@Override
@@ -101,7 +114,42 @@ public class FormUpdateEmployee extends FormEmployee {
 		_ok.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					String nif = _nifText.getText();
+					String nombre = _nameText.getText();
+					String turno = (String)_turnElection.getSelectedItem();
+					Double salarioBase = (Double)_salaryElection.getValue();
+					boolean act = _reactivate.isSelected();
+					
+					// Para ver si ha seleccionado o no un departamento
+					Integer departamento;
+					if(((String)_departmentElection.getSelectedItem()).equalsIgnoreCase(FormEmployee.SIN_DEPARTAMENTO)){
+						departamento = null;
+					}
+					else {
+						String[] infoDpto = ((String)_departmentElection.getSelectedItem()).split(" - ");
+						departamento = Integer.parseInt(infoDpto[0]);
+					}
+					
+					// Guardar datos
+					TEmpleado empleado;
+					if(((String)_typeElection.getSelectedItem()).equalsIgnoreCase(Empleado.Comercial)) {
+						Integer nVentas = (Integer)_numVentas.getValue();
+						empleado = new TComercial(nif, nombre, turno, salarioBase, departamento, nVentas, Empleado.Comercial);
+					}
+					else {
+						String especialidad = _specialtyText.getText();
+						Double sobresueldo = (Double)_sobresueldoText.getValue();
+						empleado = new TTecnico(nif, nombre, turno, salarioBase, departamento, sobresueldo, especialidad, Empleado.Tecnico);
+					}			
+					empleado.setActivo(act);
+					empleado.setID(_employee.getID());
+					Controller.getInstance().action(empleado, Event.MODIFY_EMPLOYEE);
+					closeDialog();
+				} catch(Exception ex) {
+					closeDialog();
+					Controller.getInstance().action(null, Event.MODIFY_EMPLOYEE);
+				}
 			}
 		});
 	}

@@ -68,7 +68,6 @@ public class GUIEmployeeImp extends GUIEmployee {
 			
 		case Event.RES_READ_EMPLOYEE_OK:
 			TEmpleado tp = (TEmpleado)data.getKey();
-			this._leftPane.setEntityToUse(tp);
 			_rightPane.setInfoInScreen(tp.toString());
 			break;
 			
@@ -82,6 +81,14 @@ public class GUIEmployeeImp extends GUIEmployee {
 			
 		case Event.RES_READALL_EMPLOYEE_FAILED:
 			JOptionPane.showMessageDialog(this, "Error showing all employees.","Failed",JOptionPane.ERROR_MESSAGE);			
+			break;
+			
+		case Event.RES_READ_DEPARTMENT_OK:
+			this._leftPane.setEntityToUse(data.getKey());
+			break;
+			
+		case Event.READ_EMPLOYEE_FORM:
+			this._leftPane.setEntityToUse(data.getKey());
 			break;
 			
 		case Event.UPDATE_LIST_DEPARTMENT:

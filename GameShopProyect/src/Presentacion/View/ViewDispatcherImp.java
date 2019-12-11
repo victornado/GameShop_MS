@@ -141,6 +141,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIConferencia.getInstance().actualiza(data);
 			GUIRealiza.getInstance().actualiza(data);
 			break;
+		case Event.READ_CONFERENCE_FORM:
+			GUIConferencia.getInstance().actualiza(data);
+			break;
 			
 		/****************************** DEPARTAMENTO *****************************/
 		case Event.RES_REGISTER_DEPARTMENT_OK:
@@ -163,6 +166,7 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			break;
 		case Event.RES_READ_DEPARTMENT_OK:
 			GUIDepartment.getInstance().actualiza(data);
+			GUIEmployee.getInstance().actualiza(data);
 			break;
 		case Event.RES_READ_DEPARTMENT_FAILED:
 			GUIDepartment.getInstance().actualiza(data);
@@ -181,6 +185,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIDepartment.getInstance().actualiza(data);
 			break;
 		case Event.CALCULAR_NOMINA_DEPARTAMENTO_FAILED:
+			GUIDepartment.getInstance().actualiza(data);
+			break;
+		case Event.READ_DEPARTMENT_FORM:
 			GUIDepartment.getInstance().actualiza(data);
 			break;
 			
@@ -220,6 +227,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUIRealiza.getInstance().actualiza(data);
 			//GUIDepartment.getInstance().actualiza(data);
 			//GUIConferencia.getInstance().actualiza(data);
+			break;
+		case Event.READ_EMPLOYEE_FORM:
+			GUIEmployee.getInstance().actualiza(data);
 			break;
 			
 		/******************************** REALIZA ********************************/

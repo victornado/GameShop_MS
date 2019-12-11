@@ -133,15 +133,15 @@ public class OperationsPanel extends JPanel {
 						
 		/***************************************************************************************************************************************/
 					case "conference":
-						Controller.getInstance().action(id, Event.READ_CONFERENCE);
+						Controller.getInstance().action(id, Event.READ_CONFERENCE_FORM);
 						new FormUpdateConferencia((TConferencia)_entityToUse);
 						break;
 					case "department":
-						Controller.getInstance().action(id, Event.READ_DEPARTMENT);
+						Controller.getInstance().action(id, Event.READ_DEPARTMENT_FORM);
 						new FormUpdateDepartment((TDepartamento)_entityToUse);
 						break;
 					case "employee":
-						Controller.getInstance().action(id, Event.READ_EMPLOYEE);
+						Controller.getInstance().action(id, Event.READ_EMPLOYEE_FORM);
 						new FormUpdateEmployee((TEmpleado)_entityToUse);
 						break;
 					}

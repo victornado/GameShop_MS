@@ -71,6 +71,7 @@ public class Event {
 	public static final int RES_READALL_CONFERENCE_OK 						= 134;
 	public static final int RES_READALL_CONFERENCE_FAILED 					= 135;
 	public static final int UPDATE_LIST_CONFERENCE							= 13009;
+	public static final int READ_CONFERENCE_FORM							= 69093;
 	
 	// DEPARTMENT (5)
 	public static final int REGISTER_DEPARTMENT 							= 18;
@@ -92,7 +93,8 @@ public class Event {
 	public static final int CALCULAR_NOMINA_DEPARTAMENTO			 		= 149779;
 	public static final int CALCULAR_NOMINA_DEPARTAMENTO_OK			 		= 147719;
 	public static final int CALCULAR_NOMINA_DEPARTAMENTO_FAILED		 		= 114979;
-	
+	public static final int READ_DEPARTMENT_FORM							= 69095;
+
 	// EMPLOYEE (6)
 	public static final int REGISTER_EMPLOYEE 								= 22;
 	public static final int UNSUBSCRIBE_EMPLOYEE 							= 23;
@@ -110,6 +112,8 @@ public class Event {
 	public static final int RES_READALL_EMPLOYEE_OK 						= 150;
 	public static final int RES_READALL_EMPLOYEE_FAILED 					= 151;
 	public static final int UPDATE_LIST_EMPLOYEE							= 1300;
+	public static final int READ_EMPLOYEE_FORM								= 69096;
+	
 	
 	// REALIZA (7)
 	public static final int REALIZA_ASIGNAR									= 13050;

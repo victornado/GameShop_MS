@@ -51,7 +51,8 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.READ_CONFERENCE, new ShowOneConferenceCommand());
 		_availableCommands.put(Event.READ_ALL_CONFERENCE, new ShowAllConferenceCommand());
 		_availableCommands.put(Event.UPDATE_LIST_CONFERENCE, new UpdateComboBoxConference());
-
+		_availableCommands.put(Event.READ_CONFERENCE_FORM, new ReadConferenceToForm());
+		
 		/******************************** DEPARTMENT ********************************/
 		_availableCommands.put(Event.REGISTER_DEPARTMENT, new CreateDepartmentCommand());
 		_availableCommands.put(Event.UNSUBSCRIBE_DEPARTMENT, new DeleteDepartmentCommand());
@@ -60,6 +61,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.READ_ALL_DEPARTMENT, new ShowAllDepartmentCommand());
 		_availableCommands.put(Event.UPDATE_LIST_DEPARTMENT, new UpdateComboBoxDpto());
 		_availableCommands.put(Event.CALCULAR_NOMINA_DEPARTAMENTO, new CalcularNominaCommand());
+		_availableCommands.put(Event.READ_DEPARTMENT_FORM, new ReadDepartmentToForm());
 
 		/********************************* EMPLOYEE *********************************/
 		_availableCommands.put(Event.REGISTER_EMPLOYEE, new CreateEmployeeCommand());
@@ -68,6 +70,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.READ_EMPLOYEE, new ShowOneEmployeeCommand());
 		_availableCommands.put(Event.READ_ALL_EMPLOYEE, new ShowAllEmployeeCommand());
 		_availableCommands.put(Event.UPDATE_LIST_EMPLOYEE, new UpdateComboBoxEmployee());
+		_availableCommands.put(Event.READ_EMPLOYEE_FORM, new ReadEmployeeToForm());
 		
 		/********************************** REALIZA **********************************/
 		_availableCommands.put(Event.REALIZA_ASIGNAR, new RealizaAsignarCommand());

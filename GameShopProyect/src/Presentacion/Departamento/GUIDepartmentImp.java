@@ -83,6 +83,10 @@ public class GUIDepartmentImp extends GUIDepartment {
 			JOptionPane.showMessageDialog(this, "Error showing all departments.","Failed",JOptionPane.ERROR_MESSAGE);			
 			break;
 			
+		case Event.READ_DEPARTMENT_FORM:
+			this._leftPane.setEntityToUse(data.getKey());
+			break;
+			
 		case Event.CALCULAR_NOMINA_DEPARTAMENTO_OK:
 			_rightPane.mostrarNomina(data.getKey().toString());
 			break;

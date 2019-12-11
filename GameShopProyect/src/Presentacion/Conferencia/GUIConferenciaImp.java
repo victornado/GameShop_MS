@@ -66,7 +66,6 @@ public class GUIConferenciaImp extends GUIConferencia {
 			
 		case Event.RES_READ_CONFERENCE_OK:
 			TConferencia tp = (TConferencia)data.getKey();
-			this._leftPane.setEntityToUse(tp);
 			_rightPane.setInfoInScreen(tp.toString());
 			break;
 			
@@ -80,6 +79,10 @@ public class GUIConferenciaImp extends GUIConferencia {
 			
 		case Event.RES_READALL_CONFERENCE_FAILED:
 			JOptionPane.showMessageDialog(this, "Error showing all conferences.","Failed",JOptionPane.ERROR_MESSAGE);			
+			break;
+			
+		case Event.READ_CONFERENCE_FORM:
+			this._leftPane.setEntityToUse(data.getKey());
 			break;
 			
 		case Event.UPDATE_LIST_CONFERENCE:

@@ -60,10 +60,12 @@ public class SADepartamentoImp implements SADepartamento {
 				empleado.setDepartamento(null);//TODO ver si no peta
 			}
 			dep.setActivo(false);
+			
+			em.getTransaction().commit();
 			ret = true;
 		}
 
-		em.getTransaction().commit();
+		
 
 		em.close();
 		emf.close();
@@ -90,8 +92,9 @@ public class SADepartamentoImp implements SADepartamento {
 					dep.setNombre(data.getNombre());
 					dep.setPlanta(data.getPlanta());
 					dep.setActivo(data.getActivo());
-					ret = true;
+					
 					em.getTransaction().commit();
+					ret = true;
 				}
 				else em.getTransaction().rollback();
 			}

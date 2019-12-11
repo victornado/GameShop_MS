@@ -94,8 +94,9 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 			con.setActivo(false);
 
-			ret = true;
+			
 			em.getTransaction().commit();
+			ret = true;
 		} else // si no existe
 			em.getTransaction().rollback();
 
@@ -117,7 +118,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 			Empleado emp = em.find(Empleado.class, data.getID());
 
 			if (emp != null) {
-				ret = true;
+				
 				emp.setNIF(data.getNIF());
 				emp.setNombre(data.getNombre());
 				emp.setSueldoBase(data.getSueldobase());
@@ -129,10 +130,11 @@ public class SAEmpleadoImp implements SAEmpleado {
 					((Tecnico) emp).setEspecialidad(((TTecnico) data).getEspecialidad());
 					((Tecnico) emp).setSobresueldo(((TTecnico) data).getSobresueldo());
 				}
-			}
+				em.getTransaction().commit();
+				ret = true;
+			}else em.getTransaction().rollback();
 
-			em.getTransaction().commit();
-
+			
 			em.close();
 			emf.close();
 		}

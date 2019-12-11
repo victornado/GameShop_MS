@@ -82,7 +82,7 @@ CREATE TABLE `empleado` (
   `nombre` varchar(70) NOT NULL,
   `sueldoBase` double NOT NULL,
   `turno` varchar(20) NOT NULL,
-  `depto_id` int(4) DEFAULT NULL,
+  `depto_id` int(4) ,
   `dtype` varchar(45) NOT NULL,
   `activo` tinyint(1) NOT NULL,
    `version` int(4) NOT NULL,
@@ -108,13 +108,17 @@ CREATE TABLE `tecnico` (
 
 CREATE TABLE `realiza` (
   `duracion` int(3) NOT NULL,
+  `version` int(4) NOT NULL,
   `conferencia` int(4) NOT NULL,
   `empleado` int(4) NOT NULL,
-  `uuid` varchar(45) NOT NULL,
-  KEY `idEmp_idx` (`empleado`),
-  KEY `idConfe` (`conferencia`),
-  CONSTRAINT `idConfe` FOREIGN KEY (`conferencia`) REFERENCES `conferencia` (`id`),
-  CONSTRAINT `idEmple` FOREIGN KEY (`empleado`) REFERENCES `empleado` (`id`)
+  `uuid` varchar(45),
+  `conferencia_id` int(4) NOT NULL,
+  `empleado_id` int(4) NOT NULL,
+  PRIMARY KEY(`conferencia`,`empleado`),
+  KEY `empleado_id` (`empleado`),
+  KEY `conferencia_id` (`conferencia`),
+  CONSTRAINT `conferencia_id` FOREIGN KEY (`conferencia`) REFERENCES `conferencia` (`id`),
+  CONSTRAINT `empleado_id` FOREIGN KEY (`empleado`) REFERENCES `empleado` (`id`)
 );
 
 

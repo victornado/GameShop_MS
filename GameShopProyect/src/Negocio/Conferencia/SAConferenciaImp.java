@@ -25,7 +25,6 @@ public class SAConferenciaImp implements SAConferencia {
 		Integer id = -1;
 		try {
 			if(validezDeDatos(data)) {
-				data.setDate(data.toTimestamp(data.getStringFecha()));
 				EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
 				EntityManager em = emf.createEntityManager();
 				Conferencia con = new Conferencia();
@@ -33,6 +32,7 @@ public class SAConferenciaImp implements SAConferencia {
 				RealizaEmbeddable losIds = null;
 				
 				em.getTransaction().begin();
+				data.setDate(Timestamp.valueOf(data.getStringFecha()));
 				TypedQuery<Conferencia> q = em.createNamedQuery("Negocio.Conferencia.Conferencia.findBynombre", Conferencia.class);
 				q.setParameter("nombre",data.getNombre());
 				if(q.getResultList().isEmpty()) {//vemos que no existe la conferencia

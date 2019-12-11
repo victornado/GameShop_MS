@@ -79,12 +79,14 @@ public class SAEmpleadoImp implements SAEmpleado {
 		Empleado con = em.find(Empleado.class, id);
 		if (con != null) {// si existe el empleado
 			em.lock(con, LockModeType.OPTIMISTIC);
-			if (con.getRealiza() == null || !con.getRealiza().isEmpty()) {// buscamos los realiza
+			if (con.getRealiza() != null ) {// buscamos los realiza
 				for (Realiza r : con.getRealiza()) {
 					em.remove(r);
 				}
 			}
-			Departamento d = em.find(Departamento.class, con.getDepartamento(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			Departamento d = null;
+			if(con.getDepartamento() != null)
+				d = em.find(Departamento.class, con.getDepartamento(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 			if (d != null) {
 				d.getEmpleados().remove(con);
 				con.setDepartamento(null);

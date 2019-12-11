@@ -1,11 +1,12 @@
 package Negocio.Empleado;
 
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+
 import javax.persistence.NamedQueries;
 
 import Negocio.Departamento.Departamento;
@@ -48,7 +50,7 @@ public abstract class Empleado implements Serializable {
 	@Version
 	private Integer version;
 	@OneToMany(mappedBy = "empleado")
-	private Set<Realiza> realiza;
+	private List<Realiza> realiza;
 
 	public Empleado() {
 		this.activo = true;
@@ -113,10 +115,10 @@ public abstract class Empleado implements Serializable {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	public Set<Realiza> getRealiza() {
+	public List<Realiza> getRealiza() {
 		return realiza;
 	}
-	public void setRealiza(Set<Realiza> realiza) {
+	public void setRealiza(List<Realiza> realiza) {
 		this.realiza = realiza;
 	}
 }

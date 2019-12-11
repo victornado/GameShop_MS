@@ -1,5 +1,6 @@
 package Negocio.Realiza;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+
+import org.junit.platform.engine.support.hierarchical.ExclusiveResource.LockMode;
 
 import Negocio.Conferencia.Conferencia;
 import Negocio.Empleado.Empleado;
@@ -52,8 +55,9 @@ public class SARealizaImp implements SARealiza{
 		em.getTransaction().begin();
 		Realiza real=em.find(Realiza.class, ids);
 		if(real!=null) {//esta en la base de datos
+			em.lock(real,LockModeType.OPTIMISTIC);
 			Empleado e= em.find(Empleado.class, ids.getEmpleado(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-			Set<Realiza>aux1 = e.getRealiza();
+			List<Realiza>aux1 = e.getRealiza();
 			aux1.remove(real);
 			e.setRealiza(aux1);
 			Conferencia c= em.find(Conferencia.class, ids.getConferencia(),LockModeType.OPTIMISTIC_FORCE_INCREMENT);

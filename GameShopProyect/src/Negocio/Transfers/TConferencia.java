@@ -82,10 +82,6 @@ public class TConferencia {
 		this.asistentes = asistentes;
 	}
 	
-	public Timestamp toTimestamp(String timeData) {
-		return Timestamp.valueOf(timeData);
-	}
-	
 	public String getStringFecha() {
 		return stringFecha;
 	}
@@ -109,9 +105,9 @@ public class TConferencia {
 
 	@Override
 	public String toString() {
-		StringBuilder str = new StringBuilder('\n');
+		StringBuilder str = new StringBuilder("\n");
 		for(TRealiza tr : empleadosEnConferencias)
-			str.append('\t' + tr.getIdEmp() + " - " + tr.getDuracion() + " mins" + '\n');
+			str.append(("\t")+" [id: " + tr.getIdEmp() + " - mins:" +  tr.getDuracion() +  "]\n");
 			
 		return ("ID: " + ID + '\n' +
 				"Activo: " + getActivo() + '\n' +

@@ -2,13 +2,19 @@ package Negocio.Realiza;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import java.util.UUID;
 
 @Embeddable
 public class RealizaEmbeddable implements Serializable {
 
 	private static final long serialVersionUID = 0;
+
 	
+	//private UUID uuid;
 	private Integer Empleado;
 	private Integer Conferencia;
 
@@ -50,8 +56,6 @@ public class RealizaEmbeddable implements Serializable {
 		return true;
 	}
 
-	private UUID uuid;
-
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
@@ -62,10 +66,10 @@ public class RealizaEmbeddable implements Serializable {
 			hash = hash * prime + Empleado.hashCode();
 		}
 		if (hash == 17) {
-			if (uuid == null) {
+			/*if (uuid == null) {
 				uuid = UUID.randomUUID();
 			}
-			hash = uuid.hashCode();
+			hash = uuid.hashCode();*/
 		}
 		return hash;
 	}

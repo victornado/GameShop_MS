@@ -59,6 +59,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.READ_DEPARTMENT, new ShowOneDepartmentCommand());
 		_availableCommands.put(Event.READ_ALL_DEPARTMENT, new ShowAllDepartmentCommand());
 		_availableCommands.put(Event.UPDATE_LIST_DEPARTMENT, new UpdateComboBoxDpto());
+		_availableCommands.put(Event.CALCULAR_NOMINA_DEPARTAMENTO, new CalcularNominaCommand());
 
 		/********************************* EMPLOYEE *********************************/
 		_availableCommands.put(Event.REGISTER_EMPLOYEE, new CreateEmployeeCommand());

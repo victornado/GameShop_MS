@@ -9,8 +9,6 @@ import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.junit.platform.engine.support.hierarchical.ExclusiveResource.LockMode;
-
 import Negocio.Conferencia.Conferencia;
 import Negocio.Empleado.Empleado;
 import Negocio.Transfers.TRealiza;

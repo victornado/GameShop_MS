@@ -15,6 +15,7 @@ import javax.swing.event.ChangeListener;
 import Presentacion.Conferencia.ShowAllConferences;
 import Presentacion.Controller.Controller;
 import Presentacion.Controller.Event;
+import Presentacion.Departamento.CalcularNominasPanel;
 import Presentacion.Departamento.ShowAllDepartments;
 import Presentacion.Empleado.ShowAllEmployees;
 import Presentacion.Product.ShowAllProducts;
@@ -33,6 +34,7 @@ public class ShowPanel extends JPanel {
 	private ShowOne so;
 	private ShowAll sa;
 	private ShowChart sc;
+	private CalcularNominasPanel cnp;
 	
 	public ShowPanel(String nameIdentificator) {
 		this.nameIdentificator = nameIdentificator.toLowerCase();
@@ -52,6 +54,7 @@ public class ShowPanel extends JPanel {
 			break;
 		case "department":
 			this.sa = new ShowAllDepartments(null);
+			this.cnp = new CalcularNominasPanel();
 			break;
 		case "employee":
 			this.sa = new ShowAllEmployees(null);
@@ -90,6 +93,9 @@ public class ShowPanel extends JPanel {
 		else if(nameIdentificator.equalsIgnoreCase("Ticket") || nameIdentificator.equalsIgnoreCase("Product")) {
 			_tabs.addTab("Stats", null, sc, "Show the " + nameIdentificator + " chart");
 		}
+		else if(nameIdentificator.equalsIgnoreCase("department")) {
+			_tabs.addTab("Nomina", null, cnp, "Muestra la nomina de un departmaneto");
+		}
 		
 		
 		_tabs.addChangeListener(new ChangeListener() {
@@ -125,6 +131,10 @@ public class ShowPanel extends JPanel {
 	
 	public void updateBestProvider(String info) {
 		sc.updateBestProviderInfo(info);
+	}
+	
+	public void mostrarNomina(String info) {
+		this.cnp.set_info(info);
 	}
 	
 }

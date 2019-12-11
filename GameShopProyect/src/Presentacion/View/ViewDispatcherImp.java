@@ -222,6 +222,26 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			//GUIConferencia.getInstance().actualiza(data);
 			break;
 			
+		/******************************** REALIZA ********************************/
+		case Event.REALIZA_ASIGNAR_OK:
+			GUIRealiza.getInstance().actualiza(data);
+			break;
+		case Event.REALIZA_ASIGNAR_FAILED:
+			GUIRealiza.getInstance().actualiza(data);
+			break;
+		case Event.REALIZA_DESASIGNAR_OK:
+			GUIRealiza.getInstance().actualiza(data);
+			break;
+		case Event.REALIZA_DESASIGNAR_FAILED:
+			GUIRealiza.getInstance().actualiza(data);
+			break;
+		case Event.REALIZA_MODIFICAR_OK:
+			GUIRealiza.getInstance().actualiza(data);
+			break;
+		case Event.REALIZA_MODIFICAR_FAILED:
+			GUIRealiza.getInstance().actualiza(data);
+			break;
+			
 			
 		/******************************** QUERIES ********************************/
 		case Event.SHOW_PROVIDER_QUERY_OK:

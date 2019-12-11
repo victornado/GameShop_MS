@@ -31,6 +31,7 @@ public class FormDesasignarRealiza extends FormRealiza {
 				Integer idEmp = Integer.parseInt(((String)empleados.getSelectedItem()).split(" - ")[0]);
 				RealizaEmbeddable in = new RealizaEmbeddable(idEmp, idConf);
 				Controller.getInstance().action(in, Event.REALIZA_DESASIGNAR);
+				closeDialog();
 			}
 		});
 	}

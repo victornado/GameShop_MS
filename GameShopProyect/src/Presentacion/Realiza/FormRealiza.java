@@ -134,14 +134,16 @@ public class FormRealiza extends JDialog {
 		ok.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(empleadosEnConferencia.size() > 0) {
-					closeDialog();
-					
-					// Pasamos la lista al comando y este hace el for
-					Controller.getInstance().action(empleadosEnConferencia, Event.REALIZA_ASIGNAR);
-					
-					// Eliminamos todos los ids de los empleados pues ya no nos sirve
-					empleadosUsados.clear();
+				if(empleados.getItemCount() > 0 && conferencias.getItemCount() > 0) {
+					if(empleadosEnConferencia.size() > 0) {
+						closeDialog();
+						
+						// Pasamos la lista al comando y este hace el for
+						Controller.getInstance().action(empleadosEnConferencia, Event.REALIZA_ASIGNAR);
+						
+						// Eliminamos todos los ids de los empleados pues ya no nos sirve
+						empleadosUsados.clear();
+					}
 				}
 			}
 		});

@@ -70,11 +70,26 @@ public class SARealizaImp implements SARealiza{
 	}
 
 	@Override
-	public RealizaEmbeddable updateRealiza(TRealiza tp) {
+	public RealizaEmbeddable updateRealiza(TRealiza r) {
 		//Cuando se haga el em.find de empleado y conferencia hay que añadir "LockModeType.OPTIMISTIC_FORCE_INCREMENT"
 		//ya que necesitamos que el lado N (realiza) repercuta en el lado 1 (empleado y confe)
-		// TODO Auto-generated method stub
-		return null;
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("GameShopPersistence");
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		RealizaEmbeddable rE= new RealizaEmbeddable();
+		rE.setConferencia(r.getIdConf());
+		rE.setEmpleado(r.getIdEmp());
+		Realiza real= em.find(Realiza.class, rE);
+		if(real!=null) {//esta en la base de datos
+			real.setDuracion(r.getDuracion());
+			em.getTransaction().commit();
+		}
+		else {//no esta en la base de datos
+			rE=null;
+			em.getTransaction().rollback();
+		}
+		
+		return rE;
 	}
 	
 }

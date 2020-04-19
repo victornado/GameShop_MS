@@ -97,6 +97,11 @@ public class GUIProviderImp extends GUIProvider {
 		case Event.SHOW_PROVIDER_QUERY_FAILED:
 			JOptionPane.showMessageDialog(this, (String)data.getKey(),"Failed",JOptionPane.ERROR_MESSAGE);	
 			break;
+		case Event.UPDATE_LIST_PROVIDER:
+			if (this._leftPane != null) {
+				this._leftPane.setElectionForm((List<Object>) data.getKey());
+			}
+			break;
 		}
 	}
 }

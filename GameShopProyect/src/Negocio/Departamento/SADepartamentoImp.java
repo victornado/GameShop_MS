@@ -1,6 +1,7 @@
 package Negocio.Departamento;
 
 import Negocio.Empleado.Empleado;
+
 import Negocio.Transfers.TDepartamento;
 
 import java.util.ArrayList;

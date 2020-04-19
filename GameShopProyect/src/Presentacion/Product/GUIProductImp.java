@@ -94,6 +94,11 @@ public class GUIProductImp extends GUIProduct {
 		case Event.SHOW_PRODUCT_QUERY_FAILED:
 			JOptionPane.showMessageDialog(this, "Error showing the selected query.","Failed",JOptionPane.ERROR_MESSAGE);
 			break;
+		case Event.UPDATE_LIST_PRODUCT:
+			if (this._leftPane != null) {
+				this._leftPane.setElectionForm((List<Object>) data.getKey());
+			}
+			break;
 		}
 	}
 

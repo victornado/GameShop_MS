@@ -1,6 +1,7 @@
 package Presentacion.View;
 
 import java.awt.Color;
+
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -192,17 +193,26 @@ public class OperationsPanel extends JPanel {
 		_election.removeAllItems();
 		switch (nameIdentificator) {
 		case "provider":
-			for (Object tpro : SAAbstractFactory.getInstance().createSAProvider().readAllProviders())
-				_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
+			Controller.getInstance().action(null, Event.UPDATE_LIST_PROVIDER);
+			if (this._electionForm != null) {
+				for (Object tpro : this._electionForm)
+					_election.addItem(((TProvider) tpro).get_id() + " - " + ((TProvider) tpro).get_nif());
+			}
 			break;
 		case "product":
-			for (Object temp : SAAbstractFactory.getInstance().createSAProduct().readAllProducts())
-				_election.addItem(((TProduct) temp).get_id() + " - " + ((TProduct) temp).get_type() + " - "
-						+ ((TProduct) temp).get_name());
+			Controller.getInstance().action(null, Event.UPDATE_LIST_PRODUCT);
+			if (this._electionForm != null) {
+				for (Object temp : this._electionForm)
+					_election.addItem(((TProduct) temp).get_id() + " - " + ((TProduct) temp).get_type() + " - "
+							+ ((TProduct) temp).get_name());
+			}
 			break;
 		case "ticket":
-			for (Object tt : SAAbstractFactory.getInstance().createSATicket().readAllTickets())
-				_election.addItem(((TTicket) tt).get_id() + " - " + ((TTicket) tt).get_date());
+			Controller.getInstance().action(null, Event.UPDATE_LIST_TICKET);
+			if (this._electionForm != null) {
+				for (Object tt : this._electionForm)
+					_election.addItem(((TTicket) tt).get_id() + " - " + ((TTicket) tt).get_date());
+			}
 			break;
 		/****************************************************************************************************************************/
 		case "conference":

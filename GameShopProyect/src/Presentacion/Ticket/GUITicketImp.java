@@ -23,9 +23,6 @@ import utils.Pair;
 @SuppressWarnings("serial")
 public class GUITicketImp extends GUITicket {
 	
-	private OperationsPanel _leftPane;
-	private ShowPanel _rightPane;
-	
 	@Override
 	protected void alignmentPanels() {
 		this.setLayout(new BorderLayout());
@@ -47,7 +44,7 @@ public class GUITicketImp extends GUITicket {
 			Integer id = (Integer)data.getKey();
 			JOptionPane.showMessageDialog(null, "Ticket " + id + " has been correctly inserted into the database.", "Success",
 					JOptionPane.INFORMATION_MESSAGE);
-			//_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
+			_rightPane.update((SAAbstractFactory.getInstance().createSATicket()).readAllTickets());
 			_leftPane.addInfoToComboBox(/*(List<Object>)data.getKey()*/);
 			break;
 			
@@ -91,6 +88,11 @@ public class GUITicketImp extends GUITicket {
 			break;
 		case Event.SHOW_TICKET_QUERY_FAILED:
 			JOptionPane.showMessageDialog(this, "Error showing the selected query.","Failed",JOptionPane.ERROR_MESSAGE);
+			break;
+		case Event.UPDATE_LIST_TICKET:
+			if (this._leftPane != null) {
+				this._leftPane.setElectionForm((List<Object>) data.getKey());
+			}
 			break;
 		}
 	}

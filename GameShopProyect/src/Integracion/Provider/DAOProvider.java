@@ -2,6 +2,7 @@ package Integracion.Provider;
 
 import java.util.List;
 
+import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
 
 /** 

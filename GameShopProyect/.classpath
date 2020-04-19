@@ -10,8 +10,8 @@
 	<classpathentry kind="lib" path="resources/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="resources/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="lib" path="resources/mysql-connector-java-8.0.15.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/userlibrary"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/eclipselink"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/userlibrary"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/eclipselink"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

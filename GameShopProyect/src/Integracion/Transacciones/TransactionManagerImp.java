@@ -2,6 +2,7 @@ package Integracion.Transacciones;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+
 public class TransactionManagerImp extends TransactionManager {
 
 	private ConcurrentHashMap<Thread, Transaction> _transactions;

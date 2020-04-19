@@ -88,13 +88,13 @@ public class GUIGameshopImp extends GUIGameShop {
 
 		_tabs.addTab(GUIGameshopImp.TAB_TICKET, null, (GUITicketImp) _guis.get(2), "Ticket tab");
 
-		_tabs.addTab(GUIGameshopImp.TAB_CONFERENCE, null, (GUIConferenciaImp) _guis.get(3), "Conference tab");
+		//_tabs.addTab(GUIGameshopImp.TAB_CONFERENCE, null, (GUIConferenciaImp) _guis.get(3), "Conference tab");
 
-		_tabs.addTab(GUIGameshopImp.TAB_DEPARTMENT, null, (GUIDepartmentImp) _guis.get(4), "Department tab");
+		//_tabs.addTab(GUIGameshopImp.TAB_DEPARTMENT, null, (GUIDepartmentImp) _guis.get(4), "Department tab");
 
-		_tabs.addTab(GUIGameshopImp.TAB_EMPLOYEE, null, (GUIEmployeeImp) _guis.get(5), "Employee tab");
+		//_tabs.addTab(GUIGameshopImp.TAB_EMPLOYEE, null, (GUIEmployeeImp) _guis.get(5), "Employee tab");
 
-		_tabs.addTab(GUIGameshopImp.TAB_ASIGNACION, null, (GUIRealizaImp) _guis.get(6), "Asignar empleados a conferencias");
+		//_tabs.addTab(GUIGameshopImp.TAB_ASIGNACION, null, (GUIRealizaImp) _guis.get(6), "Asignar empleados a conferencias");
 
 		this.add(_tabs, BorderLayout.CENTER);
 	}
@@ -109,17 +109,23 @@ public class GUIGameshopImp extends GUIGameShop {
 		_guis.add(GUIProvider.getInstance());
 		_guis.add(GUIProduct.getInstance());
 		_guis.add(GUITicket.getInstance());
-		_guis.add(GUIConferencia.getInstance());
-		_guis.add(GUIDepartment.getInstance());
-		_guis.add(GUIEmployee.getInstance());
-		_guis.add(GUIRealiza.getInstance());
+		//_guis.add(GUIConferencia.getInstance());
+		//_guis.add(GUIDepartment.getInstance());
+		//_guis.add(GUIEmployee.getInstance());
+		//_guis.add(GUIRealiza.getInstance());
 		initTabs();
-		GUIDepartment.getInstance().getOpPanel().addInfoToComboBox();
-		GUIDepartment.getInstance().getShowPanel().update(GUIDepartment.getInstance().getOpPanel().getElectionForm());
-		GUIConferencia.getInstance().getOpPanel().addInfoToComboBox();
-		GUIConferencia.getInstance().getShowPanel().update(GUIConferencia.getInstance().getOpPanel().getElectionForm());
-		GUIEmployee.getInstance().getOpPanel().addInfoToComboBox();
-		GUIEmployee.getInstance().getShowPanel().update(GUIEmployee.getInstance().getOpPanel().getElectionForm());
+		//GUIDepartment.getInstance().getOpPanel().addInfoToComboBox();
+		//GUIDepartment.getInstance().getShowPanel().update(GUIDepartment.getInstance().getOpPanel().getElectionForm());
+		//GUIConferencia.getInstance().getOpPanel().addInfoToComboBox();
+		//GUIConferencia.getInstance().getShowPanel().update(GUIConferencia.getInstance().getOpPanel().getElectionForm());
+		//GUIEmployee.getInstance().getOpPanel().addInfoToComboBox();
+		//GUIEmployee.getInstance().getShowPanel().update(GUIEmployee.getInstance().getOpPanel().getElectionForm());
+		GUIProvider.getInstance().getOpPanel().addInfoToComboBox();
+		GUIProvider.getInstance().getShowPanel().update(GUIProvider.getInstance().getOpPanel().getElectionForm());
+		GUIProduct.getInstance().getOpPanel().addInfoToComboBox();
+		GUIProduct.getInstance().getShowPanel().update(GUIProduct.getInstance().getOpPanel().getElectionForm());
+		GUITicket.getInstance().getOpPanel().addInfoToComboBox();
+		GUITicket.getInstance().getShowPanel().update(GUITicket.getInstance().getOpPanel().getElectionForm());
 	}
 
 }

@@ -278,4 +278,51 @@ public class DAOProductImpl implements DAOProduct {
 
 		return tp;
 	}
+	
+	public List<TProduct> readProductsFromProvider(Integer id, Integer lock) throws Exception {
+		
+		List<TProduct> l = new ArrayList<TProduct>();
+		Transaction t = TransactionManager.getInstance().getTransaction();
+		Connection con = null;
+		if (t != null) {
+			con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM producto WHERE (IDProveedor=?)",
+					PreparedStatement.RETURN_GENERATED_KEYS);
+			if (lock == LockModeType.PESSIMISTIC)
+				ps = con.prepareStatement("SELECT * FROM producto WHERE (IDProveedor=?) FOR UPDATE", PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				TProduct tp;
+				if (rs.getString(12).equalsIgnoreCase(TProduct.game)) {
+					tp = new TGame();
+					((TGame) tp).set_gender(rs.getString(9));
+					tp.set_type(TProduct.game);
+				} else {
+					tp = new TAccessory();
+					((TAccessory) tp).set_brand(rs.getString(10));
+					((TAccessory) tp).set_color(rs.getString(11));
+					tp.set_type(TProduct.accessory);
+				}
+
+				tp.set_id(rs.getInt(1));
+				tp.set_name(rs.getString(2));
+				tp.set_description(rs.getString(3));
+				tp.set_pvp(rs.getDouble(4));
+				tp.set_stock(rs.getInt(5));
+				tp.set_providerId(rs.getInt(6));
+				tp.set_activated(rs.getBoolean(7));
+				tp.set_unitsProvided(rs.getInt(8));
+				tp.set_type(rs.getString(12));
+
+				l.add(tp);
+			}
+
+		}
+		
+		return l;
+		
+	}
 }

@@ -5,12 +5,14 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Integracion.DAO.DAOAbstractFactory;
+import Integracion.Product.DAOProduct;
 import Integracion.Provider.DAOProvider;
 import Integracion.Querys.LockModeType;
 import Integracion.Querys.QueryEvents;
 import Integracion.Querys.QueryFactory;
 import Integracion.Transacciones.Transaction;
 import Integracion.Transacciones.TransactionManager;
+import Negocio.Transfers.TProduct;
 import Negocio.Transfers.TProvider;
 
 /**
@@ -57,6 +59,15 @@ public class SAProviderImpl implements SAProvider {
 				// borrarlo
 				if (tprnif != null && tprnif.get_activated())
 					ret = daopi.deleteProvider(tprnif);
+				if(ret) {
+					DAOProduct daopr = DAOAbstractFactory.getInstance().createDAOProduct();
+					List<TProduct> l = daopr.readProductsFromProvider(tprnif.get_id(),LockModeType.PESSIMISTIC);
+					for(TProduct tprd : l) {
+						if(tprd.get_activated()) {
+							daopr.deleteProduct(tprd.get_id());
+						}
+					}
+				}
 			}
 			t.commit();
 		} catch (Exception e) {

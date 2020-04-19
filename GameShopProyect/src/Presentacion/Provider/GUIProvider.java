@@ -27,4 +27,7 @@ public abstract class GUIProvider extends JPanel implements IGUI {
 	public OperationsPanel getOpPanel() {
 		return this._leftPane;
 	}
+	public ShowPanel getShowPanel() {
+		return this._rightPane;
+	}
 }

@@ -47,7 +47,10 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.RES_READALL_PROVIDERS_FAILED:
 			GUIProvider.getInstance().actualiza(data);
 			break;
-
+		case Event.UPDATE_LIST_PROVIDER:
+			GUIProvider.getInstance().actualiza(data);
+			break;
+			
 		/******************************** PRODUCT ********************************/
 		case Event.RES_REGISTER_PRODUCT_OK:
 			GUIProduct.getInstance().actualiza(data);
@@ -79,6 +82,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 		case Event.RES_READALL_PRODUCT_FAILED:
 			GUIProduct.getInstance().actualiza(data);
 			break;
+		case Event.UPDATE_LIST_PRODUCT:
+			GUIProduct.getInstance().actualiza(data);
+			break;
 
 		/******************************** TICKET ********************************/
 		case Event.RES_REGISTER_TICKET_OK:
@@ -103,6 +109,9 @@ public class ViewDispatcherImp extends ViewDispatcher {
 			GUITicket.getInstance().actualiza(data);
 			break;
 		case Event.RES_READALL_TICKET_FAILED:
+			GUITicket.getInstance().actualiza(data);
+			break;
+		case Event.UPDATE_LIST_TICKET:
 			GUITicket.getInstance().actualiza(data);
 			break;
 

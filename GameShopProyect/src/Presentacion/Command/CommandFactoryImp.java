@@ -30,6 +30,7 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.MODIFY_PROVIDER, new UpdateProviderCommand());
 		_availableCommands.put(Event.READ_PROVIDER, new ShowOneProviderCommand());
 		_availableCommands.put(Event.READ_ALL_PROVIDERS, new ShowAllProvidersCommand());
+		_availableCommands.put(Event.UPDATE_LIST_PROVIDER, new UpdateComboBoxProvider());
 
 		/********************************** PRODUCT **********************************/
 		_availableCommands.put(Event.REGISTER_PRODUCT, new CreateProductCommand());
@@ -37,12 +38,14 @@ public class CommandFactoryImp extends CommandFactory {
 		_availableCommands.put(Event.MODIFY_PRODUCT, new UpdateProductCommand());
 		_availableCommands.put(Event.READ_PRODUCT, new ShowOneProductCommand());
 		_availableCommands.put(Event.READ_ALL_PRODUCT, new ShowAllProductCommand());
+		_availableCommands.put(Event.UPDATE_LIST_PRODUCT, new UpdateComboBoxProduct());
 
 		/********************************** TICKET **********************************/
 		_availableCommands.put(Event.REGISTER_TICKET, new CreateTicketCommand());
 		_availableCommands.put(Event.UNSUBSCRIBE_TICKET, new DeleteTicketCommand());
 		_availableCommands.put(Event.READ_TICKET, new ShowOneTicketCommand());
 		_availableCommands.put(Event.READ_ALL_TICKET, new ShowALLTicketCommand());
+		_availableCommands.put(Event.UPDATE_LIST_TICKET, new UpdateComboBoxTicket());
 
 		/******************************** CONFERENCE ********************************/
 		_availableCommands.put(Event.REGISTER_CONFERENCE, new CreateConferenceCommand());

@@ -21,6 +21,7 @@ public class Event {
 	public static final int RES_READ_PROVIDER_FAILED = 107;
 	public static final int RES_READALL_PROVIDERS_OK = 108;
 	public static final int RES_READALL_PROVIDERS_FAILED = 109;
+	public static final int UPDATE_LIST_PROVIDER = 12111;
 
 	// PRODUCT (2)
 	public static final int REGISTER_PRODUCT = 5;
@@ -38,6 +39,7 @@ public class Event {
 	public static final int RES_READ_PRODUCT_FAILED = 117;
 	public static final int RES_READALL_PRODUCT_OK = 118;
 	public static final int RES_READALL_PRODUCT_FAILED = 119;
+	public static final int UPDATE_LIST_PRODUCT = 1550;
 
 	// TICKET (3)
 	public static final int REGISTER_TICKET = 10;
@@ -52,6 +54,7 @@ public class Event {
 	public static final int RES_READ_TICKET_FAILED = 125;
 	public static final int RES_READALL_TICKET_OK = 126;
 	public static final int RES_READALL_TICKET_FAILED = 127;
+	public static final int UPDATE_LIST_TICKET = 999999;
 
 	// CONFERENCE (4)
 	public static final int REGISTER_CONFERENCE = 14;

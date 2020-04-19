@@ -1,5 +1,5 @@
 
-package src.Main;
+package Main;
 
 import java.io.File;
 

@@ -111,7 +111,6 @@ CREATE TABLE `realiza` (
   `version` int(4) NOT NULL,
   `conferencia` int(4) NOT NULL,
   `empleado` int(4) NOT NULL,
-  `uuid` varchar(45),
   `conferencia_id` int(4) NOT NULL,
   `empleado_id` int(4) NOT NULL,
   PRIMARY KEY(`conferencia`,`empleado`),

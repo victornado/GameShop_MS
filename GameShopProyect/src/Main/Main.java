@@ -1,7 +1,7 @@
-
 package Main;
 
 import java.io.File;
+
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -13,9 +13,9 @@ import javax.swing.SwingUtilities;
 import Presentacion.View.InfoDB;
 
 public class Main {
-
+	
 	public static final String applicationName = "GameShop";
-	public static String database = "gameshopapplication";
+	public static String database = "gameshop";
 	public static String user = "root";
 	public static String password = "1234567890";
 
@@ -24,14 +24,14 @@ public class Main {
 
 		try
 		{
-			AudioInputStream audioInputStream = 
+			/*AudioInputStream audioInputStream = 
 			AudioSystem.getAudioInputStream(new File("resources/gameshop_intro.wav"));/*new File("GameShopProyect" + 
-			System.getProperty("file.separator") + "resources/gameshop_intro.wav").getAbsoluteFile());*/
+			System.getProperty("file.separator") + "resources/gameshop_intro.wav").getAbsoluteFile());
 			AudioFormat format = audioInputStream.getFormat();
 			DataLine.Info info = new DataLine.Info(Clip.class, format);
-			Clip sound = (Clip)AudioSystem.getLine(info);
+			Clip sound = (Clip)AudioSystem.getLine(info);*/
 			//sound.open(audioInputStream);
-
+			
 			//Inicializamos el programa, y ejecutamos el sonido
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
@@ -41,14 +41,14 @@ public class Main {
 					//sound.start();
 				}
 			});
-
+			
 		}
 		catch(Exception e)
 		{
 			System.err.println("Error when loading the app");
 		}
-
-
+		
+		
 	}
 
 }

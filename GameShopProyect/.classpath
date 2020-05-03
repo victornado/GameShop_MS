@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="lib" path="resources/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="resources/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="lib" path="resources/mysql-connector-java-8.0.15.jar"/>

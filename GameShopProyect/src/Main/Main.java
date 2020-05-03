@@ -15,9 +15,9 @@ import Presentacion.View.InfoDB;
 public class Main {
 	
 	public static final String applicationName = "GameShop";
-	public static String database = "gameshop";
+	public static String database = "gameshopapplication";
 	public static String user = "root";
-	public static String password = "1234567890";
+	public static String password = "1234";
 
 
 	public static void main(String[] args) {
